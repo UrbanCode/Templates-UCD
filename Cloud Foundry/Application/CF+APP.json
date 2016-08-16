@@ -1,0 +1,1682 @@
+/**
+ * © Copyright IBM Corporation 2016.
+ * This is licensed under the following license.
+ * The Eclipse Public 1.0 License (http://www.eclipse.org/legal/epl-v10.html)
+ * U.S. Government Users Restricted Rights:  Use, duplication or disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ */
+{
+    "name": "CF APP",
+    "description": "",
+    "enforceCompleteSnapshots": false,
+    "propSheet": {"properties": []},
+    "templatePropSheet": {
+        "name": "template",
+        "properties": []
+    },
+    "components": [{
+        "name": "CF AUTO",
+        "description": "",
+        "created": 1456264782181,
+        "componentType": "STANDARD",
+        "ignoreQualifiers": 0,
+        "importAutomatically": false,
+        "useVfs": true,
+        "active": true,
+        "deleted": false,
+        "defaultVersionType": "FULL",
+        "cleanupDaysToKeep": 0,
+        "cleanupCountToKeep": 0,
+        "componentTemplate": {
+            "securityResourceId": "ad30293e-7687-4039-8eb3-4061d8d79c3c",
+            "path": "componentTemplates\/bc129014-b2c2-4f5f-8b10-01449f0b245e",
+            "name": "Cloud Foundry",
+            "description": "Component template for Cloud Foundry",
+            "ignoreQualifiers": 0,
+            "componentType": "STANDARD",
+            "tags": [],
+            "active": true,
+            "envPropDefs": [],
+            "resPropDefs": [],
+            "propDefs": [
+                {
+                    "name": "cf.filename",
+                    "label": "File Name",
+                    "pattern": "",
+                    "type": "TEXT",
+                    "required": false,
+                    "description": "Name of zip file or other file to push. If this file isn't in your working directory you must specify a full file path. (Otherwise just the name of the file e.g. myApp.zip)",
+                    "placeholder": ""
+                },
+                {
+                    "name": "cf.manifest",
+                    "label": "Manifest File",
+                    "pattern": "",
+                    "type": "TEXT",
+                    "required": false,
+                    "description": "Name of the manifest file. If this file isn't in your working directory you must specify a full file path. (Otherwise just the name of the file e.g. manifest.xml)",
+                    "placeholder": ""
+                },
+                {
+                    "name": "cf.domain",
+                    "label": "Domain",
+                    "pattern": "",
+                    "type": "TEXT",
+                    "required": false,
+                    "description": "The domain to use for your application. (e.g. example.com)",
+                    "placeholder": ""
+                },
+                {
+                    "name": "cf.newApp",
+                    "label": "New Application",
+                    "pattern": "",
+                    "type": "TEXT",
+                    "required": false,
+                    "description": "Name to deploy a new application to the Cloud Foundry server using.",
+                    "placeholder": ""
+                },
+                {
+                    "name": "cf.hostnameToMap",
+                    "label": "Hostname To Map",
+                    "pattern": "",
+                    "type": "TEXT",
+                    "required": false,
+                    "description": "The hostname to map the application to. Used when unmapping an application from a hostname. (e.g. my-hostname)",
+                    "placeholder": ""
+                },
+                {
+                    "name": "cf.currentHostname",
+                    "label": "Current Hostname",
+                    "pattern": "",
+                    "type": "TEXT",
+                    "required": false,
+                    "description": "The current hostname that the application is mapped to. Used when mapping an application to a hostname. (e.g. my-hostname)",
+                    "placeholder": ""
+                },
+                {
+                    "name": "cf.existingApp",
+                    "label": "Existing Application",
+                    "pattern": "",
+                    "type": "SELECT",
+                    "required": false,
+                    "description": "The existing application on the Cloud Foundry server to manipulate.",
+                    "placeholder": "",
+                    "allowedValues": [
+                        {
+                            "label": "jrbarto@us.ibm.com\/dev\/sampler",
+                            "value": "sampler"
+                        },
+                        {
+                            "label": "jrbarto@us.ibm.com\/dev\/sampler2",
+                            "value": "sampler2"
+                        },
+                        {
+                            "label": "jrbarto@us.ibm.com\/dev\/samples",
+                            "value": "samples"
+                        }
+                    ]
+                }
+            ],
+            "properties": [],
+            "processes": [
+                {
+                    "name": "Deploy App Using Manifest",
+                    "description": "Deploy an application to the server by specifying a manifest xml file.",
+                    "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+                    "takesVersion": true,
+                    "inventoryActionType": "ADD",
+                    "status": "Active",
+                    "configActionType": "ADD",
+                    "active": true,
+                    "path": "componentTemplates\/bc129014-b2c2-4f5f-8b10-01449f0b245e\/processes\/30287534-ab37-48ab-83c3-2f8128fce8e9",
+                    "propDefs": [],
+                    "rootActivity": {
+                        "edges": [
+                            {
+                                "to": "Delete App",
+                                "from": "Download Artifacts",
+                                "type": "SUCCESS",
+                                "value": ""
+                            },
+                            {
+                                "to": "b556113ebd2dcf4109329c1914b511",
+                                "from": "Push Application",
+                                "type": "SUCCESS",
+                                "value": ""
+                            },
+                            {
+                                "to": "Download Artifacts",
+                                "type": "ALWAYS",
+                                "value": ""
+                            },
+                            {
+                                "to": "Push Application",
+                                "from": "Delete App",
+                                "type": "SUCCESS",
+                                "value": ""
+                            }
+                        ],
+                        "offsets": [
+                            {
+                                "name": "Push Application",
+                                "x": -60,
+                                "y": 292,
+                                "h": 60,
+                                "w": 210
+                            },
+                            {
+                                "name": "b556113ebd2dcf4109329c1914b511",
+                                "x": -5,
+                                "y": 420,
+                                "h": 50,
+                                "w": 90
+                            },
+                            {
+                                "name": "Delete App",
+                                "x": -45,
+                                "y": 191,
+                                "h": 60,
+                                "w": 180
+                            },
+                            {
+                                "name": "Download Artifacts",
+                                "x": -70,
+                                "y": 91,
+                                "h": 60,
+                                "w": 220
+                            }
+                        ],
+                        "type": "graph",
+                        "name": "65ba618f-1bf3-4933-9f50-e8b507f50501",
+                        "children": [
+                            {
+                                "type": "finish",
+                                "name": "b556113ebd2dcf4109329c1914b511",
+                                "children": []
+                            },
+                            {
+                                "allowFailure": false,
+                                "useImpersonation": false,
+                                "showHidden": false,
+                                "impersonationUseSudo": false,
+                                "commandName": "Download Artifacts",
+                                "pluginName": "IBM UrbanCode Deploy Versioned File Storage",
+                                "pluginVersion": 26,
+                                "properties": {
+                                    "directoryOffset": ".",
+                                    "artifactSetBaseDir": "",
+                                    "fileIncludePatterns": "**\/*",
+                                    "fileExcludePatterns": "",
+                                    "syncMode": "true",
+                                    "fullVerification": "true",
+                                    "setFileExecuteBits": "false",
+                                    "verifyFileIntegrity": "false",
+                                    "versionId": "${p:version.id}",
+                                    "serverUrl": "${p:server.url}",
+                                    "compId": "${p:component.id}",
+                                    "resId": "${p:resource.id}",
+                                    "charset": "",
+                                    "label": ""
+                                },
+                                "type": "plugin",
+                                "name": "Download Artifacts",
+                                "children": []
+                            },
+                            {
+                                "allowFailure": false,
+                                "useImpersonation": false,
+                                "showHidden": false,
+                                "impersonationUseSudo": false,
+                                "commandName": "Delete App",
+                                "pluginName": "CloudFoundry",
+                                "pluginVersion": 18,
+                                "properties": {
+                                    "api": "${p:resource\/cf.api}",
+                                    "user": "${p:resource\/cf.username}",
+                                    "password": "${p:resource\/cf.password}",
+                                    "org": "${p?:resource\/cf.org}",
+                                    "space": "${p?:resource\/cf.space}",
+                                    "application": "${p:component\/cf.newApp}",
+                                    "delete_Routes": "false",
+                                    "selfSigned": "false",
+                                    "cfHome": ""
+                                },
+                                "type": "plugin",
+                                "name": "Delete App",
+                                "children": []
+                            },
+                            {
+                                "allowFailure": false,
+                                "useImpersonation": false,
+                                "showHidden": false,
+                                "impersonationUseSudo": false,
+                                "commandName": "Push Application",
+                                "pluginName": "CloudFoundry",
+                                "pluginVersion": 18,
+                                "properties": {
+                                    "api": "${p:resource\/cf.api}",
+                                    "user": "${p:resource\/cf.username}",
+                                    "password": "${p:resource\/cf.password}",
+                                    "appName": "${p?:component\/newApp}",
+                                    "path": "",
+                                    "org": "${p?:resource\/cf.org}",
+                                    "space": "${p?:resource\/cf.space}",
+                                    "manifest": "${p?:component\/cf.manifest}",
+                                    "domain": "${p?:component\/cf.domain}",
+                                    "subdomain": "",
+                                    "instances": "1",
+                                    "memory": "",
+                                    "disk": "",
+                                    "buildpack": "",
+                                    "stack": "",
+                                    "timeout": "",
+                                    "nostart": "false",
+                                    "noroute": "false",
+                                    "nomanifest": "false",
+                                    "nohostname": "false",
+                                    "randomroute": "false",
+                                    "selfSigned": "false",
+                                    "cfHome": ""
+                                },
+                                "type": "plugin",
+                                "name": "Push Application",
+                                "children": []
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Deploy App Using Zip",
+                    "description": "Deploy an application to the server from a zip file.",
+                    "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+                    "takesVersion": true,
+                    "inventoryActionType": "ADD",
+                    "status": "Active",
+                    "configActionType": "ADD",
+                    "active": true,
+                    "path": "componentTemplates\/bc129014-b2c2-4f5f-8b10-01449f0b245e\/processes\/ce7126f1-e483-4bb5-be66-e06dd10455a8",
+                    "propDefs": [],
+                    "rootActivity": {
+                        "edges": [
+                            {
+                                "to": "9d07a0cac4940895d93cee89a7fa71",
+                                "from": "Push Application",
+                                "type": "SUCCESS",
+                                "value": ""
+                            },
+                            {
+                                "to": "Push Application",
+                                "from": "Delete App",
+                                "type": "SUCCESS",
+                                "value": ""
+                            },
+                            {
+                                "to": "Delete App",
+                                "from": "Download Artifacts",
+                                "type": "SUCCESS",
+                                "value": ""
+                            },
+                            {
+                                "to": "Download Artifacts",
+                                "type": "ALWAYS",
+                                "value": ""
+                            }
+                        ],
+                        "offsets": [
+                            {
+                                "name": "9d07a0cac4940895d93cee89a7fa71",
+                                "x": -5,
+                                "y": 420,
+                                "h": 50,
+                                "w": 90
+                            },
+                            {
+                                "name": "Download Artifacts",
+                                "x": -70,
+                                "y": 80,
+                                "h": 60,
+                                "w": 220
+                            },
+                            {
+                                "name": "Delete App",
+                                "x": -45,
+                                "y": 190,
+                                "h": 60,
+                                "w": 180
+                            },
+                            {
+                                "name": "Push Application",
+                                "x": -60,
+                                "y": 295,
+                                "h": 60,
+                                "w": 210
+                            }
+                        ],
+                        "type": "graph",
+                        "name": "b18068a9-721c-44b5-b8ff-b8d487ed5ca5",
+                        "children": [
+                            {
+                                "type": "finish",
+                                "name": "9d07a0cac4940895d93cee89a7fa71",
+                                "children": []
+                            },
+                            {
+                                "allowFailure": false,
+                                "useImpersonation": false,
+                                "showHidden": false,
+                                "impersonationUseSudo": false,
+                                "commandName": "Download Artifacts",
+                                "pluginName": "IBM UrbanCode Deploy Versioned File Storage",
+                                "pluginVersion": 26,
+                                "properties": {
+                                    "directoryOffset": ".",
+                                    "artifactSetBaseDir": "",
+                                    "fileIncludePatterns": "**\/*",
+                                    "fileExcludePatterns": "",
+                                    "syncMode": "true",
+                                    "fullVerification": "true",
+                                    "setFileExecuteBits": "false",
+                                    "verifyFileIntegrity": "false",
+                                    "versionId": "${p:version.id}",
+                                    "serverUrl": "${p:server.url}",
+                                    "compId": "${p:component.id}",
+                                    "resId": "${p:resource.id}",
+                                    "charset": "",
+                                    "label": ""
+                                },
+                                "type": "plugin",
+                                "name": "Download Artifacts",
+                                "children": []
+                            },
+                            {
+                                "allowFailure": false,
+                                "useImpersonation": false,
+                                "showHidden": false,
+                                "impersonationUseSudo": false,
+                                "commandName": "Delete App",
+                                "pluginName": "CloudFoundry",
+                                "pluginVersion": 18,
+                                "properties": {
+                                    "api": "${p:resource\/cf.api}",
+                                    "user": "${p:resource\/cf.username}",
+                                    "password": "${p:resource\/cf.password}",
+                                    "org": "${p?:resource\/cf.org}",
+                                    "space": "${p?:resource\/cf.space}",
+                                    "application": "${p:component\/cf.newApp}",
+                                    "delete_Routes": "false",
+                                    "selfSigned": "false",
+                                    "cfHome": ""
+                                },
+                                "type": "plugin",
+                                "name": "Delete App",
+                                "children": []
+                            },
+                            {
+                                "allowFailure": false,
+                                "useImpersonation": false,
+                                "showHidden": false,
+                                "impersonationUseSudo": false,
+                                "commandName": "Push Application",
+                                "pluginName": "CloudFoundry",
+                                "pluginVersion": 18,
+                                "properties": {
+                                    "api": "${p:resource\/cf.api}",
+                                    "user": "${p:resource\/cf.username}",
+                                    "password": "${p:resource\/cf.password}",
+                                    "appName": "${p?:component\/cf.newApp}",
+                                    "path": "",
+                                    "org": "${p?:resource\/cf.org}",
+                                    "space": "${p?:resource\/cf.space}",
+                                    "manifest": "",
+                                    "domain": "${p?:component\/cf.domain}",
+                                    "subdomain": "",
+                                    "instances": "1",
+                                    "memory": "",
+                                    "disk": "",
+                                    "buildpack": "",
+                                    "stack": "",
+                                    "timeout": "",
+                                    "nostart": "false",
+                                    "noroute": "false",
+                                    "nomanifest": "false",
+                                    "nohostname": "false",
+                                    "randomroute": "false",
+                                    "selfSigned": "false",
+                                    "cfHome": ""
+                                },
+                                "type": "plugin",
+                                "name": "Push Application",
+                                "children": []
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Deploy Application Using Manifest",
+                    "description": "Deploy an application to the server by specifying a manifest xml file.",
+                    "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+                    "takesVersion": true,
+                    "inventoryActionType": "ADD",
+                    "status": "Active",
+                    "configActionType": "ADD",
+                    "active": true,
+                    "path": "componentTemplates\/bc129014-b2c2-4f5f-8b10-01449f0b245e\/processes\/83643da1-b773-49db-bead-f705ac54da3d",
+                    "propDefs": [],
+                    "rootActivity": {
+                        "edges": [
+                            {
+                                "to": "Delete App",
+                                "from": "Download Artifacts",
+                                "type": "SUCCESS",
+                                "value": ""
+                            },
+                            {
+                                "to": "Download Artifacts",
+                                "type": "ALWAYS",
+                                "value": ""
+                            },
+                            {
+                                "to": "b556113ebd2dcf4109329c1914b511",
+                                "from": "Push Application",
+                                "type": "SUCCESS",
+                                "value": ""
+                            },
+                            {
+                                "to": "Push Application",
+                                "from": "Delete App",
+                                "type": "SUCCESS",
+                                "value": ""
+                            }
+                        ],
+                        "offsets": [
+                            {
+                                "name": "Download Artifacts",
+                                "x": -70,
+                                "y": 91,
+                                "h": 60,
+                                "w": 220
+                            },
+                            {
+                                "name": "Push Application",
+                                "x": -60,
+                                "y": 292,
+                                "h": 60,
+                                "w": 210
+                            },
+                            {
+                                "name": "Delete App",
+                                "x": -45,
+                                "y": 191,
+                                "h": 60,
+                                "w": 180
+                            },
+                            {
+                                "name": "b556113ebd2dcf4109329c1914b511",
+                                "x": -5,
+                                "y": 420,
+                                "h": 50,
+                                "w": 90
+                            }
+                        ],
+                        "type": "graph",
+                        "name": "08015bd8-d902-463f-a3da-dc6269b9c889",
+                        "children": [
+                            {
+                                "type": "finish",
+                                "name": "b556113ebd2dcf4109329c1914b511",
+                                "children": []
+                            },
+                            {
+                                "allowFailure": false,
+                                "useImpersonation": false,
+                                "showHidden": false,
+                                "impersonationUseSudo": false,
+                                "commandName": "Download Artifacts",
+                                "pluginName": "IBM UrbanCode Deploy Versioned File Storage",
+                                "pluginVersion": 26,
+                                "properties": {
+                                    "directoryOffset": ".",
+                                    "artifactSetBaseDir": "",
+                                    "fileIncludePatterns": "**\/*",
+                                    "fileExcludePatterns": "",
+                                    "syncMode": "true",
+                                    "fullVerification": "true",
+                                    "setFileExecuteBits": "false",
+                                    "verifyFileIntegrity": "false",
+                                    "versionId": "${p:version.id}",
+                                    "serverUrl": "${p:server.url}",
+                                    "compId": "${p:component.id}",
+                                    "resId": "${p:resource.id}",
+                                    "charset": "",
+                                    "label": ""
+                                },
+                                "type": "plugin",
+                                "name": "Download Artifacts",
+                                "children": []
+                            },
+                            {
+                                "allowFailure": false,
+                                "useImpersonation": false,
+                                "showHidden": false,
+                                "impersonationUseSudo": false,
+                                "commandName": "Delete App",
+                                "pluginName": "CloudFoundry",
+                                "pluginVersion": 18,
+                                "properties": {
+                                    "api": "${p:resource\/cf.api}",
+                                    "user": "${p:resource\/cf.username}",
+                                    "password": "${p:resource\/cf.password}",
+                                    "org": "${p?:resource\/cf.org}",
+                                    "space": "${p?:resource\/cf.space}",
+                                    "application": "${p:component\/cf.appName}",
+                                    "delete_Routes": "false",
+                                    "selfSigned": "false",
+                                    "cfHome": ""
+                                },
+                                "type": "plugin",
+                                "name": "Delete App",
+                                "children": []
+                            },
+                            {
+                                "allowFailure": false,
+                                "useImpersonation": false,
+                                "showHidden": false,
+                                "impersonationUseSudo": false,
+                                "commandName": "Push Application",
+                                "pluginName": "CloudFoundry",
+                                "pluginVersion": 18,
+                                "properties": {
+                                    "api": "${p:resource\/cf.api}",
+                                    "user": "${p:resource\/cf.username}",
+                                    "password": "${p:resource\/cf.password}",
+                                    "appName": "${p?:component\/newApp}",
+                                    "path": "",
+                                    "org": "${p?:resource\/cf.org}",
+                                    "space": "${p?:resource\/cf.space}",
+                                    "manifest": "${p?:component\/cf.manifest}",
+                                    "domain": "${p?:component\/cf.domain}",
+                                    "subdomain": "",
+                                    "instances": "1",
+                                    "memory": "",
+                                    "disk": "",
+                                    "buildpack": "",
+                                    "stack": "",
+                                    "timeout": "",
+                                    "nostart": "false",
+                                    "noroute": "false",
+                                    "nomanifest": "false",
+                                    "nohostname": "false",
+                                    "randomroute": "false",
+                                    "selfSigned": "false",
+                                    "cfHome": ""
+                                },
+                                "type": "plugin",
+                                "name": "Push Application",
+                                "children": []
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Deploy Application or File",
+                    "description": "Deploy an application from a zip file or deploy a standalone file.",
+                    "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+                    "takesVersion": true,
+                    "inventoryActionType": "ADD",
+                    "status": "Active",
+                    "configActionType": "ADD",
+                    "active": true,
+                    "path": "componentTemplates\/bc129014-b2c2-4f5f-8b10-01449f0b245e\/processes\/10cf2103-3ddc-4198-9634-e0ec1ba2f949",
+                    "propDefs": [],
+                    "rootActivity": {
+                        "edges": [
+                            {
+                                "to": "Push Application",
+                                "from": "Delete App",
+                                "type": "SUCCESS",
+                                "value": ""
+                            },
+                            {
+                                "to": "9d07a0cac4940895d93cee89a7fa71",
+                                "from": "Push Application",
+                                "type": "SUCCESS",
+                                "value": ""
+                            },
+                            {
+                                "to": "Delete App",
+                                "from": "Download Artifacts",
+                                "type": "SUCCESS",
+                                "value": ""
+                            },
+                            {
+                                "to": "Download Artifacts",
+                                "type": "ALWAYS",
+                                "value": ""
+                            }
+                        ],
+                        "offsets": [
+                            {
+                                "name": "Download Artifacts",
+                                "x": -70,
+                                "y": 90,
+                                "h": 60,
+                                "w": 220
+                            },
+                            {
+                                "name": "9d07a0cac4940895d93cee89a7fa71",
+                                "x": -5,
+                                "y": 420,
+                                "h": 50,
+                                "w": 90
+                            },
+                            {
+                                "name": "Delete App",
+                                "x": 0,
+                                "y": 210,
+                                "h": 50,
+                                "w": 240
+                            },
+                            {
+                                "name": "Push Application",
+                                "x": -100,
+                                "y": 320,
+                                "h": 50,
+                                "w": 300
+                            }
+                        ],
+                        "type": "graph",
+                        "name": "a43df88b-b0f6-453c-a591-de27fe6bd999",
+                        "children": [
+                            {
+                                "type": "finish",
+                                "name": "9d07a0cac4940895d93cee89a7fa71",
+                                "children": []
+                            },
+                            {
+                                "allowFailure": false,
+                                "useImpersonation": false,
+                                "showHidden": false,
+                                "impersonationUseSudo": false,
+                                "commandName": "Download Artifacts",
+                                "pluginName": "IBM UrbanCode Deploy Versioned File Storage",
+                                "pluginVersion": 26,
+                                "properties": {
+                                    "directoryOffset": ".",
+                                    "artifactSetBaseDir": "",
+                                    "fileIncludePatterns": "**\/*",
+                                    "fileExcludePatterns": "",
+                                    "syncMode": "true",
+                                    "fullVerification": "true",
+                                    "setFileExecuteBits": "false",
+                                    "verifyFileIntegrity": "false",
+                                    "versionId": "${p:version.id}",
+                                    "serverUrl": "${p:server.url}",
+                                    "compId": "${p:component.id}",
+                                    "resId": "${p:resource.id}",
+                                    "charset": "",
+                                    "label": ""
+                                },
+                                "type": "plugin",
+                                "name": "Download Artifacts",
+                                "children": []
+                            },
+                            {
+                                "allowFailure": false,
+                                "useImpersonation": false,
+                                "showHidden": false,
+                                "impersonationUseSudo": false,
+                                "commandName": "Delete App",
+                                "pluginName": "CloudFoundry",
+                                "pluginVersion": 18,
+                                "properties": {
+                                    "api": "${p:resource\/cf.api}",
+                                    "user": "${p:resource\/cf.username}",
+                                    "password": "${p:resource\/cf.password}",
+                                    "org": "${p?:resource\/cf.org}",
+                                    "space": "${p?:resource\/cf.space}",
+                                    "application": "${p:component\/cf.appName}",
+                                    "delete_Routes": "false",
+                                    "selfSigned": "false",
+                                    "cfHome": ""
+                                },
+                                "type": "plugin",
+                                "name": "Delete App",
+                                "children": []
+                            },
+                            {
+                                "allowFailure": false,
+                                "useImpersonation": false,
+                                "showHidden": false,
+                                "impersonationUseSudo": false,
+                                "commandName": "Push Application",
+                                "pluginName": "CloudFoundry",
+                                "pluginVersion": 18,
+                                "properties": {
+                                    "api": "${p:resource\/cf.api}",
+                                    "user": "${p:resource\/cf.username}",
+                                    "password": "${p:resource\/cf.password}",
+                                    "appName": "sampler",
+                                    "path": "sample.war",
+                                    "org": "${p?:resource\/cf.org}",
+                                    "space": "${p?:resource\/cf.space}",
+                                    "manifest": "",
+                                    "domain": "${p?:component\/cf.domain}",
+                                    "subdomain": "",
+                                    "instances": "1",
+                                    "memory": "",
+                                    "disk": "",
+                                    "buildpack": "",
+                                    "stack": "",
+                                    "timeout": "",
+                                    "nostart": "false",
+                                    "noroute": "false",
+                                    "nomanifest": "false",
+                                    "nohostname": "false",
+                                    "randomroute": "false",
+                                    "selfSigned": "false",
+                                    "cfHome": ""
+                                },
+                                "type": "plugin",
+                                "name": "Push Application",
+                                "children": []
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Map URL Route",
+                    "description": "Map a URL route to an application.",
+                    "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+                    "takesVersion": false,
+                    "status": "",
+                    "active": true,
+                    "path": "componentTemplates\/bc129014-b2c2-4f5f-8b10-01449f0b245e\/processes\/2c255176-7ae9-49d8-b9cc-a59bc35af6fe",
+                    "propDefs": [],
+                    "rootActivity": {
+                        "edges": [
+                            {
+                                "to": "1282422b57110a87d8dd3883c456b8",
+                                "from": "Map Route",
+                                "type": "SUCCESS",
+                                "value": ""
+                            },
+                            {
+                                "to": "Map Route",
+                                "type": "ALWAYS",
+                                "value": ""
+                            }
+                        ],
+                        "offsets": [
+                            {
+                                "name": "1282422b57110a87d8dd3883c456b8",
+                                "x": -5,
+                                "y": 420,
+                                "h": 50,
+                                "w": 90
+                            },
+                            {
+                                "name": "Map Route",
+                                "x": -45,
+                                "y": 179,
+                                "h": 60,
+                                "w": 170
+                            }
+                        ],
+                        "type": "graph",
+                        "name": "34f2fc91-031b-4447-93ce-918371d91b41",
+                        "children": [
+                            {
+                                "type": "finish",
+                                "name": "1282422b57110a87d8dd3883c456b8",
+                                "children": []
+                            },
+                            {
+                                "allowFailure": false,
+                                "useImpersonation": false,
+                                "showHidden": false,
+                                "impersonationUseSudo": false,
+                                "commandName": "Map Route",
+                                "pluginName": "CloudFoundry",
+                                "pluginVersion": 18,
+                                "properties": {
+                                    "api": "${p:resource\/cf.api}",
+                                    "user": "${p:resource\/cf.username}",
+                                    "password": "${p:resource\/cf.password}",
+                                    "org": "${p?:resource\/cf.org}",
+                                    "space": "${p?:resource\/cf.space}",
+                                    "application": "${p:component\/cf.existingApp}",
+                                    "domain": "${p:component\/cf.domain}",
+                                    "hostname": "${p?:component\/cf.hostnameToMap}",
+                                    "selfSigned": "false",
+                                    "cfHome": ""
+                                },
+                                "type": "plugin",
+                                "name": "Map Route",
+                                "children": []
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Remap URL Route",
+                    "description": "Remove the existing URL route and remap it to another one.",
+                    "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+                    "takesVersion": false,
+                    "status": "",
+                    "active": true,
+                    "path": "componentTemplates\/bc129014-b2c2-4f5f-8b10-01449f0b245e\/processes\/8d19c100-4f80-4415-b3ba-5a2a9a096f93",
+                    "propDefs": [],
+                    "rootActivity": {
+                        "edges": [
+                            {
+                                "to": "Unmap Route",
+                                "type": "ALWAYS",
+                                "value": ""
+                            },
+                            {
+                                "to": "Map Route",
+                                "from": "Unmap Route",
+                                "type": "SUCCESS",
+                                "value": ""
+                            },
+                            {
+                                "to": "887c61432205b435f3928cc02e997f",
+                                "from": "Map Route",
+                                "type": "SUCCESS",
+                                "value": ""
+                            }
+                        ],
+                        "offsets": [
+                            {
+                                "name": "Map Route",
+                                "x": -45,
+                                "y": 231,
+                                "h": 60,
+                                "w": 170
+                            },
+                            {
+                                "name": "Unmap Route",
+                                "x": -50,
+                                "y": 100,
+                                "h": 60,
+                                "w": 190
+                            },
+                            {
+                                "name": "887c61432205b435f3928cc02e997f",
+                                "x": -5,
+                                "y": 420,
+                                "h": 50,
+                                "w": 90
+                            }
+                        ],
+                        "type": "graph",
+                        "name": "08c922c4-f866-42ad-96e6-33dfb20bcc91",
+                        "children": [
+                            {
+                                "type": "finish",
+                                "name": "887c61432205b435f3928cc02e997f",
+                                "children": []
+                            },
+                            {
+                                "allowFailure": false,
+                                "useImpersonation": false,
+                                "showHidden": false,
+                                "impersonationUseSudo": false,
+                                "commandName": "Unmap Route",
+                                "pluginName": "CloudFoundry",
+                                "pluginVersion": 18,
+                                "properties": {
+                                    "api": "${p:resource\/cf.api}",
+                                    "user": "${p:resource\/cf.username}",
+                                    "password": "${p:resource\/cf.password}",
+                                    "org": "${p?:resource\/cf.org}",
+                                    "space": "${p?:resource\/cf.space}",
+                                    "application": "${p:component\/cf..existingApp}",
+                                    "domain": "${p:component\/cf.domain}",
+                                    "hostname": "${p?:component\/cf.currentHostname}",
+                                    "selfSigned": "false",
+                                    "cfHome": ""
+                                },
+                                "type": "plugin",
+                                "name": "Unmap Route",
+                                "children": []
+                            },
+                            {
+                                "allowFailure": false,
+                                "useImpersonation": false,
+                                "showHidden": false,
+                                "impersonationUseSudo": false,
+                                "commandName": "Map Route",
+                                "pluginName": "CloudFoundry",
+                                "pluginVersion": 18,
+                                "properties": {
+                                    "api": "${p:resource\/cf.api}",
+                                    "user": "${p:resource\/cf.username}",
+                                    "password": "${p:resource\/cf.password}",
+                                    "org": "${p?:resource\/cf.org}",
+                                    "space": "${p?:resource\/cf.space}",
+                                    "application": "${p:component\/cf.existingApp}",
+                                    "domain": "${p:component\/cf.domain}",
+                                    "hostname": "${p?:component\/cf.hostnameToMap}",
+                                    "selfSigned": "false",
+                                    "cfHome": ""
+                                },
+                                "type": "plugin",
+                                "name": "Map Route",
+                                "children": []
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Start Application",
+                    "description": "Start the specified application.",
+                    "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+                    "takesVersion": false,
+                    "status": "",
+                    "active": true,
+                    "path": "componentTemplates\/bc129014-b2c2-4f5f-8b10-01449f0b245e\/processes\/9bc45a1d-825e-4dda-b930-76c4812a1af9",
+                    "propDefs": [],
+                    "rootActivity": {
+                        "edges": [
+                            {
+                                "to": "Start App",
+                                "type": "ALWAYS",
+                                "value": ""
+                            },
+                            {
+                                "to": "61990ad02f0d63b8fc107a772cf25a",
+                                "from": "Start App",
+                                "type": "SUCCESS",
+                                "value": ""
+                            }
+                        ],
+                        "offsets": [
+                            {
+                                "name": "61990ad02f0d63b8fc107a772cf25a",
+                                "x": -5,
+                                "y": 420,
+                                "h": 50,
+                                "w": 90
+                            },
+                            {
+                                "name": "Start App",
+                                "x": -40,
+                                "y": 170,
+                                "h": 60,
+                                "w": 170
+                            }
+                        ],
+                        "type": "graph",
+                        "name": "4dcaa9af-329f-478a-b96e-709965b2ce55",
+                        "children": [
+                            {
+                                "type": "finish",
+                                "name": "61990ad02f0d63b8fc107a772cf25a",
+                                "children": []
+                            },
+                            {
+                                "allowFailure": false,
+                                "useImpersonation": false,
+                                "showHidden": false,
+                                "impersonationUseSudo": false,
+                                "commandName": "Start App",
+                                "pluginName": "CloudFoundry",
+                                "pluginVersion": 18,
+                                "properties": {
+                                    "api": "${p:resource\/cf.api}",
+                                    "user": "${p:resource\/cf.username}",
+                                    "password": "${p:resource\/cf.password}",
+                                    "org": "${p?:resource\/cf.org}",
+                                    "space": "${p?:resource\/cf.space}",
+                                    "application": "${p:component\/cf.existingApp}",
+                                    "selfSigned": "false"
+                                },
+                                "type": "plugin",
+                                "name": "Start App",
+                                "children": []
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Stop Application",
+                    "description": "Stop the specified application from running.",
+                    "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+                    "takesVersion": false,
+                    "status": "",
+                    "active": true,
+                    "path": "componentTemplates\/bc129014-b2c2-4f5f-8b10-01449f0b245e\/processes\/c3150a7e-b25d-48a7-b368-47cb166f7652",
+                    "propDefs": [],
+                    "rootActivity": {
+                        "edges": [
+                            {
+                                "to": "Stop App",
+                                "type": "ALWAYS",
+                                "value": ""
+                            },
+                            {
+                                "to": "997b01116b406ec576724aeafb6ea9",
+                                "from": "Stop App",
+                                "type": "SUCCESS",
+                                "value": ""
+                            }
+                        ],
+                        "offsets": [
+                            {
+                                "name": "997b01116b406ec576724aeafb6ea9",
+                                "x": -5,
+                                "y": 420,
+                                "h": 50,
+                                "w": 90
+                            },
+                            {
+                                "name": "Stop App",
+                                "x": -40,
+                                "y": 170,
+                                "h": 60,
+                                "w": 170
+                            }
+                        ],
+                        "type": "graph",
+                        "name": "d5d99775-4878-483b-be4f-a27d8d7cc7d7",
+                        "children": [
+                            {
+                                "type": "finish",
+                                "name": "997b01116b406ec576724aeafb6ea9",
+                                "children": []
+                            },
+                            {
+                                "allowFailure": false,
+                                "useImpersonation": false,
+                                "showHidden": false,
+                                "impersonationUseSudo": false,
+                                "commandName": "Stop App",
+                                "pluginName": "CloudFoundry",
+                                "pluginVersion": 18,
+                                "properties": {
+                                    "api": "${p:resource\/cf.api}",
+                                    "user": "${p:resource\/cf.username}",
+                                    "password": "${p:resource\/cf.password}",
+                                    "org": "${p?:resource\/cf.org}",
+                                    "space": "${p?:resource\/cf.space}",
+                                    "application": "${p:component\/cf.existingApp}",
+                                    "selfSigned": "false",
+                                    "cfHome": ""
+                                },
+                                "type": "plugin",
+                                "name": "Stop App",
+                                "children": []
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Unmap URL Route",
+                    "description": "Remove the url route to an application",
+                    "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+                    "takesVersion": false,
+                    "status": "",
+                    "active": true,
+                    "path": "componentTemplates\/bc129014-b2c2-4f5f-8b10-01449f0b245e\/processes\/df385442-284a-4fff-bbbc-e667a7d69fef",
+                    "propDefs": [],
+                    "rootActivity": {
+                        "edges": [
+                            {
+                                "to": "949c2e0ac2e2c5fcb6cadb0c0fe036",
+                                "from": "Unmap Route",
+                                "type": "SUCCESS",
+                                "value": ""
+                            },
+                            {
+                                "to": "Unmap Route",
+                                "type": "ALWAYS",
+                                "value": ""
+                            }
+                        ],
+                        "offsets": [
+                            {
+                                "name": "Unmap Route",
+                                "x": -50,
+                                "y": 170,
+                                "h": 60,
+                                "w": 190
+                            },
+                            {
+                                "name": "949c2e0ac2e2c5fcb6cadb0c0fe036",
+                                "x": -5,
+                                "y": 420,
+                                "h": 50,
+                                "w": 90
+                            }
+                        ],
+                        "type": "graph",
+                        "name": "f90341c8-d498-41ae-83d8-6bf4c680d788",
+                        "children": [
+                            {
+                                "type": "finish",
+                                "name": "949c2e0ac2e2c5fcb6cadb0c0fe036",
+                                "children": []
+                            },
+                            {
+                                "allowFailure": false,
+                                "useImpersonation": false,
+                                "showHidden": false,
+                                "impersonationUseSudo": false,
+                                "commandName": "Unmap Route",
+                                "pluginName": "CloudFoundry",
+                                "pluginVersion": 18,
+                                "properties": {
+                                    "api": "${p:resource\/cf.api}",
+                                    "user": "${p:resource\/cf.username}",
+                                    "password": "${p:resource\/cf.password}",
+                                    "org": "${p?:resource\/cf.org}",
+                                    "space": "${p?:resource\/cf.space}",
+                                    "application": "${p:component\/cf.existingApp}",
+                                    "domain": "${p:component\/cf.domain}",
+                                    "hostname": "${p?:component\/cf.currentHostname}",
+                                    "selfSigned": "false",
+                                    "cfHome": ""
+                                },
+                                "type": "plugin",
+                                "name": "Unmap Route",
+                                "children": []
+                            }
+                        ]
+                    }
+                }
+            ],
+            "genericProcesses": [],
+            "teamMappings": []
+        },
+        "sourceConfigPluginName": "File System (Versioned)",
+        "envPropDefs": [],
+        "resPropDefs": [],
+        "versionPropDefs": [],
+        "propSheetGroup": {"propSheets": [
+            {
+                "name": "FileSystemVersionedComponentProperties",
+                "properties": [
+                    {
+                        "name": "basePath",
+                        "value": "\/home\/jeff\/Documents\/TestArchiveFiles",
+                        "description": "",
+                        "secure": false
+                    },
+                    {
+                        "name": "extensions",
+                        "description": "",
+                        "secure": false
+                    },
+                    {
+                        "name": "saveFileExecuteBits",
+                        "value": "false",
+                        "description": "",
+                        "secure": false
+                    }
+                ]
+            },
+            {
+                "name": "template",
+                "properties": [
+                    {
+                        "name": "cf.domain",
+                        "description": "",
+                        "secure": false
+                    },
+                    {
+                        "name": "cf.existingApp",
+                        "value": "my-app",
+                        "description": "",
+                        "secure": false
+                    },
+                    {
+                        "name": "cf.filename",
+                        "description": "",
+                        "secure": false
+                    },
+                    {
+                        "name": "cf.hostnameToMap",
+                        "description": "",
+                        "secure": false
+                    },
+                    {
+                        "name": "cf.newApp",
+                        "description": "",
+                        "secure": false
+                    }
+                ]
+            },
+            {
+                "name": "custom",
+                "properties": [{
+                    "name": "Test",
+                    "value": "ttt",
+                    "description": "",
+                    "secure": false
+                }]
+            }
+        ]},
+        "processes": [{
+            "name": "Test Concurrency",
+            "description": "",
+            "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+            "takesVersion": false,
+            "status": "",
+            "active": true,
+            "path": "components\/04f415ad-e305-4b9b-922e-631a4457086e\/processes\/9672c8c6-aad9-4bae-81c9-29a51f2bf666",
+            "propDefs": [],
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "49ef23d3c3657becc6c924e671b1d1",
+                        "from": "Start App",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Start App",
+                        "type": "ALWAYS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "49ef23d3c3657becc6c924e671b1d1",
+                        "x": -5,
+                        "y": 420,
+                        "h": 50,
+                        "w": 90
+                    },
+                    {
+                        "name": "Start App",
+                        "x": 13,
+                        "y": 184,
+                        "h": 50,
+                        "w": 220
+                    }
+                ],
+                "type": "graph",
+                "name": "8647965f-8017-4d3c-83d2-d342abe9b7a0",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "49ef23d3c3657becc6c924e671b1d1",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Start App",
+                        "pluginName": "CloudFoundry",
+                        "pluginVersion": 18,
+                        "properties": {
+                            "api": "${p:resource\/cf.api}",
+                            "user": "${p:resource\/cf.username}",
+                            "password": "${p:resource\/cf.password}",
+                            "org": "${p?:resource\/cf.org}",
+                            "space": "${p?:resource\/cf.space}",
+                            "application": "sampler",
+                            "selfSigned": "false"
+                        },
+                        "type": "plugin",
+                        "name": "Start App",
+                        "children": []
+                    }
+                ]
+            }
+        }],
+        "configTemplates": [],
+        "genericProcesses": [],
+        "teamMappings": [],
+        "tags": []
+    }],
+    "environments": [{
+        "name": "CF ENV",
+        "description": "",
+        "color": "#00B2EF",
+        "requireApprovals": false,
+        "noSelfApprovals": false,
+        "exemptProcesses": [],
+        "lockSnapshots": false,
+        "cleanupDaysToKeep": 0,
+        "cleanupCountToKeep": 0,
+        "enableProcessHistoryCleanup": false,
+        "useSystemDefaultDays": true,
+        "historyCleanupDaysToKeep": 365,
+        "order": 0,
+        "active": true,
+        "propSheet": {"properties": []},
+        "templatePropSheet": {
+            "name": "template",
+            "properties": []
+        },
+        "baseResources": [{
+            "path": "\/Local Agents\/localAgentCF",
+            "id": "6ea7720e-ccfa-463f-bd01-aab7d49a13ba"
+        }],
+        "componentPropSheets": [{
+            "properties": [],
+            "componentName": "CF AUTO"
+        }],
+        "versionConditions": [],
+        "teamMappings": []
+    }],
+    "statuses": [],
+    "processes": [
+        {
+            "name": "Start",
+            "description": "",
+            "inventoryManagementType": "AUTOMATIC",
+            "offlineAgentHandling": "PRE_EXECUTION_CHECK",
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "13e05e0b6a92e12cf00be3fa13a30f",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "816f91e2e336ebfd07199af943bca7",
+                        "from": "13e05e0b6a92e12cf00be3fa13a30f",
+                        "type": "SUCCESS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "816f91e2e336ebfd07199af943bca7",
+                        "x": -5,
+                        "y": 420,
+                        "h": 50,
+                        "w": 90
+                    },
+                    {
+                        "name": "13e05e0b6a92e12cf00be3fa13a30f",
+                        "x": -13,
+                        "y": 205,
+                        "h": 60,
+                        "w": 130
+                    }
+                ],
+                "type": "graph",
+                "name": "da14152f-aeb0-4a92-a4a1-9f3c2f1d641e",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "816f91e2e336ebfd07199af943bca7",
+                        "children": []
+                    },
+                    {
+                        "componentName": "CF AUTO",
+                        "properties": [
+                            {
+                                "name": "failFast",
+                                "value": "false"
+                            },
+                            {
+                                "name": "runOnlyOnFirst",
+                                "value": "false"
+                            },
+                            {
+                                "name": "maxIteration",
+                                "value": "-1"
+                            }
+                        ],
+                        "type": "componentEnvironmentIterator",
+                        "name": "13e05e0b6a92e12cf00be3fa13a30f",
+                        "children": [{
+                            "componentProcessName": "Start Application",
+                            "componentName": "CF AUTO",
+                            "allowFailure": false,
+                            "properties": {},
+                            "type": "componentProcess",
+                            "name": "Start",
+                            "children": []
+                        }]
+                    }
+                ]
+            },
+            "propDefs": [],
+            "versionPresets": []
+        },
+        {
+            "name": "Stop",
+            "description": "",
+            "inventoryManagementType": "AUTOMATIC",
+            "offlineAgentHandling": "PRE_EXECUTION_CHECK",
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "861fb44a30738a9336d5ca2f22560a",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "342ffe6e227f3a20422c89fcf658c9",
+                        "from": "861fb44a30738a9336d5ca2f22560a",
+                        "type": "SUCCESS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "861fb44a30738a9336d5ca2f22560a",
+                        "x": -14,
+                        "y": 210,
+                        "h": 60,
+                        "w": 130
+                    },
+                    {
+                        "name": "342ffe6e227f3a20422c89fcf658c9",
+                        "x": -5,
+                        "y": 420,
+                        "h": 50,
+                        "w": 90
+                    }
+                ],
+                "type": "graph",
+                "name": "60748741-01a3-4777-a746-8c3bcd59df4a",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "342ffe6e227f3a20422c89fcf658c9",
+                        "children": []
+                    },
+                    {
+                        "componentName": "CF AUTO",
+                        "properties": [
+                            {
+                                "name": "failFast",
+                                "value": "false"
+                            },
+                            {
+                                "name": "runOnlyOnFirst",
+                                "value": "false"
+                            },
+                            {
+                                "name": "maxIteration",
+                                "value": "-1"
+                            }
+                        ],
+                        "type": "componentEnvironmentIterator",
+                        "name": "861fb44a30738a9336d5ca2f22560a",
+                        "children": [{
+                            "componentProcessName": "Stop Application",
+                            "componentName": "CF AUTO",
+                            "allowFailure": false,
+                            "properties": {},
+                            "type": "componentProcess",
+                            "name": "Stop",
+                            "children": []
+                        }]
+                    }
+                ]
+            },
+            "propDefs": [],
+            "versionPresets": []
+        },
+        {
+            "name": "Install deploy",
+            "description": "",
+            "inventoryManagementType": "AUTOMATIC",
+            "offlineAgentHandling": "PRE_EXECUTION_CHECK",
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "da4adb32b8522027e15832b457f2a3",
+                        "from": "fd6995ab317bf461a353b2962fa9ba",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "fd6995ab317bf461a353b2962fa9ba",
+                        "type": "ALWAYS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "da4adb32b8522027e15832b457f2a3",
+                        "x": -5,
+                        "y": 420,
+                        "h": 50,
+                        "w": 90
+                    },
+                    {
+                        "name": "fd6995ab317bf461a353b2962fa9ba",
+                        "x": 16,
+                        "y": 174,
+                        "h": 50,
+                        "w": 170
+                    }
+                ],
+                "type": "graph",
+                "name": "2cd852f1-06a9-466c-92a5-5ffc967e49da",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "da4adb32b8522027e15832b457f2a3",
+                        "children": []
+                    },
+                    {
+                        "componentName": "CF AUTO",
+                        "properties": [
+                            {
+                                "name": "failFast",
+                                "value": "false"
+                            },
+                            {
+                                "name": "runOnlyOnFirst",
+                                "value": "false"
+                            },
+                            {
+                                "name": "maxIteration",
+                                "value": "-1"
+                            }
+                        ],
+                        "type": "componentEnvironmentIterator",
+                        "name": "fd6995ab317bf461a353b2962fa9ba",
+                        "children": [{
+                            "componentName": "CF AUTO",
+                            "status": "Active",
+                            "type": "inventoryVersionDiff",
+                            "name": "df743388-31af-4b32-aae4-2627a183787b",
+                            "children": [{
+                                "componentProcessName": "Deploy Application or File",
+                                "componentName": "CF AUTO",
+                                "allowFailure": false,
+                                "properties": {},
+                                "type": "componentProcess",
+                                "name": "Install CF AUTO",
+                                "children": []
+                            }]
+                        }]
+                    }
+                ]
+            },
+            "propDefs": [],
+            "versionPresets": []
+        },
+        {
+            "name": "Test Concurr",
+            "description": "",
+            "inventoryManagementType": "AUTOMATIC",
+            "offlineAgentHandling": "PRE_EXECUTION_CHECK",
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "9f28d95e88ad10ce1905e7fa3f8656",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "602bcbe8e1c47918f1f9a1b1785e0c",
+                        "from": "9f28d95e88ad10ce1905e7fa3f8656",
+                        "type": "SUCCESS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "602bcbe8e1c47918f1f9a1b1785e0c",
+                        "x": -5,
+                        "y": 420,
+                        "h": 50,
+                        "w": 90
+                    },
+                    {
+                        "name": "9f28d95e88ad10ce1905e7fa3f8656",
+                        "x": -22,
+                        "y": 170,
+                        "h": 50,
+                        "w": 160
+                    }
+                ],
+                "type": "graph",
+                "name": "6a33ba87-ffae-4686-aa42-a478f17a2427",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "602bcbe8e1c47918f1f9a1b1785e0c",
+                        "children": []
+                    },
+                    {
+                        "componentName": "CF AUTO",
+                        "properties": [
+                            {
+                                "name": "failFast",
+                                "value": "false"
+                            },
+                            {
+                                "name": "runOnlyOnFirst",
+                                "value": "false"
+                            },
+                            {
+                                "name": "maxIteration",
+                                "value": "-1"
+                            }
+                        ],
+                        "type": "componentEnvironmentIterator",
+                        "name": "9f28d95e88ad10ce1905e7fa3f8656",
+                        "children": [{
+                            "componentProcessName": "Test Concurrency",
+                            "componentName": "CF AUTO",
+                            "allowFailure": false,
+                            "properties": {},
+                            "type": "componentProcess",
+                            "name": "Test",
+                            "children": []
+                        }]
+                    }
+                ]
+            },
+            "propDefs": [],
+            "versionPresets": []
+        }
+    ],
+    "genericProcesses": [],
+    "teamMappings": [],
+    "tags": []
+}

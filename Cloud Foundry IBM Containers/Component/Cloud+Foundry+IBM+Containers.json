@@ -1,0 +1,247 @@
+/**
+ * © Copyright IBM Corporation 2016.
+ * This is licensed under the following license.
+ * The Eclipse Public 1.0 License (http://www.eclipse.org/legal/epl-v10.html)
+ * U.S. Government Users Restricted Rights:  Use, duplication or disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ */
+ {
+    "securityResourceId": "a6965bf9-55f1-450d-babf-5d1a717ae335",
+    "path": "componentTemplates\/13d19596-8249-4eea-9d64-d139a6f4abb5",
+    "name": "Cloud Foundry IBM Containers",
+    "description": "Component template to install the Cloud Foundry IBM Containers plugin.",
+    "ignoreQualifiers": 0,
+    "componentType": "STANDARD",
+    "tags": [],
+    "active": true,
+    "envPropDefs": [],
+    "propDefs": [
+        {
+            "name": "cfic.pluginPath",
+            "label": "Path to IBM Containers Plugin",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "Override the default URL with a local path to the IBM Containers Plugin or a URL path.",
+            "placeholder": ""
+        },
+        {
+            "name": "cfic.namespace",
+            "label": "Namespace",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "The namespace to be assigned to uniquely identify your organization on the BlueMix registry. The namespace must start with a lowercase letter and be 4-30 characters. You can use lowercase letters, numbers, and underscores.",
+            "placeholder": ""
+        }
+    ],
+    "properties": [],
+    "processes": [{
+        "name": "Install And Initialize IBM Containers Plugin",
+        "description": "",
+        "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+        "takesVersion": false,
+        "status": "",
+        "active": true,
+        "path": "componentTemplates\/13d19596-8249-4eea-9d64-d139a6f4abb5\/processes\/03eb0f1d-8258-406a-8931-cd28df357757",
+        "propDefs": [],
+        "rootActivity": {
+            "edges": [
+                {
+                    "to": "Install IBM Containers Plugin",
+                    "from": "Uninstall IBM Containers Plugin",
+                    "type": "ALWAYS",
+                    "value": ""
+                },
+                {
+                    "to": "1b477b0357fed2a9533925cac555ff",
+                    "from": "Logout of Cloud Foundry",
+                    "type": "SUCCESS",
+                    "value": ""
+                },
+                {
+                    "to": "Login to Cloud Foundry",
+                    "type": "ALWAYS",
+                    "value": ""
+                },
+                {
+                    "to": "Initialize Plugin",
+                    "from": "Install IBM Containers Plugin",
+                    "type": "SUCCESS",
+                    "value": ""
+                },
+                {
+                    "to": "Logout of Cloud Foundry",
+                    "from": "Set Namespace",
+                    "type": "SUCCESS",
+                    "value": ""
+                },
+                {
+                    "to": "Set Namespace",
+                    "from": "Initialize Plugin",
+                    "type": "SUCCESS",
+                    "value": ""
+                },
+                {
+                    "to": "Uninstall IBM Containers Plugin",
+                    "from": "Login to Cloud Foundry",
+                    "type": "SUCCESS",
+                    "value": ""
+                }
+            ],
+            "offsets": [
+                {
+                    "name": "Logout of Cloud Foundry",
+                    "x": -80,
+                    "y": 290,
+                    "h": 60,
+                    "w": 240
+                },
+                {
+                    "name": "Set Namespace",
+                    "x": 430,
+                    "y": 170,
+                    "h": 60,
+                    "w": 190
+                },
+                {
+                    "name": "Uninstall IBM Containers Plugin",
+                    "x": -470,
+                    "y": 170,
+                    "h": 60,
+                    "w": 280
+                },
+                {
+                    "name": "1b477b0357fed2a9533925cac555ff",
+                    "x": -5,
+                    "y": 430,
+                    "h": 50,
+                    "w": 90
+                },
+                {
+                    "name": "Install IBM Containers Plugin",
+                    "x": -135,
+                    "y": 170,
+                    "h": 60,
+                    "w": 260
+                },
+                {
+                    "name": "Initialize Plugin",
+                    "x": 180,
+                    "y": 170,
+                    "h": 60,
+                    "w": 190
+                },
+                {
+                    "name": "Login to Cloud Foundry",
+                    "x": -75,
+                    "y": 70,
+                    "h": 60,
+                    "w": 230
+                }
+            ],
+            "type": "graph",
+            "name": "838d142e-7a5b-4817-97c7-571bb37779b8",
+            "children": [
+                {
+                    "type": "finish",
+                    "name": "1b477b0357fed2a9533925cac555ff",
+                    "children": []
+                },
+                {
+                    "allowFailure": false,
+                    "useImpersonation": false,
+                    "showHidden": false,
+                    "impersonationUseSudo": false,
+                    "commandName": "Install IBM Containers Plugin",
+                    "pluginName": "Cloud Foundry IBM Containers",
+                    "pluginVersion": 1,
+                    "properties": {
+                        "commandPath": "${p?:resource\/cfic.commandPath}",
+                        "pluginPath": "${p?:component\/cfic.pluginPath}"
+                    },
+                    "type": "plugin",
+                    "name": "Install IBM Containers Plugin",
+                    "children": []
+                },
+                {
+                    "allowFailure": false,
+                    "useImpersonation": false,
+                    "showHidden": false,
+                    "impersonationUseSudo": false,
+                    "commandName": "Uninstall IBM Containers Plugin",
+                    "pluginName": "Cloud Foundry IBM Containers",
+                    "pluginVersion": 1,
+                    "properties": {"commandPath": "${p:resource\/cfic.commandPath}"},
+                    "type": "plugin",
+                    "name": "Uninstall IBM Containers Plugin",
+                    "children": []
+                },
+                {
+                    "allowFailure": false,
+                    "useImpersonation": false,
+                    "showHidden": false,
+                    "impersonationUseSudo": false,
+                    "commandName": "Login to Cloud Foundry",
+                    "pluginName": "Cloud Foundry IBM Containers",
+                    "pluginVersion": 1,
+                    "properties": {
+                        "commandPath": "${p?:resource\/cfic.commandPath}",
+                        "user": "${p:resource\/cfic.user}",
+                        "password": "${p:resource\/cfic.password}",
+                        "api": "${p:resource\/cfic.api}",
+                        "org": "${p?:resource\/cfic.org}",
+                        "space": "${p?:resource\/cfic.space}"
+                    },
+                    "type": "plugin",
+                    "name": "Login to Cloud Foundry",
+                    "children": []
+                },
+                {
+                    "allowFailure": false,
+                    "useImpersonation": false,
+                    "showHidden": false,
+                    "impersonationUseSudo": false,
+                    "commandName": "Initialize Plugin",
+                    "pluginName": "Cloud Foundry IBM Containers",
+                    "pluginVersion": 1,
+                    "properties": {"commandPath": "${p?:resource\/cfic.commandPath}"},
+                    "type": "plugin",
+                    "name": "Initialize Plugin",
+                    "children": []
+                },
+                {
+                    "allowFailure": false,
+                    "useImpersonation": false,
+                    "showHidden": false,
+                    "impersonationUseSudo": false,
+                    "commandName": "Set Namespace",
+                    "pluginName": "Cloud Foundry IBM Containers",
+                    "pluginVersion": 1,
+                    "properties": {
+                        "commandPath": "${p?:resource\/cfic.commandPath}",
+                        "namespace": "${p?:component\/cfic.namespace",
+                        "onFail": "warn"
+                    },
+                    "type": "plugin",
+                    "name": "Set Namespace",
+                    "children": []
+                },
+                {
+                    "allowFailure": false,
+                    "useImpersonation": false,
+                    "showHidden": false,
+                    "impersonationUseSudo": false,
+                    "commandName": "Logout of Cloud Foundry",
+                    "pluginName": "Cloud Foundry IBM Containers",
+                    "pluginVersion": 1,
+                    "properties": {"commandPath": "${p?:resource\/cfic.commandPath}"},
+                    "type": "plugin",
+                    "name": "Logout of Cloud Foundry",
+                    "children": []
+                }
+            ]
+        }
+    }],
+    "genericProcesses": [],
+    "teamMappings": []
+}

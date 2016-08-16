@@ -1,0 +1,1744 @@
+/**
+ * © Copyright IBM Corporation 2016.
+ * This is licensed under the following license.
+ * The Eclipse Public 1.0 License (http://www.eclipse.org/legal/epl-v10.html)
+ * U.S. Government Users Restricted Rights:  Use, duplication or disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ */
+ {
+    "name": "Sterling B2Bi Template",
+    "description": "",
+    "enforceCompleteSnapshots": false,
+    "propSheet": {"properties": []},
+    "components": [
+        {
+            "name": "BMPLs",
+            "description": "",
+            "created": 1432175181214,
+            "componentType": "STANDARD",
+            "ignoreQualifiers": 0,
+            "importAutomatically": true,
+            "useVfs": true,
+            "active": true,
+            "deleted": false,
+            "defaultVersionType": "FULL",
+            "cleanupDaysToKeep": 0,
+            "cleanupCountToKeep": 0,
+            "sourceConfigPluginName": "File System (Versioned)",
+            "envPropDefs": [],
+            "resPropDefs": [],
+            "versionPropDefs": [],
+            "propSheetGroup": {"propSheets": [
+                {
+                    "name": "template",
+                    "properties": []
+                },
+                {
+                    "name": "custom",
+                    "properties": []
+                },
+                {
+                    "name": "FileSystemVersionedComponentProperties",
+                    "properties": [
+                        {
+                            "name": "basePath",
+                            "value": "C:\\SCM\\bmpls",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "extensions",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "saveFileExecuteBits",
+                            "value": "false",
+                            "description": "",
+                            "secure": false
+                        }
+                    ]
+                }
+            ]},
+            "processes": [{
+                "name": "install",
+                "description": "",
+                "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+                "takesVersion": true,
+                "inventoryActionType": "ADD",
+                "status": "Active",
+                "configActionType": "ADD",
+                "active": true,
+                "path": "components\/7444ce9b-bffd-42a8-81a8-801d8e8a6d8f\/processes\/8940543a-b1f8-43a0-bb10-07024e913666",
+                "propDefs": [],
+                "rootActivity": {
+                    "edges": [
+                        {
+                            "to": "Convert BPML to XML(ATO script)",
+                            "from": "Download Artifacts",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Download Artifacts",
+                            "from": "ServiceStatus",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "ServiceStatus",
+                            "type": "ALWAYS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Add Workflow",
+                            "from": "Convert BPML to XML(ATO script)",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "5c8beca3b36c5dda799df77ad3f52c",
+                            "from": "Add Workflow",
+                            "type": "ALWAYS",
+                            "value": ""
+                        }
+                    ],
+                    "offsets": [
+                        {
+                            "name": "Add Workflow",
+                            "x": -42.5,
+                            "y": 410,
+                            "h": 60,
+                            "w": 180
+                        },
+                        {
+                            "name": "ServiceStatus",
+                            "x": -50,
+                            "y": 95,
+                            "h": 60,
+                            "w": 180
+                        },
+                        {
+                            "name": "Convert BPML to XML(ATO script)",
+                            "x": -86.5,
+                            "y": 318,
+                            "h": 60,
+                            "w": 260
+                        },
+                        {
+                            "name": "5c8beca3b36c5dda799df77ad3f52c",
+                            "x": -10,
+                            "y": 510,
+                            "h": 50,
+                            "w": 90
+                        },
+                        {
+                            "name": "Download Artifacts",
+                            "x": -70,
+                            "y": 205,
+                            "h": 60,
+                            "w": 210
+                        }
+                    ],
+                    "type": "graph",
+                    "name": "a37e0a2b-c7b9-4c64-b1ea-b15f076ce710",
+                    "children": [
+                        {
+                            "type": "finish",
+                            "name": "5c8beca3b36c5dda799df77ad3f52c",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "commandName": "Download Artifacts",
+                            "pluginName": "IBM UrbanCode Deploy Versioned File Storage",
+                            "pluginVersion": 21,
+                            "properties": {
+                                "directoryOffset": ".",
+                                "artifactSetBaseDir": "",
+                                "fileIncludePatterns": "**\/*",
+                                "fileExcludePatterns": "",
+                                "syncMode": "true",
+                                "fullVerification": "true",
+                                "setFileExecuteBits": "false",
+                                "verifyFileIntegrity": "false",
+                                "versionId": "${p:version.id}",
+                                "serverUrl": "${p:server.url}",
+                                "compId": "${p:component.id}",
+                                "resId": "${p:resource.id}",
+                                "charset": ""
+                            },
+                            "type": "plugin",
+                            "name": "Download Artifacts",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "commandName": "Shell",
+                            "pluginName": "Shell",
+                            "pluginVersion": 6,
+                            "properties": {
+                                "directoryOffset": ".",
+                                "shellInterpreter": "",
+                                "scriptBody": "echo Convert BPML to XML(ATO script)",
+                                "runAsDaemon": "false",
+                                "outputFile": ""
+                            },
+                            "type": "plugin",
+                            "name": "Convert BPML to XML(ATO script)",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "workingDir": "c:\/IBM\/SI\/install\/bin",
+                            "commandName": "Add Workflow",
+                            "pluginName": "Sterling UCD Plugin",
+                            "pluginVersion": 5,
+                            "properties": {
+                                "sterlingHome": "c:\/IBM\/SI",
+                                "options": "-s -S -U -X",
+                                "xmlFile": "${p:AGENT_HOME}\\var\\work\\${p:component.name}\\dummy.xml"
+                            },
+                            "type": "plugin",
+                            "name": "Add Workflow",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "commandName": "ServiceStatus",
+                            "pluginName": "Sterling UCD Plugin",
+                            "pluginVersion": 5,
+                            "properties": {"testing_url": "http:\/\/localhost:30000"},
+                            "type": "plugin",
+                            "name": "ServiceStatus",
+                            "children": []
+                        }
+                    ]
+                }
+            }],
+            "configTemplates": [],
+            "genericProcesses": [],
+            "teamMappings": []
+        },
+        {
+            "name": "DemoJar",
+            "description": "",
+            "created": 1432174879042,
+            "componentType": "STANDARD",
+            "ignoreQualifiers": 0,
+            "importAutomatically": true,
+            "useVfs": true,
+            "active": true,
+            "deleted": false,
+            "defaultVersionType": "FULL",
+            "cleanupDaysToKeep": 0,
+            "cleanupCountToKeep": 0,
+            "sourceConfigPluginName": "File System (Versioned)",
+            "envPropDefs": [],
+            "resPropDefs": [],
+            "versionPropDefs": [],
+            "propSheetGroup": {"propSheets": [
+                {
+                    "name": "FileSystemVersionedComponentProperties",
+                    "properties": [
+                        {
+                            "name": "basePath",
+                            "value": "C:\\SCM\\demojar",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "extensions",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "saveFileExecuteBits",
+                            "value": "false",
+                            "description": "",
+                            "secure": false
+                        }
+                    ]
+                },
+                {
+                    "name": "custom",
+                    "properties": []
+                },
+                {
+                    "name": "template",
+                    "properties": []
+                }
+            ]},
+            "processes": [{
+                "name": "install",
+                "description": "",
+                "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+                "takesVersion": true,
+                "inventoryActionType": "ADD",
+                "status": "Active",
+                "configActionType": "ADD",
+                "active": true,
+                "path": "components\/26f7f396-dcdf-4860-a37e-add242192d68\/processes\/4e265d72-379a-4efc-bbe6-c934b62ae0f3",
+                "propDefs": [],
+                "rootActivity": {
+                    "edges": [
+                        {
+                            "to": "install or uninstall third-party Jars",
+                            "from": "Download Artifacts",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "ServiceStatus",
+                            "type": "ALWAYS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Download Artifacts",
+                            "from": "ServiceStatus",
+                            "type": "FAILURE",
+                            "value": ""
+                        },
+                        {
+                            "to": "9daa79d1119eb03b6a654ce58e10dc",
+                            "from": "ServiceStatus",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "7be6773653ba463769a15d9fba93a3",
+                            "from": "install or uninstall third-party Jars",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "7be6773653ba463769a15d9fba93a3",
+                            "from": "9daa79d1119eb03b6a654ce58e10dc",
+                            "type": "ALWAYS",
+                            "value": ""
+                        }
+                    ],
+                    "offsets": [
+                        {
+                            "name": "install or uninstall third-party Jars",
+                            "x": -190,
+                            "y": 310,
+                            "h": 60,
+                            "w": 280
+                        },
+                        {
+                            "name": "ServiceStatus",
+                            "x": -50,
+                            "y": 90,
+                            "h": 60,
+                            "w": 180
+                        },
+                        {
+                            "name": "Download Artifacts",
+                            "x": -170,
+                            "y": 195,
+                            "h": 60,
+                            "w": 210
+                        },
+                        {
+                            "name": "7be6773653ba463769a15d9fba93a3",
+                            "x": -5,
+                            "y": 420,
+                            "h": 50,
+                            "w": 90
+                        },
+                        {
+                            "name": "9daa79d1119eb03b6a654ce58e10dc",
+                            "x": 138.5,
+                            "y": 240,
+                            "h": 50,
+                            "w": 170
+                        }
+                    ],
+                    "type": "graph",
+                    "name": "4fa767e2-33d7-4ce6-acb5-ed7ad80727ae",
+                    "children": [
+                        {
+                            "type": "finish",
+                            "name": "7be6773653ba463769a15d9fba93a3",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "commandName": "Download Artifacts",
+                            "pluginName": "IBM UrbanCode Deploy Versioned File Storage",
+                            "pluginVersion": 21,
+                            "properties": {
+                                "directoryOffset": ".",
+                                "artifactSetBaseDir": "",
+                                "fileIncludePatterns": "**\/*",
+                                "fileExcludePatterns": "",
+                                "syncMode": "true",
+                                "fullVerification": "true",
+                                "setFileExecuteBits": "false",
+                                "verifyFileIntegrity": "false",
+                                "versionId": "${p:version.id}",
+                                "serverUrl": "${p:server.url}",
+                                "compId": "${p:component.id}",
+                                "resId": "${p:resource.id}",
+                                "charset": ""
+                            },
+                            "type": "plugin",
+                            "name": "Download Artifacts",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "workingDir": "C:\\IBM\\SI\\install\\bin",
+                            "commandName": "install or uninstall third-party Jars",
+                            "pluginName": "Sterling UCD Plugin",
+                            "pluginVersion": 5,
+                            "properties": {
+                                "sterlingHome": "c:\/IBM\/SI",
+                                "filelist": "${p:AGENT_HOME}\\var\\work\\${p:component.name}\\demo.jar",
+                                "vendorName": "demo",
+                                "vendorVersion": "${p:version.name}",
+                                "targetJVMOptions": "NO",
+                                "uninstall": "false",
+                                "nodeploy": "false"
+                            },
+                            "type": "plugin",
+                            "name": "install or uninstall third-party Jars",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "commandName": "ServiceStatus",
+                            "pluginName": "Sterling UCD Plugin",
+                            "pluginVersion": 5,
+                            "properties": {"testing_url": "http:\/\/localhost:30000"},
+                            "type": "plugin",
+                            "name": "ServiceStatus",
+                            "children": []
+                        },
+                        {
+                            "status": "FAILURE",
+                            "type": "setStatus",
+                            "name": "9daa79d1119eb03b6a654ce58e10dc",
+                            "children": []
+                        }
+                    ]
+                }
+            }],
+            "configTemplates": [],
+            "genericProcesses": [],
+            "teamMappings": []
+        },
+        {
+            "name": "MAPs",
+            "description": "",
+            "created": 1432176059401,
+            "componentType": "STANDARD",
+            "ignoreQualifiers": 0,
+            "importAutomatically": true,
+            "useVfs": true,
+            "active": true,
+            "deleted": false,
+            "defaultVersionType": "FULL",
+            "cleanupDaysToKeep": 0,
+            "cleanupCountToKeep": 0,
+            "sourceConfigPluginName": "File System (Versioned)",
+            "envPropDefs": [],
+            "resPropDefs": [],
+            "versionPropDefs": [],
+            "propSheetGroup": {"propSheets": [
+                {
+                    "name": "custom",
+                    "properties": []
+                },
+                {
+                    "name": "FileSystemVersionedComponentProperties",
+                    "properties": [
+                        {
+                            "name": "basePath",
+                            "value": "C:\\SCM\\maps",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "extensions",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "saveFileExecuteBits",
+                            "value": "false",
+                            "description": "",
+                            "secure": false
+                        }
+                    ]
+                },
+                {
+                    "name": "template",
+                    "properties": []
+                }
+            ]},
+            "processes": [{
+                "name": "install",
+                "description": "",
+                "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+                "takesVersion": true,
+                "inventoryActionType": "ADD",
+                "status": "Active",
+                "configActionType": "ADD",
+                "active": true,
+                "path": "components\/823b6777-04d3-4d09-be54-5fe77d8fd981\/processes\/2df43859-ccb3-4c64-8859-709ba7a7761f",
+                "propDefs": [],
+                "rootActivity": {
+                    "edges": [
+                        {
+                            "to": "77ae6a0ccaf7d3488d066e56ae8842",
+                            "from": "import MAPs",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "import MAPs",
+                            "from": "Download Artifacts",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Download Artifacts",
+                            "from": "ServiceStatus",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "ServiceStatus",
+                            "type": "ALWAYS",
+                            "value": ""
+                        }
+                    ],
+                    "offsets": [
+                        {
+                            "name": "77ae6a0ccaf7d3488d066e56ae8842",
+                            "x": -10,
+                            "y": 450,
+                            "h": 50,
+                            "w": 90
+                        },
+                        {
+                            "name": "ServiceStatus",
+                            "x": -50,
+                            "y": 110,
+                            "h": 60,
+                            "w": 180
+                        },
+                        {
+                            "name": "import MAPs",
+                            "x": -50,
+                            "y": 340,
+                            "h": 60,
+                            "w": 170
+                        },
+                        {
+                            "name": "Download Artifacts",
+                            "x": -71.5,
+                            "y": 220,
+                            "h": 60,
+                            "w": 210
+                        }
+                    ],
+                    "type": "graph",
+                    "name": "03d9ffa0-3ccb-4f3b-a7f1-c461938603e1",
+                    "children": [
+                        {
+                            "type": "finish",
+                            "name": "77ae6a0ccaf7d3488d066e56ae8842",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "commandName": "Download Artifacts",
+                            "pluginName": "IBM UrbanCode Deploy Versioned File Storage",
+                            "pluginVersion": 21,
+                            "properties": {
+                                "directoryOffset": ".",
+                                "artifactSetBaseDir": "",
+                                "fileIncludePatterns": "**\/*",
+                                "fileExcludePatterns": "",
+                                "syncMode": "true",
+                                "fullVerification": "true",
+                                "setFileExecuteBits": "false",
+                                "verifyFileIntegrity": "false",
+                                "versionId": "${p:version.id}",
+                                "serverUrl": "${p:server.url}",
+                                "compId": "${p:component.id}",
+                                "resId": "${p:resource.id}",
+                                "charset": ""
+                            },
+                            "type": "plugin",
+                            "name": "Download Artifacts",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "workingDir": "c:\/IBM\/SI\/install\/bin",
+                            "commandName": "import MAPs",
+                            "pluginName": "Sterling UCD Plugin",
+                            "pluginVersion": 5,
+                            "properties": {
+                                "sterlingHome": "c:\/IBM\/SI",
+                                "MAPs_dir": "${p:AGENT_HOME}\\var\\work\\${p:component.name}"
+                            },
+                            "type": "plugin",
+                            "name": "import MAPs",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "commandName": "ServiceStatus",
+                            "pluginName": "Sterling UCD Plugin",
+                            "pluginVersion": 5,
+                            "properties": {"testing_url": "http:\/\/localhost:30000"},
+                            "type": "plugin",
+                            "name": "ServiceStatus",
+                            "children": []
+                        }
+                    ]
+                }
+            }],
+            "configTemplates": [],
+            "genericProcesses": [],
+            "teamMappings": []
+        },
+        {
+            "name": "XMLs",
+            "description": "",
+            "created": 1432175214084,
+            "componentType": "STANDARD",
+            "ignoreQualifiers": 0,
+            "importAutomatically": true,
+            "useVfs": true,
+            "active": true,
+            "deleted": false,
+            "defaultVersionType": "FULL",
+            "cleanupDaysToKeep": 0,
+            "cleanupCountToKeep": 0,
+            "sourceConfigPluginName": "File System (Versioned)",
+            "envPropDefs": [],
+            "resPropDefs": [],
+            "versionPropDefs": [],
+            "propSheetGroup": {"propSheets": [
+                {
+                    "name": "custom",
+                    "properties": []
+                },
+                {
+                    "name": "FileSystemVersionedComponentProperties",
+                    "properties": [
+                        {
+                            "name": "basePath",
+                            "value": "C:\\SCM\\xmls",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "extensions",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "saveFileExecuteBits",
+                            "value": "false",
+                            "description": "",
+                            "secure": false
+                        }
+                    ]
+                },
+                {
+                    "name": "template",
+                    "properties": []
+                }
+            ]},
+            "processes": [{
+                "name": "install",
+                "description": "",
+                "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+                "takesVersion": true,
+                "inventoryActionType": "ADD",
+                "status": "Active",
+                "configActionType": "ADD",
+                "active": true,
+                "path": "components\/d546b3da-6a5f-4c18-94dd-f273b0045199\/processes\/13daa2c8-f880-4147-9942-118f6ec05ed8",
+                "propDefs": [],
+                "rootActivity": {
+                    "edges": [
+                        {
+                            "to": "03a9cfffca4bc72a1943ce8c17bae9",
+                            "from": "import Batch File",
+                            "type": "ALWAYS",
+                            "value": ""
+                        },
+                        {
+                            "to": "ServiceStatus",
+                            "type": "ALWAYS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Download Artifacts",
+                            "from": "clean",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "import Batch File",
+                            "from": "Assemble importBatchFile",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "clean",
+                            "from": "ServiceStatus",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "Assemble importBatchFile",
+                            "from": "Download Artifacts",
+                            "type": "SUCCESS",
+                            "value": ""
+                        }
+                    ],
+                    "offsets": [
+                        {
+                            "name": "03a9cfffca4bc72a1943ce8c17bae9",
+                            "x": -5,
+                            "y": 660,
+                            "h": 50,
+                            "w": 90
+                        },
+                        {
+                            "name": "Assemble importBatchFile",
+                            "x": -80,
+                            "y": 412,
+                            "h": 60,
+                            "w": 240
+                        },
+                        {
+                            "name": "ServiceStatus",
+                            "x": -50,
+                            "y": 100,
+                            "h": 60,
+                            "w": 180
+                        },
+                        {
+                            "name": "import Batch File",
+                            "x": -54.5,
+                            "y": 550,
+                            "h": 60,
+                            "w": 200
+                        },
+                        {
+                            "name": "Download Artifacts",
+                            "x": -59.5,
+                            "y": 310,
+                            "h": 60,
+                            "w": 210
+                        },
+                        {
+                            "name": "clean",
+                            "x": -80,
+                            "y": 190,
+                            "h": 60,
+                            "w": 260
+                        }
+                    ],
+                    "type": "graph",
+                    "name": "6497cf95-0fc8-43cc-bde7-c6a9f0ddc265",
+                    "children": [
+                        {
+                            "type": "finish",
+                            "name": "03a9cfffca4bc72a1943ce8c17bae9",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "commandName": "Assemble importBatchFile",
+                            "pluginName": "Sterling UCD Plugin",
+                            "pluginVersion": 5,
+                            "properties": {
+                                "importBatchFile": "importBatch.txt",
+                                "xmlFolder": ".",
+                                "tagName": "mytag",
+                                "numberOfThreads": "1",
+                                "password": "crypt_v1{DESede\/CBC\/PKCS5Padding|desedekeym2zs|nJtblVxNs3I=|1E5swTIB6o45IftDgeVbGg==}"
+                            },
+                            "type": "plugin",
+                            "name": "Assemble importBatchFile",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "workingDir": "c:\/IBM\/SI\/install\/tp_import",
+                            "commandName": "import Batch File",
+                            "pluginName": "Sterling UCD Plugin",
+                            "pluginVersion": 5,
+                            "properties": {
+                                "sterlingHome": "c:\/IBM\/SI",
+                                "importBatchFile": "${p:AGENT_HOME}\\var\\work\\${p:component.name}\\importBatch.txt",
+                                "reportFileName": "${p:AGENT_HOME}\\var\\work\\${p:component.name}\\importReport.txt"
+                            },
+                            "type": "plugin",
+                            "name": "import Batch File",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "commandName": "Download Artifacts",
+                            "pluginName": "IBM UrbanCode Deploy Versioned File Storage",
+                            "pluginVersion": 21,
+                            "properties": {
+                                "directoryOffset": ".",
+                                "artifactSetBaseDir": "",
+                                "fileIncludePatterns": "**\/*",
+                                "fileExcludePatterns": "",
+                                "syncMode": "true",
+                                "fullVerification": "true",
+                                "setFileExecuteBits": "false",
+                                "verifyFileIntegrity": "false",
+                                "versionId": "${p:version.id}",
+                                "serverUrl": "${p:server.url}",
+                                "compId": "${p:component.id}",
+                                "resId": "${p:resource.id}",
+                                "charset": ""
+                            },
+                            "type": "plugin",
+                            "name": "Download Artifacts",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "commandName": "Delete Files and Directories",
+                            "pluginName": "File Utils",
+                            "pluginVersion": 39,
+                            "properties": {
+                                "baseDir": ".",
+                                "includes": "**\/*",
+                                "excludes": "",
+                                "followSymlinks": "false",
+                                "caseSensitive": "true"
+                            },
+                            "type": "plugin",
+                            "name": "clean",
+                            "children": []
+                        },
+                        {
+                            "allowFailure": false,
+                            "useImpersonation": false,
+                            "showHidden": false,
+                            "impersonationUseSudo": false,
+                            "commandName": "ServiceStatus",
+                            "pluginName": "Sterling UCD Plugin",
+                            "pluginVersion": 5,
+                            "properties": {"testing_url": "http:\/\/localhost:30000"},
+                            "type": "plugin",
+                            "name": "ServiceStatus",
+                            "children": []
+                        }
+                    ]
+                }
+            }],
+            "configTemplates": [],
+            "genericProcesses": [],
+            "teamMappings": []
+        }
+    ],
+    "environments": [{
+        "name": "test environment 168.1.2.124",
+        "description": "",
+        "color": "#00B2EF",
+        "requireApprovals": false,
+        "exemptProcesses": [],
+        "lockSnapshots": false,
+        "cleanupDaysToKeep": 0,
+        "cleanupCountToKeep": 0,
+        "order": 0,
+        "active": true,
+        "propSheet": {"properties": [{
+            "name": "DB_PASSWORD",
+            "description": "",
+            "secure": false
+        }]},
+        "baseResources": [{
+            "path": "\/TestB2Bi",
+            "id": "447113c8-c78e-47ce-84d1-ec92e45d994c"
+        }],
+        "componentPropSheets": [
+            {
+                "properties": [],
+                "componentName": "BMPLs"
+            },
+            {
+                "properties": [],
+                "componentName": "DemoJar"
+            },
+            {
+                "properties": [],
+                "componentName": "MAPs"
+            },
+            {
+                "properties": [],
+                "componentName": "XMLs"
+            }
+        ],
+        "versionConditions": [],
+        "teamMappings": []
+    }],
+    "processes": [{
+        "name": "install",
+        "description": "",
+        "inventoryManagementType": "AUTOMATIC",
+        "offlineAgentHandling": "PRE_EXECUTION_CHECK",
+        "rootActivity": {
+            "edges": [
+                {
+                    "to": "Start Sterling",
+                    "from": "9618e2370f79121f7438aedc0bb7a8",
+                    "type": "SUCCESS",
+                    "value": ""
+                },
+                {
+                    "to": "9618e2370f79121f7438aedc0bb7a8",
+                    "from": "Apply Configration",
+                    "type": "SUCCESS",
+                    "value": ""
+                },
+                {
+                    "to": "copy anti-virus files",
+                    "from": "8315938da767999fcab30917a22f61",
+                    "type": "ALWAYS",
+                    "value": ""
+                },
+                {
+                    "to": "f59564ee2eb3b284baf9c86a503e18",
+                    "from": "d5430e47fb751fd7d4ba321f23c4a8",
+                    "type": "SUCCESS",
+                    "value": ""
+                },
+                {
+                    "to": "d5430e47fb751fd7d4ba321f23c4a8",
+                    "from": "Start Sterling",
+                    "type": "SUCCESS",
+                    "value": ""
+                },
+                {
+                    "to": "stop Sterling and restart Windows",
+                    "type": "ALWAYS",
+                    "value": ""
+                },
+                {
+                    "to": "7dd4e27a5c121fb511f99e8f5e31af",
+                    "from": "copy anti-virus files",
+                    "type": "ALWAYS",
+                    "value": ""
+                },
+                {
+                    "to": "Apply Configration",
+                    "from": "stop Sterling and restart Windows",
+                    "type": "SUCCESS",
+                    "value": ""
+                },
+                {
+                    "to": "8315938da767999fcab30917a22f61",
+                    "from": "f59564ee2eb3b284baf9c86a503e18",
+                    "type": "ALWAYS",
+                    "value": ""
+                }
+            ],
+            "offsets": [
+                {
+                    "name": "copy anti-virus files",
+                    "x": -56.49999999999994,
+                    "y": 715.5999999999999,
+                    "h": 60,
+                    "w": 240
+                },
+                {
+                    "name": "stop Sterling and restart Windows",
+                    "x": -111.5,
+                    "y": 80,
+                    "h": 60,
+                    "w": 320
+                },
+                {
+                    "name": "Start Sterling",
+                    "x": -50,
+                    "y": 380,
+                    "h": 60,
+                    "w": 210
+                },
+                {
+                    "name": "f59564ee2eb3b284baf9c86a503e18",
+                    "x": -15,
+                    "y": 555,
+                    "h": 50,
+                    "w": 140
+                },
+                {
+                    "name": "d5430e47fb751fd7d4ba321f23c4a8",
+                    "x": -11.5,
+                    "y": 480,
+                    "h": 50,
+                    "w": 140
+                },
+                {
+                    "name": "Apply Configration",
+                    "x": -71.5,
+                    "y": 180,
+                    "h": 60,
+                    "w": 240
+                },
+                {
+                    "name": "9618e2370f79121f7438aedc0bb7a8",
+                    "x": -46.5,
+                    "y": 280,
+                    "h": 60,
+                    "w": 190
+                },
+                {
+                    "name": "8315938da767999fcab30917a22f61",
+                    "x": -11.5,
+                    "y": 645,
+                    "h": 50,
+                    "w": 150
+                },
+                {
+                    "name": "7dd4e27a5c121fb511f99e8f5e31af",
+                    "x": 18.500000000000057,
+                    "y": 800,
+                    "h": 50,
+                    "w": 90
+                }
+            ],
+            "type": "graph",
+            "name": "1c6eaa1b-819d-42bd-bcd5-99d6e00ac836",
+            "children": [
+                {
+                    "type": "finish",
+                    "name": "7dd4e27a5c121fb511f99e8f5e31af",
+                    "children": []
+                },
+                {
+                    "processName": "demo stop Sterling and restart windows",
+                    "resourcePath": "\/TestB2Bi\/B2BiSterling.dnsalias.com",
+                    "properties": {
+                        "resourcePath": "\/TestB2Bi\/B2BiSterling.dnsalias.com",
+                        "processId": "a16ee1f4-e6c2-4185-8861-856973caf040"
+                    },
+                    "type": "runProcess",
+                    "name": "stop Sterling and restart Windows",
+                    "children": []
+                },
+                {
+                    "componentName": "DemoJar",
+                    "properties": [
+                        {
+                            "name": "failFast",
+                            "value": "false"
+                        },
+                        {
+                            "name": "runOnlyOnFirst",
+                            "value": "false"
+                        },
+                        {
+                            "name": "maxIteration",
+                            "value": "-1"
+                        }
+                    ],
+                    "type": "componentEnvironmentIterator",
+                    "name": "9618e2370f79121f7438aedc0bb7a8",
+                    "children": [{
+                        "componentName": "DemoJar",
+                        "status": "Active",
+                        "type": "inventoryVersionDiff",
+                        "name": "f27d8e36-45e6-4e13-a901-b532d0e5669a",
+                        "children": [{
+                            "componentProcessName": "install",
+                            "componentName": "DemoJar",
+                            "allowFailure": false,
+                            "properties": {},
+                            "type": "componentProcess",
+                            "name": "Install Third-party Jar",
+                            "children": []
+                        }]
+                    }]
+                },
+                {
+                    "componentName": "MAPs",
+                    "properties": [
+                        {
+                            "name": "failFast",
+                            "value": "false"
+                        },
+                        {
+                            "name": "runOnlyOnFirst",
+                            "value": "false"
+                        },
+                        {
+                            "name": "maxIteration",
+                            "value": "-1"
+                        }
+                    ],
+                    "type": "componentEnvironmentIterator",
+                    "name": "d5430e47fb751fd7d4ba321f23c4a8",
+                    "children": [{
+                        "componentName": "MAPs",
+                        "status": "Active",
+                        "type": "inventoryVersionDiff",
+                        "name": "b60c2ec7-be1f-4d13-8980-8b7443e3834e",
+                        "children": [{
+                            "componentProcessName": "install",
+                            "componentName": "MAPs",
+                            "allowFailure": false,
+                            "properties": {},
+                            "type": "componentProcess",
+                            "name": "Install MAPs",
+                            "children": []
+                        }]
+                    }]
+                },
+                {
+                    "componentName": "XMLs",
+                    "properties": [
+                        {
+                            "name": "failFast",
+                            "value": "false"
+                        },
+                        {
+                            "name": "runOnlyOnFirst",
+                            "value": "false"
+                        },
+                        {
+                            "name": "maxIteration",
+                            "value": "-1"
+                        }
+                    ],
+                    "type": "componentEnvironmentIterator",
+                    "name": "f59564ee2eb3b284baf9c86a503e18",
+                    "children": [{
+                        "componentName": "XMLs",
+                        "status": "Active",
+                        "type": "inventoryVersionDiff",
+                        "name": "c722226e-33b7-49fd-9286-f8d8cd681dba",
+                        "children": [{
+                            "componentProcessName": "install",
+                            "componentName": "XMLs",
+                            "allowFailure": false,
+                            "properties": {},
+                            "type": "componentProcess",
+                            "name": "Install XMLs",
+                            "children": []
+                        }]
+                    }]
+                },
+                {
+                    "componentName": "BMPLs",
+                    "properties": [
+                        {
+                            "name": "failFast",
+                            "value": "false"
+                        },
+                        {
+                            "name": "runOnlyOnFirst",
+                            "value": "false"
+                        },
+                        {
+                            "name": "maxIteration",
+                            "value": "-1"
+                        }
+                    ],
+                    "type": "componentEnvironmentIterator",
+                    "name": "8315938da767999fcab30917a22f61",
+                    "children": [{
+                        "componentName": "BMPLs",
+                        "status": "Active",
+                        "type": "inventoryVersionDiff",
+                        "name": "a82a56d7-7a67-4f51-870a-b3d8b33c930e",
+                        "children": [{
+                            "componentProcessName": "install",
+                            "componentName": "BMPLs",
+                            "allowFailure": false,
+                            "properties": {},
+                            "type": "componentProcess",
+                            "name": "Install BMPLs",
+                            "children": []
+                        }]
+                    }]
+                },
+                {
+                    "processName": "demo Apply Configration",
+                    "resourcePath": "\/TestB2Bi\/B2BiSterling.dnsalias.com",
+                    "properties": {
+                        "resourcePath": "\/TestB2Bi\/B2BiSterling.dnsalias.com",
+                        "processId": "73537052-4373-49ab-8f0f-f71f2eea7bb2"
+                    },
+                    "type": "runProcess",
+                    "name": "Apply Configration",
+                    "children": []
+                },
+                {
+                    "processName": "demo start Sterling",
+                    "resourcePath": "${p:resource.path}",
+                    "properties": {
+                        "resourcePath": "${p:resource.path}",
+                        "processId": "f7054da3-6d83-4996-a00a-928773139aad"
+                    },
+                    "type": "runProcess",
+                    "name": "Start Sterling",
+                    "children": []
+                },
+                {
+                    "processName": "demo copy anti-virus files",
+                    "resourcePath": "${p:resource.path}",
+                    "properties": {
+                        "resourcePath": "${p:resource.path}",
+                        "processId": "78a0aa99-b479-4444-91e4-3ac0b9cac74c"
+                    },
+                    "type": "runProcess",
+                    "name": "copy anti-virus files",
+                    "children": []
+                }
+            ]
+        },
+        "propDefs": []
+    }],
+    "genericProcesses": [
+        {
+            "name": "demo stop Sterling and restart windows",
+            "description": "",
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "Restart Windows Server",
+                        "from": "Stop B2Bi",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "ServiceStatus",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Wait",
+                        "from": "Restart Windows Server",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Restart Windows Server",
+                        "from": "ServiceStatus",
+                        "type": "FAILURE",
+                        "value": ""
+                    },
+                    {
+                        "to": "Stop B2Bi",
+                        "from": "ServiceStatus",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "f098cc6a8aa651181b152422f088bd",
+                        "from": "Wait",
+                        "type": "SUCCESS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "ServiceStatus",
+                        "x": -51.5,
+                        "y": 112,
+                        "h": 60,
+                        "w": 180
+                    },
+                    {
+                        "name": "Restart Windows Server",
+                        "x": -81.5,
+                        "y": 270,
+                        "h": 60,
+                        "w": 240
+                    },
+                    {
+                        "name": "Wait",
+                        "x": -56.5,
+                        "y": 380,
+                        "h": 60,
+                        "w": 200
+                    },
+                    {
+                        "name": "Stop B2Bi",
+                        "x": 254.5,
+                        "y": 184,
+                        "h": 60,
+                        "w": 160
+                    },
+                    {
+                        "name": "f098cc6a8aa651181b152422f088bd",
+                        "x": -5,
+                        "y": 490,
+                        "h": 50,
+                        "w": 90
+                    }
+                ],
+                "type": "graph",
+                "name": "8b9fbe6e-d6c6-4eff-bf41-679ca100efd4",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "f098cc6a8aa651181b152422f088bd",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "ServiceStatus",
+                        "pluginName": "Sterling UCD Plugin",
+                        "pluginVersion": 5,
+                        "properties": {"testing_url": "http:\/\/localhost:30000"},
+                        "type": "plugin",
+                        "name": "ServiceStatus",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Restart Windows Server",
+                        "pluginName": "Sterling UCD Plugin",
+                        "pluginVersion": 5,
+                        "properties": {},
+                        "type": "plugin",
+                        "name": "Restart Windows Server",
+                        "children": []
+                    },
+                    {
+                        "processName": "demo wait Server",
+                        "resourcePath": "\/testPlugin\/local_agent",
+                        "properties": {
+                            "resourcePath": "\/testPlugin\/local_agent",
+                            "processId": "7b5d9594-61ea-41f9-8ec2-9b187044e56f"
+                        },
+                        "type": "runProcess",
+                        "name": "Wait",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "workingDir": "c:\\IBM\\SI\\install\\bin",
+                        "commandName": "Stop B2Bi",
+                        "pluginName": "Sterling UCD Plugin",
+                        "pluginVersion": 5,
+                        "properties": {"sterlingHome": "c:\\IBM\\SI"},
+                        "type": "plugin",
+                        "name": "Stop B2Bi",
+                        "children": []
+                    }
+                ]
+            },
+            "properties": [
+                {
+                    "name": "contextType",
+                    "value": "Resource",
+                    "description": "",
+                    "secure": false
+                },
+                {
+                    "name": "defaultResourceId",
+                    "value": "bb94f411-dcb9-41e9-a77a-37089007e9ab",
+                    "description": "",
+                    "secure": false
+                },
+                {
+                    "name": "workingDir",
+                    "value": "${p:resource\/work.dir}\/${p:process.name}",
+                    "description": "",
+                    "secure": false
+                }
+            ],
+            "propDefs": [],
+            "teamMappings": []
+        },
+        {
+            "name": "demo Apply Configration",
+            "description": "",
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "d69fa37d076b4b5f8f816f9ca202f3",
+                        "from": "Apply Configurations",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Replace Tokens",
+                        "from": "ServiceStatus",
+                        "type": "FAILURE",
+                        "value": ""
+                    },
+                    {
+                        "to": "ServiceStatus",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "d69fa37d076b4b5f8f816f9ca202f3",
+                        "from": "8154f372f42cfdec8394fdf073af8f",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "8154f372f42cfdec8394fdf073af8f",
+                        "from": "ServiceStatus",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Apply Configurations",
+                        "from": "Replace Tokens",
+                        "type": "SUCCESS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "d69fa37d076b4b5f8f816f9ca202f3",
+                        "x": -5,
+                        "y": 420,
+                        "h": 50,
+                        "w": 90
+                    },
+                    {
+                        "name": "8154f372f42cfdec8394fdf073af8f",
+                        "x": 124.5,
+                        "y": 246,
+                        "h": 50,
+                        "w": 170
+                    },
+                    {
+                        "name": "Replace Tokens",
+                        "x": -171.5,
+                        "y": 210,
+                        "h": 60,
+                        "w": 200
+                    },
+                    {
+                        "name": "Apply Configurations",
+                        "x": -176.5,
+                        "y": 320,
+                        "h": 60,
+                        "w": 210
+                    },
+                    {
+                        "name": "ServiceStatus",
+                        "x": -50,
+                        "y": 100,
+                        "h": 60,
+                        "w": 180
+                    }
+                ],
+                "type": "graph",
+                "name": "46aa7c7e-98a5-4f77-849d-9e8896b44063",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "d69fa37d076b4b5f8f816f9ca202f3",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "workingDir": "c:\/IBM\/SI\/install\/bin",
+                        "commandName": "Apply Configurations",
+                        "pluginName": "Sterling UCD Plugin",
+                        "pluginVersion": 5,
+                        "properties": {"sterlingHome": "c:\/IBM\/SI"},
+                        "type": "plugin",
+                        "name": "Apply Configurations",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "workingDir": "c:\\demo",
+                        "commandName": "Replace Tokens",
+                        "pluginName": "File Utils",
+                        "pluginVersion": 39,
+                        "properties": {
+                            "dir": "",
+                            "includes": "*.ini",
+                            "excludes": "",
+                            "startDelimiter": "???",
+                            "endDelimiter": "???",
+                            "propertyPrefix": "",
+                            "propFile": "replace_tokens.properties",
+                            "envPropValues": "",
+                            "explicitTokens": ""
+                        },
+                        "type": "plugin",
+                        "name": "Replace Tokens",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "ServiceStatus",
+                        "pluginName": "Sterling UCD Plugin",
+                        "pluginVersion": 5,
+                        "properties": {"testing_url": "http:\/\/localhost:30000"},
+                        "type": "plugin",
+                        "name": "ServiceStatus",
+                        "children": []
+                    },
+                    {
+                        "status": "FAILURE",
+                        "type": "setStatus",
+                        "name": "8154f372f42cfdec8394fdf073af8f",
+                        "children": []
+                    }
+                ]
+            },
+            "properties": [
+                {
+                    "name": "contextType",
+                    "value": "Resource",
+                    "description": "",
+                    "secure": false
+                },
+                {
+                    "name": "workingDir",
+                    "value": "${p:resource\/work.dir}\/${p:process.name}",
+                    "description": "",
+                    "secure": false
+                }
+            ],
+            "propDefs": [],
+            "teamMappings": []
+        },
+        {
+            "name": "demo start Sterling",
+            "description": "",
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "fa51a8aace1e0ec4a1e3339b65f54d",
+                        "from": "Start B2Bi",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Start B2Bi",
+                        "type": "ALWAYS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "fa51a8aace1e0ec4a1e3339b65f54d",
+                        "x": -5,
+                        "y": 240,
+                        "h": 50,
+                        "w": 90
+                    },
+                    {
+                        "name": "Start B2Bi",
+                        "x": -40,
+                        "y": 130,
+                        "h": 60,
+                        "w": 160
+                    }
+                ],
+                "type": "graph",
+                "name": "4ac6cdfa-750f-4266-8536-30d90ec04520",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "fa51a8aace1e0ec4a1e3339b65f54d",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Start B2Bi",
+                        "pluginName": "Sterling UCD Plugin",
+                        "pluginVersion": 5,
+                        "properties": {"sterlingHome": "c:\\IBM\\SI"},
+                        "type": "plugin",
+                        "name": "Start B2Bi",
+                        "children": []
+                    }
+                ]
+            },
+            "properties": [
+                {
+                    "name": "contextType",
+                    "value": "Resource",
+                    "description": "",
+                    "secure": false
+                },
+                {
+                    "name": "defaultResourceId",
+                    "value": "bb94f411-dcb9-41e9-a77a-37089007e9ab",
+                    "description": "",
+                    "secure": false
+                },
+                {
+                    "name": "workingDir",
+                    "value": "${p:resource\/work.dir}\/${p:process.name}",
+                    "description": "",
+                    "secure": false
+                }
+            ],
+            "propDefs": [],
+            "teamMappings": []
+        },
+        {
+            "name": "demo copy anti-virus files",
+            "description": "",
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "Copy Directory",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "28dd4278403235fddddba95caad563",
+                        "from": "Copy Directory",
+                        "type": "SUCCESS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "28dd4278403235fddddba95caad563",
+                        "x": -18.5,
+                        "y": 300,
+                        "h": 50,
+                        "w": 90
+                    },
+                    {
+                        "name": "Copy Directory",
+                        "x": -55,
+                        "y": 130,
+                        "h": 60,
+                        "w": 190
+                    }
+                ],
+                "type": "graph",
+                "name": "d73f9ca2-2e09-47ae-820c-ea0a739d256f",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "28dd4278403235fddddba95caad563",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Copy Directory",
+                        "pluginName": "File Utils",
+                        "pluginVersion": 39,
+                        "properties": {
+                            "sourceDir": "c:\\demo",
+                            "destDirList": "c:\\tmp\\anti-virus",
+                            "includes": "**\/*",
+                            "excludes": "",
+                            "mapperRules": ""
+                        },
+                        "type": "plugin",
+                        "name": "Copy Directory",
+                        "children": []
+                    }
+                ]
+            },
+            "properties": [
+                {
+                    "name": "contextType",
+                    "value": "Resource",
+                    "description": "",
+                    "secure": false
+                },
+                {
+                    "name": "defaultResourceId",
+                    "value": "bb94f411-dcb9-41e9-a77a-37089007e9ab",
+                    "description": "",
+                    "secure": false
+                },
+                {
+                    "name": "workingDir",
+                    "value": "${p:resource\/work.dir}\/${p:process.name}",
+                    "description": "",
+                    "secure": false
+                }
+            ],
+            "propDefs": [],
+            "teamMappings": []
+        }
+    ],
+    "teamMappings": []
+}
