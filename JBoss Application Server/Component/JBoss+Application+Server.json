@@ -1,0 +1,567 @@
+/**
+ * © Copyright IBM Corporation 2016.
+ * This is licensed under the following license.
+ * The Eclipse Public 1.0 License (http://www.eclipse.org/legal/epl-v10.html)
+ * U.S. Government Users Restricted Rights:  Use, duplication or disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ */
+ {
+    "securityResourceId": "80207a7e-69dc-4097-9028-24b37aef8c76",
+    "path": "componentTemplates\/f727459b-3bb7-439b-b017-65efd73a612f",
+    "name": "JBoss Application Server",
+    "description": "Component template for JBoss EAP\/AS",
+    "ignoreQualifiers": 0,
+    "componentType": "STANDARD",
+    "tags": [],
+    "active": true,
+    "envPropDefs": [],
+    "propDefs": [
+        {
+            "name": "archiveFile",
+            "label": "Archive File",
+            "pattern": "",
+            "type": "TEXT",
+            "required": true,
+            "description": "The archive file for this application.",
+            "placeholder": ""
+        },
+        {
+            "name": "appName",
+            "label": "Application Name",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "Name of the application.",
+            "placeholder": ""
+        },
+        {
+            "name": "jbossStart",
+            "label": "Jboss Startup Path",
+            "pattern": "",
+            "type": "TEXT",
+            "required": true,
+            "description": "The path to the JBoss startup executable.",
+            "placeholder": ""
+        },
+        {
+            "name": "jbossCli",
+            "label": "JBoss CLI Path",
+            "pattern": "",
+            "type": "TEXT",
+            "required": true,
+            "description": "The path to the JBoss CLI executable.",
+            "placeholder": ""
+        },
+        {
+            "name": "runtimeName",
+            "label": "Runtime Name",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "Runtime name of the application.",
+            "placeholder": ""
+        }
+    ],
+    "properties": [],
+    "processes": [
+        {
+            "name": "Deploy Archive File",
+            "description": "Deploy an archive file to the JBoss server.",
+            "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+            "takesVersion": true,
+            "inventoryActionType": "ADD",
+            "status": "Active",
+            "configActionType": "ADD",
+            "active": true,
+            "path": "componentTemplates\/f727459b-3bb7-439b-b017-65efd73a612f\/processes\/0082a7fe-d896-453d-811d-85e23bfc2afa",
+            "propDefs": [],
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "Start JBoss",
+                        "from": "Download Artifacts",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Undeploy Application",
+                        "from": "Start JBoss",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "9ab5117b9646a445cd11b0aa0aba45",
+                        "from": "Deploy Application",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Deploy Application",
+                        "from": "Undeploy Application",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Download Artifacts",
+                        "type": "ALWAYS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "Download Artifacts",
+                        "x": -70,
+                        "y": 80,
+                        "h": 60,
+                        "w": 220
+                    },
+                    {
+                        "name": "Start JBoss",
+                        "x": -45,
+                        "y": 170,
+                        "h": 60,
+                        "w": 170
+                    },
+                    {
+                        "name": "Deploy Application",
+                        "x": -65,
+                        "y": 360,
+                        "h": 60,
+                        "w": 220
+                    },
+                    {
+                        "name": "9ab5117b9646a445cd11b0aa0aba45",
+                        "x": -5,
+                        "y": 460,
+                        "h": 50,
+                        "w": 90
+                    },
+                    {
+                        "name": "Undeploy Application",
+                        "x": -70,
+                        "y": 260,
+                        "h": 60,
+                        "w": 230
+                    }
+                ],
+                "type": "graph",
+                "name": "c97ffe56-3686-47d7-b92e-7c153a320f38",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "9ab5117b9646a445cd11b0aa0aba45",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Download Artifacts",
+                        "pluginName": "IBM UrbanCode Deploy Versioned File Storage",
+                        "pluginVersion": 22,
+                        "properties": {
+                            "directoryOffset": ".",
+                            "artifactSetBaseDir": "",
+                            "fileIncludePatterns": "**\/*",
+                            "fileExcludePatterns": "",
+                            "syncMode": "true",
+                            "fullVerification": "true",
+                            "setFileExecuteBits": "false",
+                            "verifyFileIntegrity": "false",
+                            "versionId": "${p:version.id}",
+                            "serverUrl": "${p:server.url}",
+                            "compId": "${p:component.id}",
+                            "resId": "${p:resource.id}",
+                            "charset": ""
+                        },
+                        "type": "plugin",
+                        "name": "Download Artifacts",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Start JBoss",
+                        "pluginName": "JBoss",
+                        "pluginVersion": 10,
+                        "properties": {
+                            "startupMode": "standalone",
+                            "jbosspath": "${p:component\/jbossStart}",
+                            "timeout": "10000",
+                            "hostName": "${p:resource\/hostName}",
+                            "hostPort": "${p:resource\/portNumber}",
+                            "serverConf": ""
+                        },
+                        "type": "plugin",
+                        "name": "Start JBoss",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Undeploy Application",
+                        "pluginName": "JBoss",
+                        "pluginVersion": 10,
+                        "properties": {
+                            "appName": "${p:component\/appName}",
+                            "jbosspath": "${p:component\/jbossCli}",
+                            "keepContent": "false",
+                            "allServerGroups": "false",
+                            "serverGroups": "",
+                            "controller": "",
+                            "username": "${p:resource\/JBoss.username}",
+                            "password": "${p:resource\/JBoss.password}"
+                        },
+                        "type": "plugin",
+                        "name": "Undeploy Application",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Deploy Application",
+                        "pluginName": "JBoss",
+                        "pluginVersion": 10,
+                        "properties": {
+                            "includes": "${p:component\/archiveFile}",
+                            "excludes": "",
+                            "jbosspath": "${p:component\/jbossCli}",
+                            "appName": "${p:component\/appName}",
+                            "runName": "${p:component\/runtimeName}",
+                            "allServerGroups": "false",
+                            "serverGroups": "",
+                            "controller": "",
+                            "username": "${p:resource\/JBoss.username}",
+                            "password": "${p:resource\/JBoss.password}"
+                        },
+                        "type": "plugin",
+                        "name": "Deploy Application",
+                        "children": []
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Disable Application",
+            "description": "Disable a deployed application.",
+            "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+            "takesVersion": false,
+            "status": "",
+            "active": true,
+            "path": "componentTemplates\/f727459b-3bb7-439b-b017-65efd73a612f\/processes\/6db98b98-0b20-4a96-abfd-365c58b3dfc8",
+            "propDefs": [],
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "Disable Application",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "65df7b4366dafae9b61f62de61989c",
+                        "from": "Disable Application",
+                        "type": "SUCCESS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "Disable Application",
+                        "x": -65,
+                        "y": 160,
+                        "h": 60,
+                        "w": 220
+                    },
+                    {
+                        "name": "65df7b4366dafae9b61f62de61989c",
+                        "x": -5,
+                        "y": 420,
+                        "h": 50,
+                        "w": 90
+                    }
+                ],
+                "type": "graph",
+                "name": "6f11d6af-86a8-42fe-aef9-5b7cb63ac160",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "65df7b4366dafae9b61f62de61989c",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Disable Application",
+                        "pluginName": "JBoss",
+                        "pluginVersion": 10,
+                        "properties": {
+                            "jbosspath": "${p:component\/jbossCli}",
+                            "appName": "${p:component\/appName}",
+                            "controller": "",
+                            "username": "${p:resource\/JBoss.username}",
+                            "password": "${p:resource\/JBoss.password}"
+                        },
+                        "type": "plugin",
+                        "name": "Disable Application",
+                        "children": []
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Enable Application",
+            "description": "Enable a deployed application.",
+            "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+            "takesVersion": false,
+            "status": "",
+            "active": true,
+            "path": "componentTemplates\/f727459b-3bb7-439b-b017-65efd73a612f\/processes\/852d1571-0993-458e-9b69-589cff9ff475",
+            "propDefs": [],
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "35742f1b8577ce58e453309a0dd724",
+                        "from": "Enable Application",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Enable Application",
+                        "type": "ALWAYS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "35742f1b8577ce58e453309a0dd724",
+                        "x": -5,
+                        "y": 270,
+                        "h": 50,
+                        "w": 90
+                    },
+                    {
+                        "name": "Enable Application",
+                        "x": -65,
+                        "y": 120,
+                        "h": 60,
+                        "w": 220
+                    }
+                ],
+                "type": "graph",
+                "name": "0bd1798a-07f3-481d-bec3-bf90b43053ac",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "35742f1b8577ce58e453309a0dd724",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Enable Application",
+                        "pluginName": "JBoss",
+                        "pluginVersion": 10,
+                        "properties": {
+                            "jbosspath": "${p:component\/jbossCli}",
+                            "appName": "${p:component\/appName}",
+                            "controller": "",
+                            "username": "${p:resource\/JBoss.username}",
+                            "password": "${p:resource\/JBoss.password}"
+                        },
+                        "type": "plugin",
+                        "name": "Enable Application",
+                        "children": []
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Restart Server",
+            "description": "Restart JBoss Server.",
+            "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+            "takesVersion": false,
+            "status": "",
+            "active": true,
+            "path": "componentTemplates\/f727459b-3bb7-439b-b017-65efd73a612f\/processes\/867c76a2-e48c-4ba4-984b-99908ab7656c",
+            "propDefs": [],
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "a98cc7f5bba46c6af939eaf0f81680",
+                        "from": "Restart Server",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Restart Server",
+                        "type": "ALWAYS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "Restart Server",
+                        "x": -55,
+                        "y": 170,
+                        "h": 60,
+                        "w": 190
+                    },
+                    {
+                        "name": "a98cc7f5bba46c6af939eaf0f81680",
+                        "x": -5,
+                        "y": 420,
+                        "h": 50,
+                        "w": 90
+                    }
+                ],
+                "type": "graph",
+                "name": "b3cb8bd6-e90d-4c36-a8e1-bf0eb53a6eac",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "a98cc7f5bba46c6af939eaf0f81680",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Restart Server",
+                        "pluginName": "JBoss",
+                        "pluginVersion": 10,
+                        "properties": {
+                            "jbosspath": "${p:component\/jbossCli}",
+                            "timeout": "",
+                            "controller": "",
+                            "username": "${p:resource\/JBoss.username}",
+                            "password": "${p:resource\/JBoss.password}"
+                        },
+                        "type": "plugin",
+                        "name": "Restart Server",
+                        "children": []
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Undeploy Application",
+            "description": "Undeploy an application from the JBoss server.",
+            "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+            "takesVersion": true,
+            "inventoryActionType": "ADD",
+            "status": "Active",
+            "configActionType": "ADD",
+            "active": true,
+            "path": "componentTemplates\/f727459b-3bb7-439b-b017-65efd73a612f\/processes\/3288fd95-1f28-42ce-b7f0-6fea31138222",
+            "propDefs": [],
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "Undeploy Application",
+                        "from": "Start JBoss",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Start JBoss",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "9ab5117b9646a445cd11b0aa0aba45",
+                        "from": "Undeploy Application",
+                        "type": "SUCCESS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "Undeploy Application",
+                        "x": -70,
+                        "y": 180,
+                        "h": 60,
+                        "w": 230
+                    },
+                    {
+                        "name": "Start JBoss",
+                        "x": -45,
+                        "y": 90,
+                        "h": 60,
+                        "w": 170
+                    },
+                    {
+                        "name": "9ab5117b9646a445cd11b0aa0aba45",
+                        "x": -5,
+                        "y": 300,
+                        "h": 50,
+                        "w": 90
+                    }
+                ],
+                "type": "graph",
+                "name": "adbd7aed-d4c7-4cfa-8d34-d76a0be7ecd2",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "9ab5117b9646a445cd11b0aa0aba45",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Start JBoss",
+                        "pluginName": "JBoss",
+                        "pluginVersion": 10,
+                        "properties": {
+                            "startupMode": "standalone",
+                            "jbosspath": "${p:component\/jbossStart}",
+                            "timeout": "10000",
+                            "hostName": "${p:resource\/hostName}",
+                            "hostPort": "${p:resource\/portNumber}",
+                            "serverConf": ""
+                        },
+                        "type": "plugin",
+                        "name": "Start JBoss",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Undeploy Application",
+                        "pluginName": "JBoss",
+                        "pluginVersion": 10,
+                        "properties": {
+                            "appName": "${p:component\/appName}",
+                            "jbosspath": "${p:component\/jbossCli}",
+                            "keepContent": "false",
+                            "allServerGroups": "false",
+                            "serverGroups": "",
+                            "controller": "",
+                            "username": "${p:resource\/JBoss.username}",
+                            "password": "${p:resource\/JBoss.password}"
+                        },
+                        "type": "plugin",
+                        "name": "Undeploy Application",
+                        "children": []
+                    }
+                ]
+            }
+        }
+    ],
+    "genericProcesses": [],
+    "teamMappings": []
+}

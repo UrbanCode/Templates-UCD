@@ -1,0 +1,260 @@
+/**
+ * © Copyright IBM Corporation 2016.
+ * This is licensed under the following license.
+ * The Eclipse Public 1.0 License (http://www.eclipse.org/legal/epl-v10.html)
+ * U.S. Government Users Restricted Rights:  Use, duplication or disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ */
+ {
+    "securityResourceId": "50484786-4bb6-42ee-a2d6-c55233846262",
+    "path": "componentTemplates\/b5d6a286-23fa-4c21-9b1c-2bfc46206d3f",
+    "name": "API Connect - Release API Product Definitions from Drafts",
+    "description": "An API Connect component template to push and publish API Product Defintions after committing the definitions to drafts.",
+    "ignoreQualifiers": 0,
+    "componentType": "STANDARD",
+    "tags": [],
+    "active": true,
+    "sourceConfigProperties": [],
+    "envPropDefs": [],
+    "propDefs": [
+        {
+            "name": "apic.definition",
+            "label": "API Product Definitions",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "<path-to>\/banking-services.yaml",
+            "required": true,
+            "description": "The full path to a YAML file that contains the API product definitions.",
+            "placeholder": ""
+        },
+        {
+            "name": "apic.server",
+            "label": "API Connect Server",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "us.apiconnect.ibmcloud.com",
+            "required": true,
+            "description": "Specify the management server endpoint to push to. For example, the IBM Bluemix endpoint is us.apiconnect.ibmcloud.com.",
+            "placeholder": ""
+        },
+        {
+            "name": "apic.organization",
+            "label": "Organization",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "johndoeibmcom-dev",
+            "required": true,
+            "description": "Provider organization name. Found or set using the API Connect dashboard. Default is Bluemix username without any characters and with \"-dev\" appended.",
+            "placeholder": ""
+        },
+        {
+            "name": "apic.catalog",
+            "label": "Catalog",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "sb",
+            "required": true,
+            "description": "The catalog's name that is being deployed to.",
+            "placeholder": ""
+        },
+        {
+            "name": "apic.username",
+            "label": "Username",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "email@ibm.com",
+            "required": true,
+            "description": "Username to use to authenticate with the API Connect management server.",
+            "placeholder": ""
+        },
+        {
+            "name": "apic.password",
+            "label": "Password",
+            "pattern": "",
+            "type": "SECURE",
+            "required": true,
+            "description": "Password to use to authenticate with the API Connect management server.",
+            "placeholder": ""
+        },
+        {
+            "name": "apic.path",
+            "label": "apic CLI Tool Path",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "The full path to the apic command-line tool. For example: C:\\Users\\John\\AppData\\Roaming\\npm\\apic.cmd",
+            "placeholder": ""
+        }
+    ],
+    "properties": [],
+    "processes": [{
+        "name": "Release API Product Definitions from Drafts",
+        "description": "",
+        "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+        "takesVersion": false,
+        "status": "",
+        "active": true,
+        "path": "componentTemplates\/b5d6a286-23fa-4c21-9b1c-2bfc46206d3f\/processes\/21fdfa69-437c-4d8d-ab9b-34f5cfe11525",
+        "propDefs": [],
+        "rootActivity": {
+            "edges": [
+                {
+                    "to": "defcbdffc2656fa8a654b138c3ca22",
+                    "from": "Logout",
+                    "type": "SUCCESS",
+                    "value": ""
+                },
+                {
+                    "to": "Logout",
+                    "from": "Publish API Product Definitions",
+                    "type": "ALWAYS",
+                    "value": ""
+                },
+                {
+                    "to": "Push API Product Definitions to Drafts",
+                    "from": "Login",
+                    "type": "SUCCESS",
+                    "value": ""
+                },
+                {
+                    "to": "Publish API Product Definitions",
+                    "from": "Push API Product Definitions to Drafts",
+                    "type": "SUCCESS",
+                    "value": ""
+                },
+                {
+                    "to": "Logout",
+                    "from": "Push API Product Definitions to Drafts",
+                    "type": "FAILURE",
+                    "value": ""
+                },
+                {
+                    "to": "Login",
+                    "type": "ALWAYS",
+                    "value": ""
+                }
+            ],
+            "offsets": [
+                {
+                    "name": "Publish API Product Definitions",
+                    "x": 110,
+                    "y": 320,
+                    "h": 60,
+                    "w": 280
+                },
+                {
+                    "name": "Push API Product Definitions to Drafts",
+                    "x": -115,
+                    "y": 190,
+                    "h": 60,
+                    "w": 310
+                },
+                {
+                    "name": "defcbdffc2656fa8a654b138c3ca22",
+                    "x": -5,
+                    "y": 540,
+                    "h": 50,
+                    "w": 90
+                },
+                {
+                    "name": "Logout",
+                    "x": -35,
+                    "y": 430,
+                    "h": 60,
+                    "w": 150
+                },
+                {
+                    "name": "Login",
+                    "x": -30,
+                    "y": 90,
+                    "h": 60,
+                    "w": 140
+                }
+            ],
+            "type": "graph",
+            "name": "7bac352e-8158-4526-b52c-5d6bb7b08ff2",
+            "children": [
+                {
+                    "type": "finish",
+                    "name": "defcbdffc2656fa8a654b138c3ca22",
+                    "children": []
+                },
+                {
+                    "allowFailure": false,
+                    "useImpersonation": false,
+                    "showHidden": false,
+                    "impersonationUseSudo": false,
+                    "commandName": "Login",
+                    "pluginName": "IBM API Connect",
+                    "pluginVersion": 3,
+                    "properties": {
+                        "server": "${p:component\/apic.server}",
+                        "username": "${p:apic.username}",
+                        "password": "${p:apic.password}",
+                        "apicPath": "${p?:component\/apic.path}"
+                    },
+                    "type": "plugin",
+                    "name": "Login",
+                    "children": []
+                },
+                {
+                    "allowFailure": false,
+                    "useImpersonation": false,
+                    "showHidden": false,
+                    "impersonationUseSudo": false,
+                    "commandName": "Push API Product Definitions to Drafts",
+                    "pluginName": "IBM API Connect",
+                    "pluginVersion": 3,
+                    "properties": {
+                        "server": "${p:component\/apic.server}",
+                        "organization": "${p:component\/apic.organization}",
+                        "definition": "${p:component\/apic.definition}",
+                        "replace": "${p?:component\/apic.replaceNameVersion}",
+                        "productOnly": "false",
+                        "apicPath": "${p?:component\/apic.path}"
+                    },
+                    "type": "plugin",
+                    "name": "Push API Product Definitions to Drafts",
+                    "children": []
+                },
+                {
+                    "allowFailure": false,
+                    "useImpersonation": false,
+                    "showHidden": false,
+                    "impersonationUseSudo": false,
+                    "commandName": "Publish API Product Definitions",
+                    "pluginName": "IBM API Connect",
+                    "pluginVersion": 3,
+                    "properties": {
+                        "server": "${p:component\/apic.server}",
+                        "organization": "${p:component\/apic.organization}",
+                        "catalog": "${p:component\/apic.catalog}",
+                        "definition": "${p:component\/apic.definition}",
+                        "stage": "false",
+                        "apicPath": "${p?:component\/apic.path}"
+                    },
+                    "type": "plugin",
+                    "name": "Publish API Product Definitions",
+                    "children": []
+                },
+                {
+                    "allowFailure": false,
+                    "useImpersonation": false,
+                    "showHidden": false,
+                    "impersonationUseSudo": false,
+                    "commandName": "Logout",
+                    "pluginName": "IBM API Connect",
+                    "pluginVersion": 3,
+                    "properties": {
+                        "server": "${p:component\/apic.server}",
+                        "apicPath": "${p?:component\/apic.path}"
+                    },
+                    "type": "plugin",
+                    "name": "Logout",
+                    "children": []
+                }
+            ]
+        }
+    }],
+    "genericProcesses": [],
+    "teamMappings": []
+}
