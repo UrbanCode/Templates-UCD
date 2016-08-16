@@ -6,11 +6,12 @@ These templates are protected under the [Eclipse Public 1.0 License](http://www.
 
 ### Compatibility
 Templates are supported by IBM UrbanCode Deploy versions 6.0+
-Installation directions for Component Templates: 
+General documentation on Component Templates can be found [here](http://www.ibm.com/support/knowledgecenter/SS4GSP_6.2.0/com.ibm.udeploy.doc/topics/comp_template.html).
+General documentation on Application Templates can be found [here](http://www.ibm.com/support/knowledgecenter/SS4GSP_6.2.0/com.ibm.udeploy.doc/topics/app_template.html).
     
 ### Create Your Own
-Directions for creating a component template can be found here: https://developer.ibm.com/urbancode/videos/component-templates-ibm-urbancode-deploy-v6-0/
-Directions for creating a application template can be found here: https://developer.ibm.com/urbancode/videos/creating-application-templates/
+Video directions for creating a component template can be found [here](https://developer.ibm.com/urbancode/videos/component-templates-ibm-urbancode-deploy-v6-0/)
+Video directions for creating a application template can be found [here](https://developer.ibm.com/urbancode/videos/creating-application-templates/)
     
 ### Use Component Templates
-Introduction to using component templates: https://developer.ibm.com/urbancode/videos/creating-applications-based-on-templates-urbancode-deploy-v-6-2/
+Video introduction to [using component templates](https://developer.ibm.com/urbancode/videos/creating-applications-based-on-templates-urbancode-deploy-v-6-2/)
