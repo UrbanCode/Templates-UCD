@@ -1,0 +1,1388 @@
+/**
+ * © Copyright IBM Corporation 2016.
+ * This is licensed under the following license.
+ * The Eclipse Public 1.0 License (http://www.eclipse.org/legal/epl-v10.html)
+ * U.S. Government Users Restricted Rights:  Use, duplication or disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ */
+ {
+    "securityResourceId": "acc58534-5a93-49a1-a132-758ba55fb21c",
+    "path": "componentTemplates\/dfcd23b1-e2a1-4887-a9dd-efb4fee3331d",
+    "name": "custtemp_wcdeploy",
+    "description": "Component Template for WC Deploy",
+    "ignoreQualifiers": 0,
+    "componentType": "STANDARD",
+    "tags": [],
+    "active": true,
+    "envPropDefs": [
+        {
+            "name": "was.user",
+            "label": "was.user",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "wasadmin",
+            "required": true,
+            "description": "WCBD WAS User for login to WAS Admin console",
+            "placeholder": ""
+        },
+        {
+            "name": "was.password",
+            "label": "was.password",
+            "pattern": "",
+            "type": "SECURE",
+            "value": "",
+            "required": true,
+            "description": "WCBD WAS USER password for login to was admin console",
+            "placeholder": ""
+        },
+        {
+            "name": "db.user.name",
+            "label": "db.user.name",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "",
+            "required": true,
+            "description": "WCBD Database user",
+            "placeholder": ""
+        },
+        {
+            "name": "db.user.password",
+            "label": "db.user.password",
+            "pattern": "",
+            "type": "SECURE",
+            "value": "",
+            "required": true,
+            "description": "WCBD Database user password",
+            "placeholder": ""
+        },
+        {
+            "name": "was.profile.name",
+            "label": "was.profile.name",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "${wc.instance.name}",
+            "required": true,
+            "description": "WCBD The name of the WebSphere Application Server profile, on the system where the deployment process is run, that will be used as the administative client to invoke the wsadmin utility to update the deployed WebSphere Commerce application. This profile does not need to be the profile in which the WebSphere Commerce application is deployed; It is only used to facilitate wsadmin connection to the WebSphere Application Server, remote or otherwise. You must create a new Application Server profile using the Profile Management Tool or the manageprofiles utility if you do not have an existing one which the deployment process can use.",
+            "placeholder": ""
+        },
+        {
+            "name": "was.use.dmgr",
+            "label": "was.use.dmgr",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "true",
+            "required": true,
+            "description": "WCBD Whether the target environment uses a Network Deployment Manager to manage the deployed WebSphere Commerce application in a federated or clustered configuration.",
+            "placeholder": ""
+        },
+        {
+            "name": "was.host.list",
+            "label": "was.host.list",
+            "pattern": "",
+            "type": "TEXT",
+            "required": true,
+            "description": "WCBD The comma-separated list of host names with a running application server or DMGR instance to deploy to. It should be set as follows:",
+            "placeholder": ""
+        },
+        {
+            "name": "was.port",
+            "label": "was.port",
+            "pattern": "",
+            "type": "TEXT",
+            "required": true,
+            "description": "WCBD The port corresponding to ${was.conntype} that the wsadmin utility will use to connect to the server. 10003 for dev, 12003 for QA, 14003 for pre-prod, 16003 for prod ",
+            "placeholder": ""
+        },
+        {
+            "name": "db.name",
+            "label": "db.name",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "${wc.instance.name}",
+            "required": true,
+            "description": "WCBD Databse name",
+            "placeholder": ""
+        },
+        {
+            "name": "db.schema.name",
+            "label": "db.schema.name",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "WCSDB",
+            "required": true,
+            "description": "WCBD Database schema name",
+            "placeholder": ""
+        },
+        {
+            "name": "jdbc.url",
+            "label": "jdbc.url",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "jdbc:db2:\/\/${db.host.name}:50000\/${wc.instance.name}",
+            "required": true,
+            "description": "WCBD The JDBC URL. Use the value corresponding to the database vendor listed below unless you have special requirements to use other JDBC drivers which requires a different URL, or include other parameters in the URL.",
+            "placeholder": ""
+        },
+        {
+            "name": "datasource.jndi.name",
+            "label": "datasource.jndi.name",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "jdbc\/WebSphere Commerce DB2 DataSource ${wc.instance.name}",
+            "required": true,
+            "description": "WCBD JNDI name of the default datasource that will be mapped to entity beans",
+            "placeholder": ""
+        },
+        {
+            "name": "rollout.update",
+            "label": "rollout.update",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "false",
+            "required": true,
+            "description": "WCBD Whether rollout update should be used when updating the WebSphere Commerce application. This option only works for clustered or federated environment managed by a DMGR. IF you set this to true, set STOP_START_SERVERS=false below This should only be used for production environments",
+            "placeholder": ""
+        },
+        {
+            "name": "rollout.update.timeout",
+            "label": "rollout.update.timeout",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "300",
+            "required": true,
+            "description": "WCBD The timeout value for rollout update. You might need to increase this value depending on how large your customized WebSphere Commerce application is.",
+            "placeholder": ""
+        },
+        {
+            "name": "partial.app.full.update",
+            "label": "partial.app.full.update",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "true",
+            "required": true,
+            "description": "WCBD Whether the partial application update should be performed as a full update, which the binaries directory is erased and the content of the updated EAR file is completely extracted. Setting this value to true may improve the deployment time if the partial application zip file contains a large number of files.",
+            "placeholder": ""
+        },
+        {
+            "name": "solr.node.list",
+            "label": "solr.node.list",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "localhost",
+            "required": true,
+            "description": "WCBD list of solr servers in cluster",
+            "placeholder": ""
+        },
+        {
+            "name": "wcbd.deploy.dir",
+            "label": "wcbd.deploy.dir",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "\/opt\/IBM\/WebSphere\/CommerceServer70\/wcbd\/deploy\/custom",
+            "required": true,
+            "description": "The custom deploy directory where deploy zips will be placed",
+            "placeholder": ""
+        },
+        {
+            "name": "wcbd.auth.instance.name",
+            "label": "wcbd.auth.instance.name",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "auth",
+            "required": true,
+            "description": "WCBD Authoring Instance Name",
+            "placeholder": ""
+        },
+        {
+            "name": "wcbd.live.instance.name",
+            "label": "wcbd.live.instance.name",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "live",
+            "required": true,
+            "description": "WCBD Runtime Instance Name",
+            "placeholder": ""
+        },
+        {
+            "name": "wcbd.auth.db.host.name",
+            "label": "wcbd.auth.db.host.name",
+            "pattern": "",
+            "type": "TEXT",
+            "required": true,
+            "description": "WCBD Authoring DB HostName",
+            "placeholder": ""
+        },
+        {
+            "name": "wcbd.live.db.host.name",
+            "label": "wcbd.live.db.host.name",
+            "pattern": "",
+            "type": "TEXT",
+            "required": true,
+            "description": "WCBD Runtime DB HostName",
+            "placeholder": ""
+        },
+        {
+            "name": "wcbd.target.name",
+            "label": "wcbd.target.name",
+            "pattern": "",
+            "type": "TEXT",
+            "required": true,
+            "description": "WCBD name of Target Environment",
+            "placeholder": ""
+        },
+        {
+            "name": "webserver.node.list",
+            "label": "webserver.node.list",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "localhost",
+            "required": true,
+            "description": "List of webservers to deploy static content to seoerated by commas",
+            "placeholder": ""
+        },
+        {
+            "name": "static.wars",
+            "label": "static.wars",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "Stores",
+            "required": true,
+            "description": "List of wars you are deploying static content from (i.e. Stores, LOBTools, CommerceAcclerator, etc...",
+            "placeholder": ""
+        },
+        {
+            "name": "webserver.username",
+            "label": "webserver.username",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "wasuser",
+            "required": true,
+            "description": "User name to copy static content to webserver",
+            "placeholder": ""
+        },
+        {
+            "name": "ssh.keyfile",
+            "label": "ssh.keyfile",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "\/home\/wasuser\/deploy\/properties\/wcdeploy",
+            "required": true,
+            "description": "ssh keyfile to use to copy static content",
+            "placeholder": ""
+        },
+        {
+            "name": "webserver.documentroot",
+            "label": "webserver.documentroot",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "${wc.home}\/instances\/${wc.instance.name}\/web",
+            "required": true,
+            "description": "DocumentRoot on the webserver",
+            "placeholder": ""
+        }
+    ],
+    "propDefs": [],
+    "properties": [
+        {
+            "name": "db.type",
+            "value": "db2",
+            "description": "WCBD Name of database vendor.",
+            "secure": false
+        },
+        {
+            "name": "db2.install.dir",
+            "value": "\/opt\/IBM\/DB2\/V10.5",
+            "description": "WCBD Where DB2 is installed",
+            "secure": false
+        },
+        {
+            "name": "jdbc.driver",
+            "value": "com.ibm.db2.jcc.DB2Driver",
+            "description": "WCBD JDBC driver class name, should correspond to dtatabase vendor.",
+            "secure": false
+        },
+        {
+            "name": "jdbc.driver.path",
+            "value": "${db2.install.dir}\/java\/db2jcc4.jar:${db2.install.dir}\/java\/db2jcc_license_cu.jar",
+            "description": "WCBD The classpath that contains the JDBC driver and other libraries it depends on, like license jar.",
+            "secure": false
+        },
+        {
+            "name": "mail.mailhost",
+            "value": "localhost",
+            "description": "WCBD The host name of the SMTP server.",
+            "secure": false
+        },
+        {
+            "name": "mail.mailport",
+            "value": "25",
+            "description": "WCBD The TCP port of the SMTP server.",
+            "secure": false
+        },
+        {
+            "name": "mail.password",
+            "value": "",
+            "description": "WCBD Mail SMPT User Password",
+            "secure": true
+        },
+        {
+            "name": "mail.ssl",
+            "value": "false",
+            "description": "WCBD Whether the SMTP server uses TLS\/SSL for encryption.",
+            "secure": false
+        },
+        {
+            "name": "mail.user",
+            "value": "",
+            "description": "WCBD SMTP User",
+            "secure": true
+        },
+        {
+            "name": "partial.app.zip.excludes",
+            "value": "**\/*.gif,**\/*.jpg,**\/*.bmp,**\/*.pdf,**\/*.css,**\/*.gif,**\/*.js,**\/*.png,**\/*.mov,**\/*.GIF,**\/*.JPG,**\/*.BMP,**\/*.PDF,**\/*.CSS,**\/*.GIF,**\/*.JS,**\/*.PNG,**\/*.MOV,**\/fonts\/**,**\/robots.txt,**\/*.mp3,**\/*.mp4,**\/*.MP3,**\/*.MP4,**\/*.ico,**\/*.ICO,**\/*.ogg,**\/*.OGG,**\/*.svg,**\/*.SVG,**\/*.json,**\/*.JSON",
+            "description": "WCBD The comma-separated list of files in ${working.dir}\/partialapp to be excluded in the partial application zip file. Leave the value of this property empty to not exclude any file.",
+            "secure": false
+        },
+        {
+            "name": "run.mail.failure",
+            "value": "false",
+            "description": "WCBD Whether deployment failure notifications should be sent.",
+            "secure": false
+        },
+        {
+            "name": "run.mail.success",
+            "value": "false",
+            "description": "WCBD Whether deployment success notifications should be sent.",
+            "secure": false
+        },
+        {
+            "name": "run.static.web.deploy",
+            "value": "false",
+            "description": "WCBD whether static Web server assets should be deployed.",
+            "secure": false
+        },
+        {
+            "name": "static.web.dir.includes",
+            "value": "**\/*.gif,**\/*.jpg,**\/*.bmp,**\/*.htm*,**\/*.pdf,**\/*.css,**\/*.gif,**\/*.js,**\/*.png,**\/*.swf,**\/*.mov,**\/*.GIF,**\/*.JPG,**\/*.BMP,**\/*.PDF,**\/*.CSS,**\/*.GIF,**\/*.JS,**\/*.PNG,**\/*.SWF,**\/*.MOV,**\/fonts\/**,**\/*.xml,**\/robots.txt,**\/*.mp3,**\/*.mp4,**\/*.MP3,**\/*.MP4,**\/*.ico,**\/*.ICO,**\/*.ogg,**\/*.OGG,**\/*.svg,**\/*.SVG,**\/*.json,**\/*.JSON",
+            "description": "WCBD The comma-separated list of files in ${static.web.dir} to be included fromdeployment. Leave the value of this property empty to include all files. ",
+            "secure": false
+        },
+        {
+            "name": "was.conntype",
+            "value": "SOAP",
+            "description": "WCBD The type of connection that the wsadmin utility will use to connect to the server on which the WebSphere Commerce application is deployed. Use the default SOAP connection type unless you have special requirements to use other connection types. ",
+            "secure": false
+        },
+        {
+            "name": "was.home",
+            "value": "\/opt\/IBM\/WebSphere\/AppServer",
+            "description": "WCBD The WebSphere Application Server installation directory",
+            "secure": false
+        },
+        {
+            "name": "was.jvm.max.memory",
+            "value": "1024M",
+            "description": "WCBD The maximum size of the memory for the JVM in which the wsadmin utility is run.",
+            "secure": false
+        },
+        {
+            "name": "wc.home",
+            "value": "\/opt\/IBM\/WebSphere\/CommerceServer70",
+            "description": "WCBD The WebSphere Commerce installation directory.",
+            "secure": false
+        }
+    ],
+    "processes": [
+        {
+            "name": "Deploy Custom WC App using WCBD",
+            "description": "Deploy Custom WC App using WCBD",
+            "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+            "takesVersion": true,
+            "inventoryActionType": "ADD",
+            "status": "Active",
+            "configActionType": "ADD",
+            "active": true,
+            "path": "componentTemplates\/dfcd23b1-e2a1-4887-a9dd-efb4fee3331d\/processes\/0d2db33d-2970-4d0a-96c6-0e098ad53780",
+            "propDefs": [
+                {
+                    "name": "wcbd.deploy.isstopstartservers",
+                    "label": "Is Stop\/Start Application",
+                    "pattern": "",
+                    "type": "CHECKBOX",
+                    "value": "false",
+                    "required": true,
+                    "description": "Should we stop  the application while we do the deploy.",
+                    "placeholder": ""
+                },
+                {
+                    "name": "wcbd.deploy.isdeployauth",
+                    "label": "Do Deploy to Authoring",
+                    "pattern": "",
+                    "type": "CHECKBOX",
+                    "value": "true",
+                    "required": true,
+                    "description": "If true, we will deploy application to Authoring",
+                    "placeholder": ""
+                },
+                {
+                    "name": "wcbd.deploy.isdeploylive",
+                    "label": "Do Deploy to Live",
+                    "pattern": "",
+                    "type": "CHECKBOX",
+                    "value": "false",
+                    "required": true,
+                    "description": "If true, we will deploy application to Live",
+                    "placeholder": ""
+                },
+                {
+                    "name": "wcbd.deploy.isstaticonly",
+                    "label": "Run Static Html Only",
+                    "pattern": "",
+                    "type": "CHECKBOX",
+                    "value": "false",
+                    "required": true,
+                    "description": "If true, do not deploy code or database,  only copy static files to webserver",
+                    "placeholder": ""
+                },
+                {
+                    "name": "wcbd.deploy.isrunoncesql",
+                    "label": "Do Runonce SQLs",
+                    "pattern": "",
+                    "type": "CHECKBOX",
+                    "value": "false",
+                    "required": true,
+                    "description": "Note: SHOULD BE TRUE TO RUN RUNONCE, then turrned off.  Whether common SQL data files are to be loaded in order as specified in property.",
+                    "placeholder": ""
+                }
+            ],
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "e6929d1e95329bd54069e43e12b1c5",
+                        "from": "Run Live WCBD",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "e6929d1e95329bd54069e43e12b1c5",
+                        "from": "runLive",
+                        "type": "VALUE",
+                        "value": "false"
+                    },
+                    {
+                        "to": "Extract WCBD Deploy Package",
+                        "from": "Download Artifacts",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Adding Exe bit",
+                        "from": "Extract WCBD Deploy Package",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Update Live Deploy Properties",
+                        "from": "runLive",
+                        "type": "VALUE",
+                        "value": "true"
+                    },
+                    {
+                        "to": "Download Artifacts",
+                        "from": "Create WCBD Deploy Dir",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "runAuth",
+                        "from": "Adding Exe bit",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "runLive",
+                        "from": "Run Auth WCBD",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Update Auth Private Properties",
+                        "from": "Update Auth Deploy Properties",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Run Live WCBD",
+                        "from": "Update Live Private Properties",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Run Auth WCBD",
+                        "from": "Update Auth Private Properties",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Create WCBD Deploy Dir",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "runLive",
+                        "from": "runAuth",
+                        "type": "VALUE",
+                        "value": "false"
+                    },
+                    {
+                        "to": "Update Live Private Properties",
+                        "from": "Update Live Deploy Properties",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Update Auth Deploy Properties",
+                        "from": "runAuth",
+                        "type": "VALUE",
+                        "value": "true"
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "e6929d1e95329bd54069e43e12b1c5",
+                        "x": -5,
+                        "y": 1250,
+                        "h": 50,
+                        "w": 90
+                    },
+                    {
+                        "name": "Adding Exe bit",
+                        "x": -40,
+                        "y": 370,
+                        "h": 60,
+                        "w": 160
+                    },
+                    {
+                        "name": "Update Live Private Properties",
+                        "x": 179,
+                        "y": 1050,
+                        "h": 60,
+                        "w": 270
+                    },
+                    {
+                        "name": "Create WCBD Deploy Dir",
+                        "x": -105,
+                        "y": 90,
+                        "h": 60,
+                        "w": 290
+                    },
+                    {
+                        "name": "Run Auth WCBD",
+                        "x": 209,
+                        "y": 750,
+                        "h": 60,
+                        "w": 210
+                    },
+                    {
+                        "name": "Run Live WCBD",
+                        "x": 209,
+                        "y": 1136.3,
+                        "h": 60,
+                        "w": 210
+                    },
+                    {
+                        "name": "Update Auth Deploy Properties",
+                        "x": 179,
+                        "y": 560,
+                        "h": 60,
+                        "w": 270
+                    },
+                    {
+                        "name": "Download Artifacts",
+                        "x": -70,
+                        "y": 200,
+                        "h": 60,
+                        "w": 220
+                    },
+                    {
+                        "name": "Update Auth Private Properties",
+                        "x": 179,
+                        "y": 650,
+                        "h": 60,
+                        "w": 270
+                    },
+                    {
+                        "name": "runAuth",
+                        "x": -95,
+                        "y": 470,
+                        "h": 60,
+                        "w": 270
+                    },
+                    {
+                        "name": "Update Live Deploy Properties",
+                        "x": 179,
+                        "y": 950,
+                        "h": 60,
+                        "w": 270
+                    },
+                    {
+                        "name": "Extract WCBD Deploy Package",
+                        "x": -85,
+                        "y": 290,
+                        "h": 60,
+                        "w": 250
+                    },
+                    {
+                        "name": "runLive",
+                        "x": -90,
+                        "y": 850,
+                        "h": 60,
+                        "w": 260
+                    }
+                ],
+                "type": "graph",
+                "name": "ce329c23-f3c7-43f4-87fc-31916935abd1",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "e6929d1e95329bd54069e43e12b1c5",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "workingDir": "${p:wcbd.deploy.dir}",
+                        "commandName": "Download Artifacts",
+                        "pluginName": "IBM UrbanCode Deploy Versioned File Storage",
+                        "pluginVersion": 22,
+                        "properties": {
+                            "directoryOffset": ".",
+                            "artifactSetBaseDir": "",
+                            "fileIncludePatterns": "**\/*",
+                            "fileExcludePatterns": "",
+                            "syncMode": "true",
+                            "fullVerification": "true",
+                            "setFileExecuteBits": "false",
+                            "verifyFileIntegrity": "true",
+                            "versionId": "${p:version.id}",
+                            "serverUrl": "${p:server.url}",
+                            "compId": "${p:component.id}",
+                            "resId": "${p:resource.id}",
+                            "charset": ""
+                        },
+                        "type": "plugin",
+                        "name": "Download Artifacts",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "workingDir": "${p:wcbd.deploy.dir}",
+                        "commandName": "Unzip",
+                        "pluginName": "File Utils",
+                        "pluginVersion": 40,
+                        "properties": {
+                            "dir": "${p:wcbd.deploy.dir}",
+                            "zip": "${p:version.name}.zip",
+                            "includes": "**\/*",
+                            "excludes": "",
+                            "overwrite": "true"
+                        },
+                        "type": "plugin",
+                        "name": "Extract WCBD Deploy Package",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "workingDir": "${p:wcbd.deploy.dir}\/${p:version.name}",
+                        "commandName": "Shell",
+                        "pluginName": "Shell",
+                        "pluginVersion": 6,
+                        "properties": {
+                            "directoryOffset": ".",
+                            "shellInterpreter": "",
+                            "scriptBody": "chmod +x wcbd-ant setenv\necho \"source ~\/.bash_profile\" >> setenv",
+                            "runAsDaemon": "false",
+                            "outputFile": ""
+                        },
+                        "type": "plugin",
+                        "name": "Adding Exe bit",
+                        "children": []
+                    },
+                    {
+                        "componentProcessName": "Sub Process Create WCBD Deploy Dir",
+                        "componentTemplateName": "custtemp_wcdeploy",
+                        "allowFailure": false,
+                        "properties": {},
+                        "type": "componentProcess",
+                        "name": "Create WCBD Deploy Dir",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "workingDir": "${p:wcbd.deploy.dir}\/${p:version.name}",
+                        "commandName": "Update Java Properties File",
+                        "pluginName": "File Utils",
+                        "pluginVersion": 40,
+                        "properties": {
+                            "customEncoding": "",
+                            "useSystemEncoding": "false",
+                            "dir": "",
+                            "includes": "deploy-${p:environment\/wcbd.target.name}${p:environment\/wcbd.auth.instance.name}.properties",
+                            "excludes": "",
+                            "updateProps": "wc.instance.name=${p:wcbd.auth.instance.name}\ndb.host.name=${p:wcbd.auth.db.host.name}\ndataload.sql.common.order=${p:wcbd.deploy.isrunoncesql}",
+                            "additionalProps": "${p:environment\/allProperties},${p:component\/allProperties}",
+                            "additionalPropsPrefix": "",
+                            "deleteProps": "was.user\nwas.password\ndb.user.name\ndb.user.password\nmail.user\nmail.password"
+                        },
+                        "type": "plugin",
+                        "name": "Update Auth Deploy Properties",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "workingDir": "${p:wcbd.deploy.dir}\/${p:version.name}",
+                        "commandName": "Update Java Properties File",
+                        "pluginName": "File Utils",
+                        "pluginVersion": 40,
+                        "properties": {
+                            "customEncoding": "",
+                            "useSystemEncoding": "false",
+                            "dir": "",
+                            "includes": "deploy-${p:environment\/wcbd.target.name}${p:environment\/wcbd.auth.instance.name}.private.properties",
+                            "excludes": "",
+                            "updateProps": "was.user=${p:environment\/was.user}\nwas.password=${p:environment\/was.password}\ndb.user.name=${p:environment\/db.user.name}\ndb.user.password=${p:environment\/db.user.password}\nmail.user=${p:mail.user}\nmail.password=${p:mail.password}",
+                            "additionalProps": "",
+                            "additionalPropsPrefix": "",
+                            "deleteProps": ""
+                        },
+                        "type": "plugin",
+                        "name": "Update Auth Private Properties",
+                        "children": []
+                    },
+                    {
+                        "componentProcessName": "Sub Process Run WCBD",
+                        "componentTemplateName": "custtemp_wcdeploy",
+                        "allowFailure": false,
+                        "properties": {
+                            "static_only": "${p:wcbd.deploy.isstaticonly}",
+                            "target_name": "${p:environment\/wcbd.target.name}",
+                            "restart_app": "${p:wcbd.deploy.isstopstartservers}",
+                            "app_name": "${p:environment\/wcbd.auth.instance.name}"
+                        },
+                        "type": "componentProcess",
+                        "name": "Run Auth WCBD",
+                        "children": []
+                    },
+                    {
+                        "propertyName": "wcbd.deploy.isdeployauth",
+                        "type": "switch",
+                        "name": "runAuth",
+                        "children": []
+                    },
+                    {
+                        "propertyName": "wcbd.deploy.isdeploylive",
+                        "type": "switch",
+                        "name": "runLive",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "workingDir": "${p:wcbd.deploy.dir}\/${p:version.name}",
+                        "commandName": "Update Java Properties File",
+                        "pluginName": "File Utils",
+                        "pluginVersion": 40,
+                        "properties": {
+                            "customEncoding": "",
+                            "useSystemEncoding": "false",
+                            "dir": "",
+                            "includes": "deploy-${p:environment\/wcbd.target.name}${p:environment\/wcbd.live.instance.name}.properties\n\n\n\n\n",
+                            "excludes": "",
+                            "updateProps": "wc.instance.name=${p:wcbd.auth.instance.name}\ndb.host.name=${p:wcbd.auth.db.host.name}\ndataload.sql.common.order=${p:wcbd.deploy.isrunoncesql}",
+                            "additionalProps": "${p:environment\/allProperties},${p:component\/allProperties}",
+                            "additionalPropsPrefix": "",
+                            "deleteProps": "was.user\nwas.password\ndb.user.name\ndb.user.password\nmail.user\nmail.password"
+                        },
+                        "type": "plugin",
+                        "name": "Update Live Deploy Properties",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "workingDir": "${p:wcbd.deploy.dir}\/${p:version.name}",
+                        "commandName": "Update Java Properties File",
+                        "pluginName": "File Utils",
+                        "pluginVersion": 40,
+                        "properties": {
+                            "customEncoding": "",
+                            "useSystemEncoding": "false",
+                            "dir": "",
+                            "includes": "deploy-${p:environment\/wcbd.target.name}${p:environment\/wcbd.live.instance.name}.private.properties",
+                            "excludes": "",
+                            "updateProps": "was.user=${p:environment\/was.user}\nwas.password=${p:environment\/was.password}\ndb.user.name=${p:environment\/db.user.name}\ndb.user.password=${p:environment\/db.user.password}\nmail.user=${p:mail.user}\nmail.password=${p:mail.password}",
+                            "additionalProps": "",
+                            "additionalPropsPrefix": "",
+                            "deleteProps": ""
+                        },
+                        "type": "plugin",
+                        "name": "Update Live Private Properties",
+                        "children": []
+                    },
+                    {
+                        "componentProcessName": "Sub Process Run WCBD",
+                        "componentTemplateName": "custtemp_wcdeploy",
+                        "allowFailure": false,
+                        "properties": {
+                            "static_only": "${p:wcbd.deploy.isstaticonly}",
+                            "target_name": "${p:environment\/wcbd.target.name}",
+                            "restart_app": "${p:wcbd.deploy.isstopstartservers}",
+                            "app_name": "${p:environment\/wcbd.live.instance.name}"
+                        },
+                        "type": "componentProcess",
+                        "name": "Run Live WCBD",
+                        "children": []
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Sub Process Create WCBD Deploy Dir",
+            "description": "A sub process that will create the deploy directory",
+            "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+            "takesVersion": true,
+            "inventoryActionType": "ADD",
+            "status": "Active",
+            "configActionType": "ADD",
+            "active": true,
+            "path": "componentTemplates\/dfcd23b1-e2a1-4887-a9dd-efb4fee3331d\/processes\/922d5b9e-c498-4d5a-b36d-865a3d3d07e9",
+            "propDefs": [],
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "Allow other User to read directory",
+                        "from": "Create WCBD Deploy Dir",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "671ade467b3e91e1f92ffdc1d8781a",
+                        "from": "Allow other User to read directory",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Create WCBD Deploy Dir",
+                        "type": "ALWAYS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "Allow other User to read directory",
+                        "x": -50,
+                        "y": 280,
+                        "h": 60,
+                        "w": 260
+                    },
+                    {
+                        "name": "671ade467b3e91e1f92ffdc1d8781a",
+                        "x": -5,
+                        "y": 420,
+                        "h": 50,
+                        "w": 90
+                    },
+                    {
+                        "name": "Create WCBD Deploy Dir",
+                        "x": -72,
+                        "y": 143,
+                        "h": 60,
+                        "w": 220
+                    }
+                ],
+                "type": "graph",
+                "name": "bc04fa5c-0186-4f52-b253-f385ce7e3caa",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "671ade467b3e91e1f92ffdc1d8781a",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "workingDir": "\/",
+                        "commandName": "Create Directories",
+                        "pluginName": "File Utils",
+                        "pluginVersion": 40,
+                        "properties": {"dir": "${p:wcbd.deploy.dir}"},
+                        "type": "plugin",
+                        "name": "Create WCBD Deploy Dir",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "workingDir": "\/",
+                        "commandName": "Shell",
+                        "pluginName": "Shell",
+                        "pluginVersion": 6,
+                        "properties": {
+                            "directoryOffset": "${p:wcbd.deploy.dir}\/..\/..",
+                            "shellInterpreter": "",
+                            "scriptBody": "chmod -R o+rX .",
+                            "runAsDaemon": "false",
+                            "outputFile": ""
+                        },
+                        "type": "plugin",
+                        "name": "Allow other User to read directory",
+                        "children": []
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Sub Process Run WCBD",
+            "description": "A sub process that will Run WCBD",
+            "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+            "takesVersion": true,
+            "inventoryActionType": "ADD",
+            "status": "Active",
+            "configActionType": "ADD",
+            "active": true,
+            "path": "componentTemplates\/dfcd23b1-e2a1-4887-a9dd-efb4fee3331d\/processes\/ddb345fd-917d-4c63-9b1c-922c84d191a4",
+            "propDefs": [
+                {
+                    "name": "restart_app",
+                    "label": "restart_app",
+                    "pattern": "",
+                    "type": "TEXT",
+                    "value": "false",
+                    "required": true,
+                    "description": "Checkbox to tell process to restart Application",
+                    "placeholder": ""
+                },
+                {
+                    "name": "target_name",
+                    "label": "target_name",
+                    "pattern": "",
+                    "type": "TEXT",
+                    "value": "dev",
+                    "required": true,
+                    "description": "Name of the Target Environment",
+                    "placeholder": ""
+                },
+                {
+                    "name": "app_name",
+                    "label": "app_name",
+                    "pattern": "",
+                    "type": "TEXT",
+                    "value": "auth",
+                    "required": true,
+                    "description": "Application Name to deploy to",
+                    "placeholder": ""
+                },
+                {
+                    "name": "static_only",
+                    "label": "static_only",
+                    "pattern": "",
+                    "type": "TEXT",
+                    "value": "false",
+                    "required": true,
+                    "description": "Copy over Static Html to WebServer only",
+                    "placeholder": ""
+                }
+            ],
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "stop_app",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "start_app",
+                        "from": "Run Static HTML Deploy",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Stop Application",
+                        "from": "stop_app",
+                        "type": "VALUE",
+                        "value": "true"
+                    },
+                    {
+                        "to": "Run Static HTML Deploy",
+                        "from": "static_only",
+                        "type": "VALUE",
+                        "value": "true"
+                    },
+                    {
+                        "to": "static_only",
+                        "from": "stop_app",
+                        "type": "VALUE",
+                        "value": "false"
+                    },
+                    {
+                        "to": "Run Static HTML Deploy",
+                        "from": "WCBD",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Start Application",
+                        "from": "start_app",
+                        "type": "VALUE",
+                        "value": "true"
+                    },
+                    {
+                        "to": "74e65a160df0ea55e87caf96d405cb",
+                        "from": "start_app",
+                        "type": "VALUE",
+                        "value": "false"
+                    },
+                    {
+                        "to": "WCBD",
+                        "from": "static_only",
+                        "type": "VALUE",
+                        "value": "false"
+                    },
+                    {
+                        "to": "74e65a160df0ea55e87caf96d405cb",
+                        "from": "Start Application",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "static_only",
+                        "from": "Stop Application",
+                        "type": "SUCCESS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "Run Static HTML Deploy",
+                        "x": -90,
+                        "y": 450,
+                        "h": 60,
+                        "w": 260
+                    },
+                    {
+                        "name": "WCBD",
+                        "x": 315,
+                        "y": 420,
+                        "h": 60,
+                        "w": 280
+                    },
+                    {
+                        "name": "74e65a160df0ea55e87caf96d405cb",
+                        "x": -5,
+                        "y": 950,
+                        "h": 50,
+                        "w": 90
+                    },
+                    {
+                        "name": "Start Application",
+                        "x": -255,
+                        "y": 740,
+                        "h": 60,
+                        "w": 200
+                    },
+                    {
+                        "name": "static_only",
+                        "x": 135,
+                        "y": 330,
+                        "h": 60,
+                        "w": 180
+                    },
+                    {
+                        "name": "start_app",
+                        "x": -55,
+                        "y": 620,
+                        "h": 60,
+                        "w": 190
+                    },
+                    {
+                        "name": "stop_app",
+                        "x": -55,
+                        "y": 190,
+                        "h": 60,
+                        "w": 190
+                    },
+                    {
+                        "name": "Stop Application",
+                        "x": -255,
+                        "y": 330,
+                        "h": 60,
+                        "w": 200
+                    }
+                ],
+                "type": "graph",
+                "name": "26a78ef6-3b7f-408d-a71b-f04dad84bc5b",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "74e65a160df0ea55e87caf96d405cb",
+                        "children": []
+                    },
+                    {
+                        "propertyName": "restart_app",
+                        "type": "switch",
+                        "name": "stop_app",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": true,
+                        "impersonationUseSudo": false,
+                        "workingDir": "${p:wcbd.deploy.dir}",
+                        "commandName": "Stop Application",
+                        "pluginName": "WAS - Deploy",
+                        "pluginVersion": 80,
+                        "properties": {
+                            "appName": "WC_${p:app_name}",
+                            "appEdition": "",
+                            "batch": "false",
+                            "scriptFile": "${p:request.id}.py",
+                            "cell": "",
+                            "node": "",
+                            "server": "",
+                            "cluster": "WC_${p:app_name}_cluster",
+                            "commandPath": "${p:was.home}\/bin\/",
+                            "user": "${p:was.user}",
+                            "password": "${p:was.password}",
+                            "host": "${p:was.host.list}",
+                            "port": "${p:was.port}",
+                            "connType": "SOAP"
+                        },
+                        "type": "plugin",
+                        "name": "Stop Application",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": true,
+                        "impersonationUseSudo": false,
+                        "workingDir": "${p:wcbd.deploy.dir}",
+                        "commandName": "Start Application",
+                        "pluginName": "WAS - Deploy",
+                        "pluginVersion": 80,
+                        "properties": {
+                            "appName": "WC_${p:app_name}",
+                            "appEdition": "",
+                            "batch": "false",
+                            "scriptFile": "${p:request.id}.py",
+                            "cell": "",
+                            "node": "",
+                            "server": "",
+                            "cluster": "WC_${p:app_name}_cluster",
+                            "commandPath": "${p:was.home}\/bin\/",
+                            "user": "${p:was.user}",
+                            "password": "${p:was.password}",
+                            "host": "${p:was.host.list}",
+                            "port": "${p:was.port}",
+                            "connType": "SOAP",
+                            "additionalArgs": ""
+                        },
+                        "type": "plugin",
+                        "name": "Start Application",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "workingDir": "${p:wcbd.deploy.dir}\/${p:version.name}",
+                        "commandName": "Run server deployment process",
+                        "pluginName": "WebSphere Commerce",
+                        "pluginVersion": 2,
+                        "properties": {
+                            "execFile": "",
+                            "antUtil": "wcbd-ant",
+                            "antBuildFile": "deploy.xml",
+                            "targetEnv": "${p:target_name}${p:app_name}"
+                        },
+                        "type": "plugin",
+                        "name": "WCBD",
+                        "children": []
+                    },
+                    {
+                        "propertyName": "restart_app",
+                        "type": "switch",
+                        "name": "start_app",
+                        "children": []
+                    },
+                    {
+                        "propertyName": "static_only",
+                        "type": "switch",
+                        "name": "static_only",
+                        "children": []
+                    },
+                    {
+                        "componentProcessName": "Sub Process Static HTML Deploy",
+                        "componentTemplateName": "custtemp_wcdeploy",
+                        "allowFailure": false,
+                        "properties": {
+                            "target_name": "${p:target_name}",
+                            "app_name": "${p:app_name}"
+                        },
+                        "type": "componentProcess",
+                        "name": "Run Static HTML Deploy",
+                        "children": []
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Sub Process Static HTML Deploy",
+            "description": "A sub process that will copy static HTML files to Web Servers",
+            "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+            "takesVersion": true,
+            "inventoryActionType": "ADD",
+            "status": "Active",
+            "configActionType": "ADD",
+            "active": true,
+            "path": "componentTemplates\/dfcd23b1-e2a1-4887-a9dd-efb4fee3331d\/processes\/dd47e4ee-df1a-43b1-b199-3022e9f78329",
+            "propDefs": [
+                {
+                    "name": "target_name",
+                    "label": "target_name",
+                    "pattern": "",
+                    "type": "TEXT",
+                    "value": "dev",
+                    "required": true,
+                    "description": "Name of the Target Environment",
+                    "placeholder": ""
+                },
+                {
+                    "name": "app_name",
+                    "label": "app_name",
+                    "pattern": "",
+                    "type": "TEXT",
+                    "value": "auth",
+                    "required": true,
+                    "description": "Application Name to deploy to",
+                    "placeholder": ""
+                }
+            ],
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "671ade467b3e91e1f92ffdc1d8781a",
+                        "from": "Run Static Web Deploy",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Run Static Web Deploy",
+                        "from": "Create Static Web",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Create Static Web",
+                        "type": "ALWAYS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "Create Static Web",
+                        "x": -50,
+                        "y": 130,
+                        "h": 60,
+                        "w": 180
+                    },
+                    {
+                        "name": "Run Static Web Deploy",
+                        "x": -60,
+                        "y": 270,
+                        "h": 60,
+                        "w": 200
+                    },
+                    {
+                        "name": "671ade467b3e91e1f92ffdc1d8781a",
+                        "x": -5,
+                        "y": 420,
+                        "h": 50,
+                        "w": 90
+                    }
+                ],
+                "type": "graph",
+                "name": "9a2edc1f-6b3b-4f34-866d-93078a90edfb",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "671ade467b3e91e1f92ffdc1d8781a",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "workingDir": "${p:wcbd.deploy.dir}\/${p:version.name}",
+                        "commandName": "Create File",
+                        "pluginName": "File Utils",
+                        "pluginVersion": 40,
+                        "properties": {
+                            "file": "wc-static-web-deploy.xml",
+                            "contents": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n\n<!--\n ===============================================================================\n Wc static content deploy. Overrides any static deploy being done by client's WCBD.\n ===============================================================================\n-->\n<project name=\"wc-static-web-deploy\" default=\"deployweb\">\n\n   <target name=\"deployweb\" description=\"copy static content to the web servers\">\n      <if>\n          <istrue value=\"${run.static.web.deploy}\" \/>\n      <then>\n         <delete dir=\"${working.dir}\" quiet=\"true\" \/> \n         <mkdir dir=\"${working.dir}\/web\" \/>                   \n         <foreach list=\"${static.wars}\" param=\"war\" target=\"staticwars\" parallel=\"false\" inheritall=\"true\"\/>         \n      <\/then>\n         <else>\n            <echo message=\"SKIPPING updating web server. run.static.web.deploy is false.\"\/>\n          <\/else>\n      <\/if>\n   <\/target>\n   \n   <target name=\"dodeployweb\" description=\"copy static content to the web servers\">\n      <if>\n         <available file=\"${working.dir}\/web\/static.zip\" type=\"file\"\/>\n      <then>       \n            <echo message=\"Copying static content to ${webserver} directory: ${webserver.documentroot}\"\/>\n            <if>\n               <equals arg1=\"${webserver}\" arg2=\"localhost\"\/>\n            <then>\n               <copy file=\"${working.dir}\/web\/static.zip\"\n                           tofile=\"${webserver.documentroot}\/static.zip\"\n                           overwrite=\"true\"\/>            \n  \n               <unzip dest=\"${webserver.documentroot}\/${war}.war\" src=\"${webserver.documentroot}\/static.zip\"\/>                    \n            <\/then>\n            <else>\n               <try>\n               <scp todir=\"${webserver.username}@${webserver}:${webserver.documentroot}\"\n                         keyfile=\"${ssh.keyfile}\" trust=\"true\">\n                        <fileset dir=\"${working.dir}\/web\" includes=\"static.zip\"\/>\n               <\/scp>\n               <catch>\n                  <fail message=\"SCP of static.zip failed\"\/>\n               <\/catch>\n               <\/try>                               \n               <sshexec host=\"${webserver}\"\n                                 username=\"${webserver.username}\"\n                                 keyfile=\"${ssh.keyfile}\" \n                                 trust=\"true\"                                                                                 \n                                 command=\"umask 002; unzip -q -o ${webserver.documentroot}\/static.zip -d ${webserver.documentroot}\/${war}.war;ffind ${webserver.documentroot} -type d \\( \\! -perm 755 \\) -exec chmod 755 {} \\; ; find ${webserver.documentroot} -type f \\( \\! -perm 644 \\) -exec chmod 644 {} \\;\"\/>             \n            <\/else>         \n            <\/if>          \n      <\/then>\n      <\/if>\n   <\/target>   \n\n   <target name=\"staticwars\">\n         <if>\n            <length string=\"${static.web.dir}\" length=\"0\" when=\"gt\" trim=\"true\" \/>\n         <then>\n            <if>\n               <available file=\"${static.web.dir}\" type=\"dir\"\/>\n               <then>\n                  <echo message=\"Creating zip file with webserver assets from ${static.web.dir}.\"\/>                  \n                  <zip destfile=\"${working.dir}\/web\/static.zip\">\n                     <zipfileset dir=\"${static.web.dir}\" includes=\"${static.web.dir.includes}\"\/>\n                  <\/zip>               \n               <\/then>\n               <else>\n                  <echo message=\"${static.web.dir} does not exist.\"\/>                  \n               <\/else>\n            <\/if>\n         <\/then>\n         <else>\n            <if>\n               <available file=\"${source.dir}\/wc.ear.ext\/${war}.war\" type=\"dir\"\/>\n            <then>            \n               <echo message=\"Creating zip file with webserver assets from ${source.dir}\/wc.ear.ext\/${war}.war.\"\/>\n               <zip destfile=\"${working.dir}\/web\/static.zip\">\n                  <zipfileset dir=\"${source.dir}\/wc.ear.ext\/${war}.war\" includes=\"${static.web.dir.includes}\"\/>\n               <\/zip> \n            <\/then>\n            <\/if>\n         <\/else>   \n         <\/if>\n         <foreach list=\"${webserver.node.list}\" param=\"webserver\" target=\"dodeployweb\" parallel=\"false\" inheritall=\"true\"\/>          \n    <\/target>\n<\/project>",
+                            "overwrite": "true"
+                        },
+                        "type": "plugin",
+                        "name": "Create Static Web",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "workingDir": "${p:wcbd.deploy.dir}\/${p:version.name}",
+                        "commandName": "Shell",
+                        "pluginName": "Shell",
+                        "pluginVersion": 6,
+                        "properties": {
+                            "directoryOffset": ".",
+                            "shellInterpreter": "\/bin\/bash",
+                            "scriptBody": ".\/wcbd-ant -buildfile deploy.xml -Dtarget.env=${p:target_name}${p:app_name} static.web.deploy",
+                            "runAsDaemon": "false",
+                            "outputFile": ""
+                        },
+                        "type": "plugin",
+                        "name": "Run Static Web Deploy",
+                        "children": []
+                    }
+                ]
+            }
+        }
+    ],
+    "genericProcesses": []
+}
