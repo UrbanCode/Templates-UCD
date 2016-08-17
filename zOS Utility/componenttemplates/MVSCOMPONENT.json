@@ -1,0 +1,1031 @@
+/**
+ * © Copyright IBM Corporation 2016.
+ * This is licensed under the following license.
+ * The Eclipse Public 1.0 License (http://www.eclipse.org/legal/epl-v10.html)
+ * U.S. Government Users Restricted Rights:  Use, duplication or disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ */
+ {
+    "securityResourceId": "90aacada-b79f-429f-b087-94761d80e3d7",
+    "path": "componentTemplates\/59c50a7d-1cfb-4c3e-939d-45186e8ef494",
+    "name": "MVSCOMPONENT",
+    "description": "Template component which stores and deploys z\/OS data set artifacts",
+    "ignoreQualifiers": 0,
+    "componentType": "ZOS",
+    "tags": [],
+    "active": true,
+    "envPropDefs": [
+        {
+            "name": "deploy.env.pds.mapping",
+            "label": "deploy.env.pds.mapping",
+            "pattern": "",
+            "type": "TEXTAREA",
+            "required": false,
+            "description": "Specify the PDS packaged, and where to deploy them in the mapping table. Each line is a mapping rule with the format of From PDS,To PDS. * can be used in From PDS to match any characters. When multiple rules have the same From PDS, only the first one is used. The value can be overrode by property with higher order of precedence, for example, Agent property or Resource property.",
+            "placeholder": ""
+        },
+        {
+            "name": "deploy.env.hfs.targetdir",
+            "label": "deploy.env.hfs.targetdir",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "Specify a target directory to deploy HFS files",
+            "placeholder": ""
+        },
+        {
+            "name": "jes.host",
+            "label": "jes.host",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "localhost",
+            "required": false,
+            "description": "Hostname of Job server. Use localhost unless you have a specific requirement to submit job to another z\/OS. ",
+            "placeholder": ""
+        },
+        {
+            "name": "jes.user",
+            "label": "jes.user",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "Userid to logon to JES subsystem.",
+            "placeholder": ""
+        },
+        {
+            "name": "jes.password",
+            "label": "jes.password",
+            "pattern": "",
+            "type": "SECURE",
+            "required": false,
+            "description": "Password to logon to JES subsystem.",
+            "placeholder": ""
+        },
+        {
+            "name": "jes.monitor.port",
+            "label": "jes.monitor.port",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "6715",
+            "required": false,
+            "description": "JES job monitor port (1-65535). Default is 6715.",
+            "placeholder": ""
+        }
+    ],
+    "propDefs": [
+        {
+            "name": "ucd.repository.host",
+            "label": "ucd.repository.host",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "Hostname of the FTP server where you get version artifacts. Required to use FTP Artifacts step. ",
+            "placeholder": ""
+        },
+        {
+            "name": "ucd.repository.location",
+            "label": "ucd.repository.location",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "The location of the repository where the z\/OS deploy toolkit stores artifacts. Required to use Copy Artifacts or FTP Artifacts steps. ",
+            "placeholder": ""
+        },
+        {
+            "name": "ucd.repository.user",
+            "label": "ucd.repository.user",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "FTP username. Required to use FTP Artifacts step. ",
+            "placeholder": ""
+        },
+        {
+            "name": "ucd.repository.password",
+            "label": "ucd.repository.password",
+            "pattern": "",
+            "type": "SECURE",
+            "required": false,
+            "description": "FTP password. Required to use FTP Artifacts step. ",
+            "placeholder": ""
+        }
+    ],
+    "properties": [],
+    "processes": [
+        {
+            "name": "Deploy",
+            "description": "Deploy data sets. Version artifacts are fetched from code station located in the same z\/OS.",
+            "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+            "takesVersion": true,
+            "inventoryActionType": "ADD",
+            "status": "Active",
+            "configActionType": "ADD",
+            "active": true,
+            "path": "componentTemplates\/59c50a7d-1cfb-4c3e-939d-45186e8ef494\/processes\/323cd1c2-0a17-4847-be6c-ecf166e2d1a9",
+            "propDefs": [],
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "Copy Artifacts",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Deploy Data Sets",
+                        "from": "Copy Artifacts",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "8328a7e245b2d6f356e73791755c2a",
+                        "from": "Deploy Data Sets",
+                        "type": "SUCCESS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "8328a7e245b2d6f356e73791755c2a",
+                        "x": 0,
+                        "y": 420,
+                        "h": 50,
+                        "w": 90
+                    },
+                    {
+                        "name": "Copy Artifacts",
+                        "x": -45,
+                        "y": 124,
+                        "h": 60,
+                        "w": 180
+                    },
+                    {
+                        "name": "Deploy Data Sets",
+                        "x": -55,
+                        "y": 260,
+                        "h": 60,
+                        "w": 210
+                    }
+                ],
+                "type": "graph",
+                "name": "1b2f2532-70b3-44d2-85c0-3d77222a0651",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "8328a7e245b2d6f356e73791755c2a",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Copy Artifacts",
+                        "pluginName": "zOS Utility",
+                        "pluginVersion": 11,
+                        "properties": {
+                            "directoryOffset": ".",
+                            "basePath": "${p:ucd.repository.location}",
+                            "versionName": "${p:version.name}",
+                            "componentName": "${p:component.name}",
+                            "repositoryType": "${p?:version\/ucd.repository.type}"
+                        },
+                        "type": "plugin",
+                        "name": "Copy Artifacts",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Deploy Data Sets",
+                        "pluginName": "zOS Utility",
+                        "pluginVersion": 11,
+                        "properties": {
+                            "pdsMapping": "${p?:deploy.env.pds.mapping}",
+                            "checkAccess": "true",
+                            "allowCreateDataset": "TRUE",
+                            "deployBasePath": "${BUZ_DEPLOY_BASE}",
+                            "versionName": "${p:version.name}",
+                            "componentName": "${p:component.name}"
+                        },
+                        "type": "plugin",
+                        "name": "Deploy Data Sets",
+                        "children": []
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Deploy - get artifacts from CodeStation",
+            "description": "Deploy data sets. Version artifacts are fetched from UrbanCode Deploy server CodeStation. ",
+            "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+            "takesVersion": true,
+            "inventoryActionType": "ADD",
+            "status": "Active",
+            "configActionType": "ADD",
+            "active": true,
+            "path": "componentTemplates\/59c50a7d-1cfb-4c3e-939d-45186e8ef494\/processes\/fabb69e6-62d5-4d41-b9ab-4e03f5106365",
+            "propDefs": [],
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "Deploy Data Sets",
+                        "from": "Download Artifacts for zOS",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "8328a7e245b2d6f356e73791755c2a",
+                        "from": "Deploy Data Sets",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Download Artifacts for zOS",
+                        "type": "ALWAYS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "Deploy Data Sets",
+                        "x": -65,
+                        "y": 250,
+                        "h": 60,
+                        "w": 210
+                    },
+                    {
+                        "name": "8328a7e245b2d6f356e73791755c2a",
+                        "x": -5,
+                        "y": 390,
+                        "h": 50,
+                        "w": 90
+                    },
+                    {
+                        "name": "Download Artifacts for zOS",
+                        "x": -90,
+                        "y": 120,
+                        "h": 60,
+                        "w": 260
+                    }
+                ],
+                "type": "graph",
+                "name": "0a4e873c-96b4-4da7-973f-35ee6db135df",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "8328a7e245b2d6f356e73791755c2a",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Deploy Data Sets",
+                        "pluginName": "zOS Utility",
+                        "pluginVersion": 11,
+                        "properties": {
+                            "pdsMapping": "${p?:deploy.env.pds.mapping}",
+                            "checkAccess": "true",
+                            "allowCreateDataset": "TRUE",
+                            "deployBasePath": "${BUZ_DEPLOY_BASE}",
+                            "versionName": "${p:version.name}",
+                            "componentName": "${p:component.name}"
+                        },
+                        "type": "plugin",
+                        "name": "Deploy Data Sets",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Download Artifacts for zOS",
+                        "pluginName": "IBM UrbanCode Deploy Versioned File Storage",
+                        "pluginVersion": 22,
+                        "properties": {
+                            "directoryOffset": ".",
+                            "versionId": "${p:version.id}",
+                            "versionName": "${p:version.name}",
+                            "serverUrl": "${p:server.url}",
+                            "compId": "${p:component.id}",
+                            "repositoryType": "${p?:version\/ucd.repository.type}"
+                        },
+                        "type": "plugin",
+                        "name": "Download Artifacts for zOS",
+                        "children": []
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Deploy - get artifacts using FTP",
+            "description": "Deploy data sets. Version artifacts are fetched from code station using FTP",
+            "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+            "takesVersion": true,
+            "inventoryActionType": "ADD",
+            "status": "Active",
+            "configActionType": "ADD",
+            "active": true,
+            "path": "componentTemplates\/59c50a7d-1cfb-4c3e-939d-45186e8ef494\/processes\/a5b81a7e-f9f5-47dd-89b7-b32b3cbebfca",
+            "propDefs": [],
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "FTP Artifacts",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "cb186e01e1acada63dfc6eef9222cd",
+                        "from": "Deploy Data Sets",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Deploy Data Sets",
+                        "from": "FTP Artifacts",
+                        "type": "SUCCESS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "cb186e01e1acada63dfc6eef9222cd",
+                        "x": 5,
+                        "y": 430,
+                        "h": 50,
+                        "w": 90
+                    },
+                    {
+                        "name": "FTP Artifacts",
+                        "x": -50,
+                        "y": 122,
+                        "h": 60,
+                        "w": 170
+                    },
+                    {
+                        "name": "Deploy Data Sets",
+                        "x": -50,
+                        "y": 271,
+                        "h": 60,
+                        "w": 210
+                    }
+                ],
+                "type": "graph",
+                "name": "f41b3b3a-8bd3-42b3-8765-38358499040a",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "cb186e01e1acada63dfc6eef9222cd",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": true,
+                        "impersonationUseSudo": false,
+                        "commandName": "FTP Artifacts",
+                        "pluginName": "zOS Utility",
+                        "pluginVersion": 11,
+                        "properties": {
+                            "directoryOffset": ".",
+                            "hostName": "${p:ucd.repository.host}",
+                            "userid": "${p:ucd.repository.user}",
+                            "password": "${p:ucd.repository.password}",
+                            "basePath": "${p:ucd.repository.location}",
+                            "versionName": "${p:version.name}",
+                            "componentName": "${p:component.name}",
+                            "repositoryType": "${p?:version\/ucd.repository.type}"
+                        },
+                        "type": "plugin",
+                        "name": "FTP Artifacts",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Deploy Data Sets",
+                        "pluginName": "zOS Utility",
+                        "pluginVersion": 11,
+                        "properties": {
+                            "pdsMapping": "${p?:deploy.env.pds.mapping}",
+                            "checkAccess": "true",
+                            "allowCreateDataset": "TRUE",
+                            "deployBasePath": "${BUZ_DEPLOY_BASE}",
+                            "versionName": "${p:version.name}",
+                            "componentName": "${p:component.name}"
+                        },
+                        "type": "plugin",
+                        "name": "Deploy Data Sets",
+                        "children": []
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Remove all versions",
+            "description": "Remove all versions in an environment including the backup created during version deployment. Use this process when you want to start next round of development with a clean environment.  Audit history is available even if versions have been removed from the environment.  ",
+            "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+            "takesVersion": false,
+            "status": "",
+            "active": true,
+            "path": "componentTemplates\/59c50a7d-1cfb-4c3e-939d-45186e8ef494\/processes\/8957f1e2-0a16-4fa4-9a20-73f26381173c",
+            "propDefs": [],
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "Remove All Versions",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "7edd88f82ceb313ee19d35d0c10ed3",
+                        "from": "Remove All Versions",
+                        "type": "SUCCESS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "Remove All Versions",
+                        "x": -70,
+                        "y": 118,
+                        "h": 60,
+                        "w": 220
+                    },
+                    {
+                        "name": "7edd88f82ceb313ee19d35d0c10ed3",
+                        "x": -5,
+                        "y": 250,
+                        "h": 50,
+                        "w": 90
+                    }
+                ],
+                "type": "graph",
+                "name": "882c6ea4-d801-4646-b289-503dd2441dde",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "7edd88f82ceb313ee19d35d0c10ed3",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Remove All Versions",
+                        "pluginName": "zOS Utility",
+                        "pluginVersion": 11,
+                        "properties": {
+                            "applicationName": "${p:application.name}",
+                            "environmentName": "${p:environment.name}",
+                            "componentName": "${p:component.name}",
+                            "deployBasePath": "${BUZ_DEPLOY_BASE}"
+                        },
+                        "type": "plugin",
+                        "name": "Remove All Versions",
+                        "children": []
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Remove redundant versions",
+            "description": "Remove redundant versions in an environment. Redundant versions are these versions which are replaced completely by later deployed versions. ",
+            "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+            "takesVersion": false,
+            "status": "",
+            "active": true,
+            "path": "componentTemplates\/59c50a7d-1cfb-4c3e-939d-45186e8ef494\/processes\/063b8d89-ac3a-48ec-aa9d-a35eb636127f",
+            "propDefs": [],
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "41a9e39d9c9865d8001456cd9d7b54",
+                        "from": "Remove Redundant Versions",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Remove Redundant Versions",
+                        "type": "ALWAYS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "Remove Redundant Versions",
+                        "x": -95,
+                        "y": 166,
+                        "h": 60,
+                        "w": 270
+                    },
+                    {
+                        "name": "41a9e39d9c9865d8001456cd9d7b54",
+                        "x": -5,
+                        "y": 370,
+                        "h": 50,
+                        "w": 90
+                    }
+                ],
+                "type": "graph",
+                "name": "d776c75e-37e2-48b7-8cd2-a3d6e9072723",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "41a9e39d9c9865d8001456cd9d7b54",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Remove Redundant Versions",
+                        "pluginName": "zOS Utility",
+                        "pluginVersion": 11,
+                        "properties": {
+                            "isDryRun": "false",
+                            "applicationName": "${p:application.name}",
+                            "environmentName": "${p:environment.name}",
+                            "componentName": "${p:component.name}",
+                            "deployBasePath": "${BUZ_DEPLOY_BASE}"
+                        },
+                        "type": "plugin",
+                        "name": "Remove Redundant Versions",
+                        "children": []
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Remove redundant versions with manual verification",
+            "description": "Remove redundant versions in an environment. Redundant versions are these versions which are replaced completely by later deployed versions. ",
+            "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+            "takesVersion": false,
+            "status": "",
+            "active": true,
+            "path": "componentTemplates\/59c50a7d-1cfb-4c3e-939d-45186e8ef494\/processes\/f094fbb2-e39c-41e0-8b80-bf0237491dd9",
+            "propDefs": [],
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "0fbc34b5ab1760dad9dfef44d80cc6",
+                        "from": "Remove Redundant Versions",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Remove Redundant Versions Dry Run",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Remove Redundant Versions",
+                        "from": "Review Versions To Be Removed",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Review Versions To Be Removed",
+                        "from": "Remove Redundant Versions Dry Run",
+                        "type": "SUCCESS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "Remove Redundant Versions Dry Run",
+                        "x": -99.5,
+                        "y": 107,
+                        "h": 60,
+                        "w": 290
+                    },
+                    {
+                        "name": "0fbc34b5ab1760dad9dfef44d80cc6",
+                        "x": 0,
+                        "y": 445,
+                        "h": 50,
+                        "w": 90
+                    },
+                    {
+                        "name": "cb6d6cf1f7153da91b1bc30d718ea3",
+                        "x": 326.5,
+                        "y": 192,
+                        "h": 50,
+                        "w": 360
+                    },
+                    {
+                        "name": "Review Versions To Be Removed",
+                        "x": -85,
+                        "y": 230,
+                        "h": 60,
+                        "w": 260
+                    },
+                    {
+                        "name": "Remove Redundant Versions",
+                        "x": -99.5,
+                        "y": 344,
+                        "h": 60,
+                        "w": 270
+                    }
+                ],
+                "type": "graph",
+                "name": "e3393674-75d3-4469-92a4-86ee259274d0",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "0fbc34b5ab1760dad9dfef44d80cc6",
+                        "children": []
+                    },
+                    {
+                        "templateName": "ApprovalCreated",
+                        "roleRestrictionData": {"roleRestrictions": []},
+                        "propDefs": [],
+                        "type": "componentManualTask",
+                        "name": "Review Versions To Be Removed",
+                        "children": []
+                    },
+                    {
+                        "name": "cb6d6cf1f7153da91b1bc30d718ea3",
+                        "text": "The versions will be removed after the work item is approved. ",
+                        "type": "note",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Remove Redundant Versions",
+                        "pluginName": "zOS Utility",
+                        "pluginVersion": 11,
+                        "properties": {
+                            "isDryRun": "true",
+                            "applicationName": "${p:application.name}",
+                            "environmentName": "${p:environment.name}",
+                            "componentName": "${p:component.name}",
+                            "deployBasePath": "${BUZ_DEPLOY_BASE}"
+                        },
+                        "type": "plugin",
+                        "name": "Remove Redundant Versions Dry Run",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Remove Redundant Versions",
+                        "pluginName": "zOS Utility",
+                        "pluginVersion": 11,
+                        "properties": {
+                            "isDryRun": "false",
+                            "applicationName": "${p:application.name}",
+                            "environmentName": "${p:environment.name}",
+                            "componentName": "${p:component.name}",
+                            "deployBasePath": "${BUZ_DEPLOY_BASE}"
+                        },
+                        "type": "plugin",
+                        "name": "Remove Redundant Versions",
+                        "children": []
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Sample JCL submission process",
+            "description": "This process demonstrates usage of the JCL submission steps. ",
+            "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+            "takesVersion": false,
+            "status": "",
+            "active": true,
+            "path": "componentTemplates\/59c50a7d-1cfb-4c3e-939d-45186e8ef494\/processes\/94487db9-5376-4fd5-aa1c-f01256d87d57",
+            "propDefs": [],
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "151c344677e54a10e4d6014864c9df",
+                        "from": "Submit  and Wait for Completion",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Wait For Job",
+                        "from": "Do something else",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "151c344677e54a10e4d6014864c9df",
+                        "from": "Submit Multiple Jobs",
+                        "type": "FAILURE",
+                        "value": ""
+                    },
+                    {
+                        "to": "151c344677e54a10e4d6014864c9df",
+                        "from": "Wait For Job",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Do something else",
+                        "from": "SubmitJobStep",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "SubmitJobStep",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Submit  and Wait for Completion",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Submit Multiple Jobs",
+                        "type": "ALWAYS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "Submit  and Wait for Completion",
+                        "x": -369.5,
+                        "y": 220,
+                        "h": 60,
+                        "w": 250
+                    },
+                    {
+                        "name": "Wait For Job",
+                        "x": 301.5,
+                        "y": 340,
+                        "h": 60,
+                        "w": 180
+                    },
+                    {
+                        "name": "53d6bbdcb73471b37d38502e7af703",
+                        "x": 50.5,
+                        "y": 149,
+                        "h": 56,
+                        "w": 190
+                    },
+                    {
+                        "name": "Submit Multiple Jobs",
+                        "x": -55,
+                        "y": 220,
+                        "h": 60,
+                        "w": 190
+                    },
+                    {
+                        "name": "Do something else",
+                        "x": 261.5,
+                        "y": 220,
+                        "h": 60,
+                        "w": 260
+                    },
+                    {
+                        "name": "151c344677e54a10e4d6014864c9df",
+                        "x": -5,
+                        "y": 520,
+                        "h": 50,
+                        "w": 90
+                    },
+                    {
+                        "name": "SubmitJobStep",
+                        "x": 300.5,
+                        "y": 119,
+                        "h": 60,
+                        "w": 180
+                    }
+                ],
+                "type": "graph",
+                "name": "76f7a3c1-acdd-4cd0-a85e-001ffea355ef",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "151c344677e54a10e4d6014864c9df",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Submit Job",
+                        "pluginName": "zOS Utility",
+                        "pluginVersion": 11,
+                        "properties": {
+                            "mvsFilename": "",
+                            "ussFilename": "",
+                            "jclString": "\/\/TESTJCL  JOB  ,NOTIFY=&SYSUID\n\/\/TIME     EXEC PGM=IKJEFT1A   \n\/\/SYSPRINT DD   SYSOUT=*       \n\/\/SYSTSPRT DD   SYSOUT=*       \n\/\/SYSTSIN  DD   *              \n  TIME                         \n\/* ",
+                            "explicitTokens": "",
+                            "explicitTokensForeachJob": "",
+                            "waitForJob": "true",
+                            "stopOnFail": "true",
+                            "timeout": "60",
+                            "showOutput": "ALL",
+                            "cutOff": "1000",
+                            "maxRC": "4",
+                            "hostname": "${p:jes.host}",
+                            "userid": "${p:jes.user}",
+                            "password": "${p:jes.password}",
+                            "port": "${p:jes.monitor.port}"
+                        },
+                        "type": "plugin",
+                        "name": "Submit  and Wait for Completion",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Submit Job",
+                        "pluginName": "zOS Utility",
+                        "pluginVersion": 11,
+                        "properties": {
+                            "mvsFilename": "",
+                            "ussFilename": "",
+                            "jclString": "\/\/TESTJCL  JOB  ,NOTIFY=&SYSUID\n\/\/TIME     EXEC PGM=IKJEFT1A   \n\/\/SYSPRINT DD   SYSOUT=*       \n\/\/SYSTSPRT DD   SYSOUT=*       \n\/\/SYSTSIN  DD   *              \n  TIME                         \n\/*                             ",
+                            "explicitTokens": "",
+                            "explicitTokensForeachJob": "",
+                            "waitForJob": "false",
+                            "stopOnFail": "true",
+                            "timeout": "60",
+                            "showOutput": "ALL",
+                            "cutOff": "1000",
+                            "maxRC": "4",
+                            "hostname": "${p:jes.host}",
+                            "userid": "${p:jes.user}",
+                            "password": "${p:jes.password}",
+                            "port": "${p:jes.monitor.port}"
+                        },
+                        "type": "plugin",
+                        "name": "SubmitJobStep",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Wait For Job",
+                        "pluginName": "zOS Utility",
+                        "pluginVersion": 11,
+                        "properties": {
+                            "jobId": "${p:SubmitJobStep\/JobId}",
+                            "timeout": "60",
+                            "showOutput": "ALL",
+                            "cutOff": "1000",
+                            "maxRC": "4",
+                            "hostname": "${p:jes.host}",
+                            "userid": "${p:jes.user}",
+                            "password": "${p:jes.password}",
+                            "port": "${p:jes.monitor.port}"
+                        },
+                        "type": "plugin",
+                        "name": "Wait For Job",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Run TSO or ISPF Command",
+                        "pluginName": "zOS Utility",
+                        "pluginVersion": 11,
+                        "properties": {
+                            "serviceType": "TSO",
+                            "tsoCommand": "TIME",
+                            "stopOnFail": "true",
+                            "reuseSession": "false",
+                            "showLog": "false",
+                            "ispProf": "",
+                            "ispfGatewayPath": "\/usr\/lpp\/ispf\/bin"
+                        },
+                        "type": "plugin",
+                        "name": "Do something else",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Submit Job",
+                        "pluginName": "zOS Utility",
+                        "pluginVersion": 11,
+                        "properties": {
+                            "mvsFilename": "",
+                            "ussFilename": "",
+                            "jclString": "\/\/JOBNAME  JOB  ,<JOB PARAMETER>  \n\/\/TIME     EXEC PGM=IKJEFT1A      \n\/\/SYSPRINT DD   SYSOUT=*          \n\/\/SYSTSPRT DD   SYSOUT=*          \n\/\/SYSTSIN  DD   *                 \n  LISTDS '#DATASET#'           \n\/*                                \n",
+                            "explicitTokens": "JOBNAME->CHKDS\n<JOB PARAMETER>->NOTIFY=&SYSUID\n",
+                            "explicitTokensForeachJob": "#DATASET#->USER.PROCLIB\n\/\/\n#DATASET#->SYS1.PROCLIB\n\/\/\n#DATASET#->NOEXIST\n",
+                            "waitForJob": "true",
+                            "stopOnFail": "true",
+                            "timeout": "60",
+                            "showOutput": "ALL",
+                            "cutOff": "1000",
+                            "maxRC": "4",
+                            "hostname": "${p:jes.host}",
+                            "userid": "${p:jes.user}",
+                            "password": "${p:jes.password}",
+                            "port": "${p:jes.monitor.port}"
+                        },
+                        "type": "plugin",
+                        "name": "Submit Multiple Jobs",
+                        "children": []
+                    },
+                    {
+                        "name": "53d6bbdcb73471b37d38502e7af703",
+                        "text": "Check existence of 3 data sets",
+                        "type": "note",
+                        "children": []
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Uninstall",
+            "description": "Uninstall a version and restore the backup data sets",
+            "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+            "takesVersion": true,
+            "inventoryActionType": "REMOVE",
+            "status": "Active",
+            "active": true,
+            "path": "componentTemplates\/59c50a7d-1cfb-4c3e-939d-45186e8ef494\/processes\/decf9506-4f28-44f2-815c-59e8ad9b6032",
+            "propDefs": [],
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "22f91f0dc4e35ac3094f81a5c5281e",
+                        "from": "Rollback Data Sets",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Rollback Data Sets",
+                        "type": "ALWAYS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "Rollback Data Sets",
+                        "x": -60,
+                        "y": 187,
+                        "h": 60,
+                        "w": 210
+                    },
+                    {
+                        "name": "22f91f0dc4e35ac3094f81a5c5281e",
+                        "x": 0,
+                        "y": 420,
+                        "h": 50,
+                        "w": 90
+                    }
+                ],
+                "type": "graph",
+                "name": "a07dc1d6-3069-4688-afd7-8dc4bd4b04d0",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "22f91f0dc4e35ac3094f81a5c5281e",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Rollback Data Sets",
+                        "pluginName": "zOS Utility",
+                        "pluginVersion": 11,
+                        "properties": {
+                            "checkAccess": "true",
+                            "delBackUpFiles": "false",
+                            "deployBasePath": "${BUZ_DEPLOY_BASE}",
+                            "versionName": "${p:version.name}",
+                            "componentName": "${p:component.name}"
+                        },
+                        "type": "plugin",
+                        "name": "Rollback Data Sets",
+                        "children": []
+                    }
+                ]
+            }
+        }
+    ],
+    "genericProcesses": [],
+    "teamMappings": []
+}

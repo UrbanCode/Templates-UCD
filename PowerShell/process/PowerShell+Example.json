@@ -1,0 +1,193 @@
+/**
+ * © Copyright IBM Corporation 2016.
+ * This is licensed under the following license.
+ * The Eclipse Public 1.0 License (http://www.eclipse.org/legal/epl-v10.html)
+ * U.S. Government Users Restricted Rights:  Use, duplication or disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ */
+ {
+    "name": "PowerShell Example",
+    "description": "",
+    "rootActivity": {
+        "edges": [
+            {
+                "to": "f7a1d5f5902395be6b08cb20f518b5",
+                "from": "Debugging One",
+                "type": "SUCCESS",
+                "value": ""
+            },
+            {
+                "to": "Set a Step Output Property",
+                "type": "ALWAYS",
+                "value": ""
+            },
+            {
+                "to": "f7a1d5f5902395be6b08cb20f518b5",
+                "from": "Debugging Two",
+                "type": "FAILURE",
+                "value": ""
+            },
+            {
+                "to": "Use a Step Property in Your Script",
+                "from": "Set a Step Output Property",
+                "type": "SUCCESS",
+                "value": ""
+            },
+            {
+                "to": "Debugging Two",
+                "type": "ALWAYS",
+                "value": ""
+            },
+            {
+                "to": "Debugging One",
+                "type": "ALWAYS",
+                "value": ""
+            },
+            {
+                "to": "f7a1d5f5902395be6b08cb20f518b5",
+                "from": "Use a Step Property in Your Script",
+                "type": "SUCCESS",
+                "value": ""
+            }
+        ],
+        "offsets": [
+            {
+                "name": "Debugging Two",
+                "x": -360,
+                "y": 110,
+                "h": 50,
+                "w": 250
+            },
+            {
+                "name": "Debugging One",
+                "x": 190,
+                "y": 110,
+                "h": 50,
+                "w": 250
+            },
+            {
+                "name": "Set a Step Output Property",
+                "x": -70,
+                "y": 110,
+                "h": 50,
+                "w": 220
+            },
+            {
+                "name": "f7a1d5f5902395be6b08cb20f518b5",
+                "x": -5,
+                "y": 430,
+                "h": 50,
+                "w": 90
+            },
+            {
+                "name": "Use a Step Property in Your Script",
+                "x": -95,
+                "y": 200,
+                "h": 50,
+                "w": 270
+            }
+        ],
+        "type": "graph",
+        "name": "5850c9ec-8b1c-4200-bb6e-2997008f3300",
+        "children": [
+            {
+                "type": "finish",
+                "name": "f7a1d5f5902395be6b08cb20f518b5",
+                "children": []
+            },
+            {
+                "allowFailure": false,
+                "useImpersonation": false,
+                "showHidden": false,
+                "impersonationUseSudo": false,
+                "commandName": "Run PowerShell Script",
+                "pluginName": "Powershell Integration",
+                "pluginVersion": 4,
+                "properties": {
+                    "powerShellScript": "## Expand this text box\n\n# Declare and set String variables\n$Hello= \"Hello\"\n$World= \"world\"\n\n# Concatenate Strings\n$HelloWorld = \"Hello$World!\"\n\n# Output $HelloWorld to console\nwrite-host $HelloWorld\n\n# Output $HelloWorld to step output properties\nSet-StepOutputProperty 'PropName'$HelloWorld",
+                    "powerShellHome": "powershell",
+                    "options": "-NoProfile -NoLogo -NonInteractive -Sta",
+                    "successfulExitStatus": "-128"
+                },
+                "type": "plugin",
+                "name": "Set a Step Output Property",
+                "children": []
+            },
+            {
+                "allowFailure": false,
+                "useImpersonation": false,
+                "showHidden": false,
+                "impersonationUseSudo": false,
+                "commandName": "Run PowerShell Script",
+                "pluginName": "Powershell Integration",
+                "pluginVersion": 4,
+                "properties": {
+                    "powerShellScript": "# Grab Step Output Property from previous Step\n$HelloWorldProp = '${p?:Tutorial One\/PropName}'\n\n# Output $HelloWorld to console\nwrite-host $HelloWorldProp",
+                    "powerShellHome": "powershell",
+                    "options": "-NoProfile -NoLogo -NonInteractive -Sta",
+                    "successfulExitStatus": "-128"
+                },
+                "type": "plugin",
+                "name": "Use a Step Property in Your Script",
+                "children": []
+            },
+            {
+                "allowFailure": false,
+                "useImpersonation": false,
+                "showHidden": true,
+                "impersonationUseSudo": false,
+                "commandName": "Run PowerShell Script",
+                "pluginName": "Powershell Integration",
+                "pluginVersion": 4,
+                "properties": {
+                    "powerShellScript": "$DebugPreference = 'SilentlyContinue'\n$VerbosePreference = 'SilentlyContinue'\n$WarningPreference = 'SilentlyContinue'\n\nWrite-Debug \"You won't see me in the console!\"\nWrite-Verbose \"You won't see me in the console!\"\nWrite-Warning \"You won't see me in the console!\"\n\n$DebugPreference = 'Continue'\n$VerbosePreference = 'Continue'\n$WarningPreference = 'Continue'\n\nWrite-Debug 'Debug, hello!'\nWrite-Verbose 'Verbose, hello!'\nWrite-Warning 'Warning, hello!'",
+                    "powerShellHome": "powershell",
+                    "options": "-NoProfile -NoLogo -NonInteractive -Sta",
+                    "successfulExitStatus": "-128"
+                },
+                "type": "plugin",
+                "name": "Debugging One",
+                "children": []
+            },
+            {
+                "allowFailure": false,
+                "useImpersonation": false,
+                "showHidden": true,
+                "impersonationUseSudo": false,
+                "commandName": "Run PowerShell Script",
+                "pluginName": "Powershell Integration",
+                "pluginVersion": 4,
+                "properties": {
+                    "powerShellScript": "$ErrorActionPreference = 'SilentlyContinue'\n\nI am an error! But you won't see an error message for me!\n\n$ErrorActionPreference = 'Continue'\n\nError, hello!",
+                    "powerShellHome": "powershell",
+                    "options": "-NoProfile -NoLogo -NonInteractive -Sta",
+                    "successfulExitStatus": "-128"
+                },
+                "type": "plugin",
+                "name": "Debugging Two",
+                "children": []
+            }
+        ]
+    },
+    "properties": [
+        {
+            "name": "contextType",
+            "value": "Resource",
+            "description": "",
+            "secure": false
+        },
+        {
+            "name": "defaultResourceId",
+            "value": "d01b6e3c-b6e1-464a-84f5-90bee8adee75",
+            "description": "",
+            "secure": false
+        },
+        {
+            "name": "workingDir",
+            "value": "${p:resource\/work.dir}\/${p:process.name}",
+            "description": "",
+            "secure": false
+        }
+    ],
+    "propDefs": [],
+    "teamMappings": []
+}
