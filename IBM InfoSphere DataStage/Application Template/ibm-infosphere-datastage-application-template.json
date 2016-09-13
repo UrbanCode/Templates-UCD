@@ -1,0 +1,298 @@
+{
+    "name": "ibm-infosphere-datastage-application-template",
+    "description": "An application template for the usage of IBM UrbanCode Deploy and IBM InfoSphere Datastage.",
+    "applicationProcessList": [],
+    "genericProcesses": [],
+    "tagRequirements": [{
+        "type": "GREATER_THAN",
+        "number": 0,
+        "tag": {
+            "objectType": "Component",
+            "name": "ibm-infosphere-datastage-project",
+            "description": "Deploys an IBM InfoSphere DataStage DSX project.",
+            "color": "#00B2EF"
+        }
+    }],
+    "enforceCompleteSnapshots": true,
+    "environmentTemplates": [
+        {
+            "name": "DEV",
+            "description": "Used for development. Developers build and deploy code in a test lab, and the development team tests the application at the most basic level.",
+            "color": "#00B2EF",
+            "requireApproval": false,
+            "noSelfApprovals": false,
+            "lockSnapshots": true,
+            "cleanupDaysToKeep": 0,
+            "cleanupCountToKeep": 0,
+            "enableProcessHistoryCleanup": false,
+            "useSystemDefaultDays": true,
+            "historyCleanupDaysToKeep": 365,
+            "snapshotLockType": "ALL",
+            "propDefs": [],
+            "resourceTemplate": {
+                "name": "ibm-infosphere-datastage",
+                "resources": {
+                    "name": "ibm-infosphere-datastage",
+                    "path": "\/ibm-infosphere-datastage",
+                    "prototype": false,
+                    "children": [{
+                        "name": "Agent Prototype",
+                        "path": "\/ibm-infosphere-datastage\/Agent Prototype",
+                        "description": "ibm-infosphere-datastage",
+                        "parentName": "ibm-infosphere-datastage",
+                        "role": "Agent Placeholder",
+                        "roleProperties": {
+                            "name": "Agent Placeholder",
+                            "properties": [{
+                                "name": "agentNamePatterns",
+                                "description": "",
+                                "secure": false
+                            }]
+                        },
+                        "prototype": false,
+                        "children": [{
+                            "name": "datastage",
+                            "componentTag": {
+                                "objectType": "Component",
+                                "name": "datastage",
+                                "description": "",
+                                "color": "#00B2EF"
+                            },
+                            "path": "\/ibm-infosphere-datastage\/Agent Prototype\/datastage",
+                            "description": "Pulls .dtx files and compiles",
+                            "parentName": "Agent Prototype",
+                            "prototype": false,
+                            "children": []
+                        }]
+                    }]
+                },
+                "description": ""
+            },
+            "versionConditions": [],
+            "exemptProcesses": []
+        },
+        {
+            "name": "PROD",
+            "description": "The application is made available to users.",
+            "color": "#17AF4B",
+            "requireApproval": true,
+            "noSelfApprovals": true,
+            "lockSnapshots": true,
+            "cleanupDaysToKeep": 0,
+            "cleanupCountToKeep": 0,
+            "enableProcessHistoryCleanup": false,
+            "useSystemDefaultDays": true,
+            "historyCleanupDaysToKeep": 365,
+            "approvalProcess": {"rootActivity": {
+                "edges": [
+                    {
+                        "to": "88bc2531182f359b007772cf17ba7e",
+                        "from": "5414a6372e0b9fb56d9feccae2fc82",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "5414a6372e0b9fb56d9feccae2fc82",
+                        "type": "ALWAYS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "88bc2531182f359b007772cf17ba7e",
+                        "x": -5,
+                        "y": 420,
+                        "h": 50,
+                        "w": 90
+                    },
+                    {
+                        "name": "5414a6372e0b9fb56d9feccae2fc82",
+                        "x": 3,
+                        "y": 202,
+                        "h": 50,
+                        "w": 270
+                    }
+                ],
+                "type": "graph",
+                "name": "ed6f6499-121b-4b6d-9595-7c08486c8810",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "88bc2531182f359b007772cf17ba7e",
+                        "children": []
+                    },
+                    {
+                        "roleRestrictionData": {
+                            "contextType": "ENVIRONMENT",
+                            "roleRestrictions": [{"roleName": "Administrator"}]
+                        },
+                        "propDefs": [],
+                        "templateName": "ApprovalCreated",
+                        "commentRequired": false,
+                        "commentPrompt": "",
+                        "role": {},
+                        "type": "environmentApprovalTask",
+                        "name": "5414a6372e0b9fb56d9feccae2fc82",
+                        "children": []
+                    }
+                ]
+            }},
+            "snapshotLockType": "ALL",
+            "propDefs": [],
+            "resourceTemplate": {
+                "name": "ibm-infosphere-datastage",
+                "resources": {
+                    "name": "ibm-infosphere-datastage",
+                    "path": "\/ibm-infosphere-datastage",
+                    "prototype": false,
+                    "children": [{
+                        "name": "Agent Prototype",
+                        "path": "\/ibm-infosphere-datastage\/Agent Prototype",
+                        "description": "ibm-infosphere-datastage",
+                        "parentName": "ibm-infosphere-datastage",
+                        "role": "Agent Placeholder",
+                        "roleProperties": {
+                            "name": "Agent Placeholder",
+                            "properties": [{
+                                "name": "agentNamePatterns",
+                                "description": "",
+                                "secure": false
+                            }]
+                        },
+                        "prototype": false,
+                        "children": [{
+                            "name": "datastage",
+                            "componentTag": {
+                                "objectType": "Component",
+                                "name": "datastage",
+                                "description": "",
+                                "color": "#00B2EF"
+                            },
+                            "path": "\/ibm-infosphere-datastage\/Agent Prototype\/datastage",
+                            "description": "Pulls .dtx files and compiles",
+                            "parentName": "Agent Prototype",
+                            "prototype": false,
+                            "children": []
+                        }]
+                    }]
+                },
+                "description": ""
+            },
+            "versionConditions": [],
+            "exemptProcesses": []
+        },
+        {
+            "name": "SIT",
+            "description": "In the System Integration Testing environment, the application is tested to ensure that it works with existing applications and systems.",
+            "color": "#404041",
+            "requireApproval": false,
+            "noSelfApprovals": false,
+            "lockSnapshots": true,
+            "cleanupDaysToKeep": 0,
+            "cleanupCountToKeep": 0,
+            "enableProcessHistoryCleanup": false,
+            "useSystemDefaultDays": true,
+            "historyCleanupDaysToKeep": 365,
+            "snapshotLockType": "ALL",
+            "propDefs": [],
+            "resourceTemplate": {
+                "name": "ibm-infosphere-datastage",
+                "resources": {
+                    "name": "ibm-infosphere-datastage",
+                    "path": "\/ibm-infosphere-datastage",
+                    "prototype": false,
+                    "children": [{
+                        "name": "Agent Prototype",
+                        "path": "\/ibm-infosphere-datastage\/Agent Prototype",
+                        "description": "ibm-infosphere-datastage",
+                        "parentName": "ibm-infosphere-datastage",
+                        "role": "Agent Placeholder",
+                        "roleProperties": {
+                            "name": "Agent Placeholder",
+                            "properties": [{
+                                "name": "agentNamePatterns",
+                                "description": "",
+                                "secure": false
+                            }]
+                        },
+                        "prototype": false,
+                        "children": [{
+                            "name": "datastage",
+                            "componentTag": {
+                                "objectType": "Component",
+                                "name": "datastage",
+                                "description": "",
+                                "color": "#00B2EF"
+                            },
+                            "path": "\/ibm-infosphere-datastage\/Agent Prototype\/datastage",
+                            "description": "Pulls .dtx files and compiles",
+                            "parentName": "Agent Prototype",
+                            "prototype": false,
+                            "children": []
+                        }]
+                    }]
+                },
+                "description": ""
+            },
+            "versionConditions": [],
+            "exemptProcesses": []
+        },
+        {
+            "name": "UAT",
+            "description": "In the User Acceptance Testing environment, the application is tested to ensure that it works with existing applications and systems.",
+            "color": "#A91024",
+            "requireApproval": false,
+            "noSelfApprovals": false,
+            "lockSnapshots": false,
+            "cleanupDaysToKeep": 0,
+            "cleanupCountToKeep": 0,
+            "enableProcessHistoryCleanup": false,
+            "useSystemDefaultDays": true,
+            "historyCleanupDaysToKeep": 365,
+            "propDefs": [],
+            "resourceTemplate": {
+                "name": "ibm-infosphere-datastage",
+                "resources": {
+                    "name": "ibm-infosphere-datastage",
+                    "path": "\/ibm-infosphere-datastage",
+                    "prototype": false,
+                    "children": [{
+                        "name": "Agent Prototype",
+                        "path": "\/ibm-infosphere-datastage\/Agent Prototype",
+                        "description": "ibm-infosphere-datastage",
+                        "parentName": "ibm-infosphere-datastage",
+                        "role": "Agent Placeholder",
+                        "roleProperties": {
+                            "name": "Agent Placeholder",
+                            "properties": [{
+                                "name": "agentNamePatterns",
+                                "description": "",
+                                "secure": false
+                            }]
+                        },
+                        "prototype": false,
+                        "children": [{
+                            "name": "datastage",
+                            "componentTag": {
+                                "objectType": "Component",
+                                "name": "datastage",
+                                "description": "",
+                                "color": "#00B2EF"
+                            },
+                            "path": "\/ibm-infosphere-datastage\/Agent Prototype\/datastage",
+                            "description": "Pulls .dtx files and compiles",
+                            "parentName": "Agent Prototype",
+                            "prototype": false,
+                            "children": []
+                        }]
+                    }]
+                },
+                "description": ""
+            },
+            "versionConditions": [],
+            "exemptProcesses": []
+        }
+    ],
+    "propDefs": [],
+    "statuses": []
+}

@@ -1,0 +1,253 @@
+{
+    "securityResourceId": "f6eb9da4-133a-4896-8946-e7f3e29f2b27",
+    "path": "componentTemplates\/15988d86-98d7-4b72-bada-9733404b18ef",
+    "name": "ibm-infosphere-datastage-component-template",
+    "description": "An component template for the usage of IBM UrbanCode Deploy and IBM InfoSphere Datastage.",
+    "ignoreQualifiers": 0,
+    "componentType": "STANDARD",
+    "tags": [{
+        "id": "1ffe4b8f-3d55-42d5-8db7-1783f5fb7020",
+        "name": "ibm-infosphere-datastage-project",
+        "color": "#00B2EF",
+        "description": "Deploys an IBM InfoSphere DataStage DSX project.",
+        "objectType": "Component"
+    }],
+    "sourceConfigPluginName": "Git",
+    "active": true,
+    "sourceConfigProperties": [
+        {
+            "name": "branch",
+            "value": "${p:resource\/git-branch}",
+            "description": "",
+            "secure": false
+        },
+        {
+            "name": "excludes",
+            "description": "",
+            "secure": false
+        },
+        {
+            "name": "includes",
+            "value": "${p:resource\/dsx-full-filename-no-regex}",
+            "description": "",
+            "secure": false
+        },
+        {
+            "name": "password",
+            "value": "",
+            "description": "",
+            "secure": true
+        },
+        {
+            "name": "repoUrl",
+            "value": "${p:resource\/git-respository-url}",
+            "description": "",
+            "secure": false
+        },
+        {
+            "name": "username",
+            "description": "",
+            "secure": false
+        }
+    ],
+    "envPropDefs": [
+        {
+            "name": "infosphere-datastage-domain",
+            "label": "infosphere-datastage-domain",
+            "pattern": "",
+            "type": "TEXT",
+            "required": true,
+            "description": "",
+            "placeholder": ""
+        },
+        {
+            "name": "infosphere-datastage-username",
+            "label": "infosphere-datastage-username",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "",
+            "placeholder": ""
+        },
+        {
+            "name": "project-name",
+            "label": "project-name",
+            "pattern": "",
+            "type": "TEXT",
+            "required": true,
+            "description": "",
+            "placeholder": ""
+        },
+        {
+            "name": "infosphere-datastage-password",
+            "label": "infosphere-datastage-password",
+            "pattern": "",
+            "type": "SECURE",
+            "value": "",
+            "required": false,
+            "description": "",
+            "placeholder": ""
+        }
+    ],
+    "resPropDefs": [],
+    "propDefs": [],
+    "properties": [],
+    "processes": [{
+        "name": "Deploy",
+        "description": "",
+        "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+        "takesVersion": true,
+        "inventoryActionType": "ADD",
+        "status": "Active",
+        "configActionType": "ADD",
+        "active": true,
+        "path": "componentTemplates\/15988d86-98d7-4b72-bada-9733404b18ef\/processes\/3fc5a4aa-5bee-4604-bd5c-13c039eda537",
+        "propDefs": [],
+        "rootActivity": {
+            "edges": [
+                {
+                    "to": "Download Artifacts",
+                    "type": "ALWAYS",
+                    "value": ""
+                },
+                {
+                    "to": "Compile Job or Routine",
+                    "from": "Import DSX Project",
+                    "type": "SUCCESS",
+                    "value": ""
+                },
+                {
+                    "to": "Import DSX Project",
+                    "from": "Download Artifacts",
+                    "type": "SUCCESS",
+                    "value": ""
+                },
+                {
+                    "to": "374265a0aca3f5885c7d7ffd21a6b7",
+                    "from": "Compile Job or Routine",
+                    "type": "SUCCESS",
+                    "value": ""
+                }
+            ],
+            "offsets": [
+                {
+                    "name": "374265a0aca3f5885c7d7ffd21a6b7",
+                    "x": -5,
+                    "y": 460,
+                    "h": 50,
+                    "w": 90
+                },
+                {
+                    "name": "Import DSX Project",
+                    "x": -120,
+                    "y": 200,
+                    "h": 50,
+                    "w": 320
+                },
+                {
+                    "name": "Compile Job or Routine",
+                    "x": -140,
+                    "y": 320,
+                    "h": 50,
+                    "w": 360
+                },
+                {
+                    "name": "Download Artifacts",
+                    "x": -120,
+                    "y": 110,
+                    "h": 50,
+                    "w": 320
+                }
+            ],
+            "type": "graph",
+            "name": "50e22fef-e962-4401-bb2d-2b01e902781d",
+            "children": [
+                {
+                    "type": "finish",
+                    "name": "374265a0aca3f5885c7d7ffd21a6b7",
+                    "children": []
+                },
+                {
+                    "allowFailure": false,
+                    "useImpersonation": false,
+                    "showHidden": false,
+                    "impersonationUseSudo": false,
+                    "commandName": "Download Artifacts",
+                    "pluginName": "IBM UrbanCode Deploy Versioned File Storage",
+                    "pluginVersion": 26,
+                    "properties": {
+                        "directoryOffset": ".",
+                        "artifactSetBaseDir": "",
+                        "fileIncludePatterns": "**\/*",
+                        "fileExcludePatterns": "",
+                        "syncMode": "true",
+                        "fullVerification": "true",
+                        "setFileExecuteBits": "false",
+                        "verifyFileIntegrity": "false",
+                        "versionId": "${p:version.id}",
+                        "serverUrl": "${p:server.url}",
+                        "compId": "${p:component.id}",
+                        "resId": "${p:resource.id}",
+                        "charset": "",
+                        "label": ""
+                    },
+                    "type": "plugin",
+                    "name": "Download Artifacts",
+                    "children": []
+                },
+                {
+                    "allowFailure": false,
+                    "useImpersonation": false,
+                    "showHidden": false,
+                    "impersonationUseSudo": false,
+                    "commandName": "Compile Job or Routine",
+                    "pluginName": "DataStage",
+                    "pluginVersion": 2,
+                    "properties": {
+                        "domain": "${p:environment\/infosphere-datastage-domain}",
+                        "username": "${p:environment\/infosphere-datastage-username}",
+                        "password": "",
+                        "project": "${p:component.name}",
+                        "compChoice": "JOB",
+                        "name": "*",
+                        "force": "false",
+                        "ouc": "false",
+                        "rd": "",
+                        "dsScriptPath": "c:\\IBM\\InformationServer\\Clients\\Classic",
+                        "authfile": "",
+                        "hostname": ""
+                    },
+                    "type": "plugin",
+                    "name": "Compile Job or Routine",
+                    "children": []
+                },
+                {
+                    "allowFailure": false,
+                    "useImpersonation": false,
+                    "showHidden": false,
+                    "impersonationUseSudo": false,
+                    "commandName": "Import DSX Project",
+                    "pluginName": "DataStage",
+                    "pluginVersion": 2,
+                    "properties": {
+                        "domain": "${p:environment\/infosphere-datastage-domain}",
+                        "username": "${p:environment\/infosphere-datastage-username}",
+                        "password": "",
+                        "project": "${p:environment\/project-name}",
+                        "pathnames": "${p:resource\/dsx-full-filename-no-regex}",
+                        "noenv": "false",
+                        "verbose": "false",
+                        "dsScriptPath": "${p:resource\/datastage-script-path}",
+                        "authfile": "",
+                        "hostname": ""
+                    },
+                    "type": "plugin",
+                    "name": "Import DSX Project",
+                    "children": []
+                }
+            ]
+        }
+    }],
+    "genericProcesses": [],
+    "teamMappings": []
+}
