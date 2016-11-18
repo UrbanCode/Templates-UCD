@@ -4,6 +4,8 @@ Initial templates cater to the following scenrarios:
 1. Database Transfer from Derby to DB2
 2. Create a Cluster with remote Deployment Manager and node 
 
+Be sure to go thorugh and check the component/environment/resource properties.
+
 ## Brief Description of Component Template Processes
 1. **Portal+Configuration+Wizard_templ**
   - **Add Additional node to cluster with DB2 drivers**
