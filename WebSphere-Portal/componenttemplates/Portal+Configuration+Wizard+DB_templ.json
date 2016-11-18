@@ -1,0 +1,256 @@
+{
+    "name": "Portal Configuration Wizard DB2",
+    "description": "Captures the Config Wizard steps for various DB2 related tasks",
+    "ignoreQualifiers": 0,
+    "componentType": "STANDARD",
+    "tags": [],
+    "active": true,
+    "envPropDefs": [],
+    "resPropDefs": [],
+    "propDefs": [],
+    "properties": [],
+    "processes": [
+        {
+            "name": "Database Transfer DB2 01 Create users groups and database",
+            "description": "Run on DB2 Server. Creates Portal Groups for DB2 and createes DB2 database for portal. Needs DB2 user set in environment\/wcm.DbUser password in environment\/wcm.DbUser and environment\/wcm.DbPassword environment\/wcm.DbName",
+            "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+            "takesVersion": false,
+            "status": "",
+            "active": true,
+            "path": "components\/0e2798d8-8c4e-420c-b115-8cf818c057d4\/processes\/fd2ca713-c5cf-4f57-861b-bc5872ce1c4e",
+            "propDefs": [],
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "Create database script",
+                        "from": "Create Port users and groups for DB2",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "make db script executable",
+                        "from": "Create database script",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "9271b1355896e62d8e6b3fe9b9817d",
+                        "from": "Run db2 database creation script",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Run db2 database creation script",
+                        "from": "make db script executable",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Create Port users and groups for DB2",
+                        "type": "ALWAYS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "Create database script",
+                        "x": -110,
+                        "y": 231,
+                        "h": 50,
+                        "w": 300
+                    },
+                    {
+                        "name": "9271b1355896e62d8e6b3fe9b9817d",
+                        "x": -5,
+                        "y": 600,
+                        "h": 50,
+                        "w": 90
+                    },
+                    {
+                        "name": "Create Port users and groups for DB2",
+                        "x": -165,
+                        "y": 110,
+                        "h": 50,
+                        "w": 410
+                    },
+                    {
+                        "name": "make db script executable",
+                        "x": -140,
+                        "y": 330,
+                        "h": 50,
+                        "w": 360
+                    },
+                    {
+                        "name": "Run db2 database creation script",
+                        "x": -120,
+                        "y": 449,
+                        "h": 50,
+                        "w": 320
+                    }
+                ],
+                "type": "graph",
+                "name": "d317ec16-9b18-4623-9fe0-07879cc8e4aa",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "9271b1355896e62d8e6b3fe9b9817d",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Shell (with xargs)",
+                        "pluginName": "Shell",
+                        "pluginVersion": 7,
+                        "properties": {
+                            "directoryOffset": ".",
+                            "shellInterpreter": "",
+                            "xargs": "WP_BASE_CONFIG_USERS,WP_JCR_CONFIG_USERS,WP_PZN_CONFIG_USERS,WP_BASE_RUNTIME_USERS,WP_JCR_RUNTIME_USERS, WP_PZN_RUNTIME_USERS",
+                            "xargsDelimiter": ",",
+                            "runOncePerArg": "true",
+                            "scriptBody": "echo $1\ngroupadd $1\nusermod -a -G $1 ${p:environment\/wcm.DbUser}\ngroups ${p:environment\/wcm.DbUser}",
+                            "runAsDaemon": "false",
+                            "outputFile": ""
+                        },
+                        "type": "plugin",
+                        "name": "Create Port users and groups for DB2",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "workingDir": "\/tmp",
+                        "commandName": "Create File",
+                        "pluginName": "File Utils",
+                        "pluginVersion": 49,
+                        "properties": {
+                            "file": "CreateDB2Database.sh",
+                            "contents": "\ndb2set DB2COMM=TCPIP\ndb2set DB2_EVALUNCOMMITTED=YES\ndb2set DB2_INLIST_TO_NLJN=YES\ndb2 \"UPDATE DBM CFG USING sheapthres 0\"\n\n\t\ndb2 \"CREATE DB ${p:environment\/wcm.DbName} using codeset UTF-8 territory us PAGESIZE 8192\"\ndb2 \"UPDATE DB CFG FOR ${p:environment\/wcm.DbName} USING locktimeout 30\"\n\ndb2 \"CONNECT TO ${p:environment\/wcm.DbName} USER ${p:environment\/wcm.DbUser} USING ${p:environment\/wcm.DbPassword}\"\ndb2 \"CREATE BUFFERPOOL ICMLSFREQBP4 SIZE 1000 AUTOMATIC PAGESIZE 4K\"\ndb2 \"CREATE BUFFERPOOL ICMLSVOLATILEBP4 SIZE 16000 AUTOMATIC PAGESIZE 4K\"\ndb2 \"CREATE BUFFERPOOL ICMLSMAINBP32 SIZE 16000 AUTOMATIC PAGESIZE 32K\"\ndb2 \"CREATE BUFFERPOOL CMBMAIN4 SIZE 1000 AUTOMATIC PAGESIZE 4K\"\ndb2 \"CREATE REGULAR TABLESPACE ICMLFQ32 PAGESIZE 32K BUFFERPOOL ICMLSMAINBP32\"\ndb2 \"CREATE REGULAR TABLESPACE ICMLNF32 PAGESIZE 32K BUFFERPOOL ICMLSMAINBP32\"\ndb2 \"CREATE REGULAR TABLESPACE ICMVFQ04 PAGESIZE 4K BUFFERPOOL ICMLSVOLATILEBP4\"\ndb2 \"CREATE REGULAR TABLESPACE ICMSFQ04 PAGESIZE 4K BUFFERPOOL ICMLSFREQBP4\"\ndb2 \"CREATE REGULAR TABLESPACE CMBINV04 PAGESIZE 4K BUFFERPOOL CMBMAIN4\"\ndb2 \"CREATE SYSTEM TEMPORARY TABLESPACE ICMLSSYSTSPACE32 PAGESIZE 32K BUFFERPOOL ICMLSMAINBP32\"\ndb2 \"CREATE SYSTEM TEMPORARY TABLESPACE ICMLSSYSTSPACE4 PAGESIZE 4K BUFFERPOOL ICMLSVOLATILEBP4\"\ndb2 \"CREATE USER TEMPORARY TABLESPACE ICMLSUSRTSPACE4 PAGESIZE 4K BUFFERPOOL ICMLSVOLATILEBP4\"\ndb2 \"DISCONNECT ${p:environment\/wcm.DbName}\"\ndb2 \"TERMINATE\"\ndb2 \"UPDATE DB CFG FOR ${p:environment\/wcm.DbName} USING logfilsiz 16000\"\ndb2 \"UPDATE DB CFG FOR ${p:environment\/wcm.DbName} USING logprimary 20\"\ndb2 \"UPDATE DB CFG FOR ${p:environment\/wcm.DbName} USING logsecond 50\"\ndb2 \"UPDATE DB CFG FOR ${p:environment\/wcm.DbName} USING logbufsz 500\"\ndb2 \"UPDATE DB CFG FOR ${p:environment\/wcm.DbName} USING DFT_QUERYOPT 2\"",
+                            "overwrite": "true",
+                            "customEncoding": ""
+                        },
+                        "type": "plugin",
+                        "name": "Create database script",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "workingDir": "\/tmp",
+                        "commandName": "Set file permissions",
+                        "pluginName": "Linux System Tools",
+                        "pluginVersion": 9,
+                        "properties": {
+                            "includes": "**\/CreateDB2Database.sh",
+                            "excludes": "",
+                            "mod": "a+x",
+                            "fileType": "file"
+                        },
+                        "type": "plugin",
+                        "name": "make db script executable",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Shell",
+                        "pluginName": "Shell",
+                        "pluginVersion": 7,
+                        "properties": {
+                            "directoryOffset": ".",
+                            "shellInterpreter": "",
+                            "scriptBody": "su - ${p:environment\/wcm.DbUser} -c '\/tmp\/CreateDB2Database.sh'",
+                            "runAsDaemon": "false",
+                            "outputFile": ""
+                        },
+                        "type": "plugin",
+                        "name": "Run db2 database creation script",
+                        "children": []
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Database Transfer DB2 02 Restart DB2",
+            "description": "Run on DB2 server. Restarts DB2",
+            "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+            "takesVersion": false,
+            "status": "",
+            "active": true,
+            "path": "components\/0e2798d8-8c4e-420c-b115-8cf818c057d4\/processes\/aba838a5-f377-432f-b8eb-43bd594723a3",
+            "propDefs": [],
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "9578a059f3284f3b1d824b749e5e2f",
+                        "from": "Restart DB2",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Restart DB2",
+                        "type": "ALWAYS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "9578a059f3284f3b1d824b749e5e2f",
+                        "x": -5,
+                        "y": 420,
+                        "h": 50,
+                        "w": 90
+                    },
+                    {
+                        "name": "Restart DB2",
+                        "x": -60,
+                        "y": 149,
+                        "h": 50,
+                        "w": 200
+                    }
+                ],
+                "type": "graph",
+                "name": "aa224c6e-4148-41f5-b52d-7c357be105f4",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "9578a059f3284f3b1d824b749e5e2f",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": true,
+                        "impersonationUsername": "${p:environment\/wcm.DbUser}",
+                        "impersonationGroup": "",
+                        "showHidden": false,
+                        "impersonationPassword": "${p:environment\/wcm.DbPassword}",
+                        "impersonationUseSudo": false,
+                        "commandName": "Shell",
+                        "pluginName": "Shell",
+                        "pluginVersion": 7,
+                        "properties": {
+                            "directoryOffset": ".",
+                            "shellInterpreter": "",
+                            "scriptBody": "db2stop\nsleep 10\ndb2start",
+                            "runAsDaemon": "false",
+                            "outputFile": ""
+                        },
+                        "type": "plugin",
+                        "name": "Restart DB2",
+                        "children": []
+                    }
+                ]
+            }
+        }
+    ],
+    "genericProcesses": [],
+    "teamMappings": []
+}
