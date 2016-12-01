@@ -1,13 +1,14 @@
 {
+    "securityResourceId": "7bbb6d70-c485-4414-9bfa-2353df45b143",
+    "path": "componentTemplates\/a280312a-c4e0-4b17-bd11-7ba2b10f0fbb",
     "name": "Portal Configuration Wizard",
-    "description": "Captures the Config Wizard steps for various tasks. FIles required in a version of this component include : db2jcc_license_cu.jar, db2jcc4.jar, filesForDmgr.zip, profileTemplates.zip",
+    "description": "Captures the Config Wizard steps for various tasks. FIles required in a version of this component include : db2jcc_license_cu.jar, db2jcc4.jar, filesForDmgr.zip",
     "ignoreQualifiers": 0,
     "componentType": "STANDARD",
     "tags": [],
     "active": true,
     "envPropDefs": [],
-    "resPropDefs": [
-        {
+    "resPropDefs": [      {
             "name": "portal.admin.password",
             "label": "portal.admin.password",
             "pattern": "",
@@ -23,7 +24,7 @@
             "type": "TEXT",
             "value": "\/opt\/IBM\/WebSphere\/wp_profile",
             "required": false,
-            "description": ""
+            "description": "Path to portal profile"
         },
         {
             "name": "websphere.password",
@@ -41,7 +42,7 @@
             "type": "SELECT",
             "value": "true",
             "required": false,
-            "description": "",
+            "description": "Whether node is the primary node in a cluster",
             "allowedValues": [
                 {
                     "label": "true",
@@ -52,57 +53,73 @@
                     "value": "false"
                 }
             ]
+        },
+        {
+            "name": "portal.server.name",
+            "label": "portal.server.name",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "WebSphere_Portal",
+            "required": true,
+            "description": "Name assigned to the WebSphere portal server"
+        },
+        {
+            "name": "nodeName",
+            "label": "nodeName",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "wcmNode",
+            "required": false,
+            "description": "Unique node name"
         }
     ],
     "propDefs": [],
-    "properties": [
-                {
+    "properties": [                {
                     "name": "WASProfileName",
-                    "value": "Dmgr01",
-                    "description": "",
+                    "value": "wp_profile",
+                    "description": "Name of the WAS Portal profile",
                     "secure": false
                 },
                 {
                     "name": "wcm.community.DataSourceName",
                     "value": "wpdbDS0",
-                    "description": "",
+                    "description": "WAS datasource for community",
                     "secure": false
                 },
                 {
                     "name": "wcm.customization.DataSourceName",
                     "value": "wpdbDS1",
-                    "description": "",
+                    "description": "WAS datasource for customization",
                     "secure": false
                 },
                 {
                     "name": "wcm.feedback.DataSourceName",
                     "value": "wpdbDS2",
-                    "description": "",
+                    "description": "WAS datasource for feedback",
                     "secure": false
                 },
                 {
                     "name": "wcm.jcr.DataSourceName",
                     "value": "wpdbDS3",
-                    "description": "",
+                    "description": "WAS datasource for jcr",
                     "secure": false
                 },
                 {
                     "name": "wcm.likeminds.DataSourceName",
                     "value": "wpdbDS4",
-                    "description": "",
+                    "description": "WAS datasource for likeminds",
                     "secure": false
                 },
                 {
                     "name": "wcm.release.DataSourceName",
                     "value": "wpdbDS5",
-                    "description": "",
+                    "description": "WAS datasource for release",
                     "secure": false
                 }
             ],
     "processes": [
-        {
-            "name": "Add Additional node to cluster with DB2 drivers",
-            "description": "Run on an additional node after installing Portal Binaries only. TODO: the start portal server step fails to complete. upload profileTemplates.zip, db2jcc4.jar, db2jcc_license_cu.jar to a version of this component",
+{            "name": "Add Additional node to cluster",
+            "description": "Run on an additional node after installing Portal Binaries only. upload db2jcc4.jar, db2jcc_license_cu.jar to a version of this component",
             "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
             "takesVersion": true,
             "status": "",
@@ -112,31 +129,14 @@
             "rootActivity": {
                 "edges": [
                     {
-                        "to": "Execute ConfigEngine start-portal-server",
+                        "to": "f492c351d146ce815449519a90358b",
                         "from": " AddSecondaryNode ConfigEngine cluster-node-config-cluster-setup-additional",
                         "type": "SUCCESS",
                         "value": ""
                     },
                     {
-                        "to": "Download profileTemplates.zip file",
-                        "type": "ALWAYS",
-                        "value": ""
-                    },
-                    {
                         "to": "Feederatenode ConfigEngine add-node",
-                        "from": "Create FederateNode.properties",
-                        "type": "SUCCESS",
-                        "value": ""
-                    },
-                    {
-                        "to": "CreateSecondaryNodeProfile",
-                        "from": "Download DB2 jars",
-                        "type": "SUCCESS",
-                        "value": ""
-                    },
-                    {
-                        "to": "Create FederateNode.properties",
-                        "from": "CreateSecondaryNodeProfile",
+                        "from": "Create FederateNode.properties for additional node",
                         "type": "SUCCESS",
                         "value": ""
                     },
@@ -147,130 +147,64 @@
                         "value": ""
                     },
                     {
-                        "to": "run installPortalTemplates.sh",
-                        "from": "Unzip profileTemplates.zip file",
-                        "type": "SUCCESS",
-                        "value": ""
-                    },
-                    {
-                        "to": "Download DB2 jars",
-                        "from": "Create db2 jar directories",
-                        "type": "SUCCESS",
-                        "value": ""
-                    },
-                    {
-                        "to": "Unzip profileTemplates.zip file",
-                        "from": "Download profileTemplates.zip file",
-                        "type": "SUCCESS",
-                        "value": ""
-                    },
-                    {
-                        "to": "f492c351d146ce815449519a90358b",
-                        "from": "Execute ConfigEngine start-portal-server",
-                        "type": "SUCCESS",
-                        "value": ""
-                    },
-                    {
-                        "to": "Create db2 jar directories",
-                        "from": "run installPortalTemplates.sh",
-                        "type": "SUCCESS",
-                        "value": ""
-                    },
-                    {
                         "to": "Create AddSecondaryNode",
                         "from": "Feederatenode ConfigEngine add-node",
                         "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Create FederateNode.properties for additional node",
+                        "type": "ALWAYS",
                         "value": ""
                     }
                 ],
                 "offsets": [
                     {
-                        "name": "run installPortalTemplates.sh",
-                        "x": -122.5,
-                        "y": 290,
-                        "h": 50,
-                        "w": 300
+                        "name": "f492c351d146ce815449519a90358b",
+                        "x": -15,
+                        "y": 880,
+                        "h": 110,
+                        "w": 200
                     },
                     {
                         "name": "Create AddSecondaryNode",
-                        "x": -137.5,
-                        "y": 903,
-                        "h": 50,
-                        "w": 330
-                    },
-                    {
-                        "name": "Execute ConfigEngine start-portal-server",
-                        "x": -212.5,
-                        "y": 1090,
-                        "h": 50,
-                        "w": 510
+                        "x": -220,
+                        "y": 520,
+                        "h": 130,
+                        "w": 610
                     },
                     {
                         "name": " AddSecondaryNode ConfigEngine cluster-node-config-cluster-setup-additional",
-                        "x": -207.5,
-                        "y": 1010,
-                        "h": 50,
-                        "w": 720
+                        "x": -690,
+                        "y": 700,
+                        "h": 130,
+                        "w": 1550
                     },
                     {
-                        "name": "Unzip profileTemplates.zip file",
-                        "x": -110,
-                        "y": 200,
-                        "h": 50,
-                        "w": 300
+                        "name": "Execute ConfigEngine cluster-node-config-post-federation",
+                        "x": 11790,
+                        "y": -50,
+                        "h": 130,
+                        "w": 1180
                     },
                     {
-                        "name": "Create FederateNode.properties",
-                        "x": -152.5,
-                        "y": 690,
-                        "h": 50,
-                        "w": 350
-                    },
-                    {
-                        "name": "Download profileTemplates.zip file",
-                        "x": -165,
-                        "y": 100,
-                        "h": 50,
-                        "w": 410
-                    },
-                    {
-                        "name": "CreateSecondaryNodeProfile",
-                        "x": -122.5,
-                        "y": 580,
-                        "h": 50,
-                        "w": 300
-                    },
-                    {
-                        "name": "f492c351d146ce815449519a90358b",
-                        "x": -45,
-                        "y": 1160,
-                        "h": 50,
-                        "w": 90
-                    },
-                    {
-                        "name": "Create db2 jar directories",
-                        "x": -140,
-                        "y": 380,
-                        "h": 50,
-                        "w": 360
+                        "name": "Create FederateNode.properties for additional node",
+                        "x": -445,
+                        "y": 160,
+                        "h": 130,
+                        "w": 1060
                     },
                     {
                         "name": "Feederatenode ConfigEngine add-node",
-                        "x": -212.5,
-                        "y": 800,
-                        "h": 50,
-                        "w": 510
-                    },
-                    {
-                        "name": "Download DB2 jars",
-                        "x": -125,
-                        "y": 490,
-                        "h": 50,
-                        "w": 330
+                        "x": -330,
+                        "y": 340,
+                        "h": 130,
+                        "w": 830
                     }
                 ],
+                "layoutMode": "auto",
                 "type": "graph",
-                "name": "d138eae1-4493-4b5d-98bb-fcca03a2d33b",
+                "name": "3e7c25ea-077f-4dd1-a711-169313857807",
                 "children": [
                     {
                         "type": "finish",
@@ -282,12 +216,37 @@
                         "useImpersonation": false,
                         "showHidden": false,
                         "impersonationUseSudo": false,
-                        "commandName": "Create Directories",
+                        "commandName": "Create File",
                         "pluginName": "File Utils",
                         "pluginVersion": 49,
-                        "properties": {"dir": "\/opt\/ibm\/db2\/V10.5\/java"},
+                        "properties": {
+                            "file": "FederateNode.properties",
+                            "contents": "PrimaryNode=false\nWasRemoteHostName=${p:environment\/WASDmgrHostname}\nWasSoapPort=${p:environment\/WASDmgrPort}\nWasUserid=${p:environment\/WASAdminUsername}\n",
+                            "overwrite": "true",
+                            "customEncoding": ""
+                        },
                         "type": "plugin",
-                        "name": "Create db2 jar directories",
+                        "name": "Create FederateNode.properties for additional node",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": true,
+                        "impersonationUseSudo": false,
+                        "commandName": "Execute ConfigEngine command",
+                        "pluginName": "WebSphere Portal",
+                        "pluginVersion": 3,
+                        "properties": {
+                            "configCommand": "add-node",
+                            "options": "SaveParentProperties=true,parentProperties=FederateNode.properties,WasPassword=${p:environment\/WASAdminPassword},DmgrNodeName=${p?:environment\/WASNodeName},DmgrCellName=${p:environment\/WASCellName},dmgrProfilePath=\/opt\/IBM\/WebSphere\/AppServer\/profiles\/dmgr01,isRemoteDmgr=true",
+                            "useWKPLCProps": "false",
+                            "profHome": "${p:resource\/portal.profile.home}",
+                            "wpPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|\/gUQeNErUnK4PYoA1RZNHA==|2CyFYs8tWwfRX8UTcx8BdA3HmcdvfrNtp4JDyi\/wghhDXVjaqDIU4JfzNF6t3nCG}",
+                            "wasPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|npHlitVaE2\/h7RnPwTlkeA==|v+AVrQRFW2ctX7STqIymWVB2jd7jSvK2QiM6tCMxXiSwOGpJ\/pTD3iBRlU36ZH2C}"
+                        },
+                        "type": "plugin",
+                        "name": "Feederatenode ConfigEngine add-node",
                         "children": []
                     },
                     {
@@ -295,16 +254,241 @@
                         "useImpersonation": false,
                         "showHidden": false,
                         "impersonationUseSudo": false,
-                        "workingDir": "\/",
+                        "commandName": "Create File",
+                        "pluginName": "File Utils",
+                        "pluginVersion": 49,
+                        "properties": {
+                            "file": "AddSecondaryNode.properties",
+                            "contents": "ClusterName=PortalCluster\nPrimaryNode=false\nWasRemoteHostName=${p:environment\/WASDmgrHostname}\nWasSoapPort=${p:environment\/WASDmgrPort}\nWasUserid=${p:environment\/WASAdminUsername}\nServerName=${p:resource\/portal.server.name}\nWasPassword=${p:environment\/WASAdminPassword}\nPortalAdminPwd=${p:environment\/WASAdminPassword}",
+                            "overwrite": "true",
+                            "customEncoding": ""
+                        },
+                        "type": "plugin",
+                        "name": "Create AddSecondaryNode",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": true,
+                        "impersonationUseSudo": false,
+                        "commandName": "Execute ConfigEngine command",
+                        "pluginName": "WebSphere Portal",
+                        "pluginVersion": 3,
+                        "properties": {
+                            "configCommand": "cluster-node-config-cluster-setup-additional",
+                            "options": "SaveParentProperties=true,parentProperties=AddSecondaryNode.properties,WasUserid=${p:environment\/WASAdminUsername},WasPassword=${p:environment\/WASAdminPassword}",
+                            "useWKPLCProps": "true",
+                            "profHome": "${p:resource\/portal.profile.home}",
+                            "wpPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|n4HLKjyNvXZPxZPi4qLgpw==|fa+q+0gh\/PKdJS4exfkJJt4h38Is66QkuCzPkDO1\/c0RHNTzmng18W\/MX8xpNpe0}",
+                            "wasPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|fufFnnjEqyPYs73qkJlxbA==|mNIyLpAYvkGpMaelE9lUIJxXqFTyhFuO2alJuCUMw\/bIZlkkUTifs88+ctW8FqOA}"
+                        },
+                        "type": "plugin",
+                        "name": " AddSecondaryNode ConfigEngine cluster-node-config-cluster-setup-additional",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": true,
+                        "impersonationUseSudo": false,
+                        "commandName": "Execute ConfigEngine command",
+                        "pluginName": "WebSphere Portal",
+                        "pluginVersion": 3,
+                        "properties": {
+                            "configCommand": "cluster-node-config-post-federation",
+                            "options": "",
+                            "useWKPLCProps": "true",
+                            "profHome": "${p:resource\/portal.profile.home}",
+                            "wpPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|QSDQSYUbUXhyln09A+xFiQ==|TFU7\/pBACxaKitFJSw5NAkkn4mHoLQjRqbVE9iI3LBJiGzCLzKsvn8vtpZsVkmA1}",
+                            "wasPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|0j15SC7YZLxsqdEF6pmrWQ==|31ZrZwCfw7L\/Wp2XreYYyF\/EFiBHGcidNoIJn\/jER7ysU4vNaGi1rn5M1f15JBKi}"
+                        },
+                        "type": "plugin",
+                        "name": "Execute ConfigEngine cluster-node-config-post-federation",
+                        "children": []
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Augment Deployment Manager for Portal",
+            "description": "Run on Dmgr Server - add Portal files to Dmgr. Upload the filesForDmgr.zip from the Primary node to a version of this component",
+            "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+            "takesVersion": true,
+            "status": "",
+            "active": true,
+            "path": "components\/96035a54-54f9-4e72-aab3-1f4ede5b3992\/processes\/59b8a70d-1f10-4033-8c26-ce562b44a5b0",
+            "propDefs": [],
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "Start Augmented Deployment Manager",
+                        "from": "Stop Augmented Deployment Manager",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Copy metadata_wkplc.xml",
+                        "from": "Unzip",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Unzip",
+                        "from": "Download Artifacts",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Augment dmgr profile",
+                        "from": "Start Deployment Manager",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Stop Augmented Deployment Manager",
+                        "from": "Augment dmgr profile",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Stop Deployment Manager",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Download Artifacts",
+                        "from": "Stop Deployment Manager",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Start Deployment Manager",
+                        "from": "Copy metadata_wkplc.xml",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "6f0815bfc642fca94e676a9fc2ac6f",
+                        "from": "Start Augmented Deployment Manager",
+                        "type": "SUCCESS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "91335e9c8e8e14a6db96e86befe7bb",
+                        "x": 410,
+                        "y": 295,
+                        "h": 50,
+                        "w": 450
+                    },
+                    {
+                        "name": "Unzip",
+                        "x": 20,
+                        "y": 165,
+                        "h": 70,
+                        "w": 170
+                    },
+                    {
+                        "name": "Download Artifacts",
+                        "x": 500,
+                        "y": 40,
+                        "h": 70,
+                        "w": 250
+                    },
+                    {
+                        "name": "Copy metadata_wkplc.xml",
+                        "x": 240,
+                        "y": 185,
+                        "h": 70,
+                        "w": 250
+                    },
+                    {
+                        "name": "6f0815bfc642fca94e676a9fc2ac6f",
+                        "x": 20,
+                        "y": 495,
+                        "h": 80,
+                        "w": 120
+                    },
+                    {
+                        "name": "Augment dmgr profile",
+                        "x": 20,
+                        "y": 330,
+                        "h": 70,
+                        "w": 220
+                    },
+                    {
+                        "name": "Stop Augmented Deployment Manager",
+                        "x": 290,
+                        "y": 350,
+                        "h": 70,
+                        "w": 330
+                    },
+                    {
+                        "name": "Stop Deployment Manager",
+                        "x": 160,
+                        "y": 20,
+                        "h": 70,
+                        "w": 290
+                    },
+                    {
+                        "name": "Start Deployment Manager",
+                        "x": 540,
+                        "y": 205,
+                        "h": 70,
+                        "w": 290
+                    },
+                    {
+                        "name": "Start Augmented Deployment Manager",
+                        "x": 670,
+                        "y": 370,
+                        "h": 70,
+                        "w": 330
+                    }
+                ],
+                "layoutMode": "auto",
+                "type": "graph",
+                "name": "3925fd52-51a5-47d4-9f70-d13e2e4eb311",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "6f0815bfc642fca94e676a9fc2ac6f",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Stop Deployment Manager",
+                        "pluginName": "WAS - Install",
+                        "pluginVersion": 4,
+                        "properties": {
+                            "WASInstallPath": "${p:environment\/WASInstallPath}",
+                            "WASProfileName": "Dmgr01",
+                            "WASAdminUsername": "${p:environment\/WASAdminUsername}",
+                            "WASAdminPassword": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|WaNpSVOKpxVSmnJHhMc\/Kw==|QS3IYniRbiWtZuKdcPqmBEqY0U5Dlfu3J6xlNrqkhhvF2XxlprcAKiaE7FyMHwjb}"
+                        },
+                        "type": "plugin",
+                        "name": "Stop Deployment Manager",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "workingDir": "\/tmp",
                         "commandName": "Download Artifacts",
                         "pluginName": "IBM UrbanCode Deploy Versioned File Storage",
-                        "pluginVersion": 26,
+                        "pluginVersion": 27,
                         "properties": {
-                            "directoryOffset": "opt\/ibm\/db2\/V10.5\/java\/",
+                            "directoryOffset": ".",
                             "artifactSetBaseDir": "",
-                            "fileIncludePatterns": "**\/db2jcc4.jar\n**\/db2jcc_license_cu.jar",
+                            "fileIncludePatterns": "**\/filesForDmgr.zip",
                             "fileExcludePatterns": "",
-                            "syncMode": "true",
+                            "syncMode": "FULL",
                             "fullVerification": "true",
                             "setFileExecuteBits": "false",
                             "verifyFileIntegrity": "false",
@@ -316,7 +500,254 @@
                             "label": ""
                         },
                         "type": "plugin",
+                        "name": "Download Artifacts",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "workingDir": "\/tmp",
+                        "commandName": "Unzip",
+                        "pluginName": "File Utils",
+                        "pluginVersion": 49,
+                        "properties": {
+                            "dir": "${p:environment\/WASInstallPath}",
+                            "zip": "filesForDmgr.zip",
+                            "includes": "**\/*",
+                            "excludes": "",
+                            "overwrite": "true",
+                            "customEncoding": ""
+                        },
+                        "type": "plugin",
+                        "name": "Unzip",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Start Deployment Manager",
+                        "pluginName": "WAS - Install",
+                        "pluginVersion": 4,
+                        "properties": {
+                            "WASInstallPath": "${p:environment\/WASInstallPath}",
+                            "WASProfileName": "Dmgr01",
+                            "WASAdminUsername": "${p:environment\/WASAdminUsername}",
+                            "WASAdminPassword": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|0lXoWnAAsvP\/tpnAnYfD3A==|AUX\/RBCJAoon2IJhTlXvrUB4LS5qGFN2gP9FRPAz8UsJtoh\/k2RmSZypvFGepNZT}"
+                        },
+                        "type": "plugin",
+                        "name": "Start Deployment Manager",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Shell",
+                        "pluginName": "Shell",
+                        "pluginVersion": 7,
+                        "properties": {
+                            "directoryOffset": ".",
+                            "shellInterpreter": "",
+                            "scriptBody": "${p:environment\/WASInstallPath}\/bin\/manageprofiles.sh -augment -templatePath ${p:environment\/WASInstallPath}\/profileTemplates\/management.portal.augment -profileName Dmgr01\n",
+                            "runAsDaemon": "false",
+                            "outputFile": ""
+                        },
+                        "type": "plugin",
+                        "name": "Augment dmgr profile",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Start Deployment Manager",
+                        "pluginName": "WAS - Install",
+                        "pluginVersion": 4,
+                        "properties": {
+                            "WASInstallPath": "${p:environment\/WASInstallPath}",
+                            "WASProfileName": "Dmgr01",
+                            "WASAdminUsername": "${p:environment\/WASAdminUsername}",
+                            "WASAdminPassword": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|gV0xB5kkLUGat\/mLJpuKwQ==|UUGnWojsYJWSBwdC43VCU3ZpWKhI+1oRReC5k57Yp3oXF8q4HCpLqv4e8BHDWLR\/}"
+                        },
+                        "type": "plugin",
+                        "name": "Start Augmented Deployment Manager",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Stop Deployment Manager",
+                        "pluginName": "WAS - Install",
+                        "pluginVersion": 4,
+                        "properties": {
+                            "WASInstallPath": "${p:environment\/WASInstallPath}",
+                            "WASProfileName": "Dmgr01",
+                            "WASAdminUsername": "${p:environment\/WASAdminUsername}",
+                            "WASAdminPassword": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|mCsAQXTlb6KWZWmn\/6IBjA==|wXCpsQxbmu4U4B86uTXYNGYt1ikLv2Tad7zIOR7Ibc69PKqJBl\/6VoHmg0hYQJ3v}"
+                        },
+                        "type": "plugin",
+                        "name": "Stop Augmented Deployment Manager",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Shell",
+                        "pluginName": "Shell",
+                        "pluginVersion": 7,
+                        "properties": {
+                            "directoryOffset": ".",
+                            "shellInterpreter": "",
+                            "scriptBody": "\/bin\/cp -f  ${p:environment\/WASInstallPath}\/profiles\/Dmgr01\/config\/.repository\/metadata_wkplc.xml ${p:environment\/WASInstallPath}\/profiles\/${p:component\/WASProfileName}\/config\/.repository\/",
+                            "runAsDaemon": "false",
+                            "outputFile": ""
+                        },
+                        "type": "plugin",
+                        "name": "Copy metadata_wkplc.xml",
+                        "children": []
+                    },
+                    {
+                        "name": "91335e9c8e8e14a6db96e86befe7bb",
+                        "text": "Ignore error in copy step which occurs if the source and destination are same",
+                        "type": "note",
+                        "children": []
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Create Portal profile on addittional node and copy DB2 drivers",
+            "description": "Run on an additional node after running ConfigEngine enable-profiles package-profiles on primary",
+            "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+            "takesVersion": true,
+            "status": "",
+            "active": true,
+            "path": "components\/96035a54-54f9-4e72-aab3-1f4ede5b3992\/processes\/bbc207b3-81a6-4b93-a047-21a3c9e158ea",
+            "propDefs": [],
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "Unzip profileTemplates.zip file",
+                        "from": "Download profileTemplates.zip file",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "f492c351d146ce815449519a90358b",
+                        "from": "Create Secondary managed portal profile",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Create Secondary managed portal profile",
+                        "from": "Download DB2 jars",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Download profileTemplates.zip file",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "run installPortalTemplates.sh",
+                        "from": "Unzip profileTemplates.zip file",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Create Secondary managed portal profile",
+                        "from": "run installPortalTemplates.sh",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Download DB2 jars",
+                        "from": "Create db2 jar directories",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Create db2 jar directories",
+                        "type": "ALWAYS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "Unzip profileTemplates.zip file",
+                        "x": 65,
+                        "y": 250,
+                        "h": 70,
+                        "w": 280
+                    },
+                    {
+                        "name": "f492c351d146ce815449519a90358b",
+                        "x": -28.888888888888857,
+                        "y": 610,
+                        "h": 80,
+                        "w": 120
+                    },
+                    {
+                        "name": "run installPortalTemplates.sh",
+                        "x": -21.944444444444457,
+                        "y": 370,
+                        "h": 70,
+                        "w": 280
+                    },
+                    {
+                        "name": "Create db2 jar directories",
+                        "x": -232.5,
+                        "y": 130,
+                        "h": 70,
+                        "w": 260
+                    },
+                    {
+                        "name": "Download profileTemplates.zip file",
+                        "x": 57.5,
+                        "y": 130,
+                        "h": 70,
+                        "w": 310
+                    },
+                    {
                         "name": "Download DB2 jars",
+                        "x": -225,
+                        "y": 250,
+                        "h": 70,
+                        "w": 260
+                    },
+                    {
+                        "name": "Create Secondary managed portal profile",
+                        "x": -108.88888888888886,
+                        "y": 490,
+                        "h": 70,
+                        "w": 360
+                    },
+                    {
+                        "name": "e35e196fce2b26600cfe75e942d24b",
+                        "x": 357.5,
+                        "y": 245,
+                        "h": 80,
+                        "w": 520
+                    }
+                ],
+                "layoutMode": "auto",
+                "type": "graph",
+                "name": "703b92ce-2337-4a0d-98dd-58814c7cb5d8",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "f492c351d146ce815449519a90358b",
                         "children": []
                     },
                     {
@@ -327,7 +758,7 @@
                         "workingDir": "\/opt\/IBM\/WebSphere\/PortalServer\/profileTemplates",
                         "commandName": "Download Artifacts",
                         "pluginName": "IBM UrbanCode Deploy Versioned File Storage",
-                        "pluginVersion": 26,
+                        "pluginVersion": 27,
                         "properties": {
                             "directoryOffset": ".",
                             "artifactSetBaseDir": "",
@@ -393,56 +824,12 @@
                         "useImpersonation": false,
                         "showHidden": false,
                         "impersonationUseSudo": false,
-                        "commandName": "Shell",
-                        "pluginName": "Shell",
-                        "pluginVersion": 7,
-                        "properties": {
-                            "directoryOffset": ".",
-                            "shellInterpreter": "",
-                            "scriptBody": "\/opt\/IBM\/WebSphere\/AppServer\/bin\/manageprofiles.sh  -create -templatePath \/opt\/IBM\/WebSphere\/PortalServer\/profileTemplates\/managed.portal -profileName wp_profile -profilePath \/opt\/IBM\/WebSphere\/wp_profile  -hostName `hostname` -startingPort 10012",
-                            "runAsDaemon": "false",
-                            "outputFile": ""
-                        },
-                        "type": "plugin",
-                        "name": "CreateSecondaryNodeProfile",
-                        "children": []
-                    },
-                    {
-                        "allowFailure": false,
-                        "useImpersonation": false,
-                        "showHidden": false,
-                        "impersonationUseSudo": false,
-                        "commandName": "Create File",
+                        "commandName": "Create Directories",
                         "pluginName": "File Utils",
                         "pluginVersion": 49,
-                        "properties": {
-                            "file": "FederateNode.properties",
-                            "contents": "PrimaryNode=false\nWasRemoteHostName=${p:environment\/WASDmgrHostname}\nWasSoapPort=${p:environment\/WASDmgrPort}\nWasUserid=${p:environment\/WASAdminUsername}\n",
-                            "overwrite": "true",
-                            "customEncoding": ""
-                        },
+                        "properties": {"dir": "\/opt\/ibm\/db2\/V10.5\/java"},
                         "type": "plugin",
-                        "name": "Create FederateNode.properties",
-                        "children": []
-                    },
-                    {
-                        "allowFailure": false,
-                        "useImpersonation": false,
-                        "showHidden": true,
-                        "impersonationUseSudo": false,
-                        "commandName": "Execute ConfigEngine command",
-                        "pluginName": "WebSphere Portal",
-                        "pluginVersion": 3,
-                        "properties": {
-                            "configCommand": "add-node",
-                            "options": "SaveParentProperties=true,parentProperties=FederateNode.properties,WasPassword=${p:environment\/WASAdminPassword},DmgrNodeName=dmgrCellManager01,DmgrCellName=dmgrCell,dmgrProfilePath=\/opt\/IBM\/WebSphere\/AppServer\/profiles\/dmgr01,isRemoteDmgr=true",
-                            "useWKPLCProps": "false",
-                            "profHome": "${p:resource\/portal.profile.home}",
-                            "wpPass": "${p:environment\/WASAdminPassword}",
-                            "wasPass": "${p:environment\/WASAdminPassword}"
-                        },
-                        "type": "plugin",
-                        "name": "Feederatenode ConfigEngine add-node",
+                        "name": "Create db2 jar directories",
                         "children": []
                     },
                     {
@@ -450,240 +837,16 @@
                         "useImpersonation": false,
                         "showHidden": false,
                         "impersonationUseSudo": false,
-                        "commandName": "Create File",
-                        "pluginName": "File Utils",
-                        "pluginVersion": 49,
-                        "properties": {
-                            "file": "AddSecondaryNode.properties",
-                            "contents": "ClusterName=PortalCluster\nPrimaryNode=false\nWasRemoteHostName=${p:environment\/WASDmgrHostname}\nWasSoapPort=${p:environment\/WASDmgrPort}\nWasUserid=${p:environment\/WASAdminUsername}",
-                            "overwrite": "true",
-                            "customEncoding": ""
-                        },
-                        "type": "plugin",
-                        "name": "Create AddSecondaryNode",
-                        "children": []
-                    },
-                    {
-                        "allowFailure": false,
-                        "useImpersonation": false,
-                        "showHidden": true,
-                        "impersonationUseSudo": false,
-                        "commandName": "Execute ConfigEngine command",
-                        "pluginName": "WebSphere Portal",
-                        "pluginVersion": 3,
-                        "properties": {
-                            "configCommand": "cluster-node-config-cluster-setup-additional",
-                            "options": "SaveParentProperties=true,parentProperties=AddSecondaryNode.properties,WasUserid=${p:environment\/WASAdminUsername},WasPassword=${p:environment\/WASAdminPassword}",
-                            "useWKPLCProps": "true",
-                            "profHome": "${p:resource\/portal.profile.home}",
-                            "wpPass": "${p:environment\/WASAdminPassword}",
-                            "wasPass": "${p:environment\/WASAdminPassword}"
-                        },
-                        "type": "plugin",
-                        "name": " AddSecondaryNode ConfigEngine cluster-node-config-cluster-setup-additional",
-                        "children": []
-                    },
-                    {
-                        "allowFailure": false,
-                        "useImpersonation": false,
-                        "showHidden": true,
-                        "impersonationUseSudo": false,
-                        "commandName": "Execute ConfigEngine command",
-                        "pluginName": "WebSphere Portal",
-                        "pluginVersion": 3,
-                        "properties": {
-                            "configCommand": "start-portal-server",
-                            "options": "WasPassword=${p:environment\/WASAdminPassword}",
-                            "useWKPLCProps": "false",
-                            "profHome": "${p:resource\/portal.profile.home}",
-                            "wpPass": "${p:environment\/WASAdminPassword}",
-                            "wasPass": "${p:environment\/WASAdminPassword}"
-                        },
-                        "type": "plugin",
-                        "name": "Execute ConfigEngine start-portal-server",
-                        "children": []
-                    }
-                ]
-            }
-        },
-        {
-            "name": "Augment Deployment Manager for Portal",
-            "description": "Run on Dmgr Server - add Portal files to Dmgr. Upload the filesForDmgr.zip from the Primary node to a version of this component",
-            "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
-            "takesVersion": true,
-            "status": "",
-            "active": true,
-            "path": "components\/96035a54-54f9-4e72-aab3-1f4ede5b3992\/processes\/59b8a70d-1f10-4033-8c26-ce562b44a5b0",
-            "propDefs": [],
-            "rootActivity": {
-                "edges": [
-                    {
-                        "to": "Download Artifacts",
-                        "from": "Stop Deployment Manager",
-                        "type": "SUCCESS",
-                        "value": ""
-                    },
-                    {
-                        "to": "Unzip",
-                        "from": "Download Artifacts",
-                        "type": "SUCCESS",
-                        "value": ""
-                    },
-                    {
-                        "to": "Stop Deployment Manager",
-                        "type": "ALWAYS",
-                        "value": ""
-                    },
-                    {
-                        "to": "Start Augmented Deployment Manager",
-                        "from": "Stop Augmented Deployment Manager",
-                        "type": "SUCCESS",
-                        "value": ""
-                    },
-                    {
-                        "to": "Copy metadata_wkplc.xml",
-                        "from": "Unzip",
-                        "type": "SUCCESS",
-                        "value": ""
-                    },
-                    {
-                        "to": "Start Deployment Manager",
-                        "from": "Copy metadata_wkplc.xml",
-                        "type": "ALWAYS",
-                        "value": ""
-                    },
-                    {
-                        "to": "Stop Augmented Deployment Manager",
-                        "from": "Augment dmgr profile",
-                        "type": "SUCCESS",
-                        "value": ""
-                    },
-                    {
-                        "to": "Augment dmgr profile",
-                        "from": "Start Deployment Manager",
-                        "type": "SUCCESS",
-                        "value": ""
-                    },
-                    {
-                        "to": "6f0815bfc642fca94e676a9fc2ac6f",
-                        "from": "Start Augmented Deployment Manager",
-                        "type": "SUCCESS",
-                        "value": ""
-                    }
-                ],
-                "offsets": [
-                    {
-                        "name": "Stop Deployment Manager",
-                        "x": -152.5,
-                        "y": 121,
-                        "h": 50,
-                        "w": 390
-                    },
-                    {
-                        "name": "Unzip",
-                        "x": -32.5,
-                        "y": 300,
-                        "h": 50,
-                        "w": 180
-                    },
-                    {
-                        "name": "Copy metadata_wkplc.xml",
-                        "x": -126,
-                        "y": 380,
-                        "h": 50,
-                        "w": 280
-                    },
-                    {
-                        "name": "Start Augmented Deployment Manager",
-                        "x": -176,
-                        "y": 690,
-                        "h": 50,
-                        "w": 460
-                    },
-                    {
-                        "name": "Stop Augmented Deployment Manager",
-                        "x": -152.5,
-                        "y": 620,
-                        "h": 50,
-                        "w": 450
-                    },
-                    {
-                        "name": "6f0815bfc642fca94e676a9fc2ac6f",
-                        "x": 14,
-                        "y": 770,
-                        "h": 50,
-                        "w": 90
-                    },
-                    {
-                        "name": "Augment dmgr profile",
-                        "x": -67.5,
-                        "y": 540,
-                        "h": 50,
-                        "w": 250
-                    },
-                    {
-                        "name": "Start Deployment Manager",
-                        "x": -142.5,
-                        "y": 466,
-                        "h": 50,
-                        "w": 390
-                    },
-                    {
-                        "name": "Download Artifacts",
-                        "x": -120,
-                        "y": 200,
-                        "h": 50,
-                        "w": 320
-                    },
-                    {
-                        "name": "91335e9c8e8e14a6db96e86befe7bb",
-                        "x": 177.5,
-                        "y": 405,
-                        "h": 50,
-                        "w": 450
-                    }
-                ],
-                "type": "graph",
-                "name": "c4ccba88-c81d-4937-9b65-c9574982be78",
-                "children": [
-                    {
-                        "type": "finish",
-                        "name": "6f0815bfc642fca94e676a9fc2ac6f",
-                        "children": []
-                    },
-                    {
-                        "allowFailure": false,
-                        "useImpersonation": false,
-                        "showHidden": false,
-                        "impersonationUseSudo": false,
-                        "commandName": "Stop Deployment Manager",
-                        "pluginName": "WAS - Install",
-                        "pluginVersion": 4,
-                        "properties": {
-                            "WASInstallPath": "${p:environment\/WASInstallPath}",
-                            "WASProfileName": "${p:component\/WASProfileName}",
-                            "WASAdminUsername": "${p:environment\/WASAdminUsername}",
-                            "WASAdminPassword": "${p:environment\/WASAdminPassword}"
-                        },
-                        "type": "plugin",
-                        "name": "Stop Deployment Manager",
-                        "children": []
-                    },
-                    {
-                        "allowFailure": false,
-                        "useImpersonation": false,
-                        "showHidden": false,
-                        "impersonationUseSudo": false,
-                        "workingDir": "\/tmp",
+                        "workingDir": "\/",
                         "commandName": "Download Artifacts",
                         "pluginName": "IBM UrbanCode Deploy Versioned File Storage",
-                        "pluginVersion": 26,
+                        "pluginVersion": 27,
                         "properties": {
-                            "directoryOffset": ".",
+                            "directoryOffset": "opt\/ibm\/db2\/V10.5\/java\/",
                             "artifactSetBaseDir": "",
-                            "fileIncludePatterns": "**\/filesForDmgr.zip",
+                            "fileIncludePatterns": "**\/db2jcc4.jar\n**\/db2jcc_license_cu.jar",
                             "fileExcludePatterns": "",
-                            "syncMode": "FULL",
+                            "syncMode": "true",
                             "fullVerification": "true",
                             "setFileExecuteBits": "false",
                             "verifyFileIntegrity": "false",
@@ -695,46 +858,7 @@
                             "label": ""
                         },
                         "type": "plugin",
-                        "name": "Download Artifacts",
-                        "children": []
-                    },
-                    {
-                        "allowFailure": false,
-                        "useImpersonation": false,
-                        "showHidden": false,
-                        "impersonationUseSudo": false,
-                        "workingDir": "\/tmp",
-                        "commandName": "Unzip",
-                        "pluginName": "File Utils",
-                        "pluginVersion": 49,
-                        "properties": {
-                            "dir": "${p:environment\/WASInstallPath}",
-                            "zip": "filesForDmgr.zip",
-                            "includes": "**\/*",
-                            "excludes": "",
-                            "overwrite": "true",
-                            "customEncoding": ""
-                        },
-                        "type": "plugin",
-                        "name": "Unzip",
-                        "children": []
-                    },
-                    {
-                        "allowFailure": false,
-                        "useImpersonation": false,
-                        "showHidden": false,
-                        "impersonationUseSudo": false,
-                        "commandName": "Start Deployment Manager",
-                        "pluginName": "WAS - Install",
-                        "pluginVersion": 4,
-                        "properties": {
-                            "WASInstallPath": "${p:environment\/WASInstallPath}",
-                            "WASProfileName": "${p:component\/WASProfileName}",
-                            "WASAdminUsername": "${p:environment\/WASAdminUsername}",
-                            "WASAdminPassword": "${p:environment\/WASAdminPassword}"
-                        },
-                        "type": "plugin",
-                        "name": "Start Deployment Manager",
+                        "name": "Download DB2 jars",
                         "children": []
                     },
                     {
@@ -748,72 +872,17 @@
                         "properties": {
                             "directoryOffset": ".",
                             "shellInterpreter": "",
-                            "scriptBody": "${p:environment\/WASInstallPath}\/bin\/manageprofiles.sh -augment -templatePath ${p:environment\/WASInstallPath}\/profileTemplates\/management.portal.augment -profileName ${p:component\/WASProfileName}\n",
+                            "scriptBody": "\/opt\/IBM\/WebSphere\/AppServer\/bin\/manageprofiles.sh  -create -templatePath \/opt\/IBM\/WebSphere\/PortalServer\/profileTemplates\/managed.portal -profileName wp_profile -profilePath \/opt\/IBM\/WebSphere\/wp_profile  -nodeName ${p:resource\/nodeName} -hostName ${p:resource\/hostname} -startingPortalPort 10000 -cellName ${p:resource\/hostname}cell ",
                             "runAsDaemon": "false",
                             "outputFile": ""
                         },
                         "type": "plugin",
-                        "name": "Augment dmgr profile",
+                        "name": "Create Secondary managed portal profile",
                         "children": []
                     },
                     {
-                        "allowFailure": false,
-                        "useImpersonation": false,
-                        "showHidden": false,
-                        "impersonationUseSudo": false,
-                        "commandName": "Start Deployment Manager",
-                        "pluginName": "WAS - Install",
-                        "pluginVersion": 4,
-                        "properties": {
-                            "WASInstallPath": "${p:environment\/WASInstallPath}",
-                            "WASProfileName": "${p:component\/WASProfileName}",
-                            "WASAdminUsername": "${p:environment\/WASAdminUsername}",
-                            "WASAdminPassword": "${p:environment\/WASAdminPassword}"
-                        },
-                        "type": "plugin",
-                        "name": "Start Augmented Deployment Manager",
-                        "children": []
-                    },
-                    {
-                        "allowFailure": false,
-                        "useImpersonation": false,
-                        "showHidden": false,
-                        "impersonationUseSudo": false,
-                        "commandName": "Stop Deployment Manager",
-                        "pluginName": "WAS - Install",
-                        "pluginVersion": 4,
-                        "properties": {
-                            "WASInstallPath": "${p:environment\/WASInstallPath}",
-                            "WASProfileName": "${p:component\/WASProfileName}",
-                            "WASAdminUsername": "${p:environment\/WASAdminUsername}",
-                            "WASAdminPassword": "${p:environment\/WASAdminPassword}"
-                        },
-                        "type": "plugin",
-                        "name": "Stop Augmented Deployment Manager",
-                        "children": []
-                    },
-                    {
-                        "allowFailure": false,
-                        "useImpersonation": false,
-                        "showHidden": false,
-                        "impersonationUseSudo": false,
-                        "commandName": "Shell",
-                        "pluginName": "Shell",
-                        "pluginVersion": 7,
-                        "properties": {
-                            "directoryOffset": ".",
-                            "shellInterpreter": "",
-                            "scriptBody": "\/bin\/cp -f  ${p:environment\/WASInstallPath}\/profiles\/Dmgr01\/config\/.repository\/metadata_wkplc.xml ${p:environment\/WASInstallPath}\/profiles\/${p:component\/WASProfileName}\/config\/.repository\/",
-                            "runAsDaemon": "false",
-                            "outputFile": ""
-                        },
-                        "type": "plugin",
-                        "name": "Copy metadata_wkplc.xml",
-                        "children": []
-                    },
-                    {
-                        "name": "91335e9c8e8e14a6db96e86befe7bb",
-                        "text": "Ignore error in copy step which occurs if the source and destination are same",
+                        "name": "e35e196fce2b26600cfe75e942d24b",
+                        "text": "Install and use Centos unzip as UCD unzip doesn't preserve permissions",
                         "type": "note",
                         "children": []
                     }
@@ -832,26 +901,14 @@
             "rootActivity": {
                 "edges": [
                     {
-                        "to": "Execute ConfigEngine add-node",
-                        "from": "Create FederateNode.properties",
-                        "type": "SUCCESS",
-                        "value": ""
-                    },
-                    {
                         "to": "Create post-federation..properties",
                         "from": "Execute ConfigEngine add-node",
                         "type": "SUCCESS",
                         "value": ""
                     },
                     {
-                        "to": "ced8325a6a1c6be9c7a6fa70f0dda6",
-                        "from": "Execute ConfigEngine cluster-node-config-cluster-setup",
-                        "type": "SUCCESS",
-                        "value": ""
-                    },
-                    {
-                        "to": "Execute ConfigEngine cluster-node-config-cluster-setup",
-                        "from": "Create cluster-setup.properties",
+                        "to": "Execute ConfigEngine add-node",
+                        "from": "Create FederateNode.properties",
                         "type": "SUCCESS",
                         "value": ""
                     },
@@ -862,70 +919,83 @@
                         "value": ""
                     },
                     {
+                        "to": "Create FederateNode.properties",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
                         "to": "Execute ConfigEngine cluster-node-config-post-federation",
                         "from": "Create post-federation..properties",
                         "type": "SUCCESS",
                         "value": ""
                     },
                     {
-                        "to": "Create FederateNode.properties",
-                        "type": "ALWAYS",
+                        "to": "Execute ConfigEngine cluster-node-config-cluster-setup",
+                        "from": "Create cluster-setup.properties",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "ced8325a6a1c6be9c7a6fa70f0dda6",
+                        "from": "Execute ConfigEngine cluster-node-config-cluster-setup",
+                        "type": "SUCCESS",
                         "value": ""
                     }
                 ],
                 "offsets": [
                     {
                         "name": "Create post-federation..properties",
-                        "x": -140,
-                        "y": 340,
-                        "h": 50,
-                        "w": 360
-                    },
-                    {
-                        "name": "Execute ConfigEngine cluster-node-config-post-federation",
-                        "x": -265,
-                        "y": 450,
-                        "h": 50,
-                        "w": 610
-                    },
-                    {
-                        "name": "Execute ConfigEngine add-node",
-                        "x": -185,
-                        "y": 210,
-                        "h": 50,
-                        "w": 450
-                    },
-                    {
-                        "name": "Create cluster-setup.properties",
-                        "x": -135,
-                        "y": 560,
-                        "h": 50,
-                        "w": 350
+                        "x": -125,
+                        "y": 400,
+                        "h": 80,
+                        "w": 370
                     },
                     {
                         "name": "ced8325a6a1c6be9c7a6fa70f0dda6",
-                        "x": 10,
-                        "y": 820,
-                        "h": 50,
-                        "w": 90
-                    },
-                    {
-                        "name": "Create FederateNode.properties",
-                        "x": -130,
-                        "y": 110,
-                        "h": 50,
-                        "w": 350
+                        "x": -5,
+                        "y": 920,
+                        "h": 90,
+                        "w": 130
                     },
                     {
                         "name": "Execute ConfigEngine cluster-node-config-cluster-setup",
-                        "x": -245,
-                        "y": 700,
-                        "h": 50,
-                        "w": 600
+                        "x": -210,
+                        "y": 790,
+                        "h": 80,
+                        "w": 540
+                    },
+                    {
+                        "name": "Execute ConfigEngine cluster-node-config-post-federation",
+                        "x": -220,
+                        "y": 530,
+                        "h": 80,
+                        "w": 560
+                    },
+                    {
+                        "name": "Create cluster-setup.properties",
+                        "x": -115,
+                        "y": 660,
+                        "h": 80,
+                        "w": 350
+                    },
+                    {
+                        "name": "Create FederateNode.properties",
+                        "x": -120,
+                        "y": 140,
+                        "h": 80,
+                        "w": 360
+                    },
+                    {
+                        "name": "Execute ConfigEngine add-node",
+                        "x": -140,
+                        "y": 270,
+                        "h": 80,
+                        "w": 400
                     }
                 ],
+                "layoutMode": "auto",
                 "type": "graph",
-                "name": "9c0824bd-12c9-4507-b5f0-85f343584faf",
+                "name": "c88b3c5f-fb70-4bbd-adde-8a864b3ca2a7",
                 "children": [
                     {
                         "type": "finish",
@@ -942,11 +1012,11 @@
                         "pluginVersion": 3,
                         "properties": {
                             "configCommand": "add-node",
-                            "options": "SaveParentProperties=true,parentProperties=FederateNode.properties,WasPassword=${p:environment\/WASAdminPassword},DmgrNodeName=${p:environment\/WASDmgrHostname}CellManager01,DmgrCellName=${p:environment\/WASCellName},dmgrProfilePath=${p:environment\/WASInstallPath}\/profiles\/Dmgr01,isRemoteDmgr=true",
+                            "options": "SaveParentProperties=true,parentProperties=FederateNode.properties,WasPassword=${p:environment\/WASAdminPassword},DmgrNodeName=${p?:environment\/WASNodeName},DmgrCellName=${p:environment\/WASCellName},dmgrProfilePath=${p:environment\/WASInstallPath}\/profiles\/Dmgr01,isRemoteDmgr=true",
                             "useWKPLCProps": "false",
                             "profHome": "${p:resource\/portal.profile.home}",
-                            "wpPass": "${p:environment\/WASAdminPassword}",
-                            "wasPass": "${p:environment\/WASAdminPassword}"
+                            "wpPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|D9PW2ZddKTAKbu1qnufaiw==|pEa02J7I+jwhq8DPoPh4acwDvMRkjGM\/XI38x\/cqRl\/DWs6w4ecdLHYObWGQcoBk}",
+                            "wasPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|21SEkWBMtvLikxgBYHDsNQ==|WUAal2V\/Al2Yj5kU\/VktwuIeMo2x4reEC89Wt29ElnRWyl3PyYrGCzXPvxsx6i5V}"
                         },
                         "type": "plugin",
                         "name": "Execute ConfigEngine add-node",
@@ -1001,8 +1071,8 @@
                             "options": "SaveParentProperties=true,parentProperties=post-federation.properties,WasUserid=${p:environment\/WASAdminUsername},WasPassword=${p:environment\/WASAdminPassword},PortalAdminId=${p:environment\/WASAdminUsername},PortalAdminPwd=${p:environment\/WASAdminPassword},release.DbUser=${p:environment\/wcm.DbUser},release.DbPassword=${p:environment\/wcm.DbPassword}",
                             "useWKPLCProps": "false",
                             "profHome": "${p:resource\/portal.profile.home}",
-                            "wpPass": "${p:environment\/WASAdminPassword}",
-                            "wasPass": "${p:environment\/WASAdminPassword}"
+                            "wpPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|RVAB+VThrrIoHfIjbKMnwg==|PtKcngSuJqmt1vq6mqI3erEhOJh7DHfUXTYp3yvonsZ3xMZYsT+8ZYTQCE5BkYks}",
+                            "wasPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|NplQGJW96FOlVDoxtwh37Q==|KZ0trZaj8JN9V7iiw2szh88V57eWpOCy3C8CIqAiF3dLuejjYfpM\/8Scx8MJpKrf}"
                         },
                         "type": "plugin",
                         "name": "Execute ConfigEngine cluster-node-config-post-federation",
@@ -1039,11 +1109,181 @@
                             "options": "SaveParentProperties=true,parentProperties=cluster-setup.properties,WasUserid=${p:environment\/WASAdminUsername},WasPassword=${p:environment\/WASAdminPassword},PortalAdminId=${p:environment\/WASAdminUsername},PortalAdminPwd=${p:environment\/WASAdminPassword}",
                             "useWKPLCProps": "false",
                             "profHome": "${p:resource\/portal.profile.home}",
-                            "wpPass": "${p:environment\/WASAdminPassword}",
-                            "wasPass": "${p:environment\/WASAdminPassword}"
+                            "wpPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|44N5Otj4eDS\/pifppePf3w==|LtqyLn7Rtt+oL+I1wvQmsBu3vHpNkjkXNXtHBFvYq+gsqPesQgJKcYNzm\/L0jw4D}",
+                            "wasPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|+9Vp9I0cBSWZyD5KGDzEqQ==|Qw+H\/rTYDwdxlOvcca0fhBf11lXC1YHR19lEDs9iVH8auJ7f5w+45r3SWLX61W9U}"
                         },
                         "type": "plugin",
                         "name": "Execute ConfigEngine cluster-node-config-cluster-setup",
+                        "children": []
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Create clustered profile template on primary node",
+            "description": "runs ConfigEngine enable-profiles package-profiles and uploades profile template zip to component version",
+            "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+            "takesVersion": true,
+            "status": "",
+            "active": true,
+            "path": "components\/96035a54-54f9-4e72-aab3-1f4ede5b3992\/processes\/16adc9d6-84e3-4f57-8141-7e3594bfb739",
+            "propDefs": [],
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "Create properties file enableprofiles.properties",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Upload Artifacts",
+                        "from": "Execute ConfigEngine package-profiles",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Execute ConfigEngine enable-profiles",
+                        "from": "Create properties file enableprofiles.properties",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "fa9818953e12540c7376594b3d2662",
+                        "from": "Upload Artifacts",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Execute ConfigEngine package-profiles",
+                        "from": "Execute ConfigEngine enable-profiles",
+                        "type": "SUCCESS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "Execute ConfigEngine package-profiles",
+                        "x": -120,
+                        "y": 370,
+                        "h": 70,
+                        "w": 350
+                    },
+                    {
+                        "name": "Create properties file enableprofiles.properties",
+                        "x": -140,
+                        "y": 130,
+                        "h": 70,
+                        "w": 390
+                    },
+                    {
+                        "name": "Execute ConfigEngine enable-profiles",
+                        "x": -115,
+                        "y": 250,
+                        "h": 70,
+                        "w": 340
+                    },
+                    {
+                        "name": "fa9818953e12540c7376594b3d2662",
+                        "x": -5,
+                        "y": 610,
+                        "h": 80,
+                        "w": 120
+                    },
+                    {
+                        "name": "Upload Artifacts",
+                        "x": -65,
+                        "y": 490,
+                        "h": 70,
+                        "w": 240
+                    }
+                ],
+                "layoutMode": "auto",
+                "type": "graph",
+                "name": "0804b703-54ac-43c0-96ee-23e50a99a69f",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "fa9818953e12540c7376594b3d2662",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": true,
+                        "impersonationUseSudo": false,
+                        "commandName": "Execute ConfigEngine command",
+                        "pluginName": "WebSphere Portal",
+                        "pluginVersion": 3,
+                        "properties": {
+                            "configCommand": "enable-profiles",
+                            "options": "SaveParentProperties=true,parentProperties=enableprofiles.properties,release.DbPassword=${p:environment\/wcm.DbPassword},release.DBA.DbPassword=${p:environment\/wcm.DbPassword},customization.DbPassword=${p:environment\/wcm.DbPassword},customization.DBA.DbPassword=${p:environment\/wcm.DbPassword},community.DbPassword=${p:environment\/wcm.DbPassword},community.DBA.DbPassword=${p:environment\/wcm.DbPassword},jcr.DbPassword=${p:environment\/wcm.DbPassword},jcr.DBA.DbPassword=${p:environment\/wcm.DbPassword},likeminds.DbPassword=${p:environment\/wcm.DbPassword},likeminds.DBA.DbPassword=${p:environment\/wcm.DbPassword},feedback.DbPassword=${p:environment\/wcm.DbPassword},feedback.DBA.DbPassword=${p:environment\/wcm.DbPassword},release.DbRuntimePassword=${p:environment\/wcm.DbPassword},customization.DbRuntimePassword=${p:environment\/wcm.DbPassword},community.DbRuntimePassword=${p:environment\/wcm.DbPassword},jcr.DbRuntimePassword=${p:environment\/wcm.DbPassword},likeminds.DbRuntimePassword=${p:environment\/wcm.DbPassword},feedback.DbRuntimePassword=${p:environment\/wcm.DbPassword}",
+                            "useWKPLCProps": "false",
+                            "profHome": "${p:resource\/portal.profile.home}",
+                            "wpPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|F4qVl4VHMGmRtoUrF+XYTg==|ahl98cxbTWkOD+HWqWZfXwedzNN4ZjI80GXIqrjCPrf9qxzKUMCUJv\/JNIYD4B4F}",
+                            "wasPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|kjqS7y1dTZgY1or+OuQQqg==|SDVIfQoltTnujS2ig\/rRhOjnpVekxWNUEmNpjcAJIIQpeECMCrQTHIx145Kycj7d}"
+                        },
+                        "type": "plugin",
+                        "name": "Execute ConfigEngine enable-profiles",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": true,
+                        "impersonationUseSudo": false,
+                        "commandName": "Execute ConfigEngine command",
+                        "pluginName": "WebSphere Portal",
+                        "pluginVersion": 3,
+                        "properties": {
+                            "configCommand": "package-profiles",
+                            "options": "SaveParentProperties=true,parentProperties=enableprofiles.properties,release.DbPassword=${p:environment\/wcm.DbPassword},release.DBA.DbPassword=${p:environment\/wcm.DbPassword},customization.DbPassword=${p:environment\/wcm.DbPassword},customization.DBA.DbPassword=${p:environment\/wcm.DbPassword},community.DbPassword=${p:environment\/wcm.DbPassword},community.DBA.DbPassword=${p:environment\/wcm.DbPassword},jcr.DbPassword=${p:environment\/wcm.DbPassword},jcr.DBA.DbPassword=${p:environment\/wcm.DbPassword},likeminds.DbPassword=${p:environment\/wcm.DbPassword},likeminds.DBA.DbPassword=${p:environment\/wcm.DbPassword},feedback.DbPassword=${p:environment\/wcm.DbPassword},feedback.DBA.DbPassword=${p:environment\/wcm.DbPassword},release.DbRuntimePassword=${p:environment\/wcm.DbPassword},customization.DbRuntimePassword=${p:environment\/wcm.DbPassword},community.DbRuntimePassword=${p:environment\/wcm.DbPassword},jcr.DbRuntimePassword=${p:environment\/wcm.DbPassword},likeminds.DbRuntimePassword=${p:environment\/wcm.DbPassword},feedback.DbRuntimePassword=${p:environment\/wcm.DbPassword}",
+                            "useWKPLCProps": "false",
+                            "profHome": "${p:resource\/portal.profile.home}",
+                            "wpPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|eLSiyek7TJubR8bv8jjlaw==|lMEjaSyE9EmXLZ2+ax1dQVwZUM7vwK9C+R0Kd4skfR3z7PViAEXTnS3JcTXTAYWP}",
+                            "wasPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|GuPv2FQlIbqpPLgSIFogHA==|7DqQ1CdSRro05UINVD1pHeg8SmnjmmoKI3Lxjj6ACJ60vzrTTt2dTgIRzv5qnXfc}"
+                        },
+                        "type": "plugin",
+                        "name": "Execute ConfigEngine package-profiles",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "workingDir": "\/opt\/IBM\/WebSphere\/PortalServer\/profileTemplates",
+                        "commandName": "Upload Artifacts",
+                        "pluginName": "IBM UrbanCode Deploy Versioned File Storage",
+                        "pluginVersion": 27,
+                        "properties": {
+                            "directoryOffset": ".",
+                            "fileIncludePatterns": "**\/profileTemplates.zip",
+                            "fileExcludePatterns": "",
+                            "saveFileExecuteBits": "false",
+                            "extensions": "",
+                            "versionId": "${p:version.id}",
+                            "serverUrl": "${p:server.url}"
+                        },
+                        "type": "plugin",
+                        "name": "Upload Artifacts",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Create File",
+                        "pluginName": "File Utils",
+                        "pluginVersion": 49,
+                        "properties": {
+                            "file": "enableprofiles.properties",
+                            "contents": "\n##############################################################################\n# IBM WebSphere Portal configuration helper file for script SetupDatabase.\n##############################################################################\ncommunity.DataSourceName=${p:component\/wcm.community.DataSourceName}\ncommunity.DBA.DbUser=${p:environment\/wcm.DbUser}\ncommunity.DbConfigRoleName=WP_BASE_CONFIG_USERS\ncommunity.DbName=${p:environment\/wcm.DbName}\ncommunity.DbNode=wpsNode\ncommunity.DbRuntimeRoleName=WP_BASE_RUNTIME_USERS\ncommunity.DbRuntimeUser=${p:environment\/wcm.DbUser}\ncommunity.DbSchema=community\ncommunity.DbType=db2\ncommunity.DbUrl=jdbc:db2:\/\/${p:environment\/wcm.DbHost}:${p:environment\/wcm.DbPort}\/${p:environment\/wcm.DbName}:returnAlias=0;\ncommunity.DbUser=${p:environment\/wcm.DbUser}\ncommunity.XDbName=WPCOMM\ncustomization.DataSourceName=${p:component\/wcm.customization.DataSourceName}\ncustomization.DBA.DbUser=${p:environment\/wcm.DbUser}\ncustomization.DbConfigRoleName=WP_BASE_CONFIG_USERS\ncustomization.DbName=${p:environment\/wcm.DbName}\ncustomization.DbNode=wpsNode\ncustomization.DbRuntimeRoleName=WP_BASE_RUNTIME_USERS\ncustomization.DbRuntimeUser=${p:environment\/wcm.DbUser}\ncustomization.DbSchema=customization\ncustomization.DbType=db2\ncustomization.DbUrl=jdbc:db2:\/\/${p:environment\/wcm.DbHost}:${p:environment\/wcm.DbPort}\/${p:environment\/wcm.DbName}:returnAlias=0;\ncustomization.DbUser=${p:environment\/wcm.DbUser}\ncustomization.XDbName=WPCUST\ndb2.DbDriver=com.ibm.db2.jcc.DB2Driver\ndb2.DbLibrary=\/opt\/ibm\/db2\/V10.5\/java\/db2jcc4.jar:\/opt\/ibm\/db2\/V10.5\/java\/db2jcc_license_cu.jar\ndb2.JdbcProviderName=wpdbJDBC_db2\nfeedback.DataSourceName=${p:component\/wcm.feedback.DataSourceName}\nfeedback.DBA.DbUser=${p:environment\/wcm.DbUser}\nfeedback.DbConfigRoleName=WP_PZN_CONFIG_USERS\nfeedback.DbName=${p:environment\/wcm.DbName}\nfeedback.DbNode=pznNode\nfeedback.DbRuntimeRoleName=WP_PZN_RUNTIME_USERS\nfeedback.DbRuntimeUser=${p:environment\/wcm.DbUser}\nfeedback.DbSchema=feedback\nfeedback.DbType=db2\nfeedback.DbUrl=jdbc:db2:\/\/${p:environment\/wcm.DbHost}:${p:environment\/wcm.DbPort}\/${p:environment\/wcm.DbName}:returnAlias=0;\nfeedback.DbUser=${p:environment\/wcm.DbUser}\nfeedback.XDbName=WPFDBK\njcr.DataSourceName=${p:component\/wcm.jcr.DataSourceName}\njcr.DBA.DbUser=${p:environment\/wcm.DbUser}\njcr.DbConfigRoleName=WP_JCR_CONFIG_USERS\njcr.DbName=${p:environment\/wcm.DbName}\njcr.DbNode=wpsNode\njcr.DbRuntimeRoleName=WP_JCR_RUNTIME_USERS\njcr.DbRuntimeUser=${p:environment\/wcm.DbUser}\njcr.DbSchema=jcr\njcr.DbType=db2\njcr.DbUrl=jdbc:db2:\/\/${p:environment\/wcm.DbHost}:${p:environment\/wcm.DbPort}\/${p:environment\/wcm.DbName}:returnAlias=0;\njcr.DbUser=${p:environment\/wcm.DbUser}\njcr.XDbName=WPJCR\nlikeminds.DataSourceName=${p:component\/wcm.likeminds.DataSourceName}\nlikeminds.DBA.DbUser=${p:environment\/wcm.DbUser}\nlikeminds.DbConfigRoleName=WP_PZN_CONFIG_USERS\nlikeminds.DbName=${p:environment\/wcm.DbName}\nlikeminds.DbNode=pznNode\nlikeminds.DbRuntimeRoleName=WP_PZN_RUNTIME_USERS\nlikeminds.DbRuntimeUser=${p:environment\/wcm.DbUser}\nlikeminds.DbSchema=likeminds\nlikeminds.DbType=db2\nlikeminds.DbUrl=jdbc:db2:\/\/${p:environment\/wcm.DbHost}:${p:environment\/wcm.DbPort}\/${p:environment\/wcm.DbName}:returnAlias=0;\nlikeminds.DbUser=${p:environment\/wcm.DbUser}\nlikeminds.XDbName=WPLM\nrelease.DataSourceName=${p:component\/wcm.release.DataSourceName}\nrelease.DBA.DbUser=${p:environment\/wcm.DbUser}\nrelease.DbConfigRoleName=WP_BASE_CONFIG_USERS\nrelease.DbName=${p:environment\/wcm.DbName}\nrelease.DbNode=wpsNode\nrelease.DbRuntimeRoleName=WP_BASE_RUNTIME_USERS\nrelease.DbRuntimeUser=${p:environment\/wcm.DbUser}\nrelease.DbSchema=release\nrelease.DbType=db2\nrelease.DbUrl=jdbc:db2:\/\/${p:environment\/wcm.DbHost}:${p:environment\/wcm.DbPort}\/${p:environment\/wcm.DbName}:returnAlias=0;\nrelease.DbUser=${p:environment\/wcm.DbUser}\nrelease.XDbName=WPREL\nWasUserid=${p:environment\/WASAdminUsername}\n",
+                            "overwrite": "true",
+                            "customEncoding": ""
+                        },
+                        "type": "plugin",
+                        "name": "Create properties file enableprofiles.properties",
                         "children": []
                     }
                 ]
@@ -1061,73 +1301,8 @@
             "rootActivity": {
                 "edges": [
                     {
-                        "to": "Execute ConfigEngine Database Transfer",
-                        "from": "Create properties file DatabaseTransfer.properties",
-                        "type": "SUCCESS",
-                        "value": ""
-                    },
-                    {
-                        "to": "Create database script",
-                        "from": "Execute ConfigEngine backup-property-files-for-dbxfer",
-                        "type": "SUCCESS",
-                        "value": ""
-                    },
-                    {
-                        "to": "Create properties file",
-                        "from": "Run db2 database creation script",
-                        "type": "SUCCESS",
-                        "value": ""
-                    },
-                    {
-                        "to": "Execute ConfigEngine grant-runtime-db-user-privileges",
-                        "from": "Create properties file GrantRuntimeUserPrivs.properties",
-                        "type": "SUCCESS",
-                        "value": ""
-                    },
-                    {
-                        "to": "Execute ConfigEngine stop-portal-server",
-                        "from": "Execute ConfigEngine validate-database",
-                        "type": "SUCCESS",
-                        "value": ""
-                    },
-                    {
-                        "to": "Create properties file ValidateDatabase.properties",
-                        "from": "Restart DB2",
-                        "type": "SUCCESS",
-                        "value": ""
-                    },
-                    {
-                        "to": "Execute ConfigEngine datasource-enable-fully-materialize-lob-data",
-                        "from": "Execute ConfigEngine grant-runtime-db-user-privileges",
-                        "type": "SUCCESS",
-                        "value": ""
-                    },
-                    {
-                        "to": "make db script executable",
-                        "from": "Create database script",
-                        "type": "SUCCESS",
-                        "value": ""
-                    },
-                    {
-                        "to": "Create properties file GrantRuntimeUserPrivs.properties",
-                        "from": "Execute ConfigEngine Database Transfer",
-                        "type": "SUCCESS",
-                        "value": ""
-                    },
-                    {
-                        "to": "Create Port users and groups for DB2",
-                        "type": "ALWAYS",
-                        "value": ""
-                    },
-                    {
                         "to": "8cab1793c1faa27502a5f3ae528600",
                         "from": "Execute ConfigEngine start-portal-server",
-                        "type": "SUCCESS",
-                        "value": ""
-                    },
-                    {
-                        "to": "Restart DB2",
-                        "from": "Execute ConfigEngine setup-database",
                         "type": "SUCCESS",
                         "value": ""
                     },
@@ -1138,14 +1313,37 @@
                         "value": ""
                     },
                     {
-                        "to": "Run db2 database creation script",
-                        "from": "make db script executable",
+                        "to": "Create properties file ValidateDatabase.properties",
+                        "from": "Restart DB2",
                         "type": "SUCCESS",
                         "value": ""
                     },
                     {
-                        "to": "Create properties file DatabaseTransfer.properties",
-                        "from": "Execute ConfigEngine stop-portal-server",
+                        "to": "Execute ConfigEngine Database Transfer",
+                        "from": "Create properties file DatabaseTransfer.properties",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Execute ConfigEngine start-portal-server",
+                        "from": "Execute ConfigEngine datasource-enable-fully-materialize-lob-data",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Restart DB2",
+                        "from": "Execute ConfigEngine setup-database",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Create Port users and groups for DB2",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Execute ConfigEngine stop-portal-server",
+                        "from": "Execute ConfigEngine validate-database",
                         "type": "SUCCESS",
                         "value": ""
                     },
@@ -1156,148 +1354,191 @@
                         "value": ""
                     },
                     {
+                        "to": "Create database script",
+                        "from": "Execute ConfigEngine backup-property-files-for-dbxfer",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
                         "to": "Execute ConfigEngine validate-database",
                         "from": "Create properties file ValidateDatabase.properties",
                         "type": "SUCCESS",
                         "value": ""
                     },
                     {
-                        "to": "Execute ConfigEngine start-portal-server",
-                        "from": "Execute ConfigEngine datasource-enable-fully-materialize-lob-data",
+                        "to": "make db script executable",
+                        "from": "Create database script",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Execute ConfigEngine grant-runtime-db-user-privileges",
+                        "from": "Create properties file GrantRuntimeUserPrivs.properties",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Create properties file GrantRuntimeUserPrivs.properties",
+                        "from": "Execute ConfigEngine Database Transfer",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Run db2 database creation script",
+                        "from": "make db script executable",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Create properties file",
+                        "from": "Run db2 database creation script",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Execute ConfigEngine datasource-enable-fully-materialize-lob-data",
+                        "from": "Execute ConfigEngine grant-runtime-db-user-privileges",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Create properties file DatabaseTransfer.properties",
+                        "from": "Execute ConfigEngine stop-portal-server",
                         "type": "SUCCESS",
                         "value": ""
                     }
                 ],
                 "offsets": [
                     {
-                        "name": "Execute ConfigEngine Database Transfer",
-                        "x": 637.5,
-                        "y": 880,
-                        "h": 50,
-                        "w": 350
-                    },
-                    {
                         "name": "Create properties file GrantRuntimeUserPrivs.properties",
-                        "x": 213,
-                        "y": 1025.1818132361104,
-                        "h": 50,
-                        "w": 460
-                    },
-                    {
-                        "name": "Execute ConfigEngine setup-database",
-                        "x": 549,
-                        "y": 343.7272685500217,
-                        "h": 50,
-                        "w": 480
-                    },
-                    {
-                        "name": "Create properties file DatabaseTransfer.properties",
-                        "x": 140,
-                        "y": 798.1818132361105,
-                        "h": 50,
-                        "w": 430
-                    },
-                    {
-                        "name": "Execute ConfigEngine grant-runtime-db-user-privileges",
-                        "x": 673,
-                        "y": 1100,
-                        "h": 50,
-                        "w": 570
-                    },
-                    {
-                        "name": "Create properties file",
-                        "x": 130,
-                        "y": 310,
-                        "h": 50,
-                        "w": 280
-                    },
-                    {
-                        "name": "Execute ConfigEngine start-portal-server",
-                        "x": 549,
-                        "y": 1299.8181789610999,
-                        "h": 50,
-                        "w": 490
+                        "x": 2880,
+                        "y": 585,
+                        "h": 110,
+                        "w": 840
                     },
                     {
                         "name": "Restart DB2",
-                        "x": 530.8800000000001,
-                        "y": 472,
-                        "h": 50,
-                        "w": 200
+                        "x": 1690,
+                        "y": 312.5,
+                        "h": 110,
+                        "w": 240
                     },
                     {
-                        "name": "Execute ConfigEngine backup-property-files-for-dbxfer",
-                        "x": 610,
-                        "y": 85,
-                        "h": 50,
-                        "w": 560
+                        "name": "Create properties file DatabaseTransfer.properties",
+                        "x": 1380,
+                        "y": 545,
+                        "h": 110,
+                        "w": 750
                     },
                     {
-                        "name": "make db script executable",
-                        "x": 470,
-                        "y": 200,
-                        "h": 50,
-                        "w": 350
+                        "name": "Create Port users and groups for DB2",
+                        "x": 200,
+                        "y": 20,
+                        "h": 110,
+                        "w": 600
                     },
                     {
-                        "name": "Execute ConfigEngine datasource-enable-fully-materialize-lob-data",
-                        "x": 311,
-                        "y": 1208.8181789610999,
-                        "h": 50,
+                        "name": "Execute ConfigEngine validate-database",
+                        "x": 20,
+                        "y": 505,
+                        "h": 140,
                         "w": 630
                     },
                     {
-                        "name": "Create properties file ValidateDatabase.properties",
-                        "x": 85,
-                        "y": 564.38,
-                        "h": 50,
+                        "name": "Execute ConfigEngine Database Transfer",
+                        "x": 2180,
+                        "y": 565,
+                        "h": 110,
+                        "w": 650
+                    },
+                    {
+                        "name": "Execute ConfigEngine start-portal-server",
+                        "x": 1930,
+                        "y": 797.5,
+                        "h": 140,
+                        "w": 630
+                    },
+                    {
+                        "name": "make db script executable",
+                        "x": 2170,
+                        "y": 80,
+                        "h": 140,
                         "w": 430
                     },
                     {
                         "name": "Execute ConfigEngine stop-portal-server",
-                        "x": 366,
-                        "y": 700,
-                        "h": 50,
-                        "w": 490
-                    },
-                    {
-                        "name": "Create database script",
-                        "x": 100,
-                        "y": 190,
-                        "h": 50,
-                        "w": 290
-                    },
-                    {
-                        "name": "8cab1793c1faa27502a5f3ae528600",
-                        "x": 751,
-                        "y": 1520,
-                        "h": 50,
-                        "w": 90
-                    },
-                    {
-                        "name": "Create Port users and groups for DB2",
-                        "x": 100,
-                        "y": 70,
-                        "h": 50,
-                        "w": 400
-                    },
-                    {
-                        "name": "Execute ConfigEngine validate-database",
-                        "x": 577.5,
-                        "y": 600,
-                        "h": 50,
-                        "w": 490
+                        "x": 700,
+                        "y": 525,
+                        "h": 140,
+                        "w": 630
                     },
                     {
                         "name": "Run db2 database creation script",
-                        "x": 890,
-                        "y": 215,
-                        "h": 50,
-                        "w": 310
+                        "x": 20,
+                        "y": 252.5,
+                        "h": 110,
+                        "w": 540
+                    },
+                    {
+                        "name": "Create properties file",
+                        "x": 610,
+                        "y": 272.5,
+                        "h": 110,
+                        "w": 370
+                    },
+                    {
+                        "name": "8cab1793c1faa27502a5f3ae528600",
+                        "x": 2610,
+                        "y": 817.5,
+                        "h": 100,
+                        "w": 160
+                    },
+                    {
+                        "name": "Create properties file ValidateDatabase.properties",
+                        "x": 1980,
+                        "y": 332.5,
+                        "h": 110,
+                        "w": 750
+                    },
+                    {
+                        "name": "Execute ConfigEngine datasource-enable-fully-materialize-lob-data",
+                        "x": 900,
+                        "y": 777.5,
+                        "h": 140,
+                        "w": 980
+                    },
+                    {
+                        "name": "Execute ConfigEngine backup-property-files-for-dbxfer",
+                        "x": 850,
+                        "y": 40,
+                        "h": 140,
+                        "w": 820
+                    },
+                    {
+                        "name": "Execute ConfigEngine setup-database",
+                        "x": 1030,
+                        "y": 292.5,
+                        "h": 140,
+                        "w": 610
+                    },
+                    {
+                        "name": "Execute ConfigEngine grant-runtime-db-user-privileges",
+                        "x": 20,
+                        "y": 757.5,
+                        "h": 140,
+                        "w": 830
+                    },
+                    {
+                        "name": "Create database script",
+                        "x": 1720,
+                        "y": 60,
+                        "h": 110,
+                        "w": 400
                     }
                 ],
+                "layoutMode": "auto",
                 "type": "graph",
-                "name": "bdda0788-d719-4bd0-a650-3dcc9b23dfbd",
+                "name": "d2c9855c-659b-4ba0-8d79-2539a9aaaeb8",
                 "children": [
                     {
                         "type": "finish",
@@ -1339,8 +1580,8 @@
                             "options": "",
                             "useWKPLCProps": "false",
                             "profHome": "${p:resource\/portal.profile.home}",
-                            "wpPass": "${p:environment\/WASAdminPassword}",
-                            "wasPass": "${p:environment\/WASAdminPassword}"
+                            "wpPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|LaIZS4nXCksyrpNieqJnEg==|3qm7zSv60hQ++2YGRVaZpg==}",
+                            "wasPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|mjX1Us1y9IRJv4B3TwslPw==|qy3yQggpvHA3MktAmv6QFA==}"
                         },
                         "type": "plugin",
                         "name": "Execute ConfigEngine backup-property-files-for-dbxfer",
@@ -1434,8 +1675,8 @@
                             "options": "SaveParentProperties=true,parentProperties=SetupDatabase.properties,release.DbPassword=${p:environment\/wcm.DbPassword},release.DBA.DbPassword=${p:environment\/wcm.DbPassword},customization.DbPassword=${p:environment\/wcm.DbPassword},customization.DBA.DbPassword=${p:environment\/wcm.DbPassword},community.DbPassword=${p:environment\/wcm.DbPassword},community.DBA.DbPassword=${p:environment\/wcm.DbPassword},jcr.DbPassword=${p:environment\/wcm.DbPassword},jcr.DBA.DbPassword=${p:environment\/wcm.DbPassword},likeminds.DbPassword=${p:environment\/wcm.DbPassword},likeminds.DBA.DbPassword=${p:environment\/wcm.DbPassword},feedback.DbPassword=${p:environment\/wcm.DbPassword},feedback.DBA.DbPassword=${p:environment\/wcm.DbPassword},release.DbRuntimePassword=${p:environment\/wcm.DbPassword},customization.DbRuntimePassword=${p:environment\/wcm.DbPassword},community.DbRuntimePassword=${p:environment\/wcm.DbPassword},jcr.DbRuntimePassword=${p:environment\/wcm.DbPassword},likeminds.DbRuntimePassword=${p:environment\/wcm.DbPassword},feedback.DbRuntimePassword=${p:environment\/wcm.DbPassword}",
                             "useWKPLCProps": "false",
                             "profHome": "${p:resource\/portal.profile.home}",
-                            "wpPass": "${p:environment\/WASAdminPassword}",
-                            "wasPass": "${p:environment\/WASAdminPassword}"
+                            "wpPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|nUN2Z9JIZ+VoBp3jhoPZZg==|lNdfppBJytt9l5Fk9kwuzA==}",
+                            "wasPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|QdzW01pJroxRBgFrru9ifg==|WHCPeiQUeKY9IugwbxygDg==}"
                         },
                         "type": "plugin",
                         "name": "Execute ConfigEngine setup-database",
@@ -1447,7 +1688,7 @@
                         "impersonationUsername": "${p:environment\/wcm.DbUser}",
                         "impersonationGroup": "",
                         "showHidden": false,
-                        "impersonationPassword": "${p:environment\/wcm.DbPassword}",
+                        "impersonationPassword": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|xs7K+40CANmQKkGCMZ\/d8g==|AZqMHS2NdC0dWT51KSbVChkrfVptSmW+A1LOZvzeTLo=}",
                         "impersonationUseSudo": false,
                         "commandName": "Shell",
                         "pluginName": "Shell",
@@ -1494,8 +1735,8 @@
                             "options": "aveParentProperties=true,parentProperties=ValidateDatabase.properties,release.DbPassword=${p:environment\/wcm.DbPassword},release.DBA.DbPassword=${p:environment\/wcm.DbPassword},customization.DbPassword=${p:environment\/wcm.DbPassword},customization.DBA.DbPassword=${p:environment\/wcm.DbPassword},community.DbPassword=${p:environment\/wcm.DbPassword},community.DBA.DbPassword=${p:environment\/wcm.DbPassword},jcr.DbPassword=${p:environment\/wcm.DbPassword},jcr.DBA.DbPassword=${p:environment\/wcm.DbPassword},likeminds.DbPassword=${p:environment\/wcm.DbPassword},likeminds.DBA.DbPassword=${p:environment\/wcm.DbPassword},feedback.DbPassword=${p:environment\/wcm.DbPassword},feedback.DBA.DbPassword=${p:environment\/wcm.DbPassword},release.DbRuntimePassword=${p:environment\/wcm.DbPassword},customization.DbRuntimePassword=${p:environment\/wcm.DbPassword},community.DbRuntimePassword=${p:environment\/wcm.DbPassword},jcr.DbRuntimePassword=${p:environment\/wcm.DbPassword},likeminds.DbRuntimePassword=${p:environment\/wcm.DbPassword},feedback.DbRuntimePassword=${p:environment\/wcm.DbPassword}",
                             "useWKPLCProps": "false",
                             "profHome": "${p:resource\/portal.profile.home}",
-                            "wpPass": "${p:environment\/WASAdminPassword}",
-                            "wasPass": "${p:environment\/WASAdminPassword}"
+                            "wpPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|65OEuCaItOUB\/5R+WOkcjA==|GwFpMp79MWTTiqLxcE\/UPg==}",
+                            "wasPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|inxjIDgx28cFbNlMDoKHJg==|iLnPq4D5YDMUXBEWR+9Heg==}"
                         },
                         "type": "plugin",
                         "name": "Execute ConfigEngine validate-database",
@@ -1514,8 +1755,8 @@
                             "options": "",
                             "useWKPLCProps": "false",
                             "profHome": "${p:resource\/portal.profile.home}",
-                            "wpPass": "${p:environment\/WASAdminPassword}",
-                            "wasPass": "${p:environment\/WASAdminPassword}"
+                            "wpPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|Yp+SpPDdJyJ7qXhR3W+eoQ==|erPkU7xTeMNk8A\/OzKyQyA==}",
+                            "wasPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|R8BIjrmXA2HA0LV00SpoFw==|c7IYOJR2B1GXPUPCTrDKUg==}"
                         },
                         "type": "plugin",
                         "name": "Execute ConfigEngine stop-portal-server",
@@ -1589,8 +1830,8 @@
                             "options": "SaveParentProperties=true,parentProperties=GrantRuntimeUserPrivs.properties,release.DbPassword=${p:environment\/wcm.DbPassword},release.DBA.DbPassword=${p:environment\/wcm.DbPassword},customization.DbPassword=${p:environment\/wcm.DbPassword},customization.DBA.DbPassword=${p:environment\/wcm.DbPassword},community.DbPassword=${p:environment\/wcm.DbPassword},community.DBA.DbPassword=${p:environment\/wcm.DbPassword},jcr.DbPassword=${p:environment\/wcm.DbPassword},jcr.DBA.DbPassword=${p:environment\/wcm.DbPassword},likeminds.DbPassword=${p:environment\/wcm.DbPassword},likeminds.DBA.DbPassword=${p:environment\/wcm.DbPassword},feedback.DbPassword=${p:environment\/wcm.DbPassword},feedback.DBA.DbPassword=${p:environment\/wcm.DbPassword},release.DbRuntimePassword=${p:environment\/wcm.DbPassword},customization.DbRuntimePassword=${p:environment\/wcm.DbPassword},community.DbRuntimePassword=${p:environment\/wcm.DbPassword},jcr.DbRuntimePassword=${p:environment\/wcm.DbPassword},likeminds.DbRuntimePassword=${p:environment\/wcm.DbPassword},feedback.DbRuntimePassword=${p:environment\/wcm.DbPassword}",
                             "useWKPLCProps": "false",
                             "profHome": "${p:resource\/portal.profile.home}",
-                            "wpPass": "${p:environment\/WASAdminPassword}",
-                            "wasPass": "${p:environment\/WASAdminPassword}"
+                            "wpPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|SAJpw5+tW2a0RqqTJGwImQ==|5bgF8fOwcEivmnXAAQrujQ==}",
+                            "wasPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|RFHpWX5OG6NkguIWYto1RQ==|1hQXaTuDb\/bw7Loe1F6ikw==}"
                         },
                         "type": "plugin",
                         "name": "Execute ConfigEngine grant-runtime-db-user-privileges",
@@ -1609,8 +1850,8 @@
                             "options": "",
                             "useWKPLCProps": "false",
                             "profHome": "${p:resource\/portal.profile.home}",
-                            "wpPass": "${p:environment\/WASAdminPassword}",
-                            "wasPass": "${p:environment\/WASAdminPassword}"
+                            "wpPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|Pynx4HdlAMPo4zHPaCagRQ==|IS12ZLy2RttGxxENwzOD8g==}",
+                            "wasPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|rdqF3pgFHE6mEsRhzWh1+Q==|oeIlM7e\/VEw3jTvQNoDDBw==}"
                         },
                         "type": "plugin",
                         "name": "Execute ConfigEngine datasource-enable-fully-materialize-lob-data",
@@ -1629,8 +1870,8 @@
                             "options": "",
                             "useWKPLCProps": "false",
                             "profHome": "${p:resource\/portal.profile.home}",
-                            "wpPass": "${p:environment\/WASAdminPassword}",
-                            "wasPass": "${p:environment\/WASAdminPassword}"
+                            "wpPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|Mkht21znW3jdkQEWacARww==|YSZAohYA2fBWgfBnLjiCtQ==}",
+                            "wasPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|U2XT7saOmbP2\/W77YwG6Xw==|7lgyvGeIx4XRq94EahWZxg==}"
                         },
                         "type": "plugin",
                         "name": "Execute ConfigEngine start-portal-server",
@@ -1651,6 +1892,12 @@
             "rootActivity": {
                 "edges": [
                     {
+                        "to": "8cab1793c1faa27502a5f3ae528600",
+                        "from": "Execute ConfigEngine backup-property-files-for-dbxfer",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
                         "to": "Execute ConfigEngine backup-property-files-for-dbxfer",
                         "from": "Download DB2 jars",
                         "type": "SUCCESS",
@@ -1662,12 +1909,6 @@
                         "value": ""
                     },
                     {
-                        "to": "8cab1793c1faa27502a5f3ae528600",
-                        "from": "Execute ConfigEngine backup-property-files-for-dbxfer",
-                        "type": "SUCCESS",
-                        "value": ""
-                    },
-                    {
                         "to": "Download DB2 jars",
                         "from": "Create db2 jar directories",
                         "type": "SUCCESS",
@@ -1676,36 +1917,37 @@
                 ],
                 "offsets": [
                     {
+                        "name": "Create db2 jar directories",
+                        "x": -75,
+                        "y": 145,
+                        "h": 70,
+                        "w": 260
+                    },
+                    {
                         "name": "Execute ConfigEngine backup-property-files-for-dbxfer",
-                        "x": -250,
-                        "y": 290,
-                        "h": 50,
-                        "w": 580
+                        "x": -165,
+                        "y": 415,
+                        "h": 80,
+                        "w": 440
+                    },
+                    {
+                        "name": "Download DB2 jars",
+                        "x": -75,
+                        "y": 280,
+                        "h": 70,
+                        "w": 260
                     },
                     {
                         "name": "8cab1793c1faa27502a5f3ae528600",
                         "x": -5,
-                        "y": 420,
-                        "h": 50,
-                        "w": 90
-                    },
-                    {
-                        "name": "Download DB2 jars",
-                        "x": -125,
-                        "y": 168,
-                        "h": 50,
-                        "w": 330
-                    },
-                    {
-                        "name": "Create db2 jar directories",
-                        "x": -140,
-                        "y": 81,
-                        "h": 50,
-                        "w": 360
+                        "y": 560,
+                        "h": 80,
+                        "w": 120
                     }
                 ],
+                "layoutMode": "auto",
                 "type": "graph",
-                "name": "c1d18ccd-1eda-4d87-8721-2788670e5b40",
+                "name": "8db3f0cb-e2b9-4974-8993-8c96bc60c53a",
                 "children": [
                     {
                         "type": "finish",
@@ -1720,7 +1962,7 @@
                         "workingDir": "\/",
                         "commandName": "Download Artifacts",
                         "pluginName": "IBM UrbanCode Deploy Versioned File Storage",
-                        "pluginVersion": 26,
+                        "pluginVersion": 27,
                         "properties": {
                             "directoryOffset": "opt\/ibm\/db2\/V10.5\/java\/",
                             "artifactSetBaseDir": "",
@@ -1767,8 +2009,8 @@
                             "options": "",
                             "useWKPLCProps": "false",
                             "profHome": "${p:resource\/portal.profile.home}",
-                            "wpPass": "${p:environment\/WASAdminPassword}",
-                            "wasPass": "${p:environment\/WASAdminPassword}"
+                            "wpPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|2MQ4pVEjDkAenW\/Wf3Og0Q==|0wPmA5Z4OyzIr+tWdoludMPAeeP2yLzKFWBWfY3r2\/YWYgoXvT4siQM4\/wIfcDd6}",
+                            "wasPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|KHbtAiLpKJrauvNvd536Jw==|n82RHUpPmKwyfZYBkl1B5PKVAsoLVjj9+m1+lAlBWNgwh+OCF6Ze5uX3RAGZb0qe}"
                         },
                         "type": "plugin",
                         "name": "Execute ConfigEngine backup-property-files-for-dbxfer",
@@ -1808,29 +2050,30 @@
                 ],
                 "offsets": [
                     {
-                        "name": "087f9d5a0f33d2e05349fb5c37bcc3",
-                        "x": -5,
-                        "y": 420,
-                        "h": 50,
-                        "w": 90
+                        "name": "Create properties file SetupDatabase.properties",
+                        "x": -145,
+                        "y": 145,
+                        "h": 70,
+                        "w": 400
                     },
                     {
                         "name": "Execute ConfigEngine setup-database",
-                        "x": -210,
-                        "y": 250,
-                        "h": 50,
-                        "w": 500
+                        "x": -115,
+                        "y": 280,
+                        "h": 80,
+                        "w": 340
                     },
                     {
-                        "name": "Create properties file SetupDatabase.properties",
-                        "x": -180,
-                        "y": 109,
-                        "h": 50,
-                        "w": 420
+                        "name": "087f9d5a0f33d2e05349fb5c37bcc3",
+                        "x": -5,
+                        "y": 425,
+                        "h": 80,
+                        "w": 120
                     }
                 ],
+                "layoutMode": "auto",
                 "type": "graph",
-                "name": "255aa643-6360-47da-b6cc-31931cca1a63",
+                "name": "d7a9db21-439f-4d8b-a0ca-aeb58cb5c28d",
                 "children": [
                     {
                         "type": "finish",
@@ -1868,8 +2111,8 @@
                             "options": "SaveParentProperties=true,parentProperties=SetupDatabase.properties,release.DbPassword=${p:environment\/wcm.DbPassword},release.DBA.DbPassword=${p:environment\/wcm.DbPassword},customization.DbPassword=${p:environment\/wcm.DbPassword},customization.DBA.DbPassword=${p:environment\/wcm.DbPassword},community.DbPassword=${p:environment\/wcm.DbPassword},community.DBA.DbPassword=${p:environment\/wcm.DbPassword},jcr.DbPassword=${p:environment\/wcm.DbPassword},jcr.DBA.DbPassword=${p:environment\/wcm.DbPassword},likeminds.DbPassword=${p:environment\/wcm.DbPassword},likeminds.DBA.DbPassword=${p:environment\/wcm.DbPassword},feedback.DbPassword=${p:environment\/wcm.DbPassword},feedback.DBA.DbPassword=${p:environment\/wcm.DbPassword},release.DbRuntimePassword=${p:environment\/wcm.DbPassword},customization.DbRuntimePassword=${p:environment\/wcm.DbPassword},community.DbRuntimePassword=${p:environment\/wcm.DbPassword},jcr.DbRuntimePassword=${p:environment\/wcm.DbPassword},likeminds.DbRuntimePassword=${p:environment\/wcm.DbPassword},feedback.DbRuntimePassword=${p:environment\/wcm.DbPassword}",
                             "useWKPLCProps": "false",
                             "profHome": "${p:resource\/portal.profile.home}",
-                            "wpPass": "${p:environment\/WASAdminPassword}",
-                            "wasPass": "${p:environment\/WASAdminPassword}"
+                            "wpPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|DYL4n1J6+OHm3J0NklXO7g==|tIyO4ZZxwbr+81TPWq+XPw==}",
+                            "wasPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|EdkqYEQiG7Mr\/\/3e2GRLsQ==|b45tV96NdIGij3PAVIlyAQ==}"
                         },
                         "type": "plugin",
                         "name": "Execute ConfigEngine setup-database",
@@ -1890,31 +2133,8 @@
             "rootActivity": {
                 "edges": [
                     {
-                        "to": "Execute ConfigEngine grant-runtime-db-user-privileges",
-                        "from": "Create properties file GrantRuntimeUserPrivs.properties",
-                        "type": "SUCCESS",
-                        "value": ""
-                    },
-                    {
                         "to": "Execute ConfigEngine datasource-enable-fully-materialize-lob-data",
                         "from": "Execute ConfigEngine grant-runtime-db-user-privileges",
-                        "type": "SUCCESS",
-                        "value": ""
-                    },
-                    {
-                        "to": "Execute ConfigEngine Database Transfer",
-                        "from": "Create properties file DatabaseTransfer.properties",
-                        "type": "SUCCESS",
-                        "value": ""
-                    },
-                    {
-                        "to": "Create properties file ValidateDatabase.properties",
-                        "type": "ALWAYS",
-                        "value": ""
-                    },
-                    {
-                        "to": "8cab1793c1faa27502a5f3ae528600",
-                        "from": "Execute ConfigEngine start-portal-server",
                         "type": "SUCCESS",
                         "value": ""
                     },
@@ -1925,14 +2145,8 @@
                         "value": ""
                     },
                     {
-                        "to": "Execute ConfigEngine start-portal-server",
-                        "from": "Execute ConfigEngine datasource-enable-fully-materialize-lob-data",
-                        "type": "SUCCESS",
-                        "value": ""
-                    },
-                    {
-                        "to": "Create properties file DatabaseTransfer.properties",
-                        "from": "Execute ConfigEngine stop-portal-server",
+                        "to": "Execute ConfigEngine Database Transfer",
+                        "from": "Create properties file DatabaseTransfer.properties",
                         "type": "SUCCESS",
                         "value": ""
                     },
@@ -1943,86 +2157,116 @@
                         "value": ""
                     },
                     {
+                        "to": "Create properties file ValidateDatabase.properties",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Execute ConfigEngine start-portal-server",
+                        "from": "Execute ConfigEngine datasource-enable-fully-materialize-lob-data",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Execute ConfigEngine grant-runtime-db-user-privileges",
+                        "from": "Create properties file GrantRuntimeUserPrivs.properties",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "8cab1793c1faa27502a5f3ae528600",
+                        "from": "Execute ConfigEngine start-portal-server",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
                         "to": "Create properties file GrantRuntimeUserPrivs.properties",
                         "from": "Execute ConfigEngine Database Transfer",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Create properties file DatabaseTransfer.properties",
+                        "from": "Execute ConfigEngine stop-portal-server",
                         "type": "SUCCESS",
                         "value": ""
                     }
                 ],
                 "offsets": [
                     {
-                        "name": "Execute ConfigEngine grant-runtime-db-user-privileges",
-                        "x": 340,
-                        "y": 670,
-                        "h": 50,
-                        "w": 570
-                    },
-                    {
-                        "name": "Execute ConfigEngine Database Transfer",
-                        "x": 400,
-                        "y": 460,
-                        "h": 50,
-                        "w": 350
-                    },
-                    {
-                        "name": "Execute ConfigEngine stop-portal-server",
-                        "x": 128.5,
-                        "y": 280,
-                        "h": 50,
-                        "w": 490
-                    },
-                    {
-                        "name": "Create properties file GrantRuntimeUserPrivs.properties",
-                        "x": -24.5,
-                        "y": 605.1818132361104,
-                        "h": 50,
-                        "w": 460
-                    },
-                    {
-                        "name": "8cab1793c1faa27502a5f3ae528600",
-                        "x": 513.5,
-                        "y": 1100,
-                        "h": 50,
-                        "w": 90
-                    },
-                    {
-                        "name": "Create properties file ValidateDatabase.properties",
-                        "x": -152.5,
-                        "y": 144.38,
-                        "h": 50,
-                        "w": 430
-                    },
-                    {
-                        "name": "Create properties file DatabaseTransfer.properties",
-                        "x": -97.5,
-                        "y": 378.18181323611054,
-                        "h": 50,
-                        "w": 430
-                    },
-                    {
-                        "name": "Execute ConfigEngine start-portal-server",
-                        "x": 311.5,
-                        "y": 879.8181789610999,
-                        "h": 50,
-                        "w": 490
+                        "name": "Execute ConfigEngine datasource-enable-fully-materialize-lob-data",
+                        "x": 20,
+                        "y": 453.33333333333326,
+                        "h": 130,
+                        "w": 860
                     },
                     {
                         "name": "Execute ConfigEngine validate-database",
-                        "x": 340,
-                        "y": 180,
-                        "h": 50,
-                        "w": 490
+                        "x": 910,
+                        "y": 40,
+                        "h": 130,
+                        "w": 560
                     },
                     {
-                        "name": "Execute ConfigEngine datasource-enable-fully-materialize-lob-data",
-                        "x": 73.5,
-                        "y": 788.8181789610999,
-                        "h": 50,
-                        "w": 630
+                        "name": "Execute ConfigEngine start-portal-server",
+                        "x": 930,
+                        "y": 473.33333333333326,
+                        "h": 130,
+                        "w": 560
+                    },
+                    {
+                        "name": "8cab1793c1faa27502a5f3ae528600",
+                        "x": 1540,
+                        "y": 493.33333333333326,
+                        "h": 90,
+                        "w": 150
+                    },
+                    {
+                        "name": "Create properties file ValidateDatabase.properties",
+                        "x": 190,
+                        "y": 20,
+                        "h": 100,
+                        "w": 670
+                    },
+                    {
+                        "name": "Create properties file DatabaseTransfer.properties",
+                        "x": 20,
+                        "y": 226.66666666666666,
+                        "h": 100,
+                        "w": 670
+                    },
+                    {
+                        "name": "Execute ConfigEngine Database Transfer",
+                        "x": 740,
+                        "y": 246.66666666666663,
+                        "h": 100,
+                        "w": 570
+                    },
+                    {
+                        "name": "Create properties file GrantRuntimeUserPrivs.properties",
+                        "x": 1360,
+                        "y": 266.66666666666663,
+                        "h": 100,
+                        "w": 740
+                    },
+                    {
+                        "name": "Execute ConfigEngine stop-portal-server",
+                        "x": 1520,
+                        "y": 60,
+                        "h": 130,
+                        "w": 560
+                    },
+                    {
+                        "name": "Execute ConfigEngine grant-runtime-db-user-privileges",
+                        "x": 2150,
+                        "y": 286.66666666666663,
+                        "h": 130,
+                        "w": 730
                     }
                 ],
+                "layoutMode": "auto",
                 "type": "graph",
-                "name": "942b666e-27c4-4071-ace8-999d2b4a4482",
+                "name": "115ffbc5-35f3-4f1a-8806-ebe16560f435",
                 "children": [
                     {
                         "type": "finish",
@@ -2060,8 +2304,8 @@
                             "options": "aveParentProperties=true,parentProperties=ValidateDatabase.properties,release.DbPassword=${p:environment\/wcm.DbPassword},release.DBA.DbPassword=${p:environment\/wcm.DbPassword},customization.DbPassword=${p:environment\/wcm.DbPassword},customization.DBA.DbPassword=${p:environment\/wcm.DbPassword},community.DbPassword=${p:environment\/wcm.DbPassword},community.DBA.DbPassword=${p:environment\/wcm.DbPassword},jcr.DbPassword=${p:environment\/wcm.DbPassword},jcr.DBA.DbPassword=${p:environment\/wcm.DbPassword},likeminds.DbPassword=${p:environment\/wcm.DbPassword},likeminds.DBA.DbPassword=${p:environment\/wcm.DbPassword},feedback.DbPassword=${p:environment\/wcm.DbPassword},feedback.DBA.DbPassword=${p:environment\/wcm.DbPassword},release.DbRuntimePassword=${p:environment\/wcm.DbPassword},customization.DbRuntimePassword=${p:environment\/wcm.DbPassword},community.DbRuntimePassword=${p:environment\/wcm.DbPassword},jcr.DbRuntimePassword=${p:environment\/wcm.DbPassword},likeminds.DbRuntimePassword=${p:environment\/wcm.DbPassword},feedback.DbRuntimePassword=${p:environment\/wcm.DbPassword}",
                             "useWKPLCProps": "false",
                             "profHome": "${p:resource\/portal.profile.home}",
-                            "wpPass": "${p:environment\/WASAdminPassword}",
-                            "wasPass": "${p:environment\/WASAdminPassword}"
+                            "wpPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|+TtIC7LpLyl3\/9vMrZbD8A==|5rUTi485mM6lbOTyZBC7PQ==}",
+                            "wasPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|6eDtQliJANpR8RR0296Vbw==|dwrlaLFGFKnzYbb15tv3IA==}"
                         },
                         "type": "plugin",
                         "name": "Execute ConfigEngine validate-database",
@@ -2080,8 +2324,8 @@
                             "options": "",
                             "useWKPLCProps": "false",
                             "profHome": "${p:resource\/portal.profile.home}",
-                            "wpPass": "${p:environment\/WASAdminPassword}",
-                            "wasPass": "${p:environment\/WASAdminPassword}"
+                            "wpPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|PG+dWc9wm17j4z4WtcU8nQ==|DYT9trI48Tl9b36WBIA\/\/BtlDrj6GjrjhDeNaSEpZ6M4Hgr4+aP7OEmBxEuB3\/l9}",
+                            "wasPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|JTuDOfMSKiHXtyDfF9esqg==|S+MZ9U\/b2+Xm5iSm0BFCXEmLTuhNTe1VDGkiSzrVqvH8zBi6aajVLuhWxhQH8ebD}"
                         },
                         "type": "plugin",
                         "name": "Execute ConfigEngine stop-portal-server",
@@ -2155,8 +2399,8 @@
                             "options": "SaveParentProperties=true,parentProperties=GrantRuntimeUserPrivs.properties,release.DbPassword=${p:environment\/wcm.DbPassword},release.DBA.DbPassword=${p:environment\/wcm.DbPassword},customization.DbPassword=${p:environment\/wcm.DbPassword},customization.DBA.DbPassword=${p:environment\/wcm.DbPassword},community.DbPassword=${p:environment\/wcm.DbPassword},community.DBA.DbPassword=${p:environment\/wcm.DbPassword},jcr.DbPassword=${p:environment\/wcm.DbPassword},jcr.DBA.DbPassword=${p:environment\/wcm.DbPassword},likeminds.DbPassword=${p:environment\/wcm.DbPassword},likeminds.DBA.DbPassword=${p:environment\/wcm.DbPassword},feedback.DbPassword=${p:environment\/wcm.DbPassword},feedback.DBA.DbPassword=${p:environment\/wcm.DbPassword},release.DbRuntimePassword=${p:environment\/wcm.DbPassword},customization.DbRuntimePassword=${p:environment\/wcm.DbPassword},community.DbRuntimePassword=${p:environment\/wcm.DbPassword},jcr.DbRuntimePassword=${p:environment\/wcm.DbPassword},likeminds.DbRuntimePassword=${p:environment\/wcm.DbPassword},feedback.DbRuntimePassword=${p:environment\/wcm.DbPassword}",
                             "useWKPLCProps": "false",
                             "profHome": "${p:resource\/portal.profile.home}",
-                            "wpPass": "${p:environment\/WASAdminPassword}",
-                            "wasPass": "${p:environment\/WASAdminPassword}"
+                            "wpPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|EhyNyWWKLX+\/T6I806GvJQ==|HJkyeJEihN\/mmwzTfNJmCQ==}",
+                            "wasPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|diOk0tjnr+eW5kbvd122XQ==|p9Dol6JzKSLlKii9EMy5XQ==}"
                         },
                         "type": "plugin",
                         "name": "Execute ConfigEngine grant-runtime-db-user-privileges",
@@ -2175,8 +2419,8 @@
                             "options": "",
                             "useWKPLCProps": "false",
                             "profHome": "${p:resource\/portal.profile.home}",
-                            "wpPass": "${p:environment\/WASAdminPassword}",
-                            "wasPass": "${p:environment\/WASAdminPassword}"
+                            "wpPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|eGc9tr1djgDv76ZvdWHozg==|DQ0xku9rXWhn1yiXoDyoaQ==}",
+                            "wasPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|RQRVNOmA3mupmWHVdSRWPg==|a4KznDfoFsr+LiX7Y3\/dVA==}"
                         },
                         "type": "plugin",
                         "name": "Execute ConfigEngine datasource-enable-fully-materialize-lob-data",
@@ -2195,11 +2439,453 @@
                             "options": "",
                             "useWKPLCProps": "false",
                             "profHome": "${p:resource\/portal.profile.home}",
-                            "wpPass": "${p:environment\/WASAdminPassword}",
-                            "wasPass": "${p:environment\/WASAdminPassword}"
+                            "wpPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|9FjHtu+jjGQB2lCXI1jVjg==|Nz6e3yBKuaEntsljgy+m37ewYBguj9J8KPHRTz7pWhhH4X1mVc0c+kfpQfhtk9cb}",
+                            "wasPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|uEsbFQb8JykXMgjPJuJrMQ==|g07SGd3MT4HJVIXIQ7Czj68seUpTz5Ea\/\/xcABpTkvuFy1jgaiurgqMgrvIH2Abr}"
                         },
                         "type": "plugin",
                         "name": "Execute ConfigEngine start-portal-server",
+                        "children": []
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Restart Node agent",
+            "description": "",
+            "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+            "takesVersion": false,
+            "status": "",
+            "active": true,
+            "path": "components\/96035a54-54f9-4e72-aab3-1f4ede5b3992\/processes\/014d9091-b982-4da3-9a9b-95e294b72b41",
+            "propDefs": [],
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "c5587759e32cf111bd6d4b8f71e58e",
+                        "from": "Start",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Start",
+                        "from": "Stop",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Stop",
+                        "type": "ALWAYS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "Stop",
+                        "x": -45,
+                        "y": 145,
+                        "h": 70,
+                        "w": 200
+                    },
+                    {
+                        "name": "Start",
+                        "x": -60,
+                        "y": 280,
+                        "h": 70,
+                        "w": 210
+                    },
+                    {
+                        "name": "c5587759e32cf111bd6d4b8f71e58e",
+                        "x": -5,
+                        "y": 395,
+                        "h": 80,
+                        "w": 120
+                    }
+                ],
+                "layoutMode": "auto",
+                "type": "graph",
+                "name": "101517d5-fabb-4284-b277-8102095f59c4",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "c5587759e32cf111bd6d4b8f71e58e",
+                        "children": []
+                    },
+                    {
+                        "componentProcessName": "Stop Node agent",
+                        "componentName": "Portal Configuration Wizard",
+                        "allowFailure": false,
+                        "properties": {},
+                        "type": "componentProcess",
+                        "name": "Stop",
+                        "children": []
+                    },
+                    {
+                        "componentProcessName": "Start Node agent",
+                        "componentName": "Portal Configuration Wizard",
+                        "allowFailure": false,
+                        "properties": {},
+                        "type": "componentProcess",
+                        "name": "Start",
+                        "children": []
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Restart portal Server",
+            "description": "",
+            "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+            "takesVersion": false,
+            "status": "",
+            "active": true,
+            "path": "components\/96035a54-54f9-4e72-aab3-1f4ede5b3992\/processes\/f36a977b-acbe-49bc-943d-aa6fb83c34d5",
+            "propDefs": [],
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "Stop",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "cdafea6e5583817654a4650454c8f6",
+                        "from": "Start",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Start",
+                        "from": "Stop",
+                        "type": "SUCCESS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "cdafea6e5583817654a4650454c8f6",
+                        "x": -5,
+                        "y": 375,
+                        "h": 80,
+                        "w": 120
+                    },
+                    {
+                        "name": "Start",
+                        "x": -60,
+                        "y": 260,
+                        "h": 70,
+                        "w": 210
+                    },
+                    {
+                        "name": "Stop",
+                        "x": -60,
+                        "y": 145,
+                        "h": 70,
+                        "w": 210
+                    }
+                ],
+                "layoutMode": "auto",
+                "type": "graph",
+                "name": "5de4f6dc-44a3-4212-9932-5bcc320e8702",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "cdafea6e5583817654a4650454c8f6",
+                        "children": []
+                    },
+                    {
+                        "componentProcessName": "Stop portal Server",
+                        "componentName": "Portal Configuration Wizard",
+                        "allowFailure": false,
+                        "properties": {},
+                        "type": "componentProcess",
+                        "name": "Stop",
+                        "children": []
+                    },
+                    {
+                        "componentProcessName": "Start portal Server",
+                        "componentName": "Portal Configuration Wizard",
+                        "allowFailure": false,
+                        "properties": {},
+                        "type": "componentProcess",
+                        "name": "Start",
+                        "children": []
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Start Node agent",
+            "description": "",
+            "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+            "takesVersion": false,
+            "status": "",
+            "active": true,
+            "path": "components\/96035a54-54f9-4e72-aab3-1f4ede5b3992\/processes\/84238593-89fd-4992-b2c1-b2ccef94abbf",
+            "propDefs": [],
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "Start Node",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "c5587759e32cf111bd6d4b8f71e58e",
+                        "from": "Start Node",
+                        "type": "SUCCESS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "c5587759e32cf111bd6d4b8f71e58e",
+                        "x": -5,
+                        "y": 350,
+                        "h": 80,
+                        "w": 120
+                    },
+                    {
+                        "name": "Start Node",
+                        "x": -45,
+                        "y": 180,
+                        "h": 70,
+                        "w": 200
+                    }
+                ],
+                "layoutMode": "auto",
+                "type": "graph",
+                "name": "141a2b89-95f5-465d-90cf-606f289cbd77",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "c5587759e32cf111bd6d4b8f71e58e",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Start Node",
+                        "pluginName": "WAS - Install",
+                        "pluginVersion": 4,
+                        "properties": {
+                            "WASInstallPath": "${p:environment\/WASInstallPath}",
+                            "WASAdminUsername": "${p:environment\/WASAdminUsername}",
+                            "WASAdminPassword": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|IHmkipdfHcWXJ79kDyUHLQ==|ti2nu3FNaqz0msKFyBBQcXc1Nzo\/mYutcTsOrC\/QzuF1d6NIO9\/dMO8034bjotkj}",
+                            "WASProfileName": "${p:component\/WASProfileName}"
+                        },
+                        "type": "plugin",
+                        "name": "Start Node",
+                        "children": []
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Start portal Server",
+            "description": "",
+            "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+            "takesVersion": false,
+            "status": "",
+            "active": true,
+            "path": "components\/96035a54-54f9-4e72-aab3-1f4ede5b3992\/processes\/eb382665-ac8b-4fa2-887c-d84df30e7f1e",
+            "propDefs": [],
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "Start Portal Server",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "cdafea6e5583817654a4650454c8f6",
+                        "from": "Start Portal Server",
+                        "type": "SUCCESS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "cdafea6e5583817654a4650454c8f6",
+                        "x": -5,
+                        "y": 350,
+                        "h": 80,
+                        "w": 120
+                    },
+                    {
+                        "name": "Start Portal Server",
+                        "x": -55,
+                        "y": 180,
+                        "h": 70,
+                        "w": 220
+                    }
+                ],
+                "layoutMode": "auto",
+                "type": "graph",
+                "name": "050c9711-ad60-4f02-b3a3-1434877d07fe",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "cdafea6e5583817654a4650454c8f6",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Shell",
+                        "pluginName": "Shell",
+                        "pluginVersion": 7,
+                        "properties": {
+                            "directoryOffset": ".",
+                            "shellInterpreter": "",
+                            "scriptBody": "\/opt\/IBM\/WebSphere\/wp_profile\/bin\/startServer.sh ${p:resource\/portal.server.name} -username ${p?:environment\/WASAdminUsername} -password ${p?:environment\/WASAdminPassword}",
+                            "runAsDaemon": "false",
+                            "outputFile": ""
+                        },
+                        "type": "plugin",
+                        "name": "Start Portal Server",
+                        "children": []
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Stop Node agent",
+            "description": "",
+            "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+            "takesVersion": false,
+            "status": "",
+            "active": true,
+            "path": "components\/96035a54-54f9-4e72-aab3-1f4ede5b3992\/processes\/066a12d1-0d8d-4ac0-932d-2d5910082472",
+            "propDefs": [],
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "Stop Node",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "c5587759e32cf111bd6d4b8f71e58e",
+                        "from": "Stop Node",
+                        "type": "SUCCESS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "Stop Node",
+                        "x": -45,
+                        "y": 180,
+                        "h": 70,
+                        "w": 200
+                    },
+                    {
+                        "name": "c5587759e32cf111bd6d4b8f71e58e",
+                        "x": -5,
+                        "y": 350,
+                        "h": 80,
+                        "w": 120
+                    }
+                ],
+                "layoutMode": "auto",
+                "type": "graph",
+                "name": "0a58e3a5-1f76-4b54-9c1f-f0ecce0798f2",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "c5587759e32cf111bd6d4b8f71e58e",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Stop Node",
+                        "pluginName": "WAS - Install",
+                        "pluginVersion": 4,
+                        "properties": {
+                            "WASInstallPath": "${p:environment\/WASInstallPath}",
+                            "WASAdminUsername": "${p:environment\/WASAdminUsername}",
+                            "WASAdminPassword": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|gJAaN9uFVOB+vSdF7iQXIg==|WU31Jv0bSEBRAD2fQnK80MjD5OuLCuaSf6\/jj7aMeBNFf8sJuTYBjxfB2N5F5AgG}",
+                            "WASProfileName": "${p:component\/WASProfileName}"
+                        },
+                        "type": "plugin",
+                        "name": "Stop Node",
+                        "children": []
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Stop portal Server",
+            "description": "",
+            "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+            "takesVersion": false,
+            "status": "",
+            "active": true,
+            "path": "components\/96035a54-54f9-4e72-aab3-1f4ede5b3992\/processes\/460105ad-1446-46ff-ba58-b7c25403b5d0",
+            "propDefs": [],
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "Stop Portal Server",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "cdafea6e5583817654a4650454c8f6",
+                        "from": "Stop Portal Server",
+                        "type": "SUCCESS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "cdafea6e5583817654a4650454c8f6",
+                        "x": -5,
+                        "y": 350,
+                        "h": 80,
+                        "w": 120
+                    },
+                    {
+                        "name": "Stop Portal Server",
+                        "x": -50,
+                        "y": 180,
+                        "h": 70,
+                        "w": 210
+                    }
+                ],
+                "layoutMode": "auto",
+                "type": "graph",
+                "name": "00839c5a-214a-4418-b386-6bc62df0f832",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "cdafea6e5583817654a4650454c8f6",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Shell",
+                        "pluginName": "Shell",
+                        "pluginVersion": 7,
+                        "properties": {
+                            "directoryOffset": ".",
+                            "shellInterpreter": "",
+                            "scriptBody": "\/opt\/IBM\/WebSphere\/wp_profile\/bin\/stopServer.sh ${p?:resource\/portal.server.name} -username ${p?:environment\/WASAdminUsername} -password ${p?:environment\/WASAdminPassword}",
+                            "runAsDaemon": "false",
+                            "outputFile": ""
+                        },
+                        "type": "plugin",
+                        "name": "Stop Portal Server",
                         "children": []
                     }
                 ]
