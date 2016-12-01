@@ -1,0 +1,514 @@
+{
+    "securityResourceId": "c4807bbe-9c95-4348-adcf-de7a71ea4535",
+    "path": "componentTemplates\/9a6485f9-cf7a-48fc-8207-05b67114d796",
+    "name": "IBM Digital Experience",
+    "description": "IBM WebSphere Portal and IBM Web Content Manager  https:\/\/www.ibm.com\/support\/knowledgecenter\/en\/SSHRKX_8.5.0\/welcome\/wp_welcome.html",
+    "ignoreQualifiers": 0,
+    "componentType": "STANDARD",
+    "tags": [],
+    "active": true,
+    "envPropDefs": [
+        {
+            "name": "Java7IMRepository",
+            "label": "Java7IMRepository",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "http:\/\/23.246.197.38:30004\/IBMJAVA7",
+            "required": false,
+            "description": "Installation Manager repository for Java 7 SDK for WAS",
+            "placeholder": ""
+        },
+        {
+            "name": "PortalServerIMRepository",
+            "label": "PortalServerIMRepository",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "http:\/\/23.246.197.38:30004\/WP85_Server\/repository.config",
+            "required": false,
+            "description": "Installation Manager repository for Portal media",
+            "placeholder": ""
+        },
+        {
+            "name": "WASIMRepository",
+            "label": "WASIMRepository",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "http:\/\/23.246.197.38:30003",
+            "required": false,
+            "description": "Installation Manager repository for WAS ND",
+            "placeholder": ""
+        },
+        {
+            "name": "WCMIMRepository",
+            "label": "WCMIMRepository",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "http:\/\/23.246.197.38:30004\/WP85_WCM\/repository.config",
+            "required": false,
+            "description": "Installation Manager repository for WCM media",
+            "placeholder": ""
+        },
+        {
+            "name": "user.cw.userid",
+            "label": "user.cw.userid",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "wpsadmin",
+            "required": false,
+            "description": "administrator ID for Configuration Wizard profile",
+            "placeholder": ""
+        },
+        {
+            "name": "user.cw.password",
+            "label": "user.cw.password",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "4taxKp1Gj5q5aCi+LjSKHQ==",
+            "required": false,
+            "description": "administrator password for Configuration Wizard profile. should be in encrypted format. Use the command 'imutilsc encryptString mypassword' to return an encrypted string for mypassword ",
+            "placeholder": ""
+        },
+        {
+            "name": "user.wp.userid",
+            "label": "user.wp.userid",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "wpsadmin",
+            "required": false,
+            "description": "administrator ID for the Portal profile",
+            "placeholder": ""
+        },
+        {
+            "name": "user.wp.password",
+            "label": "user.wp.password",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "4taxKp1Gj5q5aCi+LjSKHQ==",
+            "required": false,
+            "description": "administrator password for the Portal profile.value should be in encrypted format",
+            "placeholder": ""
+        }
+    ],
+    "resPropDefs": [
+        {
+            "name": "IMresponsefile",
+            "label": "IMresponsefile",
+            "pattern": "",
+            "type": "SELECT",
+            "required": true,
+            "description": "IM response file which determines what is installed full or binary only",
+            "placeholder": "",
+            "allowedValues": [
+                {
+                    "label": "wp85-server-and-wcm-install.xml",
+                    "value": "wp85-server-and-wcm-install.xml"
+                },
+                {
+                    "label": "wp85-server-and-wcm-binaryonlyinstall.xml",
+                    "value": "wp85-server-and-wcm-binaryonlyinstall.xml"
+                }
+            ]
+        },
+        {
+            "name": "portal.profile.home",
+            "label": "portal.profile.home",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "\/opt\/IBM\/WebSphere",
+            "required": false,
+            "description": "",
+            "placeholder": ""
+        }
+    ],
+    "propDefs": [
+        {
+            "name": "IMRepository",
+            "label": "IM Repository",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "http:\/\/23.246.197.38:30003",
+            "required": false,
+            "description": "TODO MOVE TO COMPONENT VERSION PROPERTY Location of the Installation Manager repository where WAS ND is stored (this may be in the format C:\\installation_files\\repository.config or http:\/\/hostname:8081)",
+            "placeholder": ""
+        },
+        {
+            "name": "VersionName",
+            "label": "Version Name",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "com.ibm.websphere.ND.v85_8.5.5007.20150820_2101",
+            "required": false,
+            "description": "TODO MOVE TO COMPONENT VERSION PROPERTY Version of WAS ND to install as described in the source repository (for example, com.ibm.websphere.ND.v85_8.5.5000.20130514_1044)",
+            "placeholder": ""
+        }
+    ],
+    "properties": [],
+    "processes": [
+        {
+            "name": "Install",
+            "description": "Install WCM and Portal to host using response file in resource\/IMresponsefile. The response file determines what is installed",
+            "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+            "takesVersion": true,
+            "inventoryActionType": "ADD",
+            "status": "Active",
+            "configActionType": "ADD",
+            "active": true,
+            "path": "componentTemplates\/9a6485f9-cf7a-48fc-8207-05b67114d796\/processes\/f118ec68-ff0b-4ca9-a9cd-17bd03581c13",
+            "propDefs": [],
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "Download IM response file",
+                        "from": "create javasharedresources directory",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "8d48d9e352053905fe2a17e22af253",
+                        "from": "Remove CW profile",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "ConfigEngine uninstall config wizard",
+                        "from": "INstall IDE",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Remove CW profile",
+                        "from": "ConfigEngine uninstall config wizard",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Set ulimits",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "INstall IDE",
+                        "from": "Download IM response file",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "create javasharedresources directory",
+                        "from": "Set ulimits",
+                        "type": "SUCCESS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "Download IM response file",
+                        "x": -125,
+                        "y": 440,
+                        "h": 100,
+                        "w": 390
+                    },
+                    {
+                        "name": "Remove CW profile",
+                        "x": -90,
+                        "y": 890,
+                        "h": 100,
+                        "w": 320
+                    },
+                    {
+                        "name": "ce39797b089bdf6687c8e227e81c4e",
+                        "x": 230,
+                        "y": 580,
+                        "h": 90,
+                        "w": 930
+                    },
+                    {
+                        "name": "Set ulimits",
+                        "x": -40,
+                        "y": 140,
+                        "h": 100,
+                        "w": 220
+                    },
+                    {
+                        "name": "ConfigEngine uninstall config wizard",
+                        "x": -185,
+                        "y": 740,
+                        "h": 100,
+                        "w": 510
+                    },
+                    {
+                        "name": "INstall IDE",
+                        "x": -40,
+                        "y": 590,
+                        "h": 100,
+                        "w": 220
+                    },
+                    {
+                        "name": "Install WCM and Portal",
+                        "x": 15469.411764705883,
+                        "y": 40,
+                        "h": 20,
+                        "w": 40
+                    },
+                    {
+                        "name": "create javasharedresources directory",
+                        "x": -190,
+                        "y": 290,
+                        "h": 100,
+                        "w": 520
+                    },
+                    {
+                        "name": "8d48d9e352053905fe2a17e22af253",
+                        "x": -5,
+                        "y": 1040,
+                        "h": 90,
+                        "w": 150
+                    },
+                    {
+                        "name": "b5337ecec99c1dadaed3ddf2021eaa",
+                        "x": 290,
+                        "y": 440,
+                        "h": 90,
+                        "w": 900
+                    }
+                ],
+                "layoutMode": "unknown",
+                "type": "graph",
+                "name": "4f226e08-0099-4fe3-b97b-a03b87548738",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "8d48d9e352053905fe2a17e22af253",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Execute Response File",
+                        "pluginName": "IBM Installation Manager",
+                        "pluginVersion": 3,
+                        "properties": {
+                            "responseFile": "wp85-server-and-wcm-binaryonlyinstall.xml",
+                            "dataLocation": "",
+                            "imclLocation": "\/opt\/IBM\/InstallationManager\/eclipse\/tools\/imcl",
+                            "responseFileVariables": "",
+                            "secureStorageFile": "",
+                            "masterPasswordFile": ""
+                        },
+                        "type": "plugin",
+                        "name": "Install WCM and Portal",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Download Artifacts",
+                        "pluginName": "IBM UrbanCode Deploy Versioned File Storage",
+                        "pluginVersion": 27,
+                        "properties": {
+                            "directoryOffset": ".",
+                            "artifactSetBaseDir": "",
+                            "fileIncludePatterns": "**\/${p:resource\/IMresponsefile}",
+                            "fileExcludePatterns": "",
+                            "syncMode": "true",
+                            "fullVerification": "true",
+                            "setFileExecuteBits": "false",
+                            "verifyFileIntegrity": "false",
+                            "versionId": "${p:version.id}",
+                            "serverUrl": "${p:server.url}",
+                            "compId": "${p:component.id}",
+                            "resId": "${p:resource.id}",
+                            "charset": "",
+                            "label": ""
+                        },
+                        "type": "plugin",
+                        "name": "Download IM response file",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Shell",
+                        "pluginName": "Shell",
+                        "pluginVersion": 7,
+                        "properties": {
+                            "directoryOffset": ".",
+                            "shellInterpreter": "",
+                            "scriptBody": "ulimit -n 10240\nulimit -f unlimited\n",
+                            "runAsDaemon": "false",
+                            "outputFile": ""
+                        },
+                        "type": "plugin",
+                        "name": "Set ulimits",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Shell",
+                        "pluginName": "Shell",
+                        "pluginVersion": 7,
+                        "properties": {
+                            "directoryOffset": ".",
+                            "shellInterpreter": "",
+                            "scriptBody": "mkdir -p \/tmp\/javasharedresources\nchmod 770 \/tmp\/javasharedresources\n",
+                            "runAsDaemon": "false",
+                            "outputFile": ""
+                        },
+                        "type": "plugin",
+                        "name": "create javasharedresources directory",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Shell",
+                        "pluginName": "Shell",
+                        "pluginVersion": 7,
+                        "properties": {
+                            "directoryOffset": ".",
+                            "shellInterpreter": "",
+                            "scriptBody": "\/opt\/IBM\/InstallationManager\/eclipse\/tools\/imcl -acceptLicense -sVP input ${p:resource\/IMresponsefile}",
+                            "runAsDaemon": "false",
+                            "outputFile": ""
+                        },
+                        "type": "plugin",
+                        "name": "INstall IDE",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": true,
+                        "impersonationUseSudo": false,
+                        "commandName": "Execute ConfigEngine command",
+                        "pluginName": "WebSphere Portal",
+                        "pluginVersion": 3,
+                        "properties": {
+                            "configCommand": "remove-wizard-war-standalone",
+                            "options": "",
+                            "useWKPLCProps": "false",
+                            "profHome": "\/opt\/IBM\/WebSphere\/wp_profile",
+                            "wpPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|p+NQFzBt16qmqZHQGRVxRw==|ho89V+7WWGsLo+Vl7fbKTws4AD6HPOrHdQ0cFWyvIauPj6yTu0bYh1HW5lEJOE9X}",
+                            "wasPass": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128key2dgg|j0HYU\/9m+JOggK14Zg5x+w==|z6r+El2Nh7QMh9A1NsYnGjp4MdkR3z4Xi4m7nCxQg1DCLLtoVzXJcdgg9KXpNkW3}"
+                        },
+                        "type": "plugin",
+                        "name": "ConfigEngine uninstall config wizard",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Shell",
+                        "pluginName": "Shell",
+                        "pluginVersion": 7,
+                        "properties": {
+                            "directoryOffset": ".",
+                            "shellInterpreter": "",
+                            "scriptBody": "\/opt\/IBM\/WebSphere\/AppServer\/profiles\/cw_profile\/bin\/stopServer.sh server1  -username ${p?:environment\/WASAdminUsername} -password ${p?:environment\/WASAdminPassword}\n\/opt\/IBM\/WebSphere\/AppServer\/bin\/manageprofiles.sh  -delete -profileName cw_profile\n",
+                            "runAsDaemon": "false",
+                            "outputFile": ""
+                        },
+                        "type": "plugin",
+                        "name": "Remove CW profile",
+                        "children": []
+                    },
+                    {
+                        "name": "ce39797b089bdf6687c8e227e81c4e",
+                        "text": "Use imcl invoked via shell step to be able to use the verboseProgress option",
+                        "type": "note",
+                        "children": []
+                    },
+                    {
+                        "name": "b5337ecec99c1dadaed3ddf2021eaa",
+                        "text": "The response file should be specified in property resource\/IMresponsefile",
+                        "type": "note",
+                        "children": []
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Uninstall",
+            "description": "",
+            "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+            "takesVersion": true,
+            "inventoryActionType": "REMOVE",
+            "status": "Active",
+            "active": true,
+            "path": "componentTemplates\/9a6485f9-cf7a-48fc-8207-05b67114d796\/processes\/0f42a08d-3cd5-4db1-bb5d-d1baf80b3bd1",
+            "propDefs": [],
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "Uninstall WebSphere Application Server",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "cd5bb105eefe6006868371274031e6",
+                        "from": "Uninstall WebSphere Application Server",
+                        "type": "SUCCESS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "Uninstall WebSphere Application Server",
+                        "x": -120,
+                        "y": 160,
+                        "h": 60,
+                        "w": 320
+                    },
+                    {
+                        "name": "cd5bb105eefe6006868371274031e6",
+                        "x": -5,
+                        "y": 330,
+                        "h": 50,
+                        "w": 90
+                    }
+                ],
+                "layoutMode": "unknown",
+                "type": "graph",
+                "name": "a09aae58-0517-416c-a9c6-41e7ff494c4e",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "cd5bb105eefe6006868371274031e6",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Uninstall WebSphere Application Server",
+                        "pluginName": "WAS - Install",
+                        "pluginVersion": 4,
+                        "properties": {
+                            "WASInstallPath": "${p:environment\/WASInstallPath}",
+                            "IMInstallPath": "${p:environment\/InstallationManagerHome}",
+                            "VersionName": "${p:version\/VersionName}"
+                        },
+                        "type": "plugin",
+                        "name": "Uninstall WebSphere Application Server",
+                        "children": []
+                    }
+                ]
+            }
+        }
+    ],
+    "genericProcesses": [],
+    "teamMappings": []
+}
