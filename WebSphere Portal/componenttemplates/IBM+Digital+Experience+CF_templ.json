@@ -1,0 +1,239 @@
+{
+    "securityResourceId": "7bbb6d70-c485-4414-9bfa-2353df45b143",
+    "path": "componentTemplates\/a280312a-c4e0-4b17-bd11-7ba2b10f0fbb",
+    "name": "IBM Digital Experience CF",
+    "description": "Cumulative fixes for Portal. upload response files to the component, one for a full install and the other for a binary only install",
+    "ignoreQualifiers": 0,
+    "componentType": "STANDARD",
+    "tags": [],
+    "active": true,
+    "envPropDefs": [],
+    "resPropDefs": [        {
+            "name": "portal.profile.home",
+            "label": "portal.profile.home",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "\/opt\/IBM\/WebSphere\/wp_profile",
+            "required": false,
+            "description": ""
+        },
+        {
+            "name": "portal.server.name",
+            "label": "portal.server.name",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "WebSphere_Portal",
+            "required": false,
+            "description": ""
+        },
+        {
+            "name": "cf.responsfile",
+            "label": "cf.responsfile",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "WP85CFUpdate-Server-sample.xml",
+            "required": false,
+            "description": ""
+        },
+        {
+            "name": "portal.binaryonly",
+            "label": "portal.binaryonly",
+            "pattern": "",
+            "type": "SELECT",
+            "required": false,
+            "description": "set value to -DisEmptyPortal=true if binary only install",
+            "allowedValues": [
+                {
+                    "label": " ",
+                    "value": " "
+                },
+                {
+                    "label": "-DisEmptyPortal=true",
+                    "value": "-DisEmptyPortal=true"
+                }
+            ]
+        }
+    ],
+    "propDefs": [],
+    "properties": [],
+    "processes": [{
+        "name": "Apply Cumulative Fix",
+        "description": "Applies a CF to an unclustered Portal istallation. full or binary depending on response file specified",
+        "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+        "takesVersion": true,
+        "inventoryActionType": "ADD",
+        "status": "Active",
+        "configActionType": "ADD",
+        "active": true,
+        "path": "components\/8684a1d6-6869-47ac-896e-db2fa6843d2f\/processes\/cfe7ac81-bf04-405e-a3de-19aaaff50b1b",
+        "propDefs": [],
+        "rootActivity": {
+            "edges": [
+                {
+                    "to": "Stop Portal servers",
+                    "type": "ALWAYS",
+                    "value": ""
+                },
+                {
+                    "to": "Download response file",
+                    "from": "Stop Portal servers",
+                    "type": "ALWAYS",
+                    "value": ""
+                },
+                {
+                    "to": "Install CF",
+                    "from": "Download response file",
+                    "type": "SUCCESS",
+                    "value": ""
+                },
+                {
+                    "to": "ec99358ead41eddfb26d27689b04bd",
+                    "from": "Apply CF",
+                    "type": "SUCCESS",
+                    "value": ""
+                },
+                {
+                    "to": "Apply CF",
+                    "from": "Install CF",
+                    "type": "SUCCESS",
+                    "value": ""
+                }
+            ],
+            "offsets": [
+                {
+                    "name": "ec99358ead41eddfb26d27689b04bd",
+                    "x": -5,
+                    "y": 610,
+                    "h": 80,
+                    "w": 120
+                },
+                {
+                    "name": "Stop Portal servers",
+                    "x": -55,
+                    "y": 130,
+                    "h": 70,
+                    "w": 220
+                },
+                {
+                    "name": "Install CF",
+                    "x": -30,
+                    "y": 370,
+                    "h": 70,
+                    "w": 170
+                },
+                {
+                    "name": "Apply CF",
+                    "x": -30,
+                    "y": 490,
+                    "h": 70,
+                    "w": 170
+                },
+                {
+                    "name": "Download response file",
+                    "x": -75,
+                    "y": 250,
+                    "h": 70,
+                    "w": 260
+                }
+            ],
+            "layoutMode": "auto",
+            "type": "graph",
+            "name": "e4f1fb8d-0d61-4080-8d55-233e6ac9f4df",
+            "children": [
+                {
+                    "type": "finish",
+                    "name": "ec99358ead41eddfb26d27689b04bd",
+                    "children": []
+                },
+                {
+                    "allowFailure": false,
+                    "useImpersonation": false,
+                    "showHidden": false,
+                    "impersonationUseSudo": false,
+                    "commandName": "Shell",
+                    "pluginName": "Shell",
+                    "pluginVersion": 7,
+                    "properties": {
+                        "directoryOffset": ".",
+                        "shellInterpreter": "",
+                        "scriptBody": "${p?:resource\/portal.profile.home}\/bin\/stopServer.sh ${p?:resource\/portal.server.name} -username ${p?:environment\/WASAdminUsername} -password ${p?:environment\/WASAdminPassword}\n",
+                        "runAsDaemon": "false",
+                        "outputFile": ""
+                    },
+                    "type": "plugin",
+                    "name": "Stop Portal servers",
+                    "children": []
+                },
+                {
+                    "allowFailure": false,
+                    "useImpersonation": false,
+                    "showHidden": false,
+                    "impersonationUseSudo": false,
+                    "commandName": "Download Artifacts",
+                    "pluginName": "IBM UrbanCode Deploy Versioned File Storage",
+                    "pluginVersion": 27,
+                    "properties": {
+                        "directoryOffset": ".",
+                        "artifactSetBaseDir": "",
+                        "fileIncludePatterns": "**\/${p:resource\/cf.responsfile}",
+                        "fileExcludePatterns": "",
+                        "syncMode": "FULL",
+                        "fullVerification": "true",
+                        "setFileExecuteBits": "false",
+                        "verifyFileIntegrity": "false",
+                        "versionId": "${p:version.id}",
+                        "serverUrl": "${p:server.url}",
+                        "compId": "${p:component.id}",
+                        "resId": "${p:resource.id}",
+                        "charset": "",
+                        "label": ""
+                    },
+                    "type": "plugin",
+                    "name": "Download response file",
+                    "children": []
+                },
+                {
+                    "allowFailure": false,
+                    "useImpersonation": false,
+                    "showHidden": false,
+                    "impersonationUseSudo": false,
+                    "commandName": "Shell",
+                    "pluginName": "Shell",
+                    "pluginVersion": 7,
+                    "properties": {
+                        "directoryOffset": ".",
+                        "shellInterpreter": "",
+                        "scriptBody": "${p:environment\/InstallationManagerHome}\/eclipse\/tools\/imcl -acceptLicense -input ${p:resource\/cf.responsfile} -log \/tmp\/upd.log -showProgress -svP",
+                        "runAsDaemon": "false",
+                        "outputFile": ""
+                    },
+                    "type": "plugin",
+                    "name": "Install CF",
+                    "children": []
+                },
+                {
+                    "allowFailure": false,
+                    "useImpersonation": false,
+                    "showHidden": false,
+                    "impersonationUseSudo": false,
+                    "workingDir": "\/opt\/IBM\/WebSphere\/wp_profile\/PortalServer\/bin",
+                    "commandName": "Shell",
+                    "pluginName": "Shell",
+                    "pluginVersion": 7,
+                    "properties": {
+                        "directoryOffset": ".",
+                        "shellInterpreter": "",
+                        "scriptBody": ".\/applyCF.sh ${p?:resource\/portal.binaryonly} -DPortalAdminPwd=${p?:environment\/WASAdminPassword} -DWasPassword=${p?:environment\/WASAdminPassword} -DWasRemoteHostName=${p:resource\/hostname} -DWasUserid=${p?:environment\/WASAdminUsername}  -DPortalAdminId=${p?:environment\/WASAdminUsername} -DWpsHostName=${p:resource\/hostname} -Drelease.DbPassword=${p?:environment\/wcm.DbPassword} -Dcommunity.DbPassword=${p?:environment\/wcm.DbPassword} -Dcustomization.DbPassword=${p?:environment\/wcm.DbPassword} -Djcr.DbPassword=${p?:environment\/wcm.DbPassword} -Dlikeminds.DbPassword=${p?:environment\/wcm.DbPassword} -Dfeedback.DbPassword=${p?:environment\/wcm.DbPassword} -Dfeedback.DbRuntimePassword=${p?:environment\/wcm.DbPassword} -Drelease.DbRuntimePassword=${p?:environment\/wcm.DbPassword} -Dcommunity.DbRuntimePassword=${p?:environment\/wcm.DbPassword} -Dcustomization.DbRuntimePassword=${p?:environment\/wcm.DbPassword} -Djcr.DbRuntimePassword=${p?:environment\/wcm.DbPassword} -Dlikeminds.DbRuntimePassword=${p?:environment\/wcm.DbPassword}\n",
+                        "runAsDaemon": "false",
+                        "outputFile": ""
+                    },
+                    "type": "plugin",
+                    "name": "Apply CF",
+                    "children": []
+                }
+            ]
+        }
+    }],
+    "genericProcesses": [],
+    "teamMappings": []
+}
