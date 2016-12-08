@@ -5,7 +5,8 @@
  * U.S. Government Users Restricted Rights:  Use, duplication or disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
  */
  {
-    "path": "componentTemplates\/b5bf46d1-394c-416e-b276-8ef3bffd0d3c",
+    "securityResourceId": "e41bdb97-1f8a-4206-94d4-4d39444fd80a",
+    "path": "componentTemplates\/ae0636bd-11f4-4c44-941e-7024172de283",
     "name": "Docker Template",
     "description": "",
     "ignoreQualifiers": 0,
@@ -13,6 +14,7 @@
     "tags": [],
     "active": true,
     "envPropDefs": [],
+    "resPropDefs": [],
     "propDefs": [
         {
             "name": "docker.image.name",
@@ -54,190 +56,231 @@
         }
     ],
     "properties": [],
-    "processes": [{
-        "name": "Deploy",
-        "description": "",
-        "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
-        "takesVersion": true,
-        "inventoryActionType": "ADD",
-        "status": "Active",
-        "configActionType": "ADD",
-        "active": true,
-        "path": "componentTemplates\/b5bf46d1-394c-416e-b276-8ef3bffd0d3c\/processes\/1cd71752-50fb-4791-bf5a-06e8b867faae",
-        "propDefs": [],
-        "rootActivity": {
-            "edges": [
-                {
-                    "to": "Stop Docker Container",
+    "processes": [
+        {
+            "name": "Deploy",
+            "description": "",
+            "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+            "takesVersion": true,
+            "inventoryActionType": "ADD",
+            "status": "Active",
+            "configActionType": "ADD",
+            "active": true,
+            "path": "componentTemplates\/ae0636bd-11f4-4c44-941e-7024172de283\/processes\/5d8fb77b-5099-4f84-8638-70f38c513d4f",
+            "propDefs": [],
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "3415bda2aafa244d16083d9f925b31",
+                        "from": "Remove Docker Container",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Pull Docker Image",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "3415bda2aafa244d16083d9f925b31",
+                        "from": "Pull Docker Image",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "efb4d1efddce74b0d171a47f62095d",
+                        "from": "Run Docker Container",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Remove Docker Container",
+                        "from": "Stop Docker Container",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Stop Docker Container",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Run Docker Container",
+                        "from": "3415bda2aafa244d16083d9f925b31",
+                        "type": "SUCCESS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "Stop Docker Container",
+                        "x": 88.5,
+                        "y": 90,
+                        "h": 60,
+                        "w": 230
+                    },
+                    {
+                        "name": "Pull Docker Image",
+                        "x": -215,
+                        "y": 90,
+                        "h": 60,
+                        "w": 210
+                    },
+                    {
+                        "name": "Run Docker Container",
+                        "x": -75,
+                        "y": 400,
+                        "h": 60,
+                        "w": 230
+                    },
+                    {
+                        "name": "3415bda2aafa244d16083d9f925b31",
+                        "x": -10,
+                        "y": 300,
+                        "h": 50,
+                        "w": 100
+                    },
+                    {
+                        "name": "Remove Docker Container",
+                        "x": 78.5,
+                        "y": 180,
+                        "h": 60,
+                        "w": 250
+                    },
+                    {
+                        "name": "efb4d1efddce74b0d171a47f62095d",
+                        "x": -5,
+                        "y": 510,
+                        "h": 50,
+                        "w": 90
+                    }
+                ],
+                "layoutMode": "unknown",
+                "type": "graph",
+                "name": "111465d7-edca-40f3-b55d-73eef7a2804a",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "efb4d1efddce74b0d171a47f62095d",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Pull Docker Image",
+                        "pluginName": "Docker",
+                        "pluginVersion": 5,
+                        "properties": {
+                            "image": "${p:docker.qualified.image}",
+                            "commandOptions": "",
+                            "globalOptions": "${p?:resource\/docker.opts}",
+                            "envVars": ""
+                        },
+                        "type": "plugin",
+                        "name": "Pull Docker Image",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Run Docker Container",
+                        "pluginName": "Docker",
+                        "pluginVersion": 5,
+                        "properties": {
+                            "image": "${p:docker.qualified.image}",
+                            "containerCommand": "",
+                            "container": "${p:docker.container.name}",
+                            "commandOptions": "-d\n",
+                            "globalOptions": "${p?:resource\/docker.opts}",
+                            "envVars": ""
+                        },
+                        "type": "plugin",
+                        "name": "Run Docker Container",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Stop Docker Container",
+                        "pluginName": "Docker",
+                        "pluginVersion": 5,
+                        "properties": {
+                            "container": "${p:docker.container.name}",
+                            "commandOptions": "",
+                            "globalOptions": "${p?:resource\/docker.opts}",
+                            "envVars": ""
+                        },
+                        "type": "plugin",
+                        "name": "Stop Docker Container",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Remove Docker Container",
+                        "pluginName": "Docker",
+                        "pluginVersion": 5,
+                        "properties": {
+                            "container": "${p:docker.container.name}",
+                            "dockerCommandOptions": "--force",
+                            "globalOptions": "${p?:resource\/docker.opts}",
+                            "envVars": ""
+                        },
+                        "type": "plugin",
+                        "name": "Remove Docker Container",
+                        "children": []
+                    },
+                    {
+                        "type": "join",
+                        "name": "3415bda2aafa244d16083d9f925b31",
+                        "children": []
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Update Inventory",
+            "description": "Empty process to help acquire component versions during a docker-compose up deployment.",
+            "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+            "takesVersion": true,
+            "inventoryActionType": "ADD",
+            "status": "Active",
+            "configActionType": "ADD",
+            "active": true,
+            "path": "componentTemplates\/ae0636bd-11f4-4c44-941e-7024172de283\/processes\/3ad378ff-c500-47e2-ad33-f4bd90d41145",
+            "propDefs": [],
+            "rootActivity": {
+                "edges": [{
+                    "to": "52ab313f7bd1d841136630fa150808",
                     "type": "ALWAYS",
                     "value": ""
-                },
-                {
-                    "to": "Remove Docker Container",
-                    "from": "Stop Docker Container",
-                    "type": "ALWAYS",
-                    "value": ""
-                },
-                {
-                    "to": "efb4d1efddce74b0d171a47f62095d",
-                    "from": "Run Docker Container",
-                    "type": "SUCCESS",
-                    "value": ""
-                },
-                {
-                    "to": "Run Docker Container",
-                    "from": "3415bda2aafa244d16083d9f925b31",
-                    "type": "SUCCESS",
-                    "value": ""
-                },
-                {
-                    "to": "3415bda2aafa244d16083d9f925b31",
-                    "from": "Pull Docker Image",
-                    "type": "SUCCESS",
-                    "value": ""
-                },
-                {
-                    "to": "Pull Docker Image",
-                    "type": "ALWAYS",
-                    "value": ""
-                },
-                {
-                    "to": "3415bda2aafa244d16083d9f925b31",
-                    "from": "Remove Docker Container",
-                    "type": "ALWAYS",
-                    "value": ""
-                }
-            ],
-            "offsets": [
-                {
-                    "name": "Pull Docker Image",
-                    "x": -215,
-                    "y": 90,
-                    "h": 60,
-                    "w": 210
-                },
-                {
-                    "name": "3415bda2aafa244d16083d9f925b31",
-                    "x": -10,
-                    "y": 300,
-                    "h": 50,
-                    "w": 100
-                },
-                {
-                    "name": "efb4d1efddce74b0d171a47f62095d",
+                }],
+                "offsets": [{
+                    "name": "52ab313f7bd1d841136630fa150808",
                     "x": -5,
-                    "y": 510,
-                    "h": 50,
-                    "w": 90
-                },
-                {
-                    "name": "Run Docker Container",
-                    "x": -75,
-                    "y": 400,
-                    "h": 60,
-                    "w": 230
-                },
-                {
-                    "name": "Remove Docker Container",
-                    "x": 78.5,
-                    "y": 180,
-                    "h": 60,
-                    "w": 250
-                },
-                {
-                    "name": "Stop Docker Container",
-                    "x": 88.5,
-                    "y": 90,
-                    "h": 60,
-                    "w": 230
-                }
-            ],
-            "type": "graph",
-            "name": "1eaf6188-9bb4-4def-abeb-942304b0ca21",
-            "children": [
-                {
+                    "y": 420,
+                    "h": 80,
+                    "w": 120
+                }],
+                "layoutMode": "unknown",
+                "type": "graph",
+                "name": "250313bf-6122-4360-bbab-225e1d949aaa",
+                "children": [{
                     "type": "finish",
-                    "name": "efb4d1efddce74b0d171a47f62095d",
+                    "name": "52ab313f7bd1d841136630fa150808",
                     "children": []
-                },
-                {
-                    "allowFailure": false,
-                    "useImpersonation": false,
-                    "showHidden": false,
-                    "impersonationUseSudo": false,
-                    "commandName": "Pull Docker Image",
-                    "pluginName": "Docker",
-                    "pluginVersion": 2,
-                    "properties": {
-                        "image": "${p:docker.qualified.image}",
-                        "commandOptions": "",
-                        "globalOptions": "${p?:resource\/docker.opts}"
-                    },
-                    "type": "plugin",
-                    "name": "Pull Docker Image",
-                    "children": []
-                },
-                {
-                    "allowFailure": false,
-                    "useImpersonation": false,
-                    "showHidden": false,
-                    "impersonationUseSudo": false,
-                    "commandName": "Run Docker Container",
-                    "pluginName": "Docker",
-                    "pluginVersion": 2,
-                    "properties": {
-                        "image": "${p:docker.qualified.image}",
-                        "containerCommand": "",
-                        "container": "${p:docker.container.name}",
-                        "commandOptions": "-d\n",
-                        "globalOptions": "${p?:resource\/docker.opts}"
-                    },
-                    "type": "plugin",
-                    "name": "Run Docker Container",
-                    "children": []
-                },
-                {
-                    "allowFailure": false,
-                    "useImpersonation": false,
-                    "showHidden": false,
-                    "impersonationUseSudo": false,
-                    "commandName": "Stop Docker Container",
-                    "pluginName": "Docker",
-                    "pluginVersion": 2,
-                    "properties": {
-                        "container": "${p:docker.container.name}",
-                        "commandOptions": "",
-                        "globalOptions": "${p?:resource\/docker.opts}"
-                    },
-                    "type": "plugin",
-                    "name": "Stop Docker Container",
-                    "children": []
-                },
-                {
-                    "allowFailure": false,
-                    "useImpersonation": false,
-                    "showHidden": false,
-                    "impersonationUseSudo": false,
-                    "commandName": "Remove Docker Container",
-                    "pluginName": "Docker",
-                    "pluginVersion": 2,
-                    "properties": {
-                        "container": "${p:docker.container.name}",
-                        "dockerCommandOptions": "--force",
-                        "globalOptions": "${p?:resource\/docker.opts}"
-                    },
-                    "type": "plugin",
-                    "name": "Remove Docker Container",
-                    "children": []
-                },
-                {
-                    "type": "join",
-                    "name": "3415bda2aafa244d16083d9f925b31",
-                    "children": []
-                }
-            ]
+                }]
+            }
         }
-    }],
+    ],
     "genericProcesses": [],
     "teamMappings": []
 }
