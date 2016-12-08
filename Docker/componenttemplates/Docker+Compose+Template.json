@@ -1,0 +1,877 @@
+/**
+ * © Copyright IBM Corporation 2016.
+ * This is licensed under the following license.
+ * The Eclipse Public 1.0 License (http://www.eclipse.org/legal/epl-v10.html)
+ * U.S. Government Users Restricted Rights:  Use, duplication or disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ */
+ {
+    "securityResourceId": "15d6270f-0000-4b1d-9a3e-a7d97807b0fa",
+    "path": "componentTemplates\/358350b1-618d-4daa-b951-766a00169e64",
+    "name": "Docker Compose Template",
+    "description": "A sample Docker Compose template for management and deployment using a docker-compose.yml file.",
+    "ignoreQualifiers": 0,
+    "componentType": "STANDARD",
+    "tags": [{
+        "id": "0b159891-1361-448d-87c4-f0e920a174ee",
+        "name": "Docker-Compose",
+        "color": "#17AF4B",
+        "description": "",
+        "objectType": "Component"
+    }],
+    "active": true,
+    "envPropDefs": [],
+    "resPropDefs": [
+        {
+            "name": "docker.opts",
+            "label": "Docker Options",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "Host and Certificate Path",
+            "placeholder": ""
+        },
+        {
+            "name": "envPropValues",
+            "label": "Docker Environment Variables",
+            "pattern": "",
+            "type": "TEXTAREA",
+            "required": false,
+            "description": "DOCKER_HOST, DOCKER_CERT_PATH, and DOCKER_TLS_VERIFY",
+            "placeholder": ""
+        },
+        {
+            "name": "envScriptPath",
+            "label": "Path to env.sh in Client Bundle",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "",
+            "placeholder": ""
+        },
+        {
+            "name": "clientBundleURL",
+            "label": "Direct Download Link for Client Bundle",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "",
+            "placeholder": ""
+        }
+    ],
+    "propDefs": [],
+    "properties": [],
+    "processes": [
+        {
+            "name": "Compose Down",
+            "description": "",
+            "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+            "takesVersion": true,
+            "inventoryActionType": "REMOVE",
+            "status": "Active",
+            "active": true,
+            "path": "componentTemplates\/358350b1-618d-4daa-b951-766a00169e64\/processes\/6742de23-e022-4abb-8a3b-ffda850c20eb",
+            "propDefs": [],
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "Run docker-compose down",
+                        "from": "Replace Tokens",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Delete Docker Client Bundle",
+                        "from": "Run docker-compose down",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Download Compose File",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Download Docker Client Bundle",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "7e1d390d9e2b112cfd4fe0d56cd4ae",
+                        "from": "Download Compose File",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "7e1d390d9e2b112cfd4fe0d56cd4ae",
+                        "from": "Download Docker Client Bundle",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Replace Tokens",
+                        "from": "7e1d390d9e2b112cfd4fe0d56cd4ae",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "45ba58504d34843b2e832067122706",
+                        "from": "Delete Docker Client Bundle",
+                        "type": "SUCCESS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "Download Compose File",
+                        "x": -230,
+                        "y": 130,
+                        "h": 70,
+                        "w": 260
+                    },
+                    {
+                        "name": "Delete Docker Client Bundle",
+                        "x": -70,
+                        "y": 590,
+                        "h": 70,
+                        "w": 270
+                    },
+                    {
+                        "name": "7e1d390d9e2b112cfd4fe0d56cd4ae",
+                        "x": -2.7777777777777715,
+                        "y": 250,
+                        "h": 50,
+                        "w": 120
+                    },
+                    {
+                        "name": "Run docker-compose down",
+                        "x": -76.66666666666669,
+                        "y": 470,
+                        "h": 70,
+                        "w": 280
+                    },
+                    {
+                        "name": "45ba58504d34843b2e832067122706",
+                        "x": 5,
+                        "y": 710,
+                        "h": 80,
+                        "w": 120
+                    },
+                    {
+                        "name": "Replace Tokens",
+                        "x": -59.72222222222223,
+                        "y": 350,
+                        "h": 70,
+                        "w": 240
+                    },
+                    {
+                        "name": "Download Docker Client Bundle",
+                        "x": 60,
+                        "y": 130,
+                        "h": 70,
+                        "w": 300
+                    }
+                ],
+                "layoutMode": "unknown",
+                "type": "graph",
+                "name": "105c3614-7f89-4e53-b7be-e3fa5297040a",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "45ba58504d34843b2e832067122706",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Download Artifacts",
+                        "pluginName": "IBM UrbanCode Deploy Versioned File Storage",
+                        "pluginVersion": 27,
+                        "properties": {
+                            "directoryOffset": ".",
+                            "artifactSetBaseDir": "",
+                            "fileIncludePatterns": "**\/*",
+                            "fileExcludePatterns": "",
+                            "syncMode": "FULL",
+                            "fullVerification": "true",
+                            "setFileExecuteBits": "false",
+                            "verifyFileIntegrity": "false",
+                            "versionId": "${p:version.id}",
+                            "serverUrl": "${p:server.url}",
+                            "compId": "${p:component.id}",
+                            "resId": "${p:resource.id}",
+                            "charset": "",
+                            "label": ""
+                        },
+                        "type": "plugin",
+                        "name": "Download Compose File",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Replace Tokens",
+                        "pluginName": "File Utils",
+                        "pluginVersion": 49,
+                        "properties": {
+                            "includes": "**\/*",
+                            "excludes": "",
+                            "envPropValues": "${p:environment\/allProperties}",
+                            "propertyPrefix": "",
+                            "explicitTokens": "",
+                            "startDelimiter": "${",
+                            "endDelimiter": "}",
+                            "propFile": "replace_tokens.properties",
+                            "dir": "",
+                            "customEncoding": ""
+                        },
+                        "type": "plugin",
+                        "name": "Replace Tokens",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": true,
+                        "impersonationUseSudo": false,
+                        "commandName": "Run Docker Compose",
+                        "pluginName": "Docker Compose",
+                        "pluginVersion": 19,
+                        "properties": {
+                            "composeFiles": "",
+                            "composeProjectName": "",
+                            "composeOptions": "${p?:docker.opts}",
+                            "command": "down",
+                            "optsAndServs": "",
+                            "scriptPaths": "${p?:envScriptPath}",
+                            "commandPath": "docker-compose",
+                            "saveScript": "false",
+                            "envPropValues": "${p?:envPropValues}"
+                        },
+                        "type": "plugin",
+                        "name": "Run docker-compose down",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Shell",
+                        "pluginName": "Shell",
+                        "pluginVersion": 7,
+                        "properties": {
+                            "directoryOffset": ".",
+                            "shellInterpreter": "",
+                            "scriptBody": "curl -Lk ${p:resource\/clientBundleURL} > \/tmp\/client-bundle.zip\nmkdir \/tmp\/client-bundle\nunzip \/tmp\/client-bundle.zip -d \/tmp\/client-bundle\n",
+                            "runAsDaemon": "false",
+                            "outputFile": ""
+                        },
+                        "type": "plugin",
+                        "name": "Download Docker Client Bundle",
+                        "children": []
+                    },
+                    {
+                        "type": "join",
+                        "name": "7e1d390d9e2b112cfd4fe0d56cd4ae",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Shell",
+                        "pluginName": "Shell",
+                        "pluginVersion": 7,
+                        "properties": {
+                            "directoryOffset": ".",
+                            "shellInterpreter": "",
+                            "scriptBody": "rm -rf \/tmp\/client-bundle \/tmp\/client-bundle.zip\n",
+                            "runAsDaemon": "false",
+                            "outputFile": ""
+                        },
+                        "type": "plugin",
+                        "name": "Delete Docker Client Bundle",
+                        "children": []
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Compose Up",
+            "description": "",
+            "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+            "takesVersion": true,
+            "inventoryActionType": "ADD",
+            "status": "Active",
+            "configActionType": "ADD",
+            "active": true,
+            "path": "componentTemplates\/358350b1-618d-4daa-b951-766a00169e64\/processes\/576899a8-5b2d-4efa-ab27-6beb1b16582e",
+            "propDefs": [],
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "fb230901feda05deb307aa9430fb7a",
+                        "from": "Download Docker Client Bundle",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Download Docker Client Bundle",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Download Compose File",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Delete Docker Client Bundle",
+                        "from": "Compose Up",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "45ba58504d34843b2e832067122706",
+                        "from": "Delete Docker Client Bundle",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "fb230901feda05deb307aa9430fb7a",
+                        "from": "Download Compose File",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Apply Version Overrides",
+                        "from": "Replace Tokens",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Compose Up",
+                        "from": "Apply Version Overrides",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Replace Tokens",
+                        "from": "fb230901feda05deb307aa9430fb7a",
+                        "type": "SUCCESS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "Download Compose File",
+                        "x": -315,
+                        "y": 140,
+                        "h": 90,
+                        "w": 350
+                    },
+                    {
+                        "name": "Apply Version Overrides",
+                        "x": -124.16666666666669,
+                        "y": 530,
+                        "h": 90,
+                        "w": 400
+                    },
+                    {
+                        "name": "Replace Tokens",
+                        "x": -87.08333333333337,
+                        "y": 390,
+                        "h": 90,
+                        "w": 320
+                    },
+                    {
+                        "name": "fb230901feda05deb307aa9430fb7a",
+                        "x": -1.6666666666666856,
+                        "y": 280,
+                        "h": 60,
+                        "w": 140
+                    },
+                    {
+                        "name": "Compose Up",
+                        "x": -186.25,
+                        "y": 670,
+                        "h": 90,
+                        "w": 530
+                    },
+                    {
+                        "name": "Delete Docker Client Bundle",
+                        "x": -105,
+                        "y": 810,
+                        "h": 90,
+                        "w": 370
+                    },
+                    {
+                        "name": "Download Docker Client Bundle",
+                        "x": 65,
+                        "y": 140,
+                        "h": 90,
+                        "w": 410
+                    },
+                    {
+                        "name": "45ba58504d34843b2e832067122706",
+                        "x": 10,
+                        "y": 950,
+                        "h": 90,
+                        "w": 140
+                    }
+                ],
+                "layoutMode": "unknown",
+                "type": "graph",
+                "name": "9019d94c-ce17-40d3-a57c-a4b814142861",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "45ba58504d34843b2e832067122706",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": true,
+                        "impersonationUseSudo": false,
+                        "commandName": "Launch Docker Compose Application",
+                        "pluginName": "Docker Compose",
+                        "pluginVersion": 19,
+                        "properties": {
+                            "composeFiles": "",
+                            "composeProjectName": "",
+                            "composeOptions": "${p?:resource\/docker.opts}",
+                            "scriptPaths": "${p?:envScriptPath}",
+                            "serverUrl": "${p:server.url}",
+                            "authToken": "",
+                            "resource": "${p:resource.id}",
+                            "application": "${p:application.id}",
+                            "version": "${p:version.name}",
+                            "component": "${p:component.id}",
+                            "snapshot": "${p?:snapshot.id}",
+                            "environment": "${p:environment.id}",
+                            "componentProcessRequest": "${p:request.id}",
+                            "applicationProcessRequest": "${p:parentRequest.id}",
+                            "envPropValues": "${p?:envPropValues}",
+                            "commandPath": "docker-compose",
+                            "saveScript": "false"
+                        },
+                        "type": "plugin",
+                        "name": "Compose Up",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Download Artifacts",
+                        "pluginName": "IBM UrbanCode Deploy Versioned File Storage",
+                        "pluginVersion": 27,
+                        "properties": {
+                            "directoryOffset": ".",
+                            "artifactSetBaseDir": "",
+                            "fileIncludePatterns": "**\/*",
+                            "fileExcludePatterns": "",
+                            "syncMode": "FULL",
+                            "fullVerification": "true",
+                            "setFileExecuteBits": "false",
+                            "verifyFileIntegrity": "false",
+                            "versionId": "${p:version.id}",
+                            "serverUrl": "${p:server.url}",
+                            "compId": "${p:component.id}",
+                            "resId": "${p:resource.id}",
+                            "charset": "",
+                            "label": ""
+                        },
+                        "type": "plugin",
+                        "name": "Download Compose File",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Replace Tokens",
+                        "pluginName": "File Utils",
+                        "pluginVersion": 49,
+                        "properties": {
+                            "includes": "**\/*",
+                            "excludes": "",
+                            "envPropValues": "${p:environment\/allProperties}",
+                            "propertyPrefix": "",
+                            "explicitTokens": "",
+                            "startDelimiter": "${",
+                            "endDelimiter": "}",
+                            "propFile": "replace_tokens.properties",
+                            "dir": "",
+                            "customEncoding": ""
+                        },
+                        "type": "plugin",
+                        "name": "Replace Tokens",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Shell",
+                        "pluginName": "Shell",
+                        "pluginVersion": 7,
+                        "properties": {
+                            "directoryOffset": ".",
+                            "shellInterpreter": "",
+                            "scriptBody": "curl -Lk ${p:resource\/clientBundleURL} > \/tmp\/client-bundle.zip\nmkdir \/tmp\/client-bundle\nunzip \/tmp\/client-bundle.zip -d \/tmp\/client-bundle\n",
+                            "runAsDaemon": "false",
+                            "outputFile": ""
+                        },
+                        "type": "plugin",
+                        "name": "Download Docker Client Bundle",
+                        "children": []
+                    },
+                    {
+                        "type": "join",
+                        "name": "fb230901feda05deb307aa9430fb7a",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Shell",
+                        "pluginName": "Shell",
+                        "pluginVersion": 7,
+                        "properties": {
+                            "directoryOffset": ".",
+                            "shellInterpreter": "",
+                            "scriptBody": "rm -rf \/tmp\/client-bundle \/tmp\/client-bundle.zip\n",
+                            "runAsDaemon": "false",
+                            "outputFile": ""
+                        },
+                        "type": "plugin",
+                        "name": "Delete Docker Client Bundle",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": true,
+                        "impersonationUseSudo": false,
+                        "commandName": "Create Child Resources",
+                        "pluginName": "Docker Compose",
+                        "pluginVersion": 19,
+                        "properties": {
+                            "composeFiles": "",
+                            "componentTemplate": "Docker Template",
+                            "serverUrl": "${p:server.url}",
+                            "authToken": "",
+                            "resource": "${p:resource.id}",
+                            "application": "${p:application.id}",
+                            "version": "${p:version.name}",
+                            "component": "${p:component.id}",
+                            "sourceConfigType": "Docker",
+                            "environment": "${p:environment.id}",
+                            "componentProcessRequest": "${p:request.id}",
+                            "applicationProcessRequest": "${p:parentRequest.id}"
+                        },
+                        "type": "plugin",
+                        "name": "Apply Version Overrides",
+                        "children": []
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Create Child Resources",
+            "description": "Create service components, property defintions, and component subresources.",
+            "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+            "takesVersion": true,
+            "status": "",
+            "active": true,
+            "path": "componentTemplates\/358350b1-618d-4daa-b951-766a00169e64\/processes\/fff406b5-6dce-4140-a558-28024527d48d",
+            "propDefs": [],
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "Create Child Resources",
+                        "from": "Download Artifacts",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "3600e700b3e43a6c8b5fac096fbef9",
+                        "from": "Create Child Resources",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Download Artifacts",
+                        "type": "ALWAYS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "Download Artifacts",
+                        "x": -75,
+                        "y": 145,
+                        "h": 70,
+                        "w": 260
+                    },
+                    {
+                        "name": "Create Child Resources",
+                        "x": -90,
+                        "y": 280,
+                        "h": 70,
+                        "w": 290
+                    },
+                    {
+                        "name": "3600e700b3e43a6c8b5fac096fbef9",
+                        "x": -5,
+                        "y": 415,
+                        "h": 80,
+                        "w": 120
+                    }
+                ],
+                "layoutMode": "unknown",
+                "type": "graph",
+                "name": "782a69f9-bf74-499d-bbbc-a458abffa0f4",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "3600e700b3e43a6c8b5fac096fbef9",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Create Child Resources",
+                        "pluginName": "Docker Compose",
+                        "pluginVersion": 19,
+                        "properties": {
+                            "composeFiles": "",
+                            "componentTemplate": "Docker Template",
+                            "serverUrl": "${p:server.url}",
+                            "authToken": "",
+                            "resource": "${p:resource.id}",
+                            "application": "${p:application.id}",
+                            "version": "${p:version.name}",
+                            "component": "${p:component.id}",
+                            "sourceConfigType": "Docker",
+                            "environment": "${p:environment.id}",
+                            "componentProcessRequest": "${p:request.id}",
+                            "applicationProcessRequest": "${p:parentRequest.id}"
+                        },
+                        "type": "plugin",
+                        "name": "Create Child Resources",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Download Artifacts",
+                        "pluginName": "IBM UrbanCode Deploy Versioned File Storage",
+                        "pluginVersion": 27,
+                        "properties": {
+                            "directoryOffset": ".",
+                            "artifactSetBaseDir": "",
+                            "fileIncludePatterns": "**\/*",
+                            "fileExcludePatterns": "",
+                            "syncMode": "true",
+                            "fullVerification": "true",
+                            "setFileExecuteBits": "false",
+                            "verifyFileIntegrity": "false",
+                            "versionId": "${p:version.id}",
+                            "serverUrl": "${p:server.url}",
+                            "compId": "${p:component.id}",
+                            "resId": "${p:resource.id}",
+                            "charset": "",
+                            "label": ""
+                        },
+                        "type": "plugin",
+                        "name": "Download Artifacts",
+                        "children": []
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Docker Compose Launch",
+            "description": "",
+            "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+            "takesVersion": true,
+            "inventoryActionType": "ADD",
+            "status": "Active",
+            "configActionType": "ADD",
+            "active": true,
+            "path": "componentTemplates\/358350b1-618d-4daa-b951-766a00169e64\/processes\/d0e52421-c526-4bc2-a77c-357aebd444d5",
+            "propDefs": [],
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "Create Child Resources",
+                        "from": "Download Artifacts",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Download Artifacts",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Launch Docker Compose Application",
+                        "from": "Create Child Resources",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "d3a4b194eef80cad50b8a7c0c4d13c",
+                        "from": "Launch Docker Compose Application",
+                        "type": "SUCCESS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "Create Child Resources",
+                        "x": -90,
+                        "y": 280,
+                        "h": 70,
+                        "w": 290
+                    },
+                    {
+                        "name": "Download Artifacts",
+                        "x": -75,
+                        "y": 145,
+                        "h": 70,
+                        "w": 260
+                    },
+                    {
+                        "name": "d3a4b194eef80cad50b8a7c0c4d13c",
+                        "x": -5,
+                        "y": 550,
+                        "h": 80,
+                        "w": 120
+                    },
+                    {
+                        "name": "Launch Docker Compose Application",
+                        "x": -130,
+                        "y": 415,
+                        "h": 70,
+                        "w": 370
+                    }
+                ],
+                "layoutMode": "manual",
+                "type": "graph",
+                "name": "39b0d576-7a7b-4fe1-94bf-d17187c90c6b",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "d3a4b194eef80cad50b8a7c0c4d13c",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Launch Docker Compose Application",
+                        "pluginName": "Docker Compose",
+                        "pluginVersion": 19,
+                        "properties": {
+                            "composeFiles": "${p:docker-compose}",
+                            "composeProjectName": "",
+                            "composeOptions": "",
+                            "scriptPaths": "${p?:resource.envScriptPath}",
+                            "serverUrl": "${p:server.url}",
+                            "authToken": "",
+                            "resource": "${p:resource.id}",
+                            "application": "${p:application.id}",
+                            "version": "${p:version.name}",
+                            "component": "${p:component.id}",
+                            "snapshot": "${p?:snapshot.id}",
+                            "environment": "${p:environment.id}",
+                            "componentProcessRequest": "${p:request.id}",
+                            "applicationProcessRequest": "${p:parentRequest.id}",
+                            "envPropValues": "${p?:envPropValues}",
+                            "commandPath": "docker-compose",
+                            "saveScript": "false"
+                        },
+                        "type": "plugin",
+                        "name": "Launch Docker Compose Application",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": true,
+                        "impersonationUseSudo": false,
+                        "commandName": "Create Child Resources",
+                        "pluginName": "Docker Compose",
+                        "pluginVersion": 19,
+                        "properties": {
+                            "composeFiles": "${p:docker-compose}",
+                            "componentTemplate": "Docker Template",
+                            "serverUrl": "${p:server.url}",
+                            "authToken": "",
+                            "resource": "${p:resource.id}",
+                            "application": "${p:application.id}",
+                            "version": "${p:version.name}",
+                            "component": "${p:component.id}",
+                            "sourceConfigType": "Docker",
+                            "environment": "${p:environment.id}",
+                            "componentProcessRequest": "${p:request.id}",
+                            "applicationProcessRequest": "${p:parentRequest.id}"
+                        },
+                        "type": "plugin",
+                        "name": "Create Child Resources",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": true,
+                        "impersonationUseSudo": false,
+                        "commandName": "Download Artifacts",
+                        "pluginName": "IBM UrbanCode Deploy Versioned File Storage",
+                        "pluginVersion": 27,
+                        "properties": {
+                            "directoryOffset": ".",
+                            "artifactSetBaseDir": "",
+                            "fileIncludePatterns": "${p:docker-compose}",
+                            "fileExcludePatterns": "",
+                            "syncMode": "true",
+                            "fullVerification": "true",
+                            "setFileExecuteBits": "false",
+                            "verifyFileIntegrity": "false",
+                            "versionId": "${p:version.id}",
+                            "serverUrl": "${p:server.url}",
+                            "compId": "${p:component.id}",
+                            "resId": "${p:resource.id}",
+                            "charset": "",
+                            "label": ""
+                        },
+                        "type": "plugin",
+                        "name": "Download Artifacts",
+                        "children": []
+                    }
+                ]
+            }
+        }
+    ],
+    "genericProcesses": [],
+    "teamMappings": []
+}

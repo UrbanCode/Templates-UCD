@@ -1,0 +1,3947 @@
+/**
+ * © Copyright IBM Corporation 2016.
+ * This is licensed under the following license.
+ * The Eclipse Public 1.0 License (http://www.eclipse.org/legal/epl-v10.html)
+ * U.S. Government Users Restricted Rights:  Use, duplication or disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ */
+{
+    "name": "Example Voting Application",
+    "description": "",
+    "enforceCompleteSnapshots": false,
+    "propSheet": {"properties": []},
+    "templatePropSheet": {
+        "name": "template",
+        "properties": []
+    },
+    "components": [
+        {
+            "name": "example-voting-app-comp",
+            "description": "",
+            "created": 1481209765936,
+            "componentType": "STANDARD",
+            "ignoreQualifiers": 0,
+            "importAutomatically": false,
+            "useVfs": true,
+            "active": true,
+            "deleted": false,
+            "defaultVersionType": "FULL",
+            "cleanupDaysToKeep": 0,
+            "cleanupCountToKeep": 0,
+            "componentTemplate": {
+                "securityResourceId": "5e1c49bb-2fb6-4d1d-b1b8-be319bdf09d9",
+                "path": "componentTemplates\/8fefe34c-0a4a-4042-bcda-d23562248c60",
+                "name": "Docker Compose",
+                "description": "A docker-compose.yml file",
+                "ignoreQualifiers": 0,
+                "componentType": "STANDARD",
+                "tags": [],
+                "active": true,
+                "envPropDefs": [],
+                "resPropDefs": [
+                    {
+                        "name": "docker.opts",
+                        "label": "Docker Options",
+                        "pattern": "",
+                        "type": "TEXT",
+                        "required": false,
+                        "description": "Host and Certificate Path",
+                        "placeholder": ""
+                    },
+                    {
+                        "name": "envPropValues",
+                        "label": "Docker Environment Variables",
+                        "pattern": "",
+                        "type": "TEXTAREA",
+                        "required": false,
+                        "description": "DOCKER_HOST, DOCKER_CERT_PATH, and DOCKER_TLS_VERIFY",
+                        "placeholder": ""
+                    },
+                    {
+                        "name": "envScriptPath",
+                        "label": "Path to env.sh in Client Bundle",
+                        "pattern": "",
+                        "type": "TEXT",
+                        "required": false,
+                        "description": "",
+                        "placeholder": ""
+                    },
+                    {
+                        "name": "clientBundleURL",
+                        "label": "Direct Download Link for Client Bundle",
+                        "pattern": "",
+                        "type": "TEXT",
+                        "required": false,
+                        "description": "",
+                        "placeholder": ""
+                    }
+                ],
+                "propDefs": [],
+                "properties": [],
+                "processes": [
+                    {
+                        "name": "Compose Down",
+                        "description": "",
+                        "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+                        "takesVersion": true,
+                        "inventoryActionType": "REMOVE",
+                        "status": "Active",
+                        "active": true,
+                        "path": "componentTemplates\/8fefe34c-0a4a-4042-bcda-d23562248c60\/processes\/5d229f56-766b-4744-9e04-46c0a2348216",
+                        "propDefs": [],
+                        "rootActivity": {
+                            "edges": [
+                                {
+                                    "to": "Run docker-compose down",
+                                    "from": "Replace Tokens",
+                                    "type": "SUCCESS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "7e1d390d9e2b112cfd4fe0d56cd4ae",
+                                    "from": "Download Compose File",
+                                    "type": "SUCCESS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "45ba58504d34843b2e832067122706",
+                                    "from": "Delete Docker Client Bundle",
+                                    "type": "SUCCESS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "Delete Docker Client Bundle",
+                                    "from": "Run docker-compose down",
+                                    "type": "SUCCESS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "7e1d390d9e2b112cfd4fe0d56cd4ae",
+                                    "from": "Download Docker Client Bundle",
+                                    "type": "ALWAYS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "Download Compose File",
+                                    "type": "ALWAYS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "Replace Tokens",
+                                    "from": "7e1d390d9e2b112cfd4fe0d56cd4ae",
+                                    "type": "SUCCESS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "Download Docker Client Bundle",
+                                    "type": "ALWAYS",
+                                    "value": ""
+                                }
+                            ],
+                            "offsets": [
+                                {
+                                    "name": "Run docker-compose down",
+                                    "x": -76.66666666666669,
+                                    "y": 470,
+                                    "h": 70,
+                                    "w": 280
+                                },
+                                {
+                                    "name": "Download Docker Client Bundle",
+                                    "x": 60,
+                                    "y": 130,
+                                    "h": 70,
+                                    "w": 300
+                                },
+                                {
+                                    "name": "45ba58504d34843b2e832067122706",
+                                    "x": 5,
+                                    "y": 710,
+                                    "h": 80,
+                                    "w": 120
+                                },
+                                {
+                                    "name": "Delete Docker Client Bundle",
+                                    "x": -70,
+                                    "y": 590,
+                                    "h": 70,
+                                    "w": 270
+                                },
+                                {
+                                    "name": "Download Compose File",
+                                    "x": -230,
+                                    "y": 130,
+                                    "h": 70,
+                                    "w": 260
+                                },
+                                {
+                                    "name": "Replace Tokens",
+                                    "x": -59.72222222222223,
+                                    "y": 350,
+                                    "h": 70,
+                                    "w": 240
+                                },
+                                {
+                                    "name": "7e1d390d9e2b112cfd4fe0d56cd4ae",
+                                    "x": -2.7777777777777715,
+                                    "y": 250,
+                                    "h": 50,
+                                    "w": 120
+                                }
+                            ],
+                            "layoutMode": "unknown",
+                            "type": "graph",
+                            "name": "81119f7b-4b2f-4370-aeec-e2e2050e1b30",
+                            "children": [
+                                {
+                                    "type": "finish",
+                                    "name": "45ba58504d34843b2e832067122706",
+                                    "children": []
+                                },
+                                {
+                                    "allowFailure": false,
+                                    "useImpersonation": false,
+                                    "showHidden": false,
+                                    "impersonationUseSudo": false,
+                                    "commandName": "Download Artifacts",
+                                    "pluginName": "IBM UrbanCode Deploy Versioned File Storage",
+                                    "pluginVersion": 27,
+                                    "properties": {
+                                        "directoryOffset": ".",
+                                        "artifactSetBaseDir": "",
+                                        "fileIncludePatterns": "**\/*",
+                                        "fileExcludePatterns": "",
+                                        "syncMode": "FULL",
+                                        "fullVerification": "true",
+                                        "setFileExecuteBits": "false",
+                                        "verifyFileIntegrity": "false",
+                                        "versionId": "${p:version.id}",
+                                        "serverUrl": "${p:server.url}",
+                                        "compId": "${p:component.id}",
+                                        "resId": "${p:resource.id}",
+                                        "charset": "",
+                                        "label": ""
+                                    },
+                                    "type": "plugin",
+                                    "name": "Download Compose File",
+                                    "children": []
+                                },
+                                {
+                                    "allowFailure": false,
+                                    "useImpersonation": false,
+                                    "showHidden": false,
+                                    "impersonationUseSudo": false,
+                                    "commandName": "Replace Tokens",
+                                    "pluginName": "File Utils",
+                                    "pluginVersion": 49,
+                                    "properties": {
+                                        "includes": "**\/*",
+                                        "excludes": "",
+                                        "envPropValues": "${p:environment\/allProperties}",
+                                        "propertyPrefix": "",
+                                        "explicitTokens": "",
+                                        "startDelimiter": "${",
+                                        "endDelimiter": "}",
+                                        "propFile": "replace_tokens.properties",
+                                        "dir": "",
+                                        "customEncoding": ""
+                                    },
+                                    "type": "plugin",
+                                    "name": "Replace Tokens",
+                                    "children": []
+                                },
+                                {
+                                    "allowFailure": false,
+                                    "useImpersonation": false,
+                                    "showHidden": true,
+                                    "impersonationUseSudo": false,
+                                    "commandName": "Run Docker Compose",
+                                    "pluginName": "Docker Compose",
+                                    "pluginVersion": 19,
+                                    "properties": {
+                                        "composeFiles": "",
+                                        "composeProjectName": "",
+                                        "composeOptions": "${p?:docker.opts}",
+                                        "command": "down",
+                                        "optsAndServs": "",
+                                        "scriptPaths": "${p?:envScriptPath}",
+                                        "commandPath": "docker-compose",
+                                        "saveScript": "false",
+                                        "envPropValues": "${p?:envPropValues}"
+                                    },
+                                    "type": "plugin",
+                                    "name": "Run docker-compose down",
+                                    "children": []
+                                },
+                                {
+                                    "allowFailure": false,
+                                    "useImpersonation": false,
+                                    "showHidden": false,
+                                    "impersonationUseSudo": false,
+                                    "commandName": "Shell",
+                                    "pluginName": "Shell",
+                                    "pluginVersion": 7,
+                                    "properties": {
+                                        "directoryOffset": ".",
+                                        "shellInterpreter": "",
+                                        "scriptBody": "curl -Lk ${p:resource\/clientBundleURL} > \/tmp\/client-bundle.zip\nmkdir \/tmp\/client-bundle\nunzip \/tmp\/client-bundle.zip -d \/tmp\/client-bundle\n",
+                                        "runAsDaemon": "false",
+                                        "outputFile": ""
+                                    },
+                                    "type": "plugin",
+                                    "name": "Download Docker Client Bundle",
+                                    "children": []
+                                },
+                                {
+                                    "type": "join",
+                                    "name": "7e1d390d9e2b112cfd4fe0d56cd4ae",
+                                    "children": []
+                                },
+                                {
+                                    "allowFailure": false,
+                                    "useImpersonation": false,
+                                    "showHidden": false,
+                                    "impersonationUseSudo": false,
+                                    "commandName": "Shell",
+                                    "pluginName": "Shell",
+                                    "pluginVersion": 7,
+                                    "properties": {
+                                        "directoryOffset": ".",
+                                        "shellInterpreter": "",
+                                        "scriptBody": "rm -rf \/tmp\/client-bundle \/tmp\/client-bundle.zip\n",
+                                        "runAsDaemon": "false",
+                                        "outputFile": ""
+                                    },
+                                    "type": "plugin",
+                                    "name": "Delete Docker Client Bundle",
+                                    "children": []
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "name": "Compose Up",
+                        "description": "",
+                        "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+                        "takesVersion": true,
+                        "inventoryActionType": "ADD",
+                        "status": "Active",
+                        "configActionType": "ADD",
+                        "active": true,
+                        "path": "componentTemplates\/8fefe34c-0a4a-4042-bcda-d23562248c60\/processes\/c2eca132-9d5e-4c00-9ec9-7f5024a57e6f",
+                        "propDefs": [],
+                        "rootActivity": {
+                            "edges": [
+                                {
+                                    "to": "fb230901feda05deb307aa9430fb7a",
+                                    "from": "Download Compose File",
+                                    "type": "SUCCESS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "Apply Version Overrides",
+                                    "from": "Replace Tokens",
+                                    "type": "SUCCESS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "Delete Docker Client Bundle",
+                                    "from": "Compose Up",
+                                    "type": "SUCCESS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "Download Compose File",
+                                    "type": "ALWAYS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "45ba58504d34843b2e832067122706",
+                                    "from": "Delete Docker Client Bundle",
+                                    "type": "SUCCESS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "Download Docker Client Bundle",
+                                    "type": "ALWAYS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "Compose Up",
+                                    "from": "Apply Version Overrides",
+                                    "type": "SUCCESS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "Replace Tokens",
+                                    "from": "fb230901feda05deb307aa9430fb7a",
+                                    "type": "SUCCESS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "fb230901feda05deb307aa9430fb7a",
+                                    "from": "Download Docker Client Bundle",
+                                    "type": "ALWAYS",
+                                    "value": ""
+                                }
+                            ],
+                            "offsets": [
+                                {
+                                    "name": "Download Docker Client Bundle",
+                                    "x": 65,
+                                    "y": 140,
+                                    "h": 90,
+                                    "w": 410
+                                },
+                                {
+                                    "name": "Download Compose File",
+                                    "x": -315,
+                                    "y": 140,
+                                    "h": 90,
+                                    "w": 350
+                                },
+                                {
+                                    "name": "fb230901feda05deb307aa9430fb7a",
+                                    "x": -1.6666666666666856,
+                                    "y": 280,
+                                    "h": 60,
+                                    "w": 140
+                                },
+                                {
+                                    "name": "Delete Docker Client Bundle",
+                                    "x": -105,
+                                    "y": 810,
+                                    "h": 90,
+                                    "w": 370
+                                },
+                                {
+                                    "name": "45ba58504d34843b2e832067122706",
+                                    "x": 10,
+                                    "y": 950,
+                                    "h": 90,
+                                    "w": 140
+                                },
+                                {
+                                    "name": "Compose Up",
+                                    "x": -186.25,
+                                    "y": 670,
+                                    "h": 90,
+                                    "w": 530
+                                },
+                                {
+                                    "name": "Apply Version Overrides",
+                                    "x": -124.16666666666669,
+                                    "y": 530,
+                                    "h": 90,
+                                    "w": 400
+                                },
+                                {
+                                    "name": "Replace Tokens",
+                                    "x": -87.08333333333337,
+                                    "y": 390,
+                                    "h": 90,
+                                    "w": 320
+                                }
+                            ],
+                            "layoutMode": "unknown",
+                            "type": "graph",
+                            "name": "2f67ac02-7439-4423-92b9-ad2f6f68c4b7",
+                            "children": [
+                                {
+                                    "type": "finish",
+                                    "name": "45ba58504d34843b2e832067122706",
+                                    "children": []
+                                },
+                                {
+                                    "allowFailure": false,
+                                    "useImpersonation": false,
+                                    "showHidden": true,
+                                    "impersonationUseSudo": false,
+                                    "commandName": "Launch Docker Compose Application",
+                                    "pluginName": "Docker Compose",
+                                    "pluginVersion": 19,
+                                    "properties": {
+                                        "composeFiles": "",
+                                        "composeProjectName": "",
+                                        "composeOptions": "${p?:resource\/docker.opts}",
+                                        "scriptPaths": "${p?:envScriptPath}",
+                                        "serverUrl": "${p:server.url}",
+                                        "authToken": "",
+                                        "resource": "${p:resource.id}",
+                                        "application": "${p:application.id}",
+                                        "version": "${p:version.name}",
+                                        "component": "${p:component.id}",
+                                        "snapshot": "${p?:snapshot.id}",
+                                        "environment": "${p:environment.id}",
+                                        "componentProcessRequest": "${p:request.id}",
+                                        "applicationProcessRequest": "${p:parentRequest.id}",
+                                        "envPropValues": "${p?:envPropValues}",
+                                        "commandPath": "docker-compose",
+                                        "saveScript": "false"
+                                    },
+                                    "type": "plugin",
+                                    "name": "Compose Up",
+                                    "children": []
+                                },
+                                {
+                                    "allowFailure": false,
+                                    "useImpersonation": false,
+                                    "showHidden": false,
+                                    "impersonationUseSudo": false,
+                                    "commandName": "Download Artifacts",
+                                    "pluginName": "IBM UrbanCode Deploy Versioned File Storage",
+                                    "pluginVersion": 27,
+                                    "properties": {
+                                        "directoryOffset": ".",
+                                        "artifactSetBaseDir": "",
+                                        "fileIncludePatterns": "**\/*",
+                                        "fileExcludePatterns": "",
+                                        "syncMode": "FULL",
+                                        "fullVerification": "true",
+                                        "setFileExecuteBits": "false",
+                                        "verifyFileIntegrity": "false",
+                                        "versionId": "${p:version.id}",
+                                        "serverUrl": "${p:server.url}",
+                                        "compId": "${p:component.id}",
+                                        "resId": "${p:resource.id}",
+                                        "charset": "",
+                                        "label": ""
+                                    },
+                                    "type": "plugin",
+                                    "name": "Download Compose File",
+                                    "children": []
+                                },
+                                {
+                                    "allowFailure": false,
+                                    "useImpersonation": false,
+                                    "showHidden": false,
+                                    "impersonationUseSudo": false,
+                                    "commandName": "Replace Tokens",
+                                    "pluginName": "File Utils",
+                                    "pluginVersion": 49,
+                                    "properties": {
+                                        "includes": "**\/*",
+                                        "excludes": "",
+                                        "envPropValues": "${p:environment\/allProperties}",
+                                        "propertyPrefix": "",
+                                        "explicitTokens": "",
+                                        "startDelimiter": "${",
+                                        "endDelimiter": "}",
+                                        "propFile": "replace_tokens.properties",
+                                        "dir": "",
+                                        "customEncoding": ""
+                                    },
+                                    "type": "plugin",
+                                    "name": "Replace Tokens",
+                                    "children": []
+                                },
+                                {
+                                    "allowFailure": false,
+                                    "useImpersonation": false,
+                                    "showHidden": false,
+                                    "impersonationUseSudo": false,
+                                    "commandName": "Shell",
+                                    "pluginName": "Shell",
+                                    "pluginVersion": 7,
+                                    "properties": {
+                                        "directoryOffset": ".",
+                                        "shellInterpreter": "",
+                                        "scriptBody": "curl -Lk ${p:resource\/clientBundleURL} > \/tmp\/client-bundle.zip\nmkdir \/tmp\/client-bundle\nunzip \/tmp\/client-bundle.zip -d \/tmp\/client-bundle\n",
+                                        "runAsDaemon": "false",
+                                        "outputFile": ""
+                                    },
+                                    "type": "plugin",
+                                    "name": "Download Docker Client Bundle",
+                                    "children": []
+                                },
+                                {
+                                    "type": "join",
+                                    "name": "fb230901feda05deb307aa9430fb7a",
+                                    "children": []
+                                },
+                                {
+                                    "allowFailure": false,
+                                    "useImpersonation": false,
+                                    "showHidden": false,
+                                    "impersonationUseSudo": false,
+                                    "commandName": "Shell",
+                                    "pluginName": "Shell",
+                                    "pluginVersion": 7,
+                                    "properties": {
+                                        "directoryOffset": ".",
+                                        "shellInterpreter": "",
+                                        "scriptBody": "rm -rf \/tmp\/client-bundle \/tmp\/client-bundle.zip\n",
+                                        "runAsDaemon": "false",
+                                        "outputFile": ""
+                                    },
+                                    "type": "plugin",
+                                    "name": "Delete Docker Client Bundle",
+                                    "children": []
+                                },
+                                {
+                                    "allowFailure": false,
+                                    "useImpersonation": false,
+                                    "showHidden": true,
+                                    "impersonationUseSudo": false,
+                                    "commandName": "Create Child Resources",
+                                    "pluginName": "Docker Compose",
+                                    "pluginVersion": 19,
+                                    "properties": {
+                                        "composeFiles": "",
+                                        "componentTemplate": "Docker Template",
+                                        "serverUrl": "${p:server.url}",
+                                        "authToken": "",
+                                        "resource": "${p:resource.id}",
+                                        "application": "${p:application.id}",
+                                        "version": "${p:version.name}",
+                                        "component": "${p:component.id}",
+                                        "sourceConfigType": "Docker",
+                                        "environment": "${p:environment.id}",
+                                        "componentProcessRequest": "${p:request.id}",
+                                        "applicationProcessRequest": "${p:parentRequest.id}"
+                                    },
+                                    "type": "plugin",
+                                    "name": "Apply Version Overrides",
+                                    "children": []
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "name": "Create Child Resources",
+                        "description": "Create service components, property defintions, and component subresources.",
+                        "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+                        "takesVersion": true,
+                        "status": "",
+                        "active": true,
+                        "path": "componentTemplates\/8fefe34c-0a4a-4042-bcda-d23562248c60\/processes\/f65026fd-546b-49cf-a648-5a912af007fd",
+                        "propDefs": [],
+                        "rootActivity": {
+                            "edges": [
+                                {
+                                    "to": "3600e700b3e43a6c8b5fac096fbef9",
+                                    "from": "Create Child Resources",
+                                    "type": "SUCCESS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "Create Child Resources",
+                                    "from": "Download Artifacts",
+                                    "type": "SUCCESS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "Download Artifacts",
+                                    "type": "ALWAYS",
+                                    "value": ""
+                                }
+                            ],
+                            "offsets": [
+                                {
+                                    "name": "Download Artifacts",
+                                    "x": -75,
+                                    "y": 145,
+                                    "h": 70,
+                                    "w": 260
+                                },
+                                {
+                                    "name": "Create Child Resources",
+                                    "x": -90,
+                                    "y": 280,
+                                    "h": 70,
+                                    "w": 290
+                                },
+                                {
+                                    "name": "3600e700b3e43a6c8b5fac096fbef9",
+                                    "x": -5,
+                                    "y": 415,
+                                    "h": 80,
+                                    "w": 120
+                                }
+                            ],
+                            "layoutMode": "unknown",
+                            "type": "graph",
+                            "name": "5f657b9b-96a3-4fc8-9c8a-a5e59905b170",
+                            "children": [
+                                {
+                                    "type": "finish",
+                                    "name": "3600e700b3e43a6c8b5fac096fbef9",
+                                    "children": []
+                                },
+                                {
+                                    "allowFailure": false,
+                                    "useImpersonation": false,
+                                    "showHidden": false,
+                                    "impersonationUseSudo": false,
+                                    "commandName": "Create Child Resources",
+                                    "pluginName": "Docker Compose",
+                                    "pluginVersion": 19,
+                                    "properties": {
+                                        "composeFiles": "",
+                                        "componentTemplate": "Docker Template",
+                                        "serverUrl": "${p:server.url}",
+                                        "authToken": "",
+                                        "resource": "${p:resource.id}",
+                                        "application": "${p:application.id}",
+                                        "version": "${p:version.name}",
+                                        "component": "${p:component.id}",
+                                        "sourceConfigType": "Docker",
+                                        "environment": "${p:environment.id}",
+                                        "componentProcessRequest": "${p:request.id}",
+                                        "applicationProcessRequest": "${p:parentRequest.id}"
+                                    },
+                                    "type": "plugin",
+                                    "name": "Create Child Resources",
+                                    "children": []
+                                },
+                                {
+                                    "allowFailure": false,
+                                    "useImpersonation": false,
+                                    "showHidden": false,
+                                    "impersonationUseSudo": false,
+                                    "commandName": "Download Artifacts",
+                                    "pluginName": "IBM UrbanCode Deploy Versioned File Storage",
+                                    "pluginVersion": 27,
+                                    "properties": {
+                                        "directoryOffset": ".",
+                                        "artifactSetBaseDir": "",
+                                        "fileIncludePatterns": "**\/*",
+                                        "fileExcludePatterns": "",
+                                        "syncMode": "true",
+                                        "fullVerification": "true",
+                                        "setFileExecuteBits": "false",
+                                        "verifyFileIntegrity": "false",
+                                        "versionId": "${p:version.id}",
+                                        "serverUrl": "${p:server.url}",
+                                        "compId": "${p:component.id}",
+                                        "resId": "${p:resource.id}",
+                                        "charset": "",
+                                        "label": ""
+                                    },
+                                    "type": "plugin",
+                                    "name": "Download Artifacts",
+                                    "children": []
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "genericProcesses": [],
+                "teamMappings": []
+            },
+            "envPropDefs": [
+                {
+                    "name": "VOTE-PORT",
+                    "label": "VOTE-PORT",
+                    "pattern": "",
+                    "type": "TEXT",
+                    "value": "5000",
+                    "required": true,
+                    "description": "",
+                    "placeholder": ""
+                },
+                {
+                    "name": "RESULT-PORT",
+                    "label": "RESULT-PORT",
+                    "pattern": "",
+                    "type": "TEXT",
+                    "value": "5001",
+                    "required": true,
+                    "description": "",
+                    "placeholder": ""
+                },
+                {
+                    "name": "POSTGRES-DATA",
+                    "label": "POSTGRES-DATA",
+                    "pattern": "",
+                    "type": "TEXT",
+                    "required": false,
+                    "description": "",
+                    "placeholder": ""
+                }
+            ],
+            "resPropDefs": [],
+            "versionPropDefs": [],
+            "propSheetGroup": {"propSheets": [
+                {
+                    "name": "custom",
+                    "properties": []
+                },
+                {
+                    "name": "template",
+                    "properties": []
+                }
+            ]},
+            "processes": [],
+            "configTemplates": [],
+            "genericProcesses": [],
+            "teamMappings": [],
+            "tags": [{
+                "id": "99ba1997-caa3-485c-8532-f24e8aa8e147",
+                "name": "COMPOSE",
+                "color": "#404041",
+                "description": "Flag components that represent a docker compose file",
+                "objectType": "Component"
+            }]
+        },
+        {
+            "name": "example-voting-app-db",
+            "description": "Compose service for image: postgres",
+            "created": 1481209766159,
+            "componentType": "STANDARD",
+            "ignoreQualifiers": 0,
+            "importAutomatically": false,
+            "useVfs": false,
+            "active": true,
+            "deleted": false,
+            "defaultVersionType": "FULL",
+            "cleanupDaysToKeep": 0,
+            "cleanupCountToKeep": 0,
+            "componentTemplate": {
+                "securityResourceId": "e41bdb97-1f8a-4206-94d4-4d39444fd80a",
+                "path": "componentTemplates\/ae0636bd-11f4-4c44-941e-7024172de283",
+                "name": "Docker Template",
+                "description": "",
+                "ignoreQualifiers": 0,
+                "componentType": "STANDARD",
+                "tags": [],
+                "active": true,
+                "envPropDefs": [],
+                "resPropDefs": [],
+                "propDefs": [
+                    {
+                        "name": "docker.image.name",
+                        "label": "Docker Image Name",
+                        "pattern": "",
+                        "type": "TEXT",
+                        "required": false,
+                        "description": "Name of the Docker image to use with this component. i.e. tomcat, nginx, ubuntu",
+                        "placeholder": ""
+                    },
+                    {
+                        "name": "docker.qualified.image",
+                        "label": "Fully Qualified Docker Image",
+                        "pattern": "",
+                        "type": "TEXT",
+                        "value": "${p?:docker.registry}${p:docker.image.name}:${p:version\/dockerImageTag}",
+                        "required": true,
+                        "description": "Name to pass into pull command, in the form, [REGISTRY_HOST[:REGISTRY_PORT]\/]NAME[:TAG]",
+                        "placeholder": ""
+                    },
+                    {
+                        "name": "docker.registry",
+                        "label": "Docker Registry",
+                        "pattern": "",
+                        "type": "TEXT",
+                        "required": false,
+                        "description": "Location of the docker registry used in pull commands",
+                        "placeholder": ""
+                    },
+                    {
+                        "name": "docker.container.name",
+                        "label": "Container Name",
+                        "pattern": "",
+                        "type": "TEXT",
+                        "value": "${p:docker.image.name}-${p:environment.name}",
+                        "required": true,
+                        "description": "Name to assign to the running docker container",
+                        "placeholder": ""
+                    }
+                ],
+                "properties": [],
+                "processes": [
+                    {
+                        "name": "Deploy",
+                        "description": "",
+                        "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+                        "takesVersion": true,
+                        "inventoryActionType": "ADD",
+                        "status": "Active",
+                        "configActionType": "ADD",
+                        "active": true,
+                        "path": "componentTemplates\/ae0636bd-11f4-4c44-941e-7024172de283\/processes\/5d8fb77b-5099-4f84-8638-70f38c513d4f",
+                        "propDefs": [],
+                        "rootActivity": {
+                            "edges": [
+                                {
+                                    "to": "3415bda2aafa244d16083d9f925b31",
+                                    "from": "Remove Docker Container",
+                                    "type": "ALWAYS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "Pull Docker Image",
+                                    "type": "ALWAYS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "3415bda2aafa244d16083d9f925b31",
+                                    "from": "Pull Docker Image",
+                                    "type": "SUCCESS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "efb4d1efddce74b0d171a47f62095d",
+                                    "from": "Run Docker Container",
+                                    "type": "SUCCESS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "Remove Docker Container",
+                                    "from": "Stop Docker Container",
+                                    "type": "ALWAYS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "Stop Docker Container",
+                                    "type": "ALWAYS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "Run Docker Container",
+                                    "from": "3415bda2aafa244d16083d9f925b31",
+                                    "type": "SUCCESS",
+                                    "value": ""
+                                }
+                            ],
+                            "offsets": [
+                                {
+                                    "name": "Stop Docker Container",
+                                    "x": 88.5,
+                                    "y": 90,
+                                    "h": 60,
+                                    "w": 230
+                                },
+                                {
+                                    "name": "Pull Docker Image",
+                                    "x": -215,
+                                    "y": 90,
+                                    "h": 60,
+                                    "w": 210
+                                },
+                                {
+                                    "name": "Run Docker Container",
+                                    "x": -75,
+                                    "y": 400,
+                                    "h": 60,
+                                    "w": 230
+                                },
+                                {
+                                    "name": "3415bda2aafa244d16083d9f925b31",
+                                    "x": -10,
+                                    "y": 300,
+                                    "h": 50,
+                                    "w": 100
+                                },
+                                {
+                                    "name": "Remove Docker Container",
+                                    "x": 78.5,
+                                    "y": 180,
+                                    "h": 60,
+                                    "w": 250
+                                },
+                                {
+                                    "name": "efb4d1efddce74b0d171a47f62095d",
+                                    "x": -5,
+                                    "y": 510,
+                                    "h": 50,
+                                    "w": 90
+                                }
+                            ],
+                            "layoutMode": "unknown",
+                            "type": "graph",
+                            "name": "111465d7-edca-40f3-b55d-73eef7a2804a",
+                            "children": [
+                                {
+                                    "type": "finish",
+                                    "name": "efb4d1efddce74b0d171a47f62095d",
+                                    "children": []
+                                },
+                                {
+                                    "allowFailure": false,
+                                    "useImpersonation": false,
+                                    "showHidden": false,
+                                    "impersonationUseSudo": false,
+                                    "commandName": "Pull Docker Image",
+                                    "pluginName": "Docker",
+                                    "pluginVersion": 5,
+                                    "properties": {
+                                        "image": "${p:docker.qualified.image}",
+                                        "commandOptions": "",
+                                        "globalOptions": "${p?:resource\/docker.opts}",
+                                        "envVars": ""
+                                    },
+                                    "type": "plugin",
+                                    "name": "Pull Docker Image",
+                                    "children": []
+                                },
+                                {
+                                    "allowFailure": false,
+                                    "useImpersonation": false,
+                                    "showHidden": false,
+                                    "impersonationUseSudo": false,
+                                    "commandName": "Run Docker Container",
+                                    "pluginName": "Docker",
+                                    "pluginVersion": 5,
+                                    "properties": {
+                                        "image": "${p:docker.qualified.image}",
+                                        "containerCommand": "",
+                                        "container": "${p:docker.container.name}",
+                                        "commandOptions": "-d\n",
+                                        "globalOptions": "${p?:resource\/docker.opts}",
+                                        "envVars": ""
+                                    },
+                                    "type": "plugin",
+                                    "name": "Run Docker Container",
+                                    "children": []
+                                },
+                                {
+                                    "allowFailure": false,
+                                    "useImpersonation": false,
+                                    "showHidden": false,
+                                    "impersonationUseSudo": false,
+                                    "commandName": "Stop Docker Container",
+                                    "pluginName": "Docker",
+                                    "pluginVersion": 5,
+                                    "properties": {
+                                        "container": "${p:docker.container.name}",
+                                        "commandOptions": "",
+                                        "globalOptions": "${p?:resource\/docker.opts}",
+                                        "envVars": ""
+                                    },
+                                    "type": "plugin",
+                                    "name": "Stop Docker Container",
+                                    "children": []
+                                },
+                                {
+                                    "allowFailure": false,
+                                    "useImpersonation": false,
+                                    "showHidden": false,
+                                    "impersonationUseSudo": false,
+                                    "commandName": "Remove Docker Container",
+                                    "pluginName": "Docker",
+                                    "pluginVersion": 5,
+                                    "properties": {
+                                        "container": "${p:docker.container.name}",
+                                        "dockerCommandOptions": "--force",
+                                        "globalOptions": "${p?:resource\/docker.opts}",
+                                        "envVars": ""
+                                    },
+                                    "type": "plugin",
+                                    "name": "Remove Docker Container",
+                                    "children": []
+                                },
+                                {
+                                    "type": "join",
+                                    "name": "3415bda2aafa244d16083d9f925b31",
+                                    "children": []
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "name": "Update Inventory",
+                        "description": "Empty process to help acquire component versions during a docker-compose up deployment.",
+                        "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+                        "takesVersion": true,
+                        "inventoryActionType": "ADD",
+                        "status": "Active",
+                        "configActionType": "ADD",
+                        "active": true,
+                        "path": "componentTemplates\/ae0636bd-11f4-4c44-941e-7024172de283\/processes\/3ad378ff-c500-47e2-ad33-f4bd90d41145",
+                        "propDefs": [],
+                        "rootActivity": {
+                            "edges": [{
+                                "to": "52ab313f7bd1d841136630fa150808",
+                                "type": "ALWAYS",
+                                "value": ""
+                            }],
+                            "offsets": [{
+                                "name": "52ab313f7bd1d841136630fa150808",
+                                "x": -5,
+                                "y": 420,
+                                "h": 80,
+                                "w": 120
+                            }],
+                            "layoutMode": "unknown",
+                            "type": "graph",
+                            "name": "250313bf-6122-4360-bbab-225e1d949aaa",
+                            "children": [{
+                                "type": "finish",
+                                "name": "52ab313f7bd1d841136630fa150808",
+                                "children": []
+                            }]
+                        }
+                    }
+                ],
+                "genericProcesses": [],
+                "teamMappings": []
+            },
+            "sourceConfigPluginName": "Docker",
+            "envPropDefs": [],
+            "resPropDefs": [],
+            "versionPropDefs": [
+                {
+                    "name": "dockerImageTag",
+                    "label": "dockerImageTag",
+                    "pattern": "",
+                    "type": "TEXT",
+                    "required": false,
+                    "description": "",
+                    "placeholder": ""
+                },
+                {
+                    "name": "registry",
+                    "label": "registry",
+                    "pattern": "",
+                    "type": "TEXT",
+                    "required": false,
+                    "description": "",
+                    "placeholder": ""
+                },
+                {
+                    "name": "dockerImageId",
+                    "label": "dockerImageId",
+                    "pattern": "",
+                    "type": "TEXT",
+                    "required": false,
+                    "description": "",
+                    "placeholder": ""
+                }
+            ],
+            "propSheetGroup": {"propSheets": [
+                {
+                    "name": "template",
+                    "properties": [
+                        {
+                            "name": "docker.container.name",
+                            "value": "${p:docker.image.name}-${p:environment.name}",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "docker.image.name",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "docker.qualified.image",
+                            "value": "${p?:docker.registry}\/${p:docker.image.name}:${p:version\/dockerImageTag}",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "docker.registry",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "docker.registry.email",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "docker.registry.password",
+                            "value": "",
+                            "description": "",
+                            "secure": true
+                        },
+                        {
+                            "name": "docker.registry.username",
+                            "value": "",
+                            "description": "",
+                            "secure": false
+                        }
+                    ]
+                },
+                {
+                    "name": "custom",
+                    "properties": [
+                        {
+                            "name": "compose.service",
+                            "value": "db",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "docker.image.name",
+                            "value": "postgres",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "docker.registry.name",
+                            "description": "",
+                            "secure": false
+                        }
+                    ]
+                },
+                {
+                    "name": "DockerTagImport",
+                    "properties": [
+                        {
+                            "name": "allowInsecure",
+                            "value": "false",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "api",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "CF_HOME",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "dockerImageName",
+                            "value": "library\/postgres",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "dockerRegistryName",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "dockerRegistryPassword",
+                            "value": "",
+                            "description": "",
+                            "secure": true
+                        },
+                        {
+                            "name": "org",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "region",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "registryType",
+                            "value": "false",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "space",
+                            "description": "",
+                            "secure": false
+                        }
+                    ]
+                }
+            ]},
+            "processes": [],
+            "configTemplates": [],
+            "genericProcesses": [],
+            "teamMappings": [],
+            "tags": [{
+                "id": "6576074f-5276-4275-b266-e63e8f4a826c",
+                "name": "compose.service",
+                "color": "#FFFFFF",
+                "description": "",
+                "objectType": "Component"
+            }]
+        },
+        {
+            "name": "example-voting-app-redis",
+            "description": "Compose service for image: redis",
+            "created": 1481209766323,
+            "componentType": "STANDARD",
+            "ignoreQualifiers": 0,
+            "importAutomatically": false,
+            "useVfs": false,
+            "active": true,
+            "deleted": false,
+            "defaultVersionType": "FULL",
+            "cleanupDaysToKeep": 0,
+            "cleanupCountToKeep": 0,
+            "componentTemplate": {
+                "securityResourceId": "e41bdb97-1f8a-4206-94d4-4d39444fd80a",
+                "path": "componentTemplates\/ae0636bd-11f4-4c44-941e-7024172de283",
+                "name": "Docker Template",
+                "description": "",
+                "ignoreQualifiers": 0,
+                "componentType": "STANDARD",
+                "tags": [],
+                "active": true,
+                "envPropDefs": [],
+                "resPropDefs": [],
+                "propDefs": [
+                    {
+                        "name": "docker.image.name",
+                        "label": "Docker Image Name",
+                        "pattern": "",
+                        "type": "TEXT",
+                        "required": false,
+                        "description": "Name of the Docker image to use with this component. i.e. tomcat, nginx, ubuntu",
+                        "placeholder": ""
+                    },
+                    {
+                        "name": "docker.qualified.image",
+                        "label": "Fully Qualified Docker Image",
+                        "pattern": "",
+                        "type": "TEXT",
+                        "value": "${p?:docker.registry}${p:docker.image.name}:${p:version\/dockerImageTag}",
+                        "required": true,
+                        "description": "Name to pass into pull command, in the form, [REGISTRY_HOST[:REGISTRY_PORT]\/]NAME[:TAG]",
+                        "placeholder": ""
+                    },
+                    {
+                        "name": "docker.registry",
+                        "label": "Docker Registry",
+                        "pattern": "",
+                        "type": "TEXT",
+                        "required": false,
+                        "description": "Location of the docker registry used in pull commands",
+                        "placeholder": ""
+                    },
+                    {
+                        "name": "docker.container.name",
+                        "label": "Container Name",
+                        "pattern": "",
+                        "type": "TEXT",
+                        "value": "${p:docker.image.name}-${p:environment.name}",
+                        "required": true,
+                        "description": "Name to assign to the running docker container",
+                        "placeholder": ""
+                    }
+                ],
+                "properties": [],
+                "processes": [
+                    {
+                        "name": "Deploy",
+                        "description": "",
+                        "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+                        "takesVersion": true,
+                        "inventoryActionType": "ADD",
+                        "status": "Active",
+                        "configActionType": "ADD",
+                        "active": true,
+                        "path": "componentTemplates\/ae0636bd-11f4-4c44-941e-7024172de283\/processes\/5d8fb77b-5099-4f84-8638-70f38c513d4f",
+                        "propDefs": [],
+                        "rootActivity": {
+                            "edges": [
+                                {
+                                    "to": "3415bda2aafa244d16083d9f925b31",
+                                    "from": "Remove Docker Container",
+                                    "type": "ALWAYS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "Pull Docker Image",
+                                    "type": "ALWAYS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "3415bda2aafa244d16083d9f925b31",
+                                    "from": "Pull Docker Image",
+                                    "type": "SUCCESS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "efb4d1efddce74b0d171a47f62095d",
+                                    "from": "Run Docker Container",
+                                    "type": "SUCCESS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "Remove Docker Container",
+                                    "from": "Stop Docker Container",
+                                    "type": "ALWAYS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "Stop Docker Container",
+                                    "type": "ALWAYS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "Run Docker Container",
+                                    "from": "3415bda2aafa244d16083d9f925b31",
+                                    "type": "SUCCESS",
+                                    "value": ""
+                                }
+                            ],
+                            "offsets": [
+                                {
+                                    "name": "Stop Docker Container",
+                                    "x": 88.5,
+                                    "y": 90,
+                                    "h": 60,
+                                    "w": 230
+                                },
+                                {
+                                    "name": "Pull Docker Image",
+                                    "x": -215,
+                                    "y": 90,
+                                    "h": 60,
+                                    "w": 210
+                                },
+                                {
+                                    "name": "Run Docker Container",
+                                    "x": -75,
+                                    "y": 400,
+                                    "h": 60,
+                                    "w": 230
+                                },
+                                {
+                                    "name": "3415bda2aafa244d16083d9f925b31",
+                                    "x": -10,
+                                    "y": 300,
+                                    "h": 50,
+                                    "w": 100
+                                },
+                                {
+                                    "name": "Remove Docker Container",
+                                    "x": 78.5,
+                                    "y": 180,
+                                    "h": 60,
+                                    "w": 250
+                                },
+                                {
+                                    "name": "efb4d1efddce74b0d171a47f62095d",
+                                    "x": -5,
+                                    "y": 510,
+                                    "h": 50,
+                                    "w": 90
+                                }
+                            ],
+                            "layoutMode": "unknown",
+                            "type": "graph",
+                            "name": "111465d7-edca-40f3-b55d-73eef7a2804a",
+                            "children": [
+                                {
+                                    "type": "finish",
+                                    "name": "efb4d1efddce74b0d171a47f62095d",
+                                    "children": []
+                                },
+                                {
+                                    "allowFailure": false,
+                                    "useImpersonation": false,
+                                    "showHidden": false,
+                                    "impersonationUseSudo": false,
+                                    "commandName": "Pull Docker Image",
+                                    "pluginName": "Docker",
+                                    "pluginVersion": 5,
+                                    "properties": {
+                                        "image": "${p:docker.qualified.image}",
+                                        "commandOptions": "",
+                                        "globalOptions": "${p?:resource\/docker.opts}",
+                                        "envVars": ""
+                                    },
+                                    "type": "plugin",
+                                    "name": "Pull Docker Image",
+                                    "children": []
+                                },
+                                {
+                                    "allowFailure": false,
+                                    "useImpersonation": false,
+                                    "showHidden": false,
+                                    "impersonationUseSudo": false,
+                                    "commandName": "Run Docker Container",
+                                    "pluginName": "Docker",
+                                    "pluginVersion": 5,
+                                    "properties": {
+                                        "image": "${p:docker.qualified.image}",
+                                        "containerCommand": "",
+                                        "container": "${p:docker.container.name}",
+                                        "commandOptions": "-d\n",
+                                        "globalOptions": "${p?:resource\/docker.opts}",
+                                        "envVars": ""
+                                    },
+                                    "type": "plugin",
+                                    "name": "Run Docker Container",
+                                    "children": []
+                                },
+                                {
+                                    "allowFailure": false,
+                                    "useImpersonation": false,
+                                    "showHidden": false,
+                                    "impersonationUseSudo": false,
+                                    "commandName": "Stop Docker Container",
+                                    "pluginName": "Docker",
+                                    "pluginVersion": 5,
+                                    "properties": {
+                                        "container": "${p:docker.container.name}",
+                                        "commandOptions": "",
+                                        "globalOptions": "${p?:resource\/docker.opts}",
+                                        "envVars": ""
+                                    },
+                                    "type": "plugin",
+                                    "name": "Stop Docker Container",
+                                    "children": []
+                                },
+                                {
+                                    "allowFailure": false,
+                                    "useImpersonation": false,
+                                    "showHidden": false,
+                                    "impersonationUseSudo": false,
+                                    "commandName": "Remove Docker Container",
+                                    "pluginName": "Docker",
+                                    "pluginVersion": 5,
+                                    "properties": {
+                                        "container": "${p:docker.container.name}",
+                                        "dockerCommandOptions": "--force",
+                                        "globalOptions": "${p?:resource\/docker.opts}",
+                                        "envVars": ""
+                                    },
+                                    "type": "plugin",
+                                    "name": "Remove Docker Container",
+                                    "children": []
+                                },
+                                {
+                                    "type": "join",
+                                    "name": "3415bda2aafa244d16083d9f925b31",
+                                    "children": []
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "name": "Update Inventory",
+                        "description": "Empty process to help acquire component versions during a docker-compose up deployment.",
+                        "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+                        "takesVersion": true,
+                        "inventoryActionType": "ADD",
+                        "status": "Active",
+                        "configActionType": "ADD",
+                        "active": true,
+                        "path": "componentTemplates\/ae0636bd-11f4-4c44-941e-7024172de283\/processes\/3ad378ff-c500-47e2-ad33-f4bd90d41145",
+                        "propDefs": [],
+                        "rootActivity": {
+                            "edges": [{
+                                "to": "52ab313f7bd1d841136630fa150808",
+                                "type": "ALWAYS",
+                                "value": ""
+                            }],
+                            "offsets": [{
+                                "name": "52ab313f7bd1d841136630fa150808",
+                                "x": -5,
+                                "y": 420,
+                                "h": 80,
+                                "w": 120
+                            }],
+                            "layoutMode": "unknown",
+                            "type": "graph",
+                            "name": "250313bf-6122-4360-bbab-225e1d949aaa",
+                            "children": [{
+                                "type": "finish",
+                                "name": "52ab313f7bd1d841136630fa150808",
+                                "children": []
+                            }]
+                        }
+                    }
+                ],
+                "genericProcesses": [],
+                "teamMappings": []
+            },
+            "sourceConfigPluginName": "Docker",
+            "envPropDefs": [],
+            "resPropDefs": [],
+            "versionPropDefs": [
+                {
+                    "name": "dockerImageTag",
+                    "label": "dockerImageTag",
+                    "pattern": "",
+                    "type": "TEXT",
+                    "required": false,
+                    "description": "",
+                    "placeholder": ""
+                },
+                {
+                    "name": "registry",
+                    "label": "registry",
+                    "pattern": "",
+                    "type": "TEXT",
+                    "required": false,
+                    "description": "",
+                    "placeholder": ""
+                },
+                {
+                    "name": "dockerImageId",
+                    "label": "dockerImageId",
+                    "pattern": "",
+                    "type": "TEXT",
+                    "required": false,
+                    "description": "",
+                    "placeholder": ""
+                }
+            ],
+            "propSheetGroup": {"propSheets": [
+                {
+                    "name": "template",
+                    "properties": [
+                        {
+                            "name": "docker.container.name",
+                            "value": "${p:docker.image.name}-${p:environment.name}",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "docker.image.name",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "docker.qualified.image",
+                            "value": "${p?:docker.registry}\/${p:docker.image.name}:${p:version\/dockerImageTag}",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "docker.registry",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "docker.registry.email",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "docker.registry.password",
+                            "value": "",
+                            "description": "",
+                            "secure": true
+                        },
+                        {
+                            "name": "docker.registry.username",
+                            "value": "",
+                            "description": "",
+                            "secure": false
+                        }
+                    ]
+                },
+                {
+                    "name": "custom",
+                    "properties": [
+                        {
+                            "name": "compose.service",
+                            "value": "redis",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "docker.image.name",
+                            "value": "redis",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "docker.registry.name",
+                            "description": "",
+                            "secure": false
+                        }
+                    ]
+                },
+                {
+                    "name": "DockerTagImport",
+                    "properties": [
+                        {
+                            "name": "allowInsecure",
+                            "value": "false",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "api",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "CF_HOME",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "dockerImageName",
+                            "value": "library\/redis",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "dockerRegistryName",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "dockerRegistryPassword",
+                            "value": "",
+                            "description": "",
+                            "secure": true
+                        },
+                        {
+                            "name": "org",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "registryType",
+                            "value": "false",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "space",
+                            "description": "",
+                            "secure": false
+                        }
+                    ]
+                }
+            ]},
+            "processes": [],
+            "configTemplates": [],
+            "genericProcesses": [],
+            "teamMappings": [],
+            "tags": [{
+                "id": "6576074f-5276-4275-b266-e63e8f4a826c",
+                "name": "compose.service",
+                "color": "#FFFFFF",
+                "description": "",
+                "objectType": "Component"
+            }]
+        },
+        {
+            "name": "example-voting-app-result",
+            "description": "Compose service for image: user\/examplevotingapp_result",
+            "created": 1481209766486,
+            "componentType": "STANDARD",
+            "ignoreQualifiers": 0,
+            "importAutomatically": false,
+            "useVfs": false,
+            "active": true,
+            "deleted": false,
+            "defaultVersionType": "FULL",
+            "cleanupDaysToKeep": 0,
+            "cleanupCountToKeep": 0,
+            "componentTemplate": {
+                "securityResourceId": "e41bdb97-1f8a-4206-94d4-4d39444fd80a",
+                "path": "componentTemplates\/ae0636bd-11f4-4c44-941e-7024172de283",
+                "name": "Docker Template",
+                "description": "",
+                "ignoreQualifiers": 0,
+                "componentType": "STANDARD",
+                "tags": [],
+                "active": true,
+                "envPropDefs": [],
+                "resPropDefs": [],
+                "propDefs": [
+                    {
+                        "name": "docker.image.name",
+                        "label": "Docker Image Name",
+                        "pattern": "",
+                        "type": "TEXT",
+                        "required": false,
+                        "description": "Name of the Docker image to use with this component. i.e. tomcat, nginx, ubuntu",
+                        "placeholder": ""
+                    },
+                    {
+                        "name": "docker.qualified.image",
+                        "label": "Fully Qualified Docker Image",
+                        "pattern": "",
+                        "type": "TEXT",
+                        "value": "${p?:docker.registry}${p:docker.image.name}:${p:version\/dockerImageTag}",
+                        "required": true,
+                        "description": "Name to pass into pull command, in the form, [REGISTRY_HOST[:REGISTRY_PORT]\/]NAME[:TAG]",
+                        "placeholder": ""
+                    },
+                    {
+                        "name": "docker.registry",
+                        "label": "Docker Registry",
+                        "pattern": "",
+                        "type": "TEXT",
+                        "required": false,
+                        "description": "Location of the docker registry used in pull commands",
+                        "placeholder": ""
+                    },
+                    {
+                        "name": "docker.container.name",
+                        "label": "Container Name",
+                        "pattern": "",
+                        "type": "TEXT",
+                        "value": "${p:docker.image.name}-${p:environment.name}",
+                        "required": true,
+                        "description": "Name to assign to the running docker container",
+                        "placeholder": ""
+                    }
+                ],
+                "properties": [],
+                "processes": [
+                    {
+                        "name": "Deploy",
+                        "description": "",
+                        "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+                        "takesVersion": true,
+                        "inventoryActionType": "ADD",
+                        "status": "Active",
+                        "configActionType": "ADD",
+                        "active": true,
+                        "path": "componentTemplates\/ae0636bd-11f4-4c44-941e-7024172de283\/processes\/5d8fb77b-5099-4f84-8638-70f38c513d4f",
+                        "propDefs": [],
+                        "rootActivity": {
+                            "edges": [
+                                {
+                                    "to": "3415bda2aafa244d16083d9f925b31",
+                                    "from": "Remove Docker Container",
+                                    "type": "ALWAYS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "Pull Docker Image",
+                                    "type": "ALWAYS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "3415bda2aafa244d16083d9f925b31",
+                                    "from": "Pull Docker Image",
+                                    "type": "SUCCESS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "efb4d1efddce74b0d171a47f62095d",
+                                    "from": "Run Docker Container",
+                                    "type": "SUCCESS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "Remove Docker Container",
+                                    "from": "Stop Docker Container",
+                                    "type": "ALWAYS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "Stop Docker Container",
+                                    "type": "ALWAYS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "Run Docker Container",
+                                    "from": "3415bda2aafa244d16083d9f925b31",
+                                    "type": "SUCCESS",
+                                    "value": ""
+                                }
+                            ],
+                            "offsets": [
+                                {
+                                    "name": "Stop Docker Container",
+                                    "x": 88.5,
+                                    "y": 90,
+                                    "h": 60,
+                                    "w": 230
+                                },
+                                {
+                                    "name": "Pull Docker Image",
+                                    "x": -215,
+                                    "y": 90,
+                                    "h": 60,
+                                    "w": 210
+                                },
+                                {
+                                    "name": "Run Docker Container",
+                                    "x": -75,
+                                    "y": 400,
+                                    "h": 60,
+                                    "w": 230
+                                },
+                                {
+                                    "name": "3415bda2aafa244d16083d9f925b31",
+                                    "x": -10,
+                                    "y": 300,
+                                    "h": 50,
+                                    "w": 100
+                                },
+                                {
+                                    "name": "Remove Docker Container",
+                                    "x": 78.5,
+                                    "y": 180,
+                                    "h": 60,
+                                    "w": 250
+                                },
+                                {
+                                    "name": "efb4d1efddce74b0d171a47f62095d",
+                                    "x": -5,
+                                    "y": 510,
+                                    "h": 50,
+                                    "w": 90
+                                }
+                            ],
+                            "layoutMode": "unknown",
+                            "type": "graph",
+                            "name": "111465d7-edca-40f3-b55d-73eef7a2804a",
+                            "children": [
+                                {
+                                    "type": "finish",
+                                    "name": "efb4d1efddce74b0d171a47f62095d",
+                                    "children": []
+                                },
+                                {
+                                    "allowFailure": false,
+                                    "useImpersonation": false,
+                                    "showHidden": false,
+                                    "impersonationUseSudo": false,
+                                    "commandName": "Pull Docker Image",
+                                    "pluginName": "Docker",
+                                    "pluginVersion": 5,
+                                    "properties": {
+                                        "image": "${p:docker.qualified.image}",
+                                        "commandOptions": "",
+                                        "globalOptions": "${p?:resource\/docker.opts}",
+                                        "envVars": ""
+                                    },
+                                    "type": "plugin",
+                                    "name": "Pull Docker Image",
+                                    "children": []
+                                },
+                                {
+                                    "allowFailure": false,
+                                    "useImpersonation": false,
+                                    "showHidden": false,
+                                    "impersonationUseSudo": false,
+                                    "commandName": "Run Docker Container",
+                                    "pluginName": "Docker",
+                                    "pluginVersion": 5,
+                                    "properties": {
+                                        "image": "${p:docker.qualified.image}",
+                                        "containerCommand": "",
+                                        "container": "${p:docker.container.name}",
+                                        "commandOptions": "-d\n",
+                                        "globalOptions": "${p?:resource\/docker.opts}",
+                                        "envVars": ""
+                                    },
+                                    "type": "plugin",
+                                    "name": "Run Docker Container",
+                                    "children": []
+                                },
+                                {
+                                    "allowFailure": false,
+                                    "useImpersonation": false,
+                                    "showHidden": false,
+                                    "impersonationUseSudo": false,
+                                    "commandName": "Stop Docker Container",
+                                    "pluginName": "Docker",
+                                    "pluginVersion": 5,
+                                    "properties": {
+                                        "container": "${p:docker.container.name}",
+                                        "commandOptions": "",
+                                        "globalOptions": "${p?:resource\/docker.opts}",
+                                        "envVars": ""
+                                    },
+                                    "type": "plugin",
+                                    "name": "Stop Docker Container",
+                                    "children": []
+                                },
+                                {
+                                    "allowFailure": false,
+                                    "useImpersonation": false,
+                                    "showHidden": false,
+                                    "impersonationUseSudo": false,
+                                    "commandName": "Remove Docker Container",
+                                    "pluginName": "Docker",
+                                    "pluginVersion": 5,
+                                    "properties": {
+                                        "container": "${p:docker.container.name}",
+                                        "dockerCommandOptions": "--force",
+                                        "globalOptions": "${p?:resource\/docker.opts}",
+                                        "envVars": ""
+                                    },
+                                    "type": "plugin",
+                                    "name": "Remove Docker Container",
+                                    "children": []
+                                },
+                                {
+                                    "type": "join",
+                                    "name": "3415bda2aafa244d16083d9f925b31",
+                                    "children": []
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "name": "Update Inventory",
+                        "description": "Empty process to help acquire component versions during a docker-compose up deployment.",
+                        "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+                        "takesVersion": true,
+                        "inventoryActionType": "ADD",
+                        "status": "Active",
+                        "configActionType": "ADD",
+                        "active": true,
+                        "path": "componentTemplates\/ae0636bd-11f4-4c44-941e-7024172de283\/processes\/3ad378ff-c500-47e2-ad33-f4bd90d41145",
+                        "propDefs": [],
+                        "rootActivity": {
+                            "edges": [{
+                                "to": "52ab313f7bd1d841136630fa150808",
+                                "type": "ALWAYS",
+                                "value": ""
+                            }],
+                            "offsets": [{
+                                "name": "52ab313f7bd1d841136630fa150808",
+                                "x": -5,
+                                "y": 420,
+                                "h": 80,
+                                "w": 120
+                            }],
+                            "layoutMode": "unknown",
+                            "type": "graph",
+                            "name": "250313bf-6122-4360-bbab-225e1d949aaa",
+                            "children": [{
+                                "type": "finish",
+                                "name": "52ab313f7bd1d841136630fa150808",
+                                "children": []
+                            }]
+                        }
+                    }
+                ],
+                "genericProcesses": [],
+                "teamMappings": []
+            },
+            "sourceConfigPluginName": "Docker",
+            "envPropDefs": [],
+            "resPropDefs": [],
+            "versionPropDefs": [
+                {
+                    "name": "dockerImageTag",
+                    "label": "dockerImageTag",
+                    "pattern": "",
+                    "type": "TEXT",
+                    "required": false,
+                    "description": "",
+                    "placeholder": ""
+                },
+                {
+                    "name": "registry",
+                    "label": "registry",
+                    "pattern": "",
+                    "type": "TEXT",
+                    "required": false,
+                    "description": "",
+                    "placeholder": ""
+                }
+            ],
+            "propSheetGroup": {"propSheets": [
+                {
+                    "name": "template",
+                    "properties": [
+                        {
+                            "name": "docker.container.name",
+                            "value": "${p:docker.image.name}-${p:environment.name}",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "docker.image.name",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "docker.qualified.image",
+                            "value": "${p?:docker.registry}\/${p:docker.image.name}:${p:version\/dockerImageTag}",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "docker.registry",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "docker.registry.email",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "docker.registry.password",
+                            "value": "",
+                            "description": "",
+                            "secure": true
+                        },
+                        {
+                            "name": "docker.registry.username",
+                            "value": "",
+                            "description": "",
+                            "secure": false
+                        }
+                    ]
+                },
+                {
+                    "name": "custom",
+                    "properties": [
+                        {
+                            "name": "compose.service",
+                            "value": "result",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "docker.image.name",
+                            "value": "user\/examplevotingapp_result",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "docker.registry.name",
+                            "value": "registry.oneibmcloud.com",
+                            "description": "",
+                            "secure": false
+                        }
+                    ]
+                },
+                {
+                    "name": "DockerTagImport",
+                    "properties": [
+                        {
+                            "name": "allowInsecure",
+                            "value": "false",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "api",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "CF_HOME",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "dockerImageName",
+                            "value": "user\/examplevotingapp_result",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "dockerRegistryName",
+                            "value": "registry.oneibmcloud.com",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "dockerRegistryPassword",
+                            "value": "",
+                            "description": "",
+                            "secure": true
+                        },
+                        {
+                            "name": "org",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "region",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "registryType",
+                            "value": "false",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "space",
+                            "description": "",
+                            "secure": false
+                        }
+                    ]
+                }
+            ]},
+            "processes": [],
+            "configTemplates": [],
+            "genericProcesses": [],
+            "teamMappings": [],
+            "tags": [{
+                "id": "6576074f-5276-4275-b266-e63e8f4a826c",
+                "name": "compose.service",
+                "color": "#FFFFFF",
+                "description": "",
+                "objectType": "Component"
+            }]
+        },
+        {
+            "name": "example-voting-app-vote",
+            "description": "Compose service for image: user\/examplevotingapp_vote",
+            "created": 1481209766652,
+            "componentType": "STANDARD",
+            "ignoreQualifiers": 0,
+            "importAutomatically": false,
+            "useVfs": false,
+            "active": true,
+            "deleted": false,
+            "defaultVersionType": "FULL",
+            "cleanupDaysToKeep": 0,
+            "cleanupCountToKeep": 0,
+            "componentTemplate": {
+                "securityResourceId": "e41bdb97-1f8a-4206-94d4-4d39444fd80a",
+                "path": "componentTemplates\/ae0636bd-11f4-4c44-941e-7024172de283",
+                "name": "Docker Template",
+                "description": "",
+                "ignoreQualifiers": 0,
+                "componentType": "STANDARD",
+                "tags": [],
+                "active": true,
+                "envPropDefs": [],
+                "resPropDefs": [],
+                "propDefs": [
+                    {
+                        "name": "docker.image.name",
+                        "label": "Docker Image Name",
+                        "pattern": "",
+                        "type": "TEXT",
+                        "required": false,
+                        "description": "Name of the Docker image to use with this component. i.e. tomcat, nginx, ubuntu",
+                        "placeholder": ""
+                    },
+                    {
+                        "name": "docker.qualified.image",
+                        "label": "Fully Qualified Docker Image",
+                        "pattern": "",
+                        "type": "TEXT",
+                        "value": "${p?:docker.registry}${p:docker.image.name}:${p:version\/dockerImageTag}",
+                        "required": true,
+                        "description": "Name to pass into pull command, in the form, [REGISTRY_HOST[:REGISTRY_PORT]\/]NAME[:TAG]",
+                        "placeholder": ""
+                    },
+                    {
+                        "name": "docker.registry",
+                        "label": "Docker Registry",
+                        "pattern": "",
+                        "type": "TEXT",
+                        "required": false,
+                        "description": "Location of the docker registry used in pull commands",
+                        "placeholder": ""
+                    },
+                    {
+                        "name": "docker.container.name",
+                        "label": "Container Name",
+                        "pattern": "",
+                        "type": "TEXT",
+                        "value": "${p:docker.image.name}-${p:environment.name}",
+                        "required": true,
+                        "description": "Name to assign to the running docker container",
+                        "placeholder": ""
+                    }
+                ],
+                "properties": [],
+                "processes": [
+                    {
+                        "name": "Deploy",
+                        "description": "",
+                        "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+                        "takesVersion": true,
+                        "inventoryActionType": "ADD",
+                        "status": "Active",
+                        "configActionType": "ADD",
+                        "active": true,
+                        "path": "componentTemplates\/ae0636bd-11f4-4c44-941e-7024172de283\/processes\/5d8fb77b-5099-4f84-8638-70f38c513d4f",
+                        "propDefs": [],
+                        "rootActivity": {
+                            "edges": [
+                                {
+                                    "to": "3415bda2aafa244d16083d9f925b31",
+                                    "from": "Remove Docker Container",
+                                    "type": "ALWAYS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "Pull Docker Image",
+                                    "type": "ALWAYS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "3415bda2aafa244d16083d9f925b31",
+                                    "from": "Pull Docker Image",
+                                    "type": "SUCCESS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "efb4d1efddce74b0d171a47f62095d",
+                                    "from": "Run Docker Container",
+                                    "type": "SUCCESS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "Remove Docker Container",
+                                    "from": "Stop Docker Container",
+                                    "type": "ALWAYS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "Stop Docker Container",
+                                    "type": "ALWAYS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "Run Docker Container",
+                                    "from": "3415bda2aafa244d16083d9f925b31",
+                                    "type": "SUCCESS",
+                                    "value": ""
+                                }
+                            ],
+                            "offsets": [
+                                {
+                                    "name": "Stop Docker Container",
+                                    "x": 88.5,
+                                    "y": 90,
+                                    "h": 60,
+                                    "w": 230
+                                },
+                                {
+                                    "name": "Pull Docker Image",
+                                    "x": -215,
+                                    "y": 90,
+                                    "h": 60,
+                                    "w": 210
+                                },
+                                {
+                                    "name": "Run Docker Container",
+                                    "x": -75,
+                                    "y": 400,
+                                    "h": 60,
+                                    "w": 230
+                                },
+                                {
+                                    "name": "3415bda2aafa244d16083d9f925b31",
+                                    "x": -10,
+                                    "y": 300,
+                                    "h": 50,
+                                    "w": 100
+                                },
+                                {
+                                    "name": "Remove Docker Container",
+                                    "x": 78.5,
+                                    "y": 180,
+                                    "h": 60,
+                                    "w": 250
+                                },
+                                {
+                                    "name": "efb4d1efddce74b0d171a47f62095d",
+                                    "x": -5,
+                                    "y": 510,
+                                    "h": 50,
+                                    "w": 90
+                                }
+                            ],
+                            "layoutMode": "unknown",
+                            "type": "graph",
+                            "name": "111465d7-edca-40f3-b55d-73eef7a2804a",
+                            "children": [
+                                {
+                                    "type": "finish",
+                                    "name": "efb4d1efddce74b0d171a47f62095d",
+                                    "children": []
+                                },
+                                {
+                                    "allowFailure": false,
+                                    "useImpersonation": false,
+                                    "showHidden": false,
+                                    "impersonationUseSudo": false,
+                                    "commandName": "Pull Docker Image",
+                                    "pluginName": "Docker",
+                                    "pluginVersion": 5,
+                                    "properties": {
+                                        "image": "${p:docker.qualified.image}",
+                                        "commandOptions": "",
+                                        "globalOptions": "${p?:resource\/docker.opts}",
+                                        "envVars": ""
+                                    },
+                                    "type": "plugin",
+                                    "name": "Pull Docker Image",
+                                    "children": []
+                                },
+                                {
+                                    "allowFailure": false,
+                                    "useImpersonation": false,
+                                    "showHidden": false,
+                                    "impersonationUseSudo": false,
+                                    "commandName": "Run Docker Container",
+                                    "pluginName": "Docker",
+                                    "pluginVersion": 5,
+                                    "properties": {
+                                        "image": "${p:docker.qualified.image}",
+                                        "containerCommand": "",
+                                        "container": "${p:docker.container.name}",
+                                        "commandOptions": "-d\n",
+                                        "globalOptions": "${p?:resource\/docker.opts}",
+                                        "envVars": ""
+                                    },
+                                    "type": "plugin",
+                                    "name": "Run Docker Container",
+                                    "children": []
+                                },
+                                {
+                                    "allowFailure": false,
+                                    "useImpersonation": false,
+                                    "showHidden": false,
+                                    "impersonationUseSudo": false,
+                                    "commandName": "Stop Docker Container",
+                                    "pluginName": "Docker",
+                                    "pluginVersion": 5,
+                                    "properties": {
+                                        "container": "${p:docker.container.name}",
+                                        "commandOptions": "",
+                                        "globalOptions": "${p?:resource\/docker.opts}",
+                                        "envVars": ""
+                                    },
+                                    "type": "plugin",
+                                    "name": "Stop Docker Container",
+                                    "children": []
+                                },
+                                {
+                                    "allowFailure": false,
+                                    "useImpersonation": false,
+                                    "showHidden": false,
+                                    "impersonationUseSudo": false,
+                                    "commandName": "Remove Docker Container",
+                                    "pluginName": "Docker",
+                                    "pluginVersion": 5,
+                                    "properties": {
+                                        "container": "${p:docker.container.name}",
+                                        "dockerCommandOptions": "--force",
+                                        "globalOptions": "${p?:resource\/docker.opts}",
+                                        "envVars": ""
+                                    },
+                                    "type": "plugin",
+                                    "name": "Remove Docker Container",
+                                    "children": []
+                                },
+                                {
+                                    "type": "join",
+                                    "name": "3415bda2aafa244d16083d9f925b31",
+                                    "children": []
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "name": "Update Inventory",
+                        "description": "Empty process to help acquire component versions during a docker-compose up deployment.",
+                        "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+                        "takesVersion": true,
+                        "inventoryActionType": "ADD",
+                        "status": "Active",
+                        "configActionType": "ADD",
+                        "active": true,
+                        "path": "componentTemplates\/ae0636bd-11f4-4c44-941e-7024172de283\/processes\/3ad378ff-c500-47e2-ad33-f4bd90d41145",
+                        "propDefs": [],
+                        "rootActivity": {
+                            "edges": [{
+                                "to": "52ab313f7bd1d841136630fa150808",
+                                "type": "ALWAYS",
+                                "value": ""
+                            }],
+                            "offsets": [{
+                                "name": "52ab313f7bd1d841136630fa150808",
+                                "x": -5,
+                                "y": 420,
+                                "h": 80,
+                                "w": 120
+                            }],
+                            "layoutMode": "unknown",
+                            "type": "graph",
+                            "name": "250313bf-6122-4360-bbab-225e1d949aaa",
+                            "children": [{
+                                "type": "finish",
+                                "name": "52ab313f7bd1d841136630fa150808",
+                                "children": []
+                            }]
+                        }
+                    }
+                ],
+                "genericProcesses": [],
+                "teamMappings": []
+            },
+            "sourceConfigPluginName": "Docker",
+            "envPropDefs": [],
+            "resPropDefs": [],
+            "versionPropDefs": [
+                {
+                    "name": "dockerImageTag",
+                    "label": "dockerImageTag",
+                    "pattern": "",
+                    "type": "TEXT",
+                    "required": false,
+                    "description": "",
+                    "placeholder": ""
+                },
+                {
+                    "name": "registry",
+                    "label": "registry",
+                    "pattern": "",
+                    "type": "TEXT",
+                    "required": false,
+                    "description": "",
+                    "placeholder": ""
+                }
+            ],
+            "propSheetGroup": {"propSheets": [
+                {
+                    "name": "DockerTagImport",
+                    "properties": [
+                        {
+                            "name": "allowInsecure",
+                            "value": "false",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "api",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "CF_HOME",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "dockerImageName",
+                            "value": "user\/examplevotingapp_vote",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "dockerRegistryName",
+                            "value": "registry.oneibmcloud.com",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "dockerRegistryPassword",
+                            "value": "",
+                            "description": "",
+                            "secure": true
+                        },
+                        {
+                            "name": "org",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "region",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "registryType",
+                            "value": "false",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "space",
+                            "description": "",
+                            "secure": false
+                        }
+                    ]
+                },
+                {
+                    "name": "template",
+                    "properties": [
+                        {
+                            "name": "docker.container.name",
+                            "value": "${p:docker.image.name}-${p:environment.name}",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "docker.image.name",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "docker.qualified.image",
+                            "value": "${p?:docker.registry}\/${p:docker.image.name}:${p:version\/dockerImageTag}",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "docker.registry",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "docker.registry.email",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "docker.registry.password",
+                            "value": "",
+                            "description": "",
+                            "secure": true
+                        },
+                        {
+                            "name": "docker.registry.username",
+                            "value": "",
+                            "description": "",
+                            "secure": false
+                        }
+                    ]
+                },
+                {
+                    "name": "custom",
+                    "properties": [
+                        {
+                            "name": "compose.service",
+                            "value": "vote",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "docker.image.name",
+                            "value": "user\/examplevotingapp_vote",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "docker.registry.name",
+                            "value": "registry.oneibmcloud.com",
+                            "description": "",
+                            "secure": false
+                        }
+                    ]
+                }
+            ]},
+            "processes": [],
+            "configTemplates": [],
+            "genericProcesses": [],
+            "teamMappings": [],
+            "tags": [{
+                "id": "6576074f-5276-4275-b266-e63e8f4a826c",
+                "name": "compose.service",
+                "color": "#FFFFFF",
+                "description": "",
+                "objectType": "Component"
+            }]
+        },
+        {
+            "name": "example-voting-app-worker",
+            "description": "Compose service for image: user\/examplevotingapp_worker",
+            "created": 1481209766795,
+            "componentType": "STANDARD",
+            "ignoreQualifiers": 0,
+            "importAutomatically": false,
+            "useVfs": false,
+            "active": true,
+            "deleted": false,
+            "defaultVersionType": "FULL",
+            "cleanupDaysToKeep": 0,
+            "cleanupCountToKeep": 0,
+            "componentTemplate": {
+                "securityResourceId": "e41bdb97-1f8a-4206-94d4-4d39444fd80a",
+                "path": "componentTemplates\/ae0636bd-11f4-4c44-941e-7024172de283",
+                "name": "Docker Template",
+                "description": "",
+                "ignoreQualifiers": 0,
+                "componentType": "STANDARD",
+                "tags": [],
+                "active": true,
+                "envPropDefs": [],
+                "resPropDefs": [],
+                "propDefs": [
+                    {
+                        "name": "docker.image.name",
+                        "label": "Docker Image Name",
+                        "pattern": "",
+                        "type": "TEXT",
+                        "required": false,
+                        "description": "Name of the Docker image to use with this component. i.e. tomcat, nginx, ubuntu",
+                        "placeholder": ""
+                    },
+                    {
+                        "name": "docker.qualified.image",
+                        "label": "Fully Qualified Docker Image",
+                        "pattern": "",
+                        "type": "TEXT",
+                        "value": "${p?:docker.registry}${p:docker.image.name}:${p:version\/dockerImageTag}",
+                        "required": true,
+                        "description": "Name to pass into pull command, in the form, [REGISTRY_HOST[:REGISTRY_PORT]\/]NAME[:TAG]",
+                        "placeholder": ""
+                    },
+                    {
+                        "name": "docker.registry",
+                        "label": "Docker Registry",
+                        "pattern": "",
+                        "type": "TEXT",
+                        "required": false,
+                        "description": "Location of the docker registry used in pull commands",
+                        "placeholder": ""
+                    },
+                    {
+                        "name": "docker.container.name",
+                        "label": "Container Name",
+                        "pattern": "",
+                        "type": "TEXT",
+                        "value": "${p:docker.image.name}-${p:environment.name}",
+                        "required": true,
+                        "description": "Name to assign to the running docker container",
+                        "placeholder": ""
+                    }
+                ],
+                "properties": [],
+                "processes": [
+                    {
+                        "name": "Deploy",
+                        "description": "",
+                        "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+                        "takesVersion": true,
+                        "inventoryActionType": "ADD",
+                        "status": "Active",
+                        "configActionType": "ADD",
+                        "active": true,
+                        "path": "componentTemplates\/ae0636bd-11f4-4c44-941e-7024172de283\/processes\/5d8fb77b-5099-4f84-8638-70f38c513d4f",
+                        "propDefs": [],
+                        "rootActivity": {
+                            "edges": [
+                                {
+                                    "to": "3415bda2aafa244d16083d9f925b31",
+                                    "from": "Remove Docker Container",
+                                    "type": "ALWAYS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "Pull Docker Image",
+                                    "type": "ALWAYS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "3415bda2aafa244d16083d9f925b31",
+                                    "from": "Pull Docker Image",
+                                    "type": "SUCCESS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "efb4d1efddce74b0d171a47f62095d",
+                                    "from": "Run Docker Container",
+                                    "type": "SUCCESS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "Remove Docker Container",
+                                    "from": "Stop Docker Container",
+                                    "type": "ALWAYS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "Stop Docker Container",
+                                    "type": "ALWAYS",
+                                    "value": ""
+                                },
+                                {
+                                    "to": "Run Docker Container",
+                                    "from": "3415bda2aafa244d16083d9f925b31",
+                                    "type": "SUCCESS",
+                                    "value": ""
+                                }
+                            ],
+                            "offsets": [
+                                {
+                                    "name": "Stop Docker Container",
+                                    "x": 88.5,
+                                    "y": 90,
+                                    "h": 60,
+                                    "w": 230
+                                },
+                                {
+                                    "name": "Pull Docker Image",
+                                    "x": -215,
+                                    "y": 90,
+                                    "h": 60,
+                                    "w": 210
+                                },
+                                {
+                                    "name": "Run Docker Container",
+                                    "x": -75,
+                                    "y": 400,
+                                    "h": 60,
+                                    "w": 230
+                                },
+                                {
+                                    "name": "3415bda2aafa244d16083d9f925b31",
+                                    "x": -10,
+                                    "y": 300,
+                                    "h": 50,
+                                    "w": 100
+                                },
+                                {
+                                    "name": "Remove Docker Container",
+                                    "x": 78.5,
+                                    "y": 180,
+                                    "h": 60,
+                                    "w": 250
+                                },
+                                {
+                                    "name": "efb4d1efddce74b0d171a47f62095d",
+                                    "x": -5,
+                                    "y": 510,
+                                    "h": 50,
+                                    "w": 90
+                                }
+                            ],
+                            "layoutMode": "unknown",
+                            "type": "graph",
+                            "name": "111465d7-edca-40f3-b55d-73eef7a2804a",
+                            "children": [
+                                {
+                                    "type": "finish",
+                                    "name": "efb4d1efddce74b0d171a47f62095d",
+                                    "children": []
+                                },
+                                {
+                                    "allowFailure": false,
+                                    "useImpersonation": false,
+                                    "showHidden": false,
+                                    "impersonationUseSudo": false,
+                                    "commandName": "Pull Docker Image",
+                                    "pluginName": "Docker",
+                                    "pluginVersion": 5,
+                                    "properties": {
+                                        "image": "${p:docker.qualified.image}",
+                                        "commandOptions": "",
+                                        "globalOptions": "${p?:resource\/docker.opts}",
+                                        "envVars": ""
+                                    },
+                                    "type": "plugin",
+                                    "name": "Pull Docker Image",
+                                    "children": []
+                                },
+                                {
+                                    "allowFailure": false,
+                                    "useImpersonation": false,
+                                    "showHidden": false,
+                                    "impersonationUseSudo": false,
+                                    "commandName": "Run Docker Container",
+                                    "pluginName": "Docker",
+                                    "pluginVersion": 5,
+                                    "properties": {
+                                        "image": "${p:docker.qualified.image}",
+                                        "containerCommand": "",
+                                        "container": "${p:docker.container.name}",
+                                        "commandOptions": "-d\n",
+                                        "globalOptions": "${p?:resource\/docker.opts}",
+                                        "envVars": ""
+                                    },
+                                    "type": "plugin",
+                                    "name": "Run Docker Container",
+                                    "children": []
+                                },
+                                {
+                                    "allowFailure": false,
+                                    "useImpersonation": false,
+                                    "showHidden": false,
+                                    "impersonationUseSudo": false,
+                                    "commandName": "Stop Docker Container",
+                                    "pluginName": "Docker",
+                                    "pluginVersion": 5,
+                                    "properties": {
+                                        "container": "${p:docker.container.name}",
+                                        "commandOptions": "",
+                                        "globalOptions": "${p?:resource\/docker.opts}",
+                                        "envVars": ""
+                                    },
+                                    "type": "plugin",
+                                    "name": "Stop Docker Container",
+                                    "children": []
+                                },
+                                {
+                                    "allowFailure": false,
+                                    "useImpersonation": false,
+                                    "showHidden": false,
+                                    "impersonationUseSudo": false,
+                                    "commandName": "Remove Docker Container",
+                                    "pluginName": "Docker",
+                                    "pluginVersion": 5,
+                                    "properties": {
+                                        "container": "${p:docker.container.name}",
+                                        "dockerCommandOptions": "--force",
+                                        "globalOptions": "${p?:resource\/docker.opts}",
+                                        "envVars": ""
+                                    },
+                                    "type": "plugin",
+                                    "name": "Remove Docker Container",
+                                    "children": []
+                                },
+                                {
+                                    "type": "join",
+                                    "name": "3415bda2aafa244d16083d9f925b31",
+                                    "children": []
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "name": "Update Inventory",
+                        "description": "Empty process to help acquire component versions during a docker-compose up deployment.",
+                        "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+                        "takesVersion": true,
+                        "inventoryActionType": "ADD",
+                        "status": "Active",
+                        "configActionType": "ADD",
+                        "active": true,
+                        "path": "componentTemplates\/ae0636bd-11f4-4c44-941e-7024172de283\/processes\/3ad378ff-c500-47e2-ad33-f4bd90d41145",
+                        "propDefs": [],
+                        "rootActivity": {
+                            "edges": [{
+                                "to": "52ab313f7bd1d841136630fa150808",
+                                "type": "ALWAYS",
+                                "value": ""
+                            }],
+                            "offsets": [{
+                                "name": "52ab313f7bd1d841136630fa150808",
+                                "x": -5,
+                                "y": 420,
+                                "h": 80,
+                                "w": 120
+                            }],
+                            "layoutMode": "unknown",
+                            "type": "graph",
+                            "name": "250313bf-6122-4360-bbab-225e1d949aaa",
+                            "children": [{
+                                "type": "finish",
+                                "name": "52ab313f7bd1d841136630fa150808",
+                                "children": []
+                            }]
+                        }
+                    }
+                ],
+                "genericProcesses": [],
+                "teamMappings": []
+            },
+            "sourceConfigPluginName": "Docker",
+            "envPropDefs": [],
+            "resPropDefs": [],
+            "versionPropDefs": [
+                {
+                    "name": "dockerImageTag",
+                    "label": "dockerImageTag",
+                    "pattern": "",
+                    "type": "TEXT",
+                    "required": false,
+                    "description": "",
+                    "placeholder": ""
+                },
+                {
+                    "name": "registry",
+                    "label": "registry",
+                    "pattern": "",
+                    "type": "TEXT",
+                    "required": false,
+                    "description": "",
+                    "placeholder": ""
+                }
+            ],
+            "propSheetGroup": {"propSheets": [
+                {
+                    "name": "custom",
+                    "properties": [
+                        {
+                            "name": "compose.service",
+                            "value": "worker",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "docker.image.name",
+                            "value": "user\/examplevotingapp_worker",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "docker.registry.name",
+                            "value": "registry.oneibmcloud.com",
+                            "description": "",
+                            "secure": false
+                        }
+                    ]
+                },
+                {
+                    "name": "template",
+                    "properties": [
+                        {
+                            "name": "docker.container.name",
+                            "value": "${p:docker.image.name}-${p:environment.name}",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "docker.image.name",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "docker.qualified.image",
+                            "value": "${p?:docker.registry}\/${p:docker.image.name}:${p:version\/dockerImageTag}",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "docker.registry",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "docker.registry.email",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "docker.registry.password",
+                            "value": "",
+                            "description": "",
+                            "secure": true
+                        },
+                        {
+                            "name": "docker.registry.username",
+                            "value": "",
+                            "description": "",
+                            "secure": false
+                        }
+                    ]
+                },
+                {
+                    "name": "DockerTagImport",
+                    "properties": [
+                        {
+                            "name": "allowInsecure",
+                            "value": "false",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "api",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "CF_HOME",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "dockerImageName",
+                            "value": "user\/examplevotingapp_worker",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "dockerRegistryName",
+                            "value": "registry.oneibmcloud.com",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "dockerRegistryPassword",
+                            "value": "",
+                            "description": "",
+                            "secure": true
+                        },
+                        {
+                            "name": "org",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "region",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "registryType",
+                            "value": "false",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "space",
+                            "description": "",
+                            "secure": false
+                        }
+                    ]
+                }
+            ]},
+            "processes": [],
+            "configTemplates": [],
+            "genericProcesses": [],
+            "teamMappings": [],
+            "tags": [{
+                "id": "6576074f-5276-4275-b266-e63e8f4a826c",
+                "name": "compose.service",
+                "color": "#FFFFFF",
+                "description": "",
+                "objectType": "Component"
+            }]
+        }
+    ],
+    "environments": [
+        {
+            "name": "DEV (local)",
+            "description": "",
+            "color": "#00B2EF",
+            "requireApprovals": false,
+            "noSelfApprovals": false,
+            "exemptProcesses": [],
+            "lockSnapshots": false,
+            "cleanupDaysToKeep": 0,
+            "cleanupCountToKeep": 0,
+            "enableProcessHistoryCleanup": false,
+            "useSystemDefaultDays": true,
+            "historyCleanupDaysToKeep": 365,
+            "order": 0,
+            "active": true,
+            "propSheet": {"properties": []},
+            "templatePropSheet": {
+                "name": "template",
+                "properties": []
+            },
+            "baseResources": [],
+            "componentPropSheets": [
+                {
+                    "properties": [
+                        {
+                            "name": "POSTGRES-DATA",
+                            "value": "\/Users\/murad\/docker-vols\/postgres-data",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "RESULT-PORT",
+                            "value": "5001",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "VOTE-PORT",
+                            "value": "5000",
+                            "description": "",
+                            "secure": false
+                        }
+                    ],
+                    "componentName": "example-voting-app-comp"
+                },
+                {
+                    "properties": [{
+                        "name": "ICS",
+                        "value": "false",
+                        "description": "",
+                        "secure": false
+                    }],
+                    "componentName": "example-voting-app-db"
+                },
+                {
+                    "properties": [{
+                        "name": "ICS",
+                        "value": "false",
+                        "description": "",
+                        "secure": false
+                    }],
+                    "componentName": "example-voting-app-redis"
+                },
+                {
+                    "properties": [{
+                        "name": "ICS",
+                        "value": "false",
+                        "description": "",
+                        "secure": false
+                    }],
+                    "componentName": "example-voting-app-result"
+                },
+                {
+                    "properties": [{
+                        "name": "ICS",
+                        "value": "false",
+                        "description": "",
+                        "secure": false
+                    }],
+                    "componentName": "example-voting-app-vote"
+                },
+                {
+                    "properties": [{
+                        "name": "ICS",
+                        "value": "false",
+                        "description": "",
+                        "secure": false
+                    }],
+                    "componentName": "example-voting-app-worker"
+                }
+            ],
+            "versionConditions": [],
+            "teamMappings": []
+        },
+        {
+            "name": "QA (riddler-a)",
+            "description": "",
+            "color": "#008A52",
+            "requireApprovals": false,
+            "noSelfApprovals": false,
+            "exemptProcesses": [],
+            "lockSnapshots": false,
+            "cleanupDaysToKeep": 0,
+            "cleanupCountToKeep": 0,
+            "enableProcessHistoryCleanup": false,
+            "useSystemDefaultDays": true,
+            "historyCleanupDaysToKeep": 365,
+            "order": 1,
+            "active": true,
+            "propSheet": {"properties": []},
+            "templatePropSheet": {
+                "name": "template",
+                "properties": []
+            },
+            "baseResources": [],
+            "componentPropSheets": [
+                {
+                    "properties": [
+                        {
+                            "name": "POSTGRES-DATA",
+                            "value": "\/tmp\/postgres-data",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "RESULT-PORT",
+                            "value": "6001",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "VOTE-PORT",
+                            "value": "5999",
+                            "description": "",
+                            "secure": false
+                        }
+                    ],
+                    "componentName": "example-voting-app-comp"
+                },
+                {
+                    "properties": [{
+                        "name": "ICS",
+                        "value": "false",
+                        "description": "",
+                        "secure": false
+                    }],
+                    "componentName": "example-voting-app-db"
+                },
+                {
+                    "properties": [{
+                        "name": "ICS",
+                        "value": "false",
+                        "description": "",
+                        "secure": false
+                    }],
+                    "componentName": "example-voting-app-redis"
+                },
+                {
+                    "properties": [{
+                        "name": "ICS",
+                        "value": "false",
+                        "description": "",
+                        "secure": false
+                    }],
+                    "componentName": "example-voting-app-result"
+                },
+                {
+                    "properties": [{
+                        "name": "ICS",
+                        "value": "false",
+                        "description": "",
+                        "secure": false
+                    }],
+                    "componentName": "example-voting-app-vote"
+                },
+                {
+                    "properties": [{
+                        "name": "ICS",
+                        "value": "false",
+                        "description": "",
+                        "secure": false
+                    }],
+                    "componentName": "example-voting-app-worker"
+                }
+            ],
+            "versionConditions": [],
+            "teamMappings": []
+        },
+        {
+            "name": "INT (sandbox-swarm)",
+            "description": "",
+            "color": "#003F69",
+            "requireApprovals": false,
+            "noSelfApprovals": false,
+            "exemptProcesses": [],
+            "lockSnapshots": false,
+            "cleanupDaysToKeep": 0,
+            "cleanupCountToKeep": 0,
+            "enableProcessHistoryCleanup": false,
+            "useSystemDefaultDays": true,
+            "historyCleanupDaysToKeep": 365,
+            "order": 2,
+            "active": true,
+            "propSheet": {"properties": []},
+            "templatePropSheet": {
+                "name": "template",
+                "properties": []
+            },
+            "baseResources": [],
+            "componentPropSheets": [
+                {
+                    "properties": [
+                        {
+                            "name": "POSTGRES-DATA",
+                            "value": "\/var\/lib\/docker\/volumes\/examplevotingappcomp_db-data\/_data",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "RESULT-PORT",
+                            "value": "5001",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "VOTE-PORT",
+                            "value": "5000",
+                            "description": "",
+                            "secure": false
+                        }
+                    ],
+                    "componentName": "example-voting-app-comp"
+                },
+                {
+                    "properties": [{
+                        "name": "ICS",
+                        "value": "false",
+                        "description": "",
+                        "secure": false
+                    }],
+                    "componentName": "example-voting-app-db"
+                },
+                {
+                    "properties": [{
+                        "name": "ICS",
+                        "value": "false",
+                        "description": "",
+                        "secure": false
+                    }],
+                    "componentName": "example-voting-app-redis"
+                },
+                {
+                    "properties": [{
+                        "name": "ICS",
+                        "value": "false",
+                        "description": "",
+                        "secure": false
+                    }],
+                    "componentName": "example-voting-app-result"
+                },
+                {
+                    "properties": [{
+                        "name": "ICS",
+                        "value": "false",
+                        "description": "",
+                        "secure": false
+                    }],
+                    "componentName": "example-voting-app-vote"
+                },
+                {
+                    "properties": [{
+                        "name": "ICS",
+                        "value": "false",
+                        "description": "",
+                        "secure": false
+                    }],
+                    "componentName": "example-voting-app-worker"
+                }
+            ],
+            "versionConditions": [],
+            "teamMappings": []
+        },
+        {
+            "name": "PROD (sl-swarm)",
+            "description": "",
+            "color": "#A91024",
+            "requireApprovals": false,
+            "noSelfApprovals": false,
+            "exemptProcesses": [],
+            "lockSnapshots": false,
+            "cleanupDaysToKeep": 0,
+            "cleanupCountToKeep": 0,
+            "enableProcessHistoryCleanup": false,
+            "useSystemDefaultDays": true,
+            "historyCleanupDaysToKeep": 365,
+            "order": 3,
+            "active": true,
+            "propSheet": {"properties": []},
+            "templatePropSheet": {
+                "name": "template",
+                "properties": []
+            },
+            "baseResources": [],
+            "componentPropSheets": [
+                {
+                    "properties": [
+                        {
+                            "name": "POSTGRES-DATA",
+                            "value": "\/tmp\/postgres-data",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "RESULT-PORT",
+                            "value": "5001",
+                            "description": "",
+                            "secure": false
+                        },
+                        {
+                            "name": "VOTE-PORT",
+                            "value": "5000",
+                            "description": "",
+                            "secure": false
+                        }
+                    ],
+                    "componentName": "example-voting-app-comp"
+                },
+                {
+                    "properties": [{
+                        "name": "ICS",
+                        "value": "false",
+                        "description": "",
+                        "secure": false
+                    }],
+                    "componentName": "example-voting-app-db"
+                },
+                {
+                    "properties": [{
+                        "name": "ICS",
+                        "value": "false",
+                        "description": "",
+                        "secure": false
+                    }],
+                    "componentName": "example-voting-app-redis"
+                },
+                {
+                    "properties": [{
+                        "name": "ICS",
+                        "value": "false",
+                        "description": "",
+                        "secure": false
+                    }],
+                    "componentName": "example-voting-app-result"
+                },
+                {
+                    "properties": [{
+                        "name": "ICS",
+                        "value": "false",
+                        "description": "",
+                        "secure": false
+                    }],
+                    "componentName": "example-voting-app-vote"
+                },
+                {
+                    "properties": [{
+                        "name": "ICS",
+                        "value": "false",
+                        "description": "",
+                        "secure": false
+                    }],
+                    "componentName": "example-voting-app-worker"
+                }
+            ],
+            "versionConditions": [],
+            "teamMappings": []
+        }
+    ],
+    "statuses": [],
+    "processes": [],
+    "genericProcesses": [],
+    "teamMappings": [],
+    "tags": [],
+    "applicationTemplate": {
+        "name": "Docker Compose Application",
+        "description": "Always contains only one component with COMPOSE tag",
+        "applicationProcessList": [
+            {
+                "name": "Compose Down",
+                "description": "",
+                "inventoryManagementType": "AUTOMATIC",
+                "offlineAgentHandling": "PRE_EXECUTION_CHECK",
+                "rootActivity": {
+                    "edges": [
+                        {
+                            "to": "a76f35d0fc395a37053b3e972e3fc0",
+                            "from": "5433567f272aa69a2d1d649f419fc1",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "5433567f272aa69a2d1d649f419fc1",
+                            "type": "ALWAYS",
+                            "value": ""
+                        },
+                        {
+                            "to": "a76f35d0fc395a37053b3e972e3fc0",
+                            "from": "9f536f40bce8c66e6cb53d33cf3f95",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "9f536f40bce8c66e6cb53d33cf3f95",
+                            "type": "ALWAYS",
+                            "value": ""
+                        }
+                    ],
+                    "offsets": [
+                        {
+                            "name": "9f536f40bce8c66e6cb53d33cf3f95",
+                            "x": 70,
+                            "y": 155,
+                            "h": 70,
+                            "w": 290
+                        },
+                        {
+                            "name": "a76f35d0fc395a37053b3e972e3fc0",
+                            "x": -5,
+                            "y": 300,
+                            "h": 80,
+                            "w": 120
+                        },
+                        {
+                            "name": "5433567f272aa69a2d1d649f419fc1",
+                            "x": -250,
+                            "y": 155,
+                            "h": 70,
+                            "w": 290
+                        }
+                    ],
+                    "layoutMode": "unknown",
+                    "type": "graph",
+                    "name": "d8ef0930-1884-4dbc-897e-e44c72997211",
+                    "children": [
+                        {
+                            "type": "finish",
+                            "name": "a76f35d0fc395a37053b3e972e3fc0",
+                            "children": []
+                        },
+                        {
+                            "name": "5433567f272aa69a2d1d649f419fc1",
+                            "componentTag": {
+                                "id": "99ba1997-caa3-485c-8532-f24e8aa8e147",
+                                "name": "COMPOSE",
+                                "color": "#404041",
+                                "description": "Flag components that represent a docker compose file",
+                                "objectType": "Component"
+                            },
+                            "properties": [
+                                {
+                                    "name": "activity.componentProcess.name",
+                                    "value": "Compose Down"
+                                },
+                                {
+                                    "name": "maxCompIteration",
+                                    "value": "100"
+                                },
+                                {
+                                    "name": "maxIteration",
+                                    "value": "-1"
+                                },
+                                {
+                                    "name": "runOnlyOnFirst",
+                                    "value": "false"
+                                },
+                                {
+                                    "name": "failFast",
+                                    "value": "false"
+                                }
+                            ],
+                            "type": "multiComponentEnvironmentIterator",
+                            "children": [{
+                                "properties": [
+                                    {
+                                        "name": "runOnlyOnFirst",
+                                        "value": "false"
+                                    },
+                                    {
+                                        "name": "failFast",
+                                        "value": "false"
+                                    }
+                                ],
+                                "type": "componentEnvironmentIterator",
+                                "name": "ce4e180f278455a5d3d0027a91ad75",
+                                "children": [{
+                                    "status": "Active",
+                                    "selectionType": "ALL_EXISTING",
+                                    "type": "uninstallAllVersionsIterator",
+                                    "name": "2658f9db0e549bd9b547d23e9a86f2",
+                                    "children": [{
+                                        "componentProcessName": "Compose Down",
+                                        "allowFailure": false,
+                                        "properties": {"activity.componentProcess.name": "Compose Down"},
+                                        "type": "componentProcess",
+                                        "name": "Execute Compose Down",
+                                        "children": []
+                                    }]
+                                }]
+                            }]
+                        },
+                        {
+                            "name": "9f536f40bce8c66e6cb53d33cf3f95",
+                            "componentTag": {
+                                "id": "6576074f-5276-4275-b266-e63e8f4a826c",
+                                "name": "compose.service",
+                                "color": "#FFFFFF",
+                                "description": "",
+                                "objectType": "Component"
+                            },
+                            "properties": [
+                                {
+                                    "name": "activity.componentProcess.name",
+                                    "value": "Uninstall"
+                                },
+                                {
+                                    "name": "maxCompIteration",
+                                    "value": "100"
+                                },
+                                {
+                                    "name": "maxIteration",
+                                    "value": "-1"
+                                },
+                                {
+                                    "name": "runOnlyOnFirst",
+                                    "value": "false"
+                                },
+                                {
+                                    "name": "failFast",
+                                    "value": "false"
+                                }
+                            ],
+                            "type": "multiComponentEnvironmentIterator",
+                            "children": [{
+                                "properties": [{
+                                    "name": "runOnlyOnFirst",
+                                    "value": "false"
+                                }],
+                                "type": "componentEnvironmentIterator",
+                                "name": "44d768b459b449fa1584b03cedfd01",
+                                "children": [{
+                                    "status": "Active",
+                                    "selectionType": "ALL_EXISTING",
+                                    "type": "uninstallAllVersionsIterator",
+                                    "name": "7eeb9d83b40291d76d4482bfde3a61",
+                                    "children": [{
+                                        "componentProcessName": "Uninstall",
+                                        "allowFailure": false,
+                                        "properties": {"activity.componentProcess.name": "Uninstall"},
+                                        "type": "componentProcess",
+                                        "name": "Deactivate Docker Components",
+                                        "children": []
+                                    }]
+                                }]
+                            }]
+                        }
+                    ]
+                },
+                "propDefs": [],
+                "versionPresets": []
+            },
+            {
+                "name": "Compose Up",
+                "description": "",
+                "inventoryManagementType": "AUTOMATIC",
+                "offlineAgentHandling": "PRE_EXECUTION_CHECK",
+                "rootActivity": {
+                    "edges": [
+                        {
+                            "to": "eda656931ee8b86b6a420974bf1ec6",
+                            "from": "b256d7e33098c7345842b5f264dc4a",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "b256d7e33098c7345842b5f264dc4a",
+                            "type": "ALWAYS",
+                            "value": ""
+                        },
+                        {
+                            "to": "a76f35d0fc395a37053b3e972e3fc0",
+                            "from": "eda656931ee8b86b6a420974bf1ec6",
+                            "type": "SUCCESS",
+                            "value": ""
+                        }
+                    ],
+                    "offsets": [
+                        {
+                            "name": "b256d7e33098c7345842b5f264dc4a",
+                            "x": -80,
+                            "y": 145,
+                            "h": 70,
+                            "w": 270
+                        },
+                        {
+                            "name": "a76f35d0fc395a37053b3e972e3fc0",
+                            "x": -5,
+                            "y": 415,
+                            "h": 80,
+                            "w": 120
+                        },
+                        {
+                            "name": "eda656931ee8b86b6a420974bf1ec6",
+                            "x": -80,
+                            "y": 280,
+                            "h": 70,
+                            "w": 270
+                        }
+                    ],
+                    "layoutMode": "unknown",
+                    "type": "graph",
+                    "name": "b6577f44-bf3a-40bb-9938-b9ceb4f5aa5c",
+                    "children": [
+                        {
+                            "type": "finish",
+                            "name": "a76f35d0fc395a37053b3e972e3fc0",
+                            "children": []
+                        },
+                        {
+                            "name": "b256d7e33098c7345842b5f264dc4a",
+                            "componentTag": {
+                                "id": "99ba1997-caa3-485c-8532-f24e8aa8e147",
+                                "name": "COMPOSE",
+                                "color": "#404041",
+                                "description": "Flag components that represent a docker compose file",
+                                "objectType": "Component"
+                            },
+                            "properties": [
+                                {
+                                    "name": "activity.componentProcess.name",
+                                    "value": "Compose Up"
+                                },
+                                {
+                                    "name": "maxCompIteration",
+                                    "value": "100"
+                                },
+                                {
+                                    "name": "maxIteration",
+                                    "value": "-1"
+                                },
+                                {
+                                    "name": "runOnlyOnFirst",
+                                    "value": "false"
+                                },
+                                {
+                                    "name": "failFast",
+                                    "value": "false"
+                                }
+                            ],
+                            "type": "multiComponentEnvironmentIterator",
+                            "children": [{
+                                "properties": [
+                                    {
+                                        "name": "runOnlyOnFirst",
+                                        "value": "false"
+                                    },
+                                    {
+                                        "name": "failFast",
+                                        "value": "false"
+                                    }
+                                ],
+                                "type": "componentEnvironmentIterator",
+                                "name": "636c277150eee16f564390b3a83535",
+                                "children": [{
+                                    "status": "Active",
+                                    "type": "inventoryVersionDiff",
+                                    "name": "2dabfdf5-ff0d-489c-8350-dc4976eb6a5d",
+                                    "children": [{
+                                        "componentProcessName": "Compose Up",
+                                        "allowFailure": false,
+                                        "properties": {"activity.componentProcess.name": "Compose Up"},
+                                        "type": "componentProcess",
+                                        "name": "Execute Compose Up",
+                                        "children": []
+                                    }]
+                                }]
+                            }]
+                        },
+                        {
+                            "name": "eda656931ee8b86b6a420974bf1ec6",
+                            "componentTag": {
+                                "id": "6576074f-5276-4275-b266-e63e8f4a826c",
+                                "name": "compose.service",
+                                "color": "#FFFFFF",
+                                "description": "",
+                                "objectType": "Component"
+                            },
+                            "properties": [
+                                {
+                                    "name": "activity.componentProcess.name",
+                                    "value": "Version Add"
+                                },
+                                {
+                                    "name": "maxCompIteration",
+                                    "value": "100"
+                                },
+                                {
+                                    "name": "maxIteration",
+                                    "value": "-1"
+                                },
+                                {
+                                    "name": "runOnlyOnFirst",
+                                    "value": "false"
+                                },
+                                {
+                                    "name": "failFast",
+                                    "value": "false"
+                                }
+                            ],
+                            "type": "multiComponentEnvironmentIterator",
+                            "children": [{
+                                "properties": [{
+                                    "name": "runOnlyOnFirst",
+                                    "value": "false"
+                                }],
+                                "type": "componentEnvironmentIterator",
+                                "name": "27f3b742b0d1d316f358c164fea2a5",
+                                "children": [{
+                                    "status": "Active",
+                                    "type": "inventoryVersionDiff",
+                                    "name": "ddade895-3caa-4301-82ec-93f0fe62cb38",
+                                    "children": [{
+                                        "componentProcessName": "Version Add",
+                                        "allowFailure": false,
+                                        "properties": {"activity.componentProcess.name": "Version Add"},
+                                        "type": "componentProcess",
+                                        "name": "Version Override",
+                                        "children": []
+                                    }]
+                                }]
+                            }]
+                        }
+                    ]
+                },
+                "propDefs": [],
+                "versionPresets": []
+            },
+            {
+                "name": "Setup Application Environment",
+                "description": "",
+                "inventoryManagementType": "AUTOMATIC",
+                "offlineAgentHandling": "PRE_EXECUTION_CHECK",
+                "rootActivity": {
+                    "edges": [
+                        {
+                            "to": "12717b4acfd9066319fe743435a0f6",
+                            "from": "5321265cb8ae0746cbe74fb1339123",
+                            "type": "SUCCESS",
+                            "value": ""
+                        },
+                        {
+                            "to": "5321265cb8ae0746cbe74fb1339123",
+                            "type": "ALWAYS",
+                            "value": ""
+                        }
+                    ],
+                    "offsets": [
+                        {
+                            "name": "12717b4acfd9066319fe743435a0f6",
+                            "x": -5,
+                            "y": 350,
+                            "h": 80,
+                            "w": 120
+                        },
+                        {
+                            "name": "5321265cb8ae0746cbe74fb1339123",
+                            "x": -125,
+                            "y": 180,
+                            "h": 70,
+                            "w": 360
+                        }
+                    ],
+                    "layoutMode": "unknown",
+                    "type": "graph",
+                    "name": "946398d2-6462-4697-ac50-688bd8a595c9",
+                    "children": [
+                        {
+                            "type": "finish",
+                            "name": "12717b4acfd9066319fe743435a0f6",
+                            "children": []
+                        },
+                        {
+                            "name": "5321265cb8ae0746cbe74fb1339123",
+                            "componentTag": {
+                                "id": "99ba1997-caa3-485c-8532-f24e8aa8e147",
+                                "name": "COMPOSE",
+                                "color": "#404041",
+                                "description": "Flag components that represent a docker compose file",
+                                "objectType": "Component"
+                            },
+                            "properties": [
+                                {
+                                    "name": "activity.componentProcess.name",
+                                    "value": "Create Child Resources"
+                                },
+                                {
+                                    "name": "maxCompIteration",
+                                    "value": "100"
+                                },
+                                {
+                                    "name": "maxIteration",
+                                    "value": "-1"
+                                },
+                                {
+                                    "name": "runOnlyOnFirst",
+                                    "value": "false"
+                                },
+                                {
+                                    "name": "failFast",
+                                    "value": "false"
+                                }
+                            ],
+                            "type": "multiComponentEnvironmentIterator",
+                            "children": [{
+                                "properties": [{
+                                    "name": "runOnlyOnFirst",
+                                    "value": "false"
+                                }],
+                                "type": "componentEnvironmentIterator",
+                                "name": "2ad61c46842fb0b49ce37c94785859",
+                                "children": [{
+                                    "status": "Active",
+                                    "type": "inventoryVersionDiff",
+                                    "name": "8dc5cc33-6aaa-44a2-be5c-30b1ea53df98",
+                                    "children": [{
+                                        "componentProcessName": "Create Child Resources",
+                                        "allowFailure": false,
+                                        "properties": {"activity.componentProcess.name": "Create Child Resources"},
+                                        "type": "componentProcess",
+                                        "name": "Setup Application Environment Resources",
+                                        "children": []
+                                    }]
+                                }]
+                            }]
+                        }
+                    ]
+                },
+                "propDefs": [],
+                "versionPresets": []
+            }
+        ],
+        "genericProcesses": [],
+        "tagRequirements": [{
+            "type": "EQUALS",
+            "number": 1,
+            "tag": {
+                "objectType": "Component",
+                "name": "COMPOSE",
+                "description": "Flag components that represent a docker compose file",
+                "color": "#404041"
+            }
+        }],
+        "enforceCompleteSnapshots": false,
+        "environmentTemplates": [],
+        "propDefs": [],
+        "statuses": []
+    }
+}
