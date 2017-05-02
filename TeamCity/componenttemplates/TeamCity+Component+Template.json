@@ -1,0 +1,188 @@
+/**
+ * © Copyright IBM Corporation 2016.
+ * This is licensed under the following license.
+ * The Eclipse Public 1.0 License (http://www.eclipse.org/legal/epl-v10.html)
+ * U.S. Government Users Restricted Rights:  Use, duplication or disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ */
+ {
+    "securityResourceId": "7481a2d9-d1ff-45ab-a4d7-5de000073e95",
+    "path": "componentTemplates\/27dc6025-2e85-40cd-8145-41bd8015bccc",
+    "name": "TeamCity Component Template",
+    "description": "",
+    "ignoreQualifiers": 0,
+    "componentType": "STANDARD",
+    "tags": [],
+    "sourceConfigPluginName": "TeamCity",
+    "active": true,
+    "sourceConfigProperties": [
+        {
+            "name": "password",
+            "value": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128keyewaw|GnGHWPOsteTeUruEZ4pplA==|rkkflh3XLBsJ67KaPqmC8w==}",
+            "description": "",
+            "secure": true
+        },
+        {
+            "name": "repoUrl",
+            "value": "http:\/\/teamcity-server:8111",
+            "description": "",
+            "secure": false
+        },
+        {
+            "name": "user",
+            "value": "admin",
+            "description": "",
+            "secure": false
+        }
+    ],
+    "envPropDefs": [],
+    "resPropDefs": [],
+    "propDefs": [],
+    "properties": [],
+    "processes": [{
+        "name": "Deploy",
+        "description": "",
+        "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+        "takesVersion": true,
+        "inventoryActionType": "ADD",
+        "status": "Active",
+        "configActionType": "ADD",
+        "active": true,
+        "path": "componentTemplates\/27dc6025-2e85-40cd-8145-41bd8015bccc\/processes\/8157297d-2f18-4c11-b15f-bdb2e5362de3",
+        "propDefs": [],
+        "rootActivity": {
+            "edges": [
+                {
+                    "to": "ebe2c1e96905446aa4adb93eca7071",
+                    "from": "Shell Deploy",
+                    "type": "SUCCESS",
+                    "value": ""
+                },
+                {
+                    "to": "Download Artifacts",
+                    "from": "Clear Working Directory",
+                    "type": "SUCCESS",
+                    "value": ""
+                },
+                {
+                    "to": "Clear Working Directory",
+                    "type": "ALWAYS",
+                    "value": ""
+                },
+                {
+                    "to": "Shell Deploy",
+                    "from": "Download Artifacts",
+                    "type": "SUCCESS",
+                    "value": ""
+                }
+            ],
+            "offsets": [
+                {
+                    "name": "ebe2c1e96905446aa4adb93eca7071",
+                    "x": -5,
+                    "y": 550,
+                    "h": 80,
+                    "w": 120
+                },
+                {
+                    "name": "Download Artifacts",
+                    "x": -75,
+                    "y": 280,
+                    "h": 70,
+                    "w": 260
+                },
+                {
+                    "name": "Shell Deploy",
+                    "x": -35,
+                    "y": 415,
+                    "h": 70,
+                    "w": 180
+                },
+                {
+                    "name": "Clear Working Directory",
+                    "x": -100,
+                    "y": 145,
+                    "h": 70,
+                    "w": 310
+                }
+            ],
+            "layoutMode": "manual",
+            "type": "graph",
+            "name": "5843c116-1b31-4741-b3fa-1dae646169db",
+            "children": [
+                {
+                    "type": "finish",
+                    "name": "ebe2c1e96905446aa4adb93eca7071",
+                    "children": []
+                },
+                {
+                    "allowFailure": false,
+                    "useImpersonation": false,
+                    "showHidden": false,
+                    "impersonationUseSudo": false,
+                    "commandName": "Delete Files and Directories",
+                    "pluginName": "File Utils",
+                    "pluginVersion": 49,
+                    "properties": {
+                        "baseDir": ".",
+                        "includes": "**\/*",
+                        "excludes": "",
+                        "followSymlinks": "false",
+                        "caseSensitive": "true"
+                    },
+                    "type": "plugin",
+                    "name": "Clear Working Directory",
+                    "children": []
+                },
+                {
+                    "allowFailure": false,
+                    "useImpersonation": false,
+                    "showHidden": false,
+                    "impersonationUseSudo": false,
+                    "commandName": "Download Artifacts",
+                    "pluginName": "IBM UrbanCode Deploy Versioned File Storage",
+                    "pluginVersion": 27,
+                    "properties": {
+                        "directoryOffset": ".",
+                        "artifactSetBaseDir": "",
+                        "fileIncludePatterns": "**\/*",
+                        "fileExcludePatterns": "",
+                        "syncMode": "true",
+                        "fullVerification": "true",
+                        "setFileExecuteBits": "false",
+                        "verifyFileIntegrity": "false",
+                        "versionId": "${p:version.id}",
+                        "serverUrl": "${p:server.url}",
+                        "compId": "${p:component.id}",
+                        "resId": "${p:resource.id}",
+                        "charset": "",
+                        "label": ""
+                    },
+                    "type": "plugin",
+                    "name": "Download Artifacts",
+                    "children": []
+                },
+                {
+                    "allowFailure": false,
+                    "useImpersonation": false,
+                    "showHidden": false,
+                    "impersonationUseSudo": false,
+                    "commandName": "Shell",
+                    "pluginName": "Shell",
+                    "pluginVersion": 7,
+                    "properties": {
+                        "directoryOffset": ".",
+                        "shellInterpreter": "",
+                        "scriptBody": "echo \"Start deployment...\"\nls -l\necho \"End deployment.\"",
+                        "runAsDaemon": "false",
+                        "outputFile": ""
+                    },
+                    "type": "plugin",
+                    "name": "Shell Deploy",
+                    "children": []
+                }
+            ]
+        }
+    }],
+    "genericProcesses": [],
+    "teamMappings": []
+}
