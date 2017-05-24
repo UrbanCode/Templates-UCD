@@ -1,0 +1,395 @@
+{
+    "name": "Promote Image from BlueMix",
+    "description": "Sample process to pull a container image from Bluemix and push it to a different repository.",
+    "rootActivity": {
+        "edges": [
+            {
+                "to": "Push Docker Image",
+                "from": "Docker Login to Target Registry",
+                "type": "SUCCESS",
+                "value": ""
+            },
+            {
+                "to": "Pull Docker Image from Bluemix",
+                "from": "Login to Bluemix Container Registry",
+                "type": "SUCCESS",
+                "value": ""
+            },
+            {
+                "to": "5aaeff29d7727cfad2bc6b41f27a76",
+                "from": "Push Docker Image",
+                "type": "SUCCESS",
+                "value": ""
+            },
+            {
+                "to": "Tag Image",
+                "from": "Pull Docker Image from Bluemix",
+                "type": "SUCCESS",
+                "value": ""
+            },
+            {
+                "to": "Docker Login to Target Registry",
+                "from": "Tag Image",
+                "type": "SUCCESS",
+                "value": ""
+            },
+            {
+                "to": "Login to Bluemix Container Registry",
+                "from": "Login to Bluemix",
+                "type": "SUCCESS",
+                "value": ""
+            },
+            {
+                "to": "Login to Bluemix",
+                "type": "ALWAYS",
+                "value": ""
+            }
+        ],
+        "offsets": [
+            {
+                "name": "Login to Bluemix Container Registry",
+                "x": -105,
+                "y": 250,
+                "h": 70,
+                "w": 330
+            },
+            {
+                "name": "Login to Bluemix",
+                "x": -45,
+                "y": 130,
+                "h": 70,
+                "w": 200
+            },
+            {
+                "name": "Tag Image",
+                "x": -70,
+                "y": 490,
+                "h": 70,
+                "w": 250
+            },
+            {
+                "name": "Docker Login to Target Registry",
+                "x": -95,
+                "y": 610,
+                "h": 70,
+                "w": 300
+            },
+            {
+                "name": "5aaeff29d7727cfad2bc6b41f27a76",
+                "x": -5,
+                "y": 850,
+                "h": 80,
+                "w": 120
+            },
+            {
+                "name": "Pull Docker Image from Bluemix",
+                "x": -95,
+                "y": 370,
+                "h": 70,
+                "w": 300
+            },
+            {
+                "name": "Push Docker Image",
+                "x": -75,
+                "y": 730,
+                "h": 70,
+                "w": 260
+            }
+        ],
+        "layoutMode": "auto",
+        "type": "graph",
+        "name": "f0e12683-e4b9-47a1-b83f-54a20e15169b",
+        "children": [
+            {
+                "type": "finish",
+                "name": "5aaeff29d7727cfad2bc6b41f27a76",
+                "children": []
+            },
+            {
+                "allowFailure": false,
+                "useImpersonation": false,
+                "showHidden": false,
+                "impersonationUseSudo": false,
+                "commandName": "Shell",
+                "pluginName": "Shell",
+                "pluginVersion": 9,
+                "properties": {
+                    "directoryOffset": ".",
+                    "shellInterpreter": "",
+                    "scriptBody": "bx login -apikey ${p:bx.api.key} -s ${p:bx.space}",
+                    "runAsDaemon": "false",
+                    "outputFile": ""
+                },
+                "type": "plugin",
+                "name": "Login to Bluemix",
+                "children": []
+            },
+            {
+                "allowFailure": false,
+                "useImpersonation": false,
+                "showHidden": false,
+                "impersonationUseSudo": false,
+                "commandName": "Shell",
+                "pluginName": "Shell",
+                "pluginVersion": 9,
+                "properties": {
+                    "directoryOffset": ".",
+                    "shellInterpreter": "",
+                    "scriptBody": "bx cr login",
+                    "runAsDaemon": "false",
+                    "outputFile": ""
+                },
+                "type": "plugin",
+                "name": "Login to Bluemix Container Registry",
+                "children": []
+            },
+            {
+                "allowFailure": false,
+                "useImpersonation": false,
+                "showHidden": false,
+                "impersonationUseSudo": false,
+                "commandName": "Pull Docker Image",
+                "pluginName": "Docker",
+                "pluginVersion": 5,
+                "properties": {
+                    "image": "${p:bx.registry.hostname}\/${p:bx.repository}\/${p:bx.image}:${p:bx.image.tag}",
+                    "commandOptions": "",
+                    "globalOptions": "",
+                    "envVars": ""
+                },
+                "type": "plugin",
+                "name": "Pull Docker Image from Bluemix",
+                "children": []
+            },
+            {
+                "allowFailure": false,
+                "useImpersonation": false,
+                "showHidden": false,
+                "impersonationUseSudo": false,
+                "commandName": "Tag Docker Image",
+                "pluginName": "Docker",
+                "pluginVersion": 5,
+                "properties": {
+                    "image": "${p:bx.registry.hostname}\/${p:bx.repository}\/${p:bx.image}:${p:bx.image.tag}",
+                    "tag": "${p:target.registry.hostname}:${p:target.registry.port}\/${p:target.repository}\/${p:target.image}:${p:target.image.tag}",
+                    "commandOptions": "",
+                    "globalOptions": "",
+                    "envVars": ""
+                },
+                "type": "plugin",
+                "name": "Tag Image",
+                "children": []
+            },
+            {
+                "allowFailure": false,
+                "useImpersonation": false,
+                "showHidden": false,
+                "impersonationUseSudo": false,
+                "commandName": "Docker Login",
+                "pluginName": "Docker",
+                "pluginVersion": 5,
+                "properties": {
+                    "registry": "${p:target.registry.hostname}:${p:target.registry.port}",
+                    "dockerRegistryUserName": "${p:target.username}",
+                    "dockerRegistryUserPassword": "${p:target.password}",
+                    "dockerRegistryUserEmail": "",
+                    "globalOptions": "",
+                    "envVars": ""
+                },
+                "type": "plugin",
+                "name": "Docker Login to Target Registry",
+                "children": []
+            },
+            {
+                "allowFailure": false,
+                "useImpersonation": false,
+                "showHidden": false,
+                "impersonationUseSudo": false,
+                "commandName": "Push Docker Image",
+                "pluginName": "Docker",
+                "pluginVersion": 5,
+                "properties": {
+                    "image": "${p:target.registry.hostname}:${p:target.registry.port}\/${p:target.repository}\/${p:target.image}:${p:target.image.tag}",
+                    "commandOptions": "",
+                    "globalOptions": "",
+                    "envVars": ""
+                },
+                "type": "plugin",
+                "name": "Push Docker Image",
+                "children": []
+            }
+        ]
+    },
+    "properties": [
+        {
+            "name": "contextType",
+            "value": "Resource",
+            "description": "",
+            "secure": false
+        },
+        {
+            "name": "defaultResourceId",
+            "value": "7e768658-0690-43d7-8aaf-f05e18ae12ff",
+            "description": "",
+            "secure": false
+        },
+        {
+            "name": "workingDir",
+            "value": "${p:resource\/work.dir}\/${p:process.name}",
+            "description": "",
+            "secure": false
+        }
+    ],
+    "propDefs": [
+        {
+            "name": "bx.username",
+            "label": "Bluemix Username",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "",
+            "placeholder": ""
+        },
+        {
+            "name": "bx.api",
+            "label": "Bluemix API Endpoint",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "https:\/\/api.ng.bluemix.net ",
+            "required": false,
+            "description": "",
+            "placeholder": ""
+        },
+        {
+            "name": "bx.api.key",
+            "label": "Bluemix API Key",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "",
+            "placeholder": ""
+        },
+        {
+            "name": "bx.space",
+            "label": "Bluemix Space",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "",
+            "placeholder": ""
+        },
+        {
+            "name": "bx.organization",
+            "label": "Bluemix Organization",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "",
+            "placeholder": ""
+        },
+        {
+            "name": "bx.registry.hostname",
+            "label": "Bluemix Registry Hostname",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "registry.ng.bluemix.net",
+            "required": false,
+            "description": "",
+            "placeholder": ""
+        },
+        {
+            "name": "bx.repository",
+            "label": "Bluemix Repository",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "",
+            "placeholder": ""
+        },
+        {
+            "name": "bx.image",
+            "label": "Bluemix Image Name",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "",
+            "placeholder": ""
+        },
+        {
+            "name": "bx.image.tag",
+            "label": "Bluemix Image Tag",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "",
+            "placeholder": ""
+        },
+        {
+            "name": "target.username",
+            "label": "Target Registry Username",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "",
+            "placeholder": ""
+        },
+        {
+            "name": "target.password",
+            "label": "Target Registry Password",
+            "pattern": "",
+            "type": "SECURE",
+            "value": "",
+            "required": false,
+            "description": "",
+            "placeholder": ""
+        },
+        {
+            "name": "target.registry.hostname",
+            "label": "Target Registry Hostname",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "",
+            "placeholder": ""
+        },
+        {
+            "name": "target.registry.port",
+            "label": "Target Registry Port",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "",
+            "placeholder": ""
+        },
+        {
+            "name": "target.repository",
+            "label": "Target Repository",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": "",
+            "placeholder": ""
+        },
+        {
+            "name": "target.image",
+            "label": "Target Image Name",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "${p:bx.image}",
+            "required": false,
+            "description": "",
+            "placeholder": ""
+        },
+        {
+            "name": "target.image.tag",
+            "label": "Target Image Tag",
+            "pattern": "",
+            "type": "TEXT",
+            "value": "${p:bx.image.tag}",
+            "required": false,
+            "description": "",
+            "placeholder": ""
+        }
+    ],
+    "teamMappings": []
+}
