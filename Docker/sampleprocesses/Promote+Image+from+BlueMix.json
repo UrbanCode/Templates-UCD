@@ -1,5 +1,5 @@
 {
-    "name": "Promote Image from BlueMix",
+    "name": "Promote Image from Bluemix",
     "description": "Sample process to pull a container image from Bluemix and push it to a different repository.",
     "rootActivity": {
         "edges": [
