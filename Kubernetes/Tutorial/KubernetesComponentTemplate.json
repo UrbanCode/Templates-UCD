@@ -1,0 +1,203 @@
+{
+    "securityResourceId": "94e93798-2d68-4502-a444-b3b18a444d39",
+    "path": "componentTemplates\/4ca6099e-d538-40c0-be1c-7a4fc22281fe",
+    "name": "Kubernetes",
+    "description": "Template for a component containing a Kubernetes YAML file",
+    "ignoreQualifiers": 0,
+    "componentType": "STANDARD",
+    "tags": [],
+    "active": true,
+    "envPropDefs": [],
+    "resPropDefs": [],
+    "propDefs": [],
+    "properties": [],
+    "processes": [{
+        "name": "Process and Apply YAML File",
+        "description": "",
+        "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+        "takesVersion": true,
+        "inventoryActionType": "ADD",
+        "status": "Active",
+        "configActionType": "ADD",
+        "active": true,
+        "path": "componentTemplates\/4ca6099e-d538-40c0-be1c-7a4fc22281fe\/processes\/20d3a3bc-667f-4345-9561-52c356e49fb4",
+        "propDefs": [],
+        "rootActivity": {
+            "edges": [
+                {
+                    "to": "Download Artifacts",
+                    "from": "Clean working directory",
+                    "type": "SUCCESS",
+                    "value": ""
+                },
+                {
+                    "to": "Clean working directory",
+                    "type": "ALWAYS",
+                    "value": ""
+                },
+                {
+                    "to": "Process YAML File",
+                    "from": "Download Artifacts",
+                    "type": "SUCCESS",
+                    "value": ""
+                },
+                {
+                    "to": "dc49fce3ec74e6540cb9c65d9637fd",
+                    "from": "Apply Resources",
+                    "type": "SUCCESS",
+                    "value": ""
+                },
+                {
+                    "to": "Apply Resources",
+                    "from": "Process YAML File",
+                    "type": "SUCCESS",
+                    "value": ""
+                }
+            ],
+            "offsets": [
+                {
+                    "name": "Process YAML File",
+                    "x": -105,
+                    "y": 420,
+                    "h": 90,
+                    "w": 340
+                },
+                {
+                    "name": "Clean working directory",
+                    "x": -155,
+                    "y": 140,
+                    "h": 90,
+                    "w": 440
+                },
+                {
+                    "name": "Download Artifacts",
+                    "x": -110,
+                    "y": 280,
+                    "h": 90,
+                    "w": 350
+                },
+                {
+                    "name": "Apply Resources",
+                    "x": -95,
+                    "y": 560,
+                    "h": 90,
+                    "w": 320
+                },
+                {
+                    "name": "dc49fce3ec74e6540cb9c65d9637fd",
+                    "x": -5,
+                    "y": 700,
+                    "h": 90,
+                    "w": 140
+                }
+            ],
+            "layoutMode": "auto",
+            "type": "graph",
+            "name": "927cb340-5be8-4d60-baef-425071c5e04e",
+            "children": [
+                {
+                    "type": "finish",
+                    "name": "dc49fce3ec74e6540cb9c65d9637fd",
+                    "children": []
+                },
+                {
+                    "allowFailure": false,
+                    "useImpersonation": false,
+                    "showHidden": false,
+                    "impersonationUseSudo": false,
+                    "commandName": "Delete Files and Directories",
+                    "pluginName": "File Utils",
+                    "pluginVersion": 41,
+                    "properties": {
+                        "baseDir": ".",
+                        "includes": "**\/*\n*",
+                        "excludes": "",
+                        "followSymlinks": "false",
+                        "caseSensitive": "true"
+                    },
+                    "type": "plugin",
+                    "name": "Clean working directory",
+                    "children": []
+                },
+                {
+                    "allowFailure": false,
+                    "useImpersonation": false,
+                    "showHidden": false,
+                    "impersonationUseSudo": false,
+                    "commandName": "Download Artifacts",
+                    "pluginName": "IBM UrbanCode Deploy Versioned File Storage",
+                    "pluginVersion": 23,
+                    "properties": {
+                        "directoryOffset": ".",
+                        "artifactSetBaseDir": "",
+                        "fileIncludePatterns": "**\/*",
+                        "fileExcludePatterns": "",
+                        "syncMode": "true",
+                        "fullVerification": "true",
+                        "setFileExecuteBits": "false",
+                        "verifyFileIntegrity": "false",
+                        "versionId": "${p:version.id}",
+                        "serverUrl": "${p:server.url}",
+                        "compId": "${p:component.id}",
+                        "resId": "${p:resource.id}",
+                        "charset": "",
+                        "label": ""
+                    },
+                    "type": "plugin",
+                    "name": "Download Artifacts",
+                    "children": []
+                },
+                {
+                    "allowFailure": false,
+                    "useImpersonation": false,
+                    "showHidden": false,
+                    "impersonationUseSudo": false,
+                    "commandName": "Process YAML File",
+                    "pluginName": "Kubernetes",
+                    "pluginVersion": 8,
+                    "properties": {
+                        "yamlFile": "",
+                        "componentTemplate": "Docker Template",
+                        "serverUrl": "${p:server.url}",
+                        "authToken": "",
+                        "resource": "${p:resource.id}",
+                        "application": "${p:application.id}",
+                        "version": "${p:version.name}",
+                        "sourceConfigType": "Docker",
+                        "environmentName": "${p:environment.name}",
+                        "environment": "${p:environment.id}",
+                        "componentProcessRequest": "${p:request.id}",
+                        "applicationProcessRequest": "${p:parentRequest.id}"
+                    },
+                    "type": "plugin",
+                    "name": "Process YAML File",
+                    "children": []
+                },
+                {
+                    "allowFailure": false,
+                    "useImpersonation": false,
+                    "showHidden": false,
+                    "impersonationUseSudo": false,
+                    "commandName": "Apply Resources",
+                    "pluginName": "Kubernetes",
+                    "pluginVersion": 8,
+                    "properties": {
+                        "url": "",
+                        "username": "",
+                        "password": "",
+                        "namespace": "",
+                        "path": "",
+                        "globals": "",
+                        "flags": "",
+                        "filename": "ibm-ucd-kubernetes.yaml"
+                    },
+                    "type": "plugin",
+                    "name": "Apply Resources",
+                    "children": []
+                }
+            ]
+        }
+    }],
+    "genericProcesses": [],
+    "teamMappings": []
+}
