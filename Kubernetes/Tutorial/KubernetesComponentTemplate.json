@@ -1,6 +1,6 @@
 {
-    "securityResourceId": "94e93798-2d68-4502-a444-b3b18a444d39",
-    "path": "componentTemplates\/4ca6099e-d538-40c0-be1c-7a4fc22281fe",
+    "securityResourceId": "e2c952b4-1510-4a9a-8c2c-2d657b65dc2b",
+    "path": "componentTemplates\/2c8aea62-d0b7-418a-b37a-8c66003ad1b3",
     "name": "Kubernetes",
     "description": "Template for a component containing a Kubernetes YAML file",
     "ignoreQualifiers": 0,
@@ -20,10 +20,16 @@
         "status": "Active",
         "configActionType": "ADD",
         "active": true,
-        "path": "componentTemplates\/4ca6099e-d538-40c0-be1c-7a4fc22281fe\/processes\/20d3a3bc-667f-4345-9561-52c356e49fb4",
+        "path": "componentTemplates\/2c8aea62-d0b7-418a-b37a-8c66003ad1b3\/processes\/ff313f33-82c0-4fd6-acf9-7f22e4e3fb9e",
         "propDefs": [],
         "rootActivity": {
             "edges": [
+                {
+                    "to": "Replace Tokens",
+                    "from": "Download Artifacts",
+                    "type": "SUCCESS",
+                    "value": ""
+                },
                 {
                     "to": "Download Artifacts",
                     "from": "Clean working directory",
@@ -31,13 +37,8 @@
                     "value": ""
                 },
                 {
-                    "to": "Clean working directory",
-                    "type": "ALWAYS",
-                    "value": ""
-                },
-                {
                     "to": "Process YAML File",
-                    "from": "Download Artifacts",
+                    "from": "Replace Tokens",
                     "type": "SUCCESS",
                     "value": ""
                 },
@@ -45,6 +46,11 @@
                     "to": "dc49fce3ec74e6540cb9c65d9637fd",
                     "from": "Apply Resources",
                     "type": "SUCCESS",
+                    "value": ""
+                },
+                {
+                    "to": "Clean working directory",
+                    "type": "ALWAYS",
                     "value": ""
                 },
                 {
@@ -56,44 +62,51 @@
             ],
             "offsets": [
                 {
-                    "name": "Process YAML File",
-                    "x": -105,
-                    "y": 420,
-                    "h": 90,
-                    "w": 340
-                },
-                {
                     "name": "Clean working directory",
-                    "x": -155,
+                    "x": -180,
                     "y": 140,
                     "h": 90,
-                    "w": 440
+                    "w": 500
                 },
                 {
-                    "name": "Download Artifacts",
+                    "name": "Replace Tokens",
                     "x": -110,
-                    "y": 280,
+                    "y": 420,
                     "h": 90,
-                    "w": 350
+                    "w": 360
+                },
+                {
+                    "name": "Process YAML File",
+                    "x": -120,
+                    "y": 560,
+                    "h": 90,
+                    "w": 380
                 },
                 {
                     "name": "Apply Resources",
-                    "x": -95,
-                    "y": 560,
+                    "x": -110,
+                    "y": 700,
                     "h": 90,
-                    "w": 320
+                    "w": 360
                 },
                 {
                     "name": "dc49fce3ec74e6540cb9c65d9637fd",
                     "x": -5,
-                    "y": 700,
+                    "y": 840,
                     "h": 90,
-                    "w": 140
+                    "w": 150
+                },
+                {
+                    "name": "Download Artifacts",
+                    "x": -125,
+                    "y": 280,
+                    "h": 90,
+                    "w": 390
                 }
             ],
             "layoutMode": "auto",
             "type": "graph",
-            "name": "927cb340-5be8-4d60-baef-425071c5e04e",
+            "name": "55dbfecf-1823-466a-9379-2907be8efba1",
             "children": [
                 {
                     "type": "finish",
@@ -154,7 +167,7 @@
                     "impersonationUseSudo": false,
                     "commandName": "Process YAML File",
                     "pluginName": "Kubernetes",
-                    "pluginVersion": 8,
+                    "pluginVersion": 9,
                     "properties": {
                         "yamlFile": "",
                         "componentTemplate": "Docker Template",
@@ -193,6 +206,30 @@
                     },
                     "type": "plugin",
                     "name": "Apply Resources",
+                    "children": []
+                },
+                {
+                    "allowFailure": false,
+                    "useImpersonation": false,
+                    "showHidden": false,
+                    "impersonationUseSudo": false,
+                    "commandName": "Replace Tokens",
+                    "pluginName": "File Utils",
+                    "pluginVersion": 56,
+                    "properties": {
+                        "includes": "**\/*",
+                        "excludes": "",
+                        "envPropValues": "${p:environment\/allProperties}",
+                        "propertyPrefix": "",
+                        "explicitTokens": "",
+                        "startDelimiter": "@",
+                        "endDelimiter": "@",
+                        "propFile": "replace_tokens.properties",
+                        "dir": "",
+                        "customEncoding": ""
+                    },
+                    "type": "plugin",
+                    "name": "Replace Tokens",
                     "children": []
                 }
             ]
