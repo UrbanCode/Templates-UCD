@@ -1,240 +1,361 @@
 {
-    "securityResourceId": "e2c952b4-1510-4a9a-8c2c-2d657b65dc2b",
-    "path": "componentTemplates\/2c8aea62-d0b7-418a-b37a-8c66003ad1b3",
-    "name": "Kubernetes",
-    "description": "Template for a component containing a Kubernetes YAML file",
-    "ignoreQualifiers": 0,
-    "componentType": "STANDARD",
-    "tags": [],
-    "active": true,
-    "envPropDefs": [],
-    "resPropDefs": [],
-    "propDefs": [],
-    "properties": [],
-    "processes": [{
-        "name": "Process and Apply YAML File",
+    "name": "Kubernetes Application Template",
+    "description": "Application Template for Kubernetes deployments",
+    "applicationProcessList": [{
+        "name": "Deploy from YAML file",
         "description": "",
-        "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
-        "takesVersion": true,
-        "inventoryActionType": "ADD",
-        "status": "Active",
-        "configActionType": "ADD",
-        "active": true,
-        "path": "componentTemplates\/2c8aea62-d0b7-418a-b37a-8c66003ad1b3\/processes\/ff313f33-82c0-4fd6-acf9-7f22e4e3fb9e",
-        "propDefs": [],
+        "inventoryManagementType": "AUTOMATIC",
+        "offlineAgentHandling": "PRE_EXECUTION_CHECK",
         "rootActivity": {
             "edges": [
                 {
-                    "to": "Replace Tokens",
-                    "from": "Download Artifacts",
+                    "to": "94ed247900ef01c17c2f8349574c38",
+                    "from": "133977358e05920a66b142adb640f4",
                     "type": "SUCCESS",
                     "value": ""
                 },
                 {
-                    "to": "Download Artifacts",
-                    "from": "Clean working directory",
+                    "to": "133977358e05920a66b142adb640f4",
+                    "from": "36da1c52b7e93bfe61e083ae7c00c4",
                     "type": "SUCCESS",
                     "value": ""
                 },
                 {
-                    "to": "Process YAML File",
-                    "from": "Replace Tokens",
-                    "type": "SUCCESS",
-                    "value": ""
-                },
-                {
-                    "to": "dc49fce3ec74e6540cb9c65d9637fd",
-                    "from": "Apply Resources",
-                    "type": "SUCCESS",
-                    "value": ""
-                },
-                {
-                    "to": "Clean working directory",
+                    "to": "36da1c52b7e93bfe61e083ae7c00c4",
                     "type": "ALWAYS",
-                    "value": ""
-                },
-                {
-                    "to": "Apply Resources",
-                    "from": "Process YAML File",
-                    "type": "SUCCESS",
                     "value": ""
                 }
             ],
             "offsets": [
                 {
-                    "name": "Clean working directory",
-                    "x": -180,
-                    "y": 140,
-                    "h": 90,
-                    "w": 500
-                },
-                {
-                    "name": "Replace Tokens",
-                    "x": -110,
-                    "y": 420,
-                    "h": 90,
-                    "w": 360
-                },
-                {
-                    "name": "Process YAML File",
-                    "x": -120,
-                    "y": 560,
-                    "h": 90,
-                    "w": 380
-                },
-                {
-                    "name": "Apply Resources",
-                    "x": -110,
-                    "y": 700,
-                    "h": 90,
-                    "w": 360
-                },
-                {
-                    "name": "dc49fce3ec74e6540cb9c65d9637fd",
+                    "name": "94ed247900ef01c17c2f8349574c38",
                     "x": -5,
-                    "y": 840,
-                    "h": 90,
-                    "w": 150
+                    "y": 520,
+                    "h": 80,
+                    "w": 120
                 },
                 {
-                    "name": "Download Artifacts",
-                    "x": -125,
-                    "y": 280,
-                    "h": 90,
-                    "w": 390
+                    "name": "133977358e05920a66b142adb640f4",
+                    "x": -80,
+                    "y": 350,
+                    "h": 70,
+                    "w": 270
+                },
+                {
+                    "name": "36da1c52b7e93bfe61e083ae7c00c4",
+                    "x": -80,
+                    "y": 180,
+                    "h": 70,
+                    "w": 280
                 }
             ],
             "layoutMode": "auto",
             "type": "graph",
-            "name": "55dbfecf-1823-466a-9379-2907be8efba1",
+            "name": "01beafc5-6490-45aa-a28a-3ced6d34833f",
             "children": [
                 {
                     "type": "finish",
-                    "name": "dc49fce3ec74e6540cb9c65d9637fd",
+                    "name": "94ed247900ef01c17c2f8349574c38",
                     "children": []
                 },
                 {
-                    "allowFailure": false,
-                    "useImpersonation": false,
-                    "showHidden": false,
-                    "impersonationUseSudo": false,
-                    "commandName": "Delete Files and Directories",
-                    "pluginName": "File Utils",
-                    "pluginVersion": 41,
-                    "properties": {
-                        "baseDir": ".",
-                        "includes": "**\/*\n*",
-                        "excludes": "",
-                        "followSymlinks": "false",
-                        "caseSensitive": "true"
+                    "name": "133977358e05920a66b142adb640f4",
+                    "componentTag": {
+                        "id": "889d0ea0-1b09-4e2b-b6da-682b30b8a6d1",
+                        "name": "kubernetes.image",
+                        "color": "#FFFFFF",
+                        "description": "",
+                        "objectType": "Component"
                     },
-                    "type": "plugin",
-                    "name": "Clean working directory",
-                    "children": []
+                    "properties": [
+                        {
+                            "name": "activity.componentProcess.name",
+                            "value": "Update Inventory"
+                        },
+                        {
+                            "name": "maxCompIteration",
+                            "value": "100"
+                        },
+                        {
+                            "name": "maxIteration",
+                            "value": "-1"
+                        },
+                        {
+                            "name": "runOnlyOnFirst",
+                            "value": "false"
+                        },
+                        {
+                            "name": "failFast",
+                            "value": "false"
+                        }
+                    ],
+                    "type": "multiComponentEnvironmentIterator",
+                    "children": [{
+                        "properties": [
+                            {
+                                "name": "runOnlyOnFirst",
+                                "value": "false"
+                            },
+                            {
+                                "name": "failFast",
+                                "value": "false"
+                            }
+                        ],
+                        "type": "componentEnvironmentIterator",
+                        "name": "15246e32a3c1e9fbe97fc8d75dae30",
+                        "children": [{
+                            "status": "Active",
+                            "type": "inventoryVersionDiff",
+                            "name": "cc957c82-74e1-4330-906a-d36427ea6b71",
+                            "children": [{
+                                "componentProcessName": "Update Inventory",
+                                "allowFailure": false,
+                                "properties": {"activity.componentProcess.name": "Update Inventory"},
+                                "type": "componentProcess",
+                                "name": "Update Inventory",
+                                "children": []
+                            }]
+                        }]
+                    }]
                 },
                 {
-                    "allowFailure": false,
-                    "useImpersonation": false,
-                    "showHidden": false,
-                    "impersonationUseSudo": false,
-                    "commandName": "Download Artifacts",
-                    "pluginName": "IBM UrbanCode Deploy Versioned File Storage",
-                    "pluginVersion": 23,
-                    "properties": {
-                        "directoryOffset": ".",
-                        "artifactSetBaseDir": "",
-                        "fileIncludePatterns": "**\/*",
-                        "fileExcludePatterns": "",
-                        "syncMode": "true",
-                        "fullVerification": "true",
-                        "setFileExecuteBits": "false",
-                        "verifyFileIntegrity": "false",
-                        "versionId": "${p:version.id}",
-                        "serverUrl": "${p:server.url}",
-                        "compId": "${p:component.id}",
-                        "resId": "${p:resource.id}",
-                        "charset": "",
-                        "label": ""
+                    "name": "36da1c52b7e93bfe61e083ae7c00c4",
+                    "componentTag": {
+                        "id": "f30d4caa-d968-4ccd-ad6f-6fd5a9f0be37",
+                        "name": "Kubernetes",
+                        "color": "#008ABF",
+                        "description": "",
+                        "objectType": "Component"
                     },
-                    "type": "plugin",
-                    "name": "Download Artifacts",
-                    "children": []
-                },
-                {
-                    "allowFailure": false,
-                    "useImpersonation": false,
-                    "showHidden": false,
-                    "impersonationUseSudo": false,
-                    "commandName": "Process YAML File",
-                    "pluginName": "Kubernetes",
-                    "pluginVersion": 9,
-                    "properties": {
-                        "yamlFile": "",
-                        "componentTemplate": "Docker Template",
-                        "serverUrl": "${p:server.url}",
-                        "authToken": "",
-                        "resource": "${p:resource.id}",
-                        "application": "${p:application.id}",
-                        "version": "${p:version.name}",
-                        "sourceConfigType": "Docker",
-                        "environmentName": "${p:environment.name}",
-                        "environment": "${p:environment.id}",
-                        "componentProcessRequest": "${p:request.id}",
-                        "applicationProcessRequest": "${p:parentRequest.id}"
-                    },
-                    "type": "plugin",
-                    "name": "Process YAML File",
-                    "children": []
-                },
-                {
-                    "allowFailure": false,
-                    "useImpersonation": false,
-                    "showHidden": false,
-                    "impersonationUseSudo": false,
-                    "commandName": "Apply Resources",
-                    "pluginName": "Kubernetes",
-                    "pluginVersion": 8,
-                    "properties": {
-                        "url": "",
-                        "username": "",
-                        "password": "",
-                        "namespace": "",
-                        "path": "",
-                        "globals": "",
-                        "flags": "",
-                        "filename": "ibm-ucd-kubernetes.yaml"
-                    },
-                    "type": "plugin",
-                    "name": "Apply Resources",
-                    "children": []
-                },
-                {
-                    "allowFailure": false,
-                    "useImpersonation": false,
-                    "showHidden": false,
-                    "impersonationUseSudo": false,
-                    "commandName": "Replace Tokens",
-                    "pluginName": "File Utils",
-                    "pluginVersion": 56,
-                    "properties": {
-                        "includes": "**\/*",
-                        "excludes": "",
-                        "envPropValues": "${p:environment\/allProperties}",
-                        "propertyPrefix": "",
-                        "explicitTokens": "",
-                        "startDelimiter": "@",
-                        "endDelimiter": "@",
-                        "propFile": "replace_tokens.properties",
-                        "dir": "",
-                        "customEncoding": ""
-                    },
-                    "type": "plugin",
-                    "name": "Replace Tokens",
-                    "children": []
+                    "properties": [
+                        {
+                            "name": "activity.componentProcess.name",
+                            "value": "Process and Apply YAML File"
+                        },
+                        {
+                            "name": "maxCompIteration",
+                            "value": "100"
+                        },
+                        {
+                            "name": "maxIteration",
+                            "value": "-1"
+                        },
+                        {
+                            "name": "runOnlyOnFirst",
+                            "value": "false"
+                        },
+                        {
+                            "name": "failFast",
+                            "value": "false"
+                        }
+                    ],
+                    "type": "multiComponentEnvironmentIterator",
+                    "children": [{
+                        "properties": [{
+                            "name": "runOnlyOnFirst",
+                            "value": "false"
+                        }],
+                        "type": "componentEnvironmentIterator",
+                        "name": "657e71e4439054d19ccd5ad86153ca",
+                        "children": [{
+                            "status": "Active",
+                            "type": "inventoryVersionDiff",
+                            "name": "d22b7d24-f46f-4102-a850-b05c15e6c7ed",
+                            "children": [{
+                                "componentProcessName": "Process and Apply YAML File",
+                                "allowFailure": false,
+                                "properties": {"activity.componentProcess.name": "Process and Apply YAML File"},
+                                "type": "componentProcess",
+                                "name": "Process and Apply YAML File",
+                                "children": []
+                            }]
+                        }]
+                    }]
                 }
             ]
-        }
+        },
+        "propDefs": [],
+        "versionPresets": []
     }],
     "genericProcesses": [],
-    "teamMappings": []
+    "tagRequirements": [{
+        "type": "EQUALS",
+        "number": 1,
+        "tag": {
+            "objectType": "Component",
+            "name": "Kubernetes",
+            "description": "",
+            "color": "#008ABF"
+        }
+    }],
+    "enforceCompleteSnapshots": false,
+    "environmentTemplates": [
+        {
+            "name": "LOCAL",
+            "description": "",
+            "color": "#17AF4B",
+            "requireApproval": false,
+            "noSelfApprovals": false,
+            "lockSnapshots": false,
+            "cleanupDaysToKeep": 0,
+            "cleanupCountToKeep": 0,
+            "enableProcessHistoryCleanup": false,
+            "useSystemDefaultDays": true,
+            "historyCleanupDaysToKeep": 365,
+            "propDefs": [],
+            "resourceTemplate": {
+                "name": "Kubernetes Resource Template",
+                "resources": {
+                    "name": "Kubernetes Resource Template",
+                    "path": "\/Kubernetes Resource Template",
+                    "prototype": false,
+                    "children": [{
+                        "name": "Agent Prototype",
+                        "path": "\/Kubernetes Resource Template\/Agent Prototype",
+                        "description": "Agent Prototype",
+                        "parentName": "Kubernetes Resource Template",
+                        "role": "Agent Placeholder",
+                        "roleProperties": {
+                            "name": "Agent Placeholder",
+                            "properties": [{
+                                "name": "agentNamePatterns",
+                                "description": "",
+                                "secure": false
+                            }]
+                        },
+                        "prototype": false,
+                        "children": [{
+                            "name": "Kubernetes",
+                            "componentTag": {
+                                "objectType": "Component",
+                                "name": "Kubernetes",
+                                "description": "",
+                                "color": "#008ABF"
+                            },
+                            "path": "\/Kubernetes Resource Template\/Agent Prototype\/Kubernetes",
+                            "description": "",
+                            "parentName": "Agent Prototype",
+                            "prototype": false,
+                            "children": []
+                        }]
+                    }]
+                },
+                "description": ""
+            },
+            "versionConditions": [],
+            "exemptProcesses": []
+        },
+        {
+            "name": "PROD",
+            "description": "",
+            "color": "#D9182D",
+            "requireApproval": false,
+            "noSelfApprovals": false,
+            "lockSnapshots": false,
+            "cleanupDaysToKeep": 0,
+            "cleanupCountToKeep": 0,
+            "enableProcessHistoryCleanup": false,
+            "useSystemDefaultDays": true,
+            "historyCleanupDaysToKeep": 365,
+            "propDefs": [],
+            "resourceTemplate": {
+                "name": "Kubernetes Resource Template",
+                "resources": {
+                    "name": "Kubernetes Resource Template",
+                    "path": "\/Kubernetes Resource Template",
+                    "prototype": false,
+                    "children": [{
+                        "name": "Agent Prototype",
+                        "path": "\/Kubernetes Resource Template\/Agent Prototype",
+                        "description": "Agent Prototype",
+                        "parentName": "Kubernetes Resource Template",
+                        "role": "Agent Placeholder",
+                        "roleProperties": {
+                            "name": "Agent Placeholder",
+                            "properties": [{
+                                "name": "agentNamePatterns",
+                                "description": "",
+                                "secure": false
+                            }]
+                        },
+                        "prototype": false,
+                        "children": [{
+                            "name": "Kubernetes",
+                            "componentTag": {
+                                "objectType": "Component",
+                                "name": "Kubernetes",
+                                "description": "",
+                                "color": "#008ABF"
+                            },
+                            "path": "\/Kubernetes Resource Template\/Agent Prototype\/Kubernetes",
+                            "description": "",
+                            "parentName": "Agent Prototype",
+                            "prototype": false,
+                            "children": []
+                        }]
+                    }]
+                },
+                "description": ""
+            },
+            "versionConditions": [],
+            "exemptProcesses": []
+        },
+        {
+            "name": "QA",
+            "description": "",
+            "color": "#00B2EF",
+            "requireApproval": false,
+            "noSelfApprovals": false,
+            "lockSnapshots": false,
+            "cleanupDaysToKeep": 0,
+            "cleanupCountToKeep": 0,
+            "enableProcessHistoryCleanup": false,
+            "useSystemDefaultDays": true,
+            "historyCleanupDaysToKeep": 365,
+            "propDefs": [],
+            "resourceTemplate": {
+                "name": "Kubernetes Resource Template",
+                "resources": {
+                    "name": "Kubernetes Resource Template",
+                    "path": "\/Kubernetes Resource Template",
+                    "prototype": false,
+                    "children": [{
+                        "name": "Agent Prototype",
+                        "path": "\/Kubernetes Resource Template\/Agent Prototype",
+                        "description": "Agent Prototype",
+                        "parentName": "Kubernetes Resource Template",
+                        "role": "Agent Placeholder",
+                        "roleProperties": {
+                            "name": "Agent Placeholder",
+                            "properties": [{
+                                "name": "agentNamePatterns",
+                                "description": "",
+                                "secure": false
+                            }]
+                        },
+                        "prototype": false,
+                        "children": [{
+                            "name": "Kubernetes",
+                            "componentTag": {
+                                "objectType": "Component",
+                                "name": "Kubernetes",
+                                "description": "",
+                                "color": "#008ABF"
+                            },
+                            "path": "\/Kubernetes Resource Template\/Agent Prototype\/Kubernetes",
+                            "description": "",
+                            "parentName": "Agent Prototype",
+                            "prototype": false,
+                            "children": []
+                        }]
+                    }]
+                },
+                "description": ""
+            },
+            "versionConditions": [],
+            "exemptProcesses": []
+        }
+    ],
+    "propDefs": [],
+    "statuses": []
 }
