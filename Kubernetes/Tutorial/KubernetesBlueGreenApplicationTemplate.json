@@ -1,0 +1,490 @@
+{
+    "name": "Kubernetes Blue-Green Deployment Application Template",
+    "description": "Sample application template for Kubernetes deployments using a load balancer",
+    "applicationProcessList": [
+        {
+            "name": "Deploy Application from YAML",
+            "description": "",
+            "inventoryManagementType": "AUTOMATIC",
+            "offlineAgentHandling": "PRE_EXECUTION_CHECK",
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "97051bfcd6c0826b2afcf6fa533515",
+                        "from": "5682e109700ff4a42d38bf7776525a",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "4f7e5be0a276d29b7c32eccde026a8",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "5682e109700ff4a42d38bf7776525a",
+                        "from": "4f7e5be0a276d29b7c32eccde026a8",
+                        "type": "SUCCESS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "97051bfcd6c0826b2afcf6fa533515",
+                        "x": -5,
+                        "y": 500,
+                        "h": 80,
+                        "w": 120
+                    },
+                    {
+                        "name": "5682e109700ff4a42d38bf7776525a",
+                        "x": -80,
+                        "y": 350,
+                        "h": 70,
+                        "w": 270
+                    },
+                    {
+                        "name": "4f7e5be0a276d29b7c32eccde026a8",
+                        "x": -85,
+                        "y": 180,
+                        "h": 70,
+                        "w": 280
+                    }
+                ],
+                "layoutMode": "auto",
+                "type": "graph",
+                "name": "d4423359-3e32-49a4-b2ac-7f5dcb547ad0",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "97051bfcd6c0826b2afcf6fa533515",
+                        "children": []
+                    },
+                    {
+                        "name": "4f7e5be0a276d29b7c32eccde026a8",
+                        "componentTag": {
+                            "id": "d5a07ea3-4115-4880-8b96-8dbb33f758e3",
+                            "name": "Kubernetes",
+                            "color": "#008ABF",
+                            "description": "",
+                            "objectType": "Component"
+                        },
+                        "properties": [
+                            {
+                                "name": "activity.componentProcess.name",
+                                "value": "Process and Apply YAML File"
+                            },
+                            {
+                                "name": "maxCompIteration",
+                                "value": "100"
+                            },
+                            {
+                                "name": "maxIteration",
+                                "value": "-1"
+                            },
+                            {
+                                "name": "runOnlyOnFirst",
+                                "value": "false"
+                            },
+                            {
+                                "name": "failFast",
+                                "value": "false"
+                            }
+                        ],
+                        "type": "multiComponentEnvironmentIterator",
+                        "children": [{
+                            "properties": [{
+                                "name": "runOnlyOnFirst",
+                                "value": "false"
+                            }],
+                            "type": "componentEnvironmentIterator",
+                            "name": "dacdacea679d43b8a12826d1abea41",
+                            "children": [{
+                                "status": "Active",
+                                "type": "inventoryVersionDiff",
+                                "name": "315065c2-9d36-4ccf-9e33-577cdec75c5e",
+                                "children": [{
+                                    "componentProcessName": "Process and Apply YAML File",
+                                    "allowFailure": false,
+                                    "properties": {"activity.componentProcess.name": "Process and Apply YAML File"},
+                                    "type": "componentProcess",
+                                    "name": "Process and Apply YAML File",
+                                    "children": []
+                                }]
+                            }]
+                        }]
+                    },
+                    {
+                        "name": "5682e109700ff4a42d38bf7776525a",
+                        "componentTag": {
+                            "id": "19a8d02f-6c5f-47de-9b03-04451ba39d9e",
+                            "name": "kubernetes.image",
+                            "color": "#FFFFFF",
+                            "description": "",
+                            "objectType": "Component"
+                        },
+                        "properties": [
+                            {
+                                "name": "activity.componentProcess.name",
+                                "value": "Update Inventory"
+                            },
+                            {
+                                "name": "maxCompIteration",
+                                "value": "100"
+                            },
+                            {
+                                "name": "maxIteration",
+                                "value": "-1"
+                            },
+                            {
+                                "name": "runOnlyOnFirst",
+                                "value": "false"
+                            },
+                            {
+                                "name": "failFast",
+                                "value": "false"
+                            }
+                        ],
+                        "type": "multiComponentEnvironmentIterator",
+                        "children": [{
+                            "properties": [{
+                                "name": "runOnlyOnFirst",
+                                "value": "false"
+                            }],
+                            "type": "componentEnvironmentIterator",
+                            "name": "48830d6f4b223ff900dc139d1555c9",
+                            "children": [{
+                                "status": "Active",
+                                "type": "inventoryVersionDiff",
+                                "name": "9e5d123f-ba81-42d0-b3fb-9c383cbb10ae",
+                                "children": [{
+                                    "componentProcessName": "Update Inventory",
+                                    "allowFailure": false,
+                                    "properties": {"activity.componentProcess.name": "Update Inventory"},
+                                    "type": "componentProcess",
+                                    "name": "Update Inventory",
+                                    "children": []
+                                }]
+                            }]
+                        }]
+                    }
+                ]
+            },
+            "propDefs": [],
+            "versionPresets": []
+        },
+        {
+            "name": "Deploy Load Balancer from YAML",
+            "description": "",
+            "inventoryManagementType": "AUTOMATIC",
+            "offlineAgentHandling": "PRE_EXECUTION_CHECK",
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "97051bfcd6c0826b2afcf6fa533515",
+                        "from": "4f7e5be0a276d29b7c32eccde026a8",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "4f7e5be0a276d29b7c32eccde026a8",
+                        "type": "ALWAYS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "4f7e5be0a276d29b7c32eccde026a8",
+                        "x": -85,
+                        "y": 230,
+                        "h": 70,
+                        "w": 280
+                    },
+                    {
+                        "name": "97051bfcd6c0826b2afcf6fa533515",
+                        "x": -5,
+                        "y": 450,
+                        "h": 80,
+                        "w": 120
+                    }
+                ],
+                "layoutMode": "auto",
+                "type": "graph",
+                "name": "fea42241-4964-478a-b160-90b9eea4e300",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "97051bfcd6c0826b2afcf6fa533515",
+                        "children": []
+                    },
+                    {
+                        "name": "4f7e5be0a276d29b7c32eccde026a8",
+                        "componentTag": {
+                            "id": "f1607c48-06ff-4295-b50a-47d67b8916c8",
+                            "name": "Load Balancer",
+                            "color": "#FFCF01",
+                            "description": "",
+                            "objectType": "Component"
+                        },
+                        "properties": [
+                            {
+                                "name": "activity.componentProcess.name",
+                                "value": "Process and Apply YAML File"
+                            },
+                            {
+                                "name": "maxCompIteration",
+                                "value": "100"
+                            },
+                            {
+                                "name": "maxIteration",
+                                "value": "-1"
+                            },
+                            {
+                                "name": "runOnlyOnFirst",
+                                "value": "false"
+                            },
+                            {
+                                "name": "failFast",
+                                "value": "false"
+                            }
+                        ],
+                        "type": "multiComponentEnvironmentIterator",
+                        "children": [{
+                            "properties": [{
+                                "name": "runOnlyOnFirst",
+                                "value": "false"
+                            }],
+                            "type": "componentEnvironmentIterator",
+                            "name": "4d354a1b21e30cac143515cb0950ba",
+                            "children": [{
+                                "status": "Active",
+                                "type": "inventoryVersionDiff",
+                                "name": "0bc8af21-bb56-49ed-a6cd-f2b036d77449",
+                                "children": [{
+                                    "componentProcessName": "Process and Apply YAML File",
+                                    "allowFailure": false,
+                                    "properties": {"activity.componentProcess.name": "Process and Apply YAML File"},
+                                    "type": "componentProcess",
+                                    "name": "Process and Apply YAML File",
+                                    "children": []
+                                }]
+                            }]
+                        }]
+                    }
+                ]
+            },
+            "propDefs": [],
+            "versionPresets": []
+        }
+    ],
+    "genericProcesses": [],
+    "tagRequirements": [
+        {
+            "type": "EQUALS",
+            "number": 1,
+            "tag": {
+                "objectType": "Component",
+                "name": "Kubernetes",
+                "description": "",
+                "color": "#008ABF"
+            }
+        },
+        {
+            "type": "EQUALS",
+            "number": 1,
+            "tag": {
+                "objectType": "Component",
+                "name": "Load Balancer",
+                "description": "",
+                "color": "#FFCF01"
+            }
+        }
+    ],
+    "enforceCompleteSnapshots": false,
+    "environmentTemplates": [
+        {
+            "name": "Blue",
+            "description": "",
+            "color": "#00B2EF",
+            "requireApproval": false,
+            "noSelfApprovals": false,
+            "lockSnapshots": false,
+            "cleanupDaysToKeep": 0,
+            "cleanupCountToKeep": 0,
+            "enableProcessHistoryCleanup": false,
+            "useSystemDefaultDays": true,
+            "historyCleanupDaysToKeep": 365,
+            "propDefs": [{
+                "name": "color",
+                "label": "Color",
+                "pattern": "",
+                "type": "TEXT",
+                "value": "blue",
+                "required": true,
+                "description": "",
+                "placeholder": ""
+            }],
+            "resourceTemplate": {
+                "name": "Kubernetes Resource Template",
+                "resources": {
+                    "name": "Kubernetes Resource Template",
+                    "path": "\/Kubernetes Resource Template",
+                    "prototype": false,
+                    "children": [{
+                        "name": "Agent Prototype",
+                        "path": "\/Kubernetes Resource Template\/Agent Prototype",
+                        "description": "Agent Prototype",
+                        "parentName": "Kubernetes Resource Template",
+                        "role": "Agent Placeholder",
+                        "roleProperties": {
+                            "name": "Agent Placeholder",
+                            "properties": [{
+                                "name": "agentNamePatterns",
+                                "description": "",
+                                "secure": false
+                            }]
+                        },
+                        "prototype": false,
+                        "children": [{
+                            "name": "Kubernetes",
+                            "componentTag": {
+                                "objectType": "Component",
+                                "name": "Kubernetes",
+                                "description": "",
+                                "color": "#008ABF"
+                            },
+                            "path": "\/Kubernetes Resource Template\/Agent Prototype\/Kubernetes",
+                            "description": "",
+                            "parentName": "Agent Prototype",
+                            "prototype": false,
+                            "children": []
+                        }]
+                    }]
+                },
+                "description": ""
+            },
+            "versionConditions": [],
+            "exemptProcesses": []
+        },
+        {
+            "name": "Green",
+            "description": "",
+            "color": "#17AF4B",
+            "requireApproval": false,
+            "noSelfApprovals": false,
+            "lockSnapshots": false,
+            "cleanupDaysToKeep": 0,
+            "cleanupCountToKeep": 0,
+            "enableProcessHistoryCleanup": false,
+            "useSystemDefaultDays": true,
+            "historyCleanupDaysToKeep": 365,
+            "propDefs": [{
+                "name": "color",
+                "label": "Color",
+                "pattern": "",
+                "type": "TEXT",
+                "value": "green",
+                "required": true,
+                "description": "",
+                "placeholder": ""
+            }],
+            "resourceTemplate": {
+                "name": "Kubernetes Resource Template",
+                "resources": {
+                    "name": "Kubernetes Resource Template",
+                    "path": "\/Kubernetes Resource Template",
+                    "prototype": false,
+                    "children": [{
+                        "name": "Agent Prototype",
+                        "path": "\/Kubernetes Resource Template\/Agent Prototype",
+                        "description": "Agent Prototype",
+                        "parentName": "Kubernetes Resource Template",
+                        "role": "Agent Placeholder",
+                        "roleProperties": {
+                            "name": "Agent Placeholder",
+                            "properties": [{
+                                "name": "agentNamePatterns",
+                                "description": "",
+                                "secure": false
+                            }]
+                        },
+                        "prototype": false,
+                        "children": [{
+                            "name": "Kubernetes",
+                            "componentTag": {
+                                "objectType": "Component",
+                                "name": "Kubernetes",
+                                "description": "",
+                                "color": "#008ABF"
+                            },
+                            "path": "\/Kubernetes Resource Template\/Agent Prototype\/Kubernetes",
+                            "description": "",
+                            "parentName": "Agent Prototype",
+                            "prototype": false,
+                            "children": []
+                        }]
+                    }]
+                },
+                "description": ""
+            },
+            "versionConditions": [],
+            "exemptProcesses": []
+        },
+        {
+            "name": "Load Balancer",
+            "description": "",
+            "color": "#FFCF01",
+            "requireApproval": false,
+            "noSelfApprovals": false,
+            "lockSnapshots": false,
+            "cleanupDaysToKeep": 0,
+            "cleanupCountToKeep": 0,
+            "enableProcessHistoryCleanup": false,
+            "useSystemDefaultDays": true,
+            "historyCleanupDaysToKeep": 365,
+            "propDefs": [],
+            "resourceTemplate": {
+                "name": "Load Balancer Template",
+                "resources": {
+                    "name": "Load Balancer Template",
+                    "path": "\/Load Balancer Template",
+                    "prototype": false,
+                    "children": [{
+                        "name": "Agent Prototype",
+                        "path": "\/Load Balancer Template\/Agent Prototype",
+                        "description": "",
+                        "parentName": "Load Balancer Template",
+                        "role": "Agent Placeholder",
+                        "roleProperties": {
+                            "name": "Agent Placeholder",
+                            "properties": [{
+                                "name": "agentNamePatterns",
+                                "description": "",
+                                "secure": false
+                            }]
+                        },
+                        "prototype": false,
+                        "children": [{
+                            "name": "Load Balancer",
+                            "componentTag": {
+                                "objectType": "Component",
+                                "name": "Load Balancer",
+                                "description": "",
+                                "color": "#FFCF01"
+                            },
+                            "path": "\/Load Balancer Template\/Agent Prototype\/Load Balancer",
+                            "description": "",
+                            "parentName": "Agent Prototype",
+                            "prototype": false,
+                            "children": []
+                        }]
+                    }]
+                },
+                "description": ""
+            },
+            "versionConditions": [],
+            "exemptProcesses": []
+        }
+    ],
+    "propDefs": [],
+    "statuses": []
+}
