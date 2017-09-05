@@ -792,7 +792,7 @@
                         "pluginName": "Docker Compose",
                         "pluginVersion": 19,
                         "properties": {
-                            "composeFiles": "${p:docker-compose}",
+                            "composeFiles": "",
                             "composeProjectName": "",
                             "composeOptions": "",
                             "scriptPaths": "${p?:resource.envScriptPath}",
@@ -823,7 +823,7 @@
                         "pluginName": "Docker Compose",
                         "pluginVersion": 19,
                         "properties": {
-                            "composeFiles": "${p:docker-compose}",
+                            "composeFiles": "",
                             "componentTemplate": "Docker Template",
                             "serverUrl": "${p:server.url}",
                             "authToken": "",
@@ -851,7 +851,7 @@
                         "properties": {
                             "directoryOffset": ".",
                             "artifactSetBaseDir": "",
-                            "fileIncludePatterns": "${p:docker-compose}",
+                            "fileIncludePatterns": "**/*",
                             "fileExcludePatterns": "",
                             "syncMode": "true",
                             "fullVerification": "true",
