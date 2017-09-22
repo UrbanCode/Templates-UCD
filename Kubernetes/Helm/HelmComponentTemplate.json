@@ -1,0 +1,25 @@
+{
+    "securityResourceId": "4a531451-6659-4732-9618-805bf0cae017",
+    "path": "componentTemplates\/8e9dafae-b3c7-4326-9c89-904883ae22ba",
+    "name": "Helm Chart",
+    "description": "Template for components managing Helm charts",
+    "ignoreQualifiers": 0,
+    "componentType": "STANDARD",
+    "tags": [],
+    "active": true,
+    "envPropDefs": [],
+    "resPropDefs": [{
+        "name": "helm.release",
+        "label": "helm.release",
+        "pattern": "",
+        "type": "TEXT",
+        "required": false,
+        "description": "Name of the Helm release",
+        "placeholder": ""
+    }],
+    "propDefs": [],
+    "properties": [],
+    "processes": [],
+    "genericProcesses": [],
+    "teamMappings": []
+}
