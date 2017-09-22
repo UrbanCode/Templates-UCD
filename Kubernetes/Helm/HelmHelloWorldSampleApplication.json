@@ -1,0 +1,782 @@
+{
+    "name": "Helm Hello World App",
+    "description": "",
+    "enforceCompleteSnapshots": false,
+    "propSheet": {"properties": []},
+    "templatePropSheet": {
+        "name": "template",
+        "properties": []
+    },
+    "components": [{
+        "name": "Helm Hello World",
+        "description": "",
+        "created": 1504811140007,
+        "componentType": "STANDARD",
+        "ignoreQualifiers": 0,
+        "importAutomatically": false,
+        "useVfs": true,
+        "active": true,
+        "deleted": false,
+        "defaultVersionType": "FULL",
+        "cleanupDaysToKeep": 0,
+        "cleanupCountToKeep": 0,
+        "componentTemplate": {
+            "securityResourceId": "4a531451-6659-4732-9618-805bf0cae017",
+            "path": "componentTemplates\/8e9dafae-b3c7-4326-9c89-904883ae22ba",
+            "name": "Helm Chart",
+            "description": "",
+            "ignoreQualifiers": 0,
+            "componentType": "STANDARD",
+            "tags": [],
+            "active": true,
+            "envPropDefs": [],
+            "resPropDefs": [{
+                "name": "helm.release",
+                "label": "helm.release",
+                "pattern": "",
+                "type": "TEXT",
+                "required": false,
+                "description": "Name of the Helm release",
+                "placeholder": ""
+            }],
+            "propDefs": [],
+            "properties": [],
+            "processes": [],
+            "genericProcesses": [],
+            "teamMappings": []
+        },
+        "sourceConfigPluginName": "File System (Versioned)",
+        "envPropDefs": [],
+        "resPropDefs": [{
+            "name": "helm.release",
+            "label": "helm.release",
+            "pattern": "",
+            "type": "TEXT",
+            "required": false,
+            "description": ""
+        }],
+        "versionPropDefs": [],
+        "propSheetGroup": {"propSheets": [
+            {
+                "name": "template",
+                "properties": []
+            },
+            {
+                "name": "FileSystemVersionedComponentProperties",
+                "properties": [
+                    {
+                        "name": "basePath",
+                        "value": "\/home\/mra\/charts\/ucdbgdemo",
+                        "description": "",
+                        "secure": false
+                    },
+                    {
+                        "name": "excludes",
+                        "description": "",
+                        "secure": false
+                    },
+                    {
+                        "name": "extensions",
+                        "description": "",
+                        "secure": false
+                    },
+                    {
+                        "name": "includes",
+                        "description": "",
+                        "secure": false
+                    },
+                    {
+                        "name": "saveFileExecuteBits",
+                        "value": "false",
+                        "description": "",
+                        "secure": false
+                    }
+                ]
+            },
+            {
+                "name": "custom",
+                "properties": []
+            }
+        ]},
+        "processes": [{
+            "name": "Deploy Helm Chart",
+            "description": "",
+            "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+            "takesVersion": true,
+            "inventoryActionType": "ADD",
+            "status": "Active",
+            "configActionType": "ADD",
+            "active": true,
+            "path": "components\/9456f530-65f9-4d38-a4aa-affdec015939\/processes\/9fa113d6-2af4-42ae-999b-fa47b459c20b",
+            "propDefs": [],
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "Download Artifacts",
+                        "from": "Clean Working Directory",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Check Environment",
+                        "from": "Replace Tokens",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Get Environment Properties",
+                        "from": "Check Environment",
+                        "type": "VALUE",
+                        "value": "Prod - IBM Cloud private"
+                    },
+                    {
+                        "to": "Helm Does Release Exist",
+                        "from": "Helm Init",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Helm Init",
+                        "from": "Use Context",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Does Release Exist",
+                        "from": "Helm Does Release Exist",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "07520ec58c85c125088a7a6b661714",
+                        "from": "Helm Install",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Get Environment Properties",
+                        "from": "Create Environment Property",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Helm Install",
+                        "from": "Does Release Exist",
+                        "type": "VALUE",
+                        "value": "false"
+                    },
+                    {
+                        "to": "Connect to Bluemix",
+                        "from": "Check Environment",
+                        "type": "VALUE",
+                        "value": "Dev - Bluemix"
+                    },
+                    {
+                        "to": "Get Kube Config File - IBM Cloud",
+                        "from": "Connect to Bluemix",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Clean Working Directory",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Replace Tokens",
+                        "from": "Download Artifacts",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Helm Upgrade",
+                        "from": "Does Release Exist",
+                        "type": "VALUE",
+                        "value": "true"
+                    },
+                    {
+                        "to": "07520ec58c85c125088a7a6b661714",
+                        "from": "Helm Upgrade",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Create Environment Property",
+                        "from": "Get Kube Config File - IBM Cloud",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "Use Context",
+                        "from": "Get Environment Properties",
+                        "type": "SUCCESS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "Replace Tokens",
+                        "x": -85.9086798662239,
+                        "y": 400,
+                        "h": 80,
+                        "w": 280
+                    },
+                    {
+                        "name": "Helm Does Release Exist",
+                        "x": -94.09873060619776,
+                        "y": 1570,
+                        "h": 80,
+                        "w": 360
+                    },
+                    {
+                        "name": "Helm Install",
+                        "x": -165.4539707255353,
+                        "y": 1830,
+                        "h": 80,
+                        "w": 250
+                    },
+                    {
+                        "name": "Create Environment Property",
+                        "x": -70.4539707255353,
+                        "y": 920,
+                        "h": 80,
+                        "w": 390
+                    },
+                    {
+                        "name": "Use Context",
+                        "x": -84.73565705573668,
+                        "y": 1180,
+                        "h": 80,
+                        "w": 250
+                    },
+                    {
+                        "name": "Helm Upgrade",
+                        "x": 114.54602927446473,
+                        "y": 1830,
+                        "h": 80,
+                        "w": 270
+                    },
+                    {
+                        "name": "Does Release Exist",
+                        "x": -166.1517130778051,
+                        "y": 1700,
+                        "h": 80,
+                        "w": 530
+                    },
+                    {
+                        "name": "Helm Init",
+                        "x": -38.744716600680675,
+                        "y": 1440,
+                        "h": 80,
+                        "w": 220
+                    },
+                    {
+                        "name": "Download Artifacts",
+                        "x": -91.96955995540796,
+                        "y": 270,
+                        "h": 80,
+                        "w": 300
+                    },
+                    {
+                        "name": "Connect to Bluemix",
+                        "x": -2.9048486112767193,
+                        "y": 660,
+                        "h": 80,
+                        "w": 250
+                    },
+                    {
+                        "name": "Check Environment",
+                        "x": -126.70014938845213,
+                        "y": 530,
+                        "h": 80,
+                        "w": 350
+                    },
+                    {
+                        "name": "Get Kube Config File - IBM Cloud",
+                        "x": 54.09132013377612,
+                        "y": 790,
+                        "h": 80,
+                        "w": 420
+                    },
+                    {
+                        "name": "Get Environment Properties",
+                        "x": -167.92701562463725,
+                        "y": 1050,
+                        "h": 80,
+                        "w": 380
+                    },
+                    {
+                        "name": "Clean Working Directory",
+                        "x": -125,
+                        "y": 140,
+                        "h": 80,
+                        "w": 370
+                    },
+                    {
+                        "name": "07520ec58c85c125088a7a6b661714",
+                        "x": 39.5460292744647,
+                        "y": 1960,
+                        "h": 90,
+                        "w": 130
+                    }
+                ],
+                "layoutMode": "manual",
+                "type": "graph",
+                "name": "84a43b0a-461b-4b9d-a2b2-aa437e155d3d",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "07520ec58c85c125088a7a6b661714",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Delete Files and Directories",
+                        "pluginName": "File Utils",
+                        "pluginVersion": 49,
+                        "properties": {
+                            "baseDir": ".",
+                            "includes": "**\/*\r\n*",
+                            "excludes": "",
+                            "followSymlinks": "false",
+                            "caseSensitive": "true"
+                        },
+                        "type": "plugin",
+                        "name": "Clean Working Directory",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Download Artifacts",
+                        "pluginName": "IBM UrbanCode Deploy Versioned File Storage",
+                        "pluginVersion": 27,
+                        "properties": {
+                            "directoryOffset": "\/helm_chart",
+                            "artifactSetBaseDir": "",
+                            "fileIncludePatterns": "**\/*",
+                            "fileExcludePatterns": "",
+                            "syncMode": "true",
+                            "fullVerification": "true",
+                            "setFileExecuteBits": "false",
+                            "verifyFileIntegrity": "false",
+                            "versionId": "${p:version.id}",
+                            "serverUrl": "${p:server.url}",
+                            "compId": "${p:component.id}",
+                            "resId": "${p:resource.id}",
+                            "charset": "",
+                            "label": ""
+                        },
+                        "type": "plugin",
+                        "name": "Download Artifacts",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Replace Tokens",
+                        "pluginName": "File Utils",
+                        "pluginVersion": 49,
+                        "properties": {
+                            "includes": "**\/*",
+                            "excludes": "",
+                            "envPropValues": "${p:environment\/allProperties},${p:component\/allProperties},${p:resource\/allProperties},${p:environment\/allProperties}",
+                            "propertyPrefix": "",
+                            "explicitTokens": "",
+                            "startDelimiter": "@@@",
+                            "endDelimiter": "@@@",
+                            "propFile": "replace_tokens.properties",
+                            "dir": "",
+                            "customEncoding": ""
+                        },
+                        "type": "plugin",
+                        "name": "Replace Tokens",
+                        "children": []
+                    },
+                    {
+                        "propertyName": "${p:Helm Does Release Exist\/release-exists}",
+                        "type": "switch",
+                        "name": "Does Release Exist",
+                        "children": []
+                    },
+                    {
+                        "propertyName": "${p:environment.name}",
+                        "type": "switch",
+                        "name": "Check Environment",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Shell",
+                        "pluginName": "Shell",
+                        "pluginVersion": 7,
+                        "properties": {
+                            "directoryOffset": ".",
+                            "shellInterpreter": "",
+                            "scriptBody": "CHANGE_ME",
+                            "runAsDaemon": "false",
+                            "outputFile": ""
+                        },
+                        "type": "plugin",
+                        "name": "Connect to Bluemix",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Get Kube Config File - IBM Cloud",
+                        "pluginName": "Kubernetes",
+                        "pluginVersion": 11,
+                        "properties": {"cluster": "${p?:cluster.name}"},
+                        "type": "plugin",
+                        "name": "Get Kube Config File - IBM Cloud",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": true,
+                        "impersonationUseSudo": false,
+                        "commandName": "Helm Init",
+                        "pluginName": "Kubernetes",
+                        "pluginVersion": 11,
+                        "properties": {
+                            "cluster": "",
+                            "flags": "--client-only",
+                            "path": "",
+                            "kubeconfig": "${p:Get Environment Properties\/kubeconfig}"
+                        },
+                        "type": "plugin",
+                        "name": "Helm Init",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": true,
+                        "impersonationUseSudo": false,
+                        "commandName": "Helm Does Release Exist",
+                        "pluginName": "Kubernetes",
+                        "pluginVersion": 11,
+                        "properties": {
+                            "release": "${p:helm.release}",
+                            "flags": "",
+                            "path": "",
+                            "kubeconfig": "${p:Get Environment Properties\/kubeconfig}"
+                        },
+                        "type": "plugin",
+                        "name": "Helm Does Release Exist",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": true,
+                        "impersonationUseSudo": false,
+                        "commandName": "Helm Install",
+                        "pluginName": "Kubernetes",
+                        "pluginVersion": 11,
+                        "properties": {
+                            "chart": ".\/helm_chart",
+                            "version": "",
+                            "releaseName": "",
+                            "flags": "",
+                            "serverUrl": "${p:server.url}",
+                            "path": "",
+                            "resourceId": "${p:resource.id}",
+                            "kubeconfig": "${p:Get Environment Properties\/kubeconfig}"
+                        },
+                        "type": "plugin",
+                        "name": "Helm Install",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": true,
+                        "impersonationUseSudo": false,
+                        "commandName": "Helm Upgrade",
+                        "pluginName": "Kubernetes",
+                        "pluginVersion": 11,
+                        "properties": {
+                            "release": "${p:helm.release}",
+                            "chart": ".\/helm_chart",
+                            "flags": "",
+                            "path": "",
+                            "kubeconfig": "${p:Get Environment Properties\/kubeconfig}"
+                        },
+                        "type": "plugin",
+                        "name": "Helm Upgrade",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": false,
+                        "impersonationUseSudo": false,
+                        "commandName": "Create Environment Property",
+                        "pluginName": "IBM UrbanCode Deploy Environments",
+                        "pluginVersion": 72,
+                        "properties": {
+                            "application": "${p:application.name}",
+                            "environment": "${p:environment.name}",
+                            "name": "kubeconfig",
+                            "value": "${p?:Get Kube Config File - IBM Cloud\/kubeconfig}",
+                            "isSecure": "false"
+                        },
+                        "type": "plugin",
+                        "name": "Create Environment Property",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": true,
+                        "impersonationUseSudo": false,
+                        "commandName": "Use Context",
+                        "pluginName": "Kubernetes",
+                        "pluginVersion": 11,
+                        "properties": {
+                            "url": "",
+                            "username": "",
+                            "password": "",
+                            "namespace": "",
+                            "path": "",
+                            "globals": "--kubeconfig=${p:Get Environment Properties\/kubeconfig}",
+                            "contextname": "${p:kube.context}"
+                        },
+                        "type": "plugin",
+                        "name": "Use Context",
+                        "children": []
+                    },
+                    {
+                        "allowFailure": false,
+                        "useImpersonation": false,
+                        "showHidden": true,
+                        "impersonationUseSudo": false,
+                        "commandName": "Get Environment Properties",
+                        "pluginName": "IBM UrbanCode Deploy Environments",
+                        "pluginVersion": 72,
+                        "properties": {
+                            "application": "${p:application.name}",
+                            "environment": "${p:environment.name}"
+                        },
+                        "type": "plugin",
+                        "name": "Get Environment Properties",
+                        "children": []
+                    }
+                ]
+            }
+        }],
+        "configTemplates": [],
+        "genericProcesses": [],
+        "teamMappings": [],
+        "tags": []
+    }],
+    "environments": [
+        {
+            "name": "Dev - Bluemix",
+            "description": "",
+            "color": "#003F69",
+            "requireApprovals": false,
+            "noSelfApprovals": false,
+            "exemptProcesses": [],
+            "lockSnapshots": false,
+            "cleanupDaysToKeep": 0,
+            "cleanupCountToKeep": 0,
+            "enableProcessHistoryCleanup": false,
+            "useSystemDefaultDays": true,
+            "historyCleanupDaysToKeep": 365,
+            "order": 0,
+            "active": true,
+            "propSheet": {"properties": [
+                {
+                    "name": "cluster.name",
+                    "value": "CHANGE_ME",
+                    "description": "",
+                    "secure": false
+                },
+                {
+                    "name": "hello.name",
+                    "value": "${p:environment.name}",
+                    "description": "",
+                    "secure": false
+                },
+                {
+                    "name": "kube.context",
+                    "value": "${p:cluster.name}",
+                    "description": "",
+                    "secure": false
+                },
+                {
+                    "name": "kubeconfig",
+                    "description": "",
+                    "secure": false
+                }
+            ]},
+            "templatePropSheet": {
+                "name": "template",
+                "properties": []
+            },
+            "baseResources": [{
+                "path": "\/Helm HW\/DEV",
+                "id": "170ae757-9aed-49b4-9062-cd86f3a3522d"
+            }],
+            "componentPropSheets": [{
+                "properties": [],
+                "componentName": "Helm Hello World"
+            }],
+            "versionConditions": [],
+            "teamMappings": []
+        },
+        {
+            "name": "Prod - IBM Cloud private",
+            "description": "",
+            "color": "#17AF4B",
+            "requireApprovals": false,
+            "noSelfApprovals": false,
+            "exemptProcesses": [],
+            "lockSnapshots": false,
+            "cleanupDaysToKeep": 0,
+            "cleanupCountToKeep": 0,
+            "enableProcessHistoryCleanup": false,
+            "useSystemDefaultDays": true,
+            "historyCleanupDaysToKeep": 365,
+            "order": 1,
+            "active": true,
+            "propSheet": {"properties": [
+                {
+                    "name": "hello.name",
+                    "value": "${p:environment.name}",
+                    "description": "",
+                    "secure": false
+                },
+                {
+                    "name": "kube.context",
+                    "value": "cfc",
+                    "description": "",
+                    "secure": false
+                },
+                {
+                    "name": "kubeconfig",
+                    "value": "\/root\/.kube\/config",
+                    "description": "",
+                    "secure": false
+                }
+            ]},
+            "templatePropSheet": {
+                "name": "template",
+                "properties": []
+            },
+            "baseResources": [{
+                "path": "\/Helm HW\/Prod - IBM Cloud private",
+                "id": "02cd0db5-2688-4e16-93ee-849870232218"
+            }],
+            "componentPropSheets": [{
+                "properties": [],
+                "componentName": "Helm Hello World"
+            }],
+            "versionConditions": [],
+            "teamMappings": []
+        }
+    ],
+    "statuses": [],
+    "processes": [{
+        "name": "Deploy Helm Chart",
+        "description": "",
+        "inventoryManagementType": "AUTOMATIC",
+        "offlineAgentHandling": "PRE_EXECUTION_CHECK",
+        "rootActivity": {
+            "edges": [
+                {
+                    "to": "d707162f506fd122c5d8146df8b891",
+                    "type": "ALWAYS",
+                    "value": ""
+                },
+                {
+                    "to": "5f0e7eda77c318f5b1f9c2825dcd57",
+                    "from": "d707162f506fd122c5d8146df8b891",
+                    "type": "SUCCESS",
+                    "value": ""
+                }
+            ],
+            "offsets": [
+                {
+                    "name": "5f0e7eda77c318f5b1f9c2825dcd57",
+                    "x": -5,
+                    "y": 430,
+                    "h": 80,
+                    "w": 120
+                },
+                {
+                    "name": "d707162f506fd122c5d8146df8b891",
+                    "x": -50,
+                    "y": 230,
+                    "h": 50,
+                    "w": 250
+                }
+            ],
+            "layoutMode": "auto",
+            "type": "graph",
+            "name": "f438b5b2-1df5-48ee-8574-4ddd34e137c6",
+            "children": [
+                {
+                    "type": "finish",
+                    "name": "5f0e7eda77c318f5b1f9c2825dcd57",
+                    "children": []
+                },
+                {
+                    "componentName": "Helm Hello World",
+                    "properties": [
+                        {
+                            "name": "maxIteration",
+                            "value": "-1"
+                        },
+                        {
+                            "name": "runOnlyOnFirst",
+                            "value": "false"
+                        },
+                        {
+                            "name": "failFast",
+                            "value": "false"
+                        }
+                    ],
+                    "type": "componentEnvironmentIterator",
+                    "name": "d707162f506fd122c5d8146df8b891",
+                    "children": [{
+                        "componentName": "Helm Hello World",
+                        "status": "Active",
+                        "type": "inventoryVersionDiff",
+                        "name": "db6ba2fc-08c4-469b-b1ce-d2574032e0ad",
+                        "children": [{
+                            "componentProcessName": "Deploy Helm Chart",
+                            "componentName": "Helm Hello World",
+                            "allowFailure": false,
+                            "properties": {},
+                            "type": "componentProcess",
+                            "name": "Install Helm Hello World",
+                            "children": []
+                        }]
+                    }]
+                }
+            ]
+        },
+        "propDefs": [],
+        "versionPresets": []
+    }],
+    "genericProcesses": [],
+    "teamMappings": [],
+    "tags": []
+}
