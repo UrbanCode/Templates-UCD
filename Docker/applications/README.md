@@ -20,4 +20,4 @@ Summary: This application takes advantage of the [example-voting-app](https://gi
 
 ### DockerSwarmGettingStarted Application
 ![SwarmGettingStarted - Screenshot](https://ibm.box.com/s/46jy1m4nqw5vlenm62zgl33gn7idvdxd)
-Summary: This application implements the [Get started with Docker] (https://docs.docker.com/get-started/) guide for swarm mode. It will create a swarm, join workers to the swarm and deploy a simple HelloWorld application.
+Summary: This application implements the [Get started with Docker](https://docs.docker.com/get-started/) guide for swarm mode. It will create a swarm, join workers to the swarm and deploy a simple HelloWorld application.
