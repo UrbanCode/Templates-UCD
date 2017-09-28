@@ -19,5 +19,5 @@ Summary: This application takes advantage of the [AcmeAir-Nodejs](https://github
 Summary: This application takes advantage of the [example-voting-app](https://github.com/docker/example-voting-app)  GitHub project. Another deployment example through a multi-container application.
 
 ### DockerSwarmGettingStarted Application
-![SwarmGettingStarted - Screenshot](https://ibm.box.com/s/46jy1m4nqw5vlenm62zgl33gn7idvdxd)
+![SwarmGettingStarted - Screenshot](https://ibm.box.com/shared/static/46jy1m4nqw5vlenm62zgl33gn7idvdxd.png)
 Summary: This application implements the [Get started with Docker](https://docs.docker.com/get-started/) guide for swarm mode. It will create a swarm, join workers to the swarm and deploy a simple HelloWorld application.
