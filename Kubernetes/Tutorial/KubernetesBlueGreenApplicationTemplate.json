@@ -10,12 +10,6 @@
             "rootActivity": {
                 "edges": [
                     {
-                        "to": "97051bfcd6c0826b2afcf6fa533515",
-                        "from": "5682e109700ff4a42d38bf7776525a",
-                        "type": "SUCCESS",
-                        "value": ""
-                    },
-                    {
                         "to": "4f7e5be0a276d29b7c32eccde026a8",
                         "type": "ALWAYS",
                         "value": ""
@@ -23,6 +17,12 @@
                     {
                         "to": "5682e109700ff4a42d38bf7776525a",
                         "from": "4f7e5be0a276d29b7c32eccde026a8",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "97051bfcd6c0826b2afcf6fa533515",
+                        "from": "5682e109700ff4a42d38bf7776525a",
                         "type": "SUCCESS",
                         "value": ""
                     }
@@ -52,7 +52,7 @@
                 ],
                 "layoutMode": "auto",
                 "type": "graph",
-                "name": "d4423359-3e32-49a4-b2ac-7f5dcb547ad0",
+                "name": "b78e078f-07ef-4324-860e-d84e4df16652",
                 "children": [
                     {
                         "type": "finish",
@@ -101,7 +101,7 @@
                             "children": [{
                                 "status": "Active",
                                 "type": "inventoryVersionDiff",
-                                "name": "315065c2-9d36-4ccf-9e33-577cdec75c5e",
+                                "name": "2af8d811-4b7e-4202-a37d-4fd44b274d68",
                                 "children": [{
                                     "componentProcessName": "Process and Apply YAML File",
                                     "allowFailure": false,
@@ -155,7 +155,7 @@
                             "children": [{
                                 "status": "Active",
                                 "type": "inventoryVersionDiff",
-                                "name": "9e5d123f-ba81-42d0-b3fb-9c383cbb10ae",
+                                "name": "4f8ae8b0-5fc1-4240-b602-6773a32d98e1",
                                 "children": [{
                                     "componentProcessName": "Update Inventory",
                                     "allowFailure": false,
@@ -180,36 +180,36 @@
             "rootActivity": {
                 "edges": [
                     {
+                        "to": "4f7e5be0a276d29b7c32eccde026a8",
+                        "type": "ALWAYS",
+                        "value": ""
+                    },
+                    {
                         "to": "97051bfcd6c0826b2afcf6fa533515",
                         "from": "4f7e5be0a276d29b7c32eccde026a8",
                         "type": "SUCCESS",
                         "value": ""
-                    },
-                    {
-                        "to": "4f7e5be0a276d29b7c32eccde026a8",
-                        "type": "ALWAYS",
-                        "value": ""
                     }
                 ],
                 "offsets": [
-                    {
-                        "name": "4f7e5be0a276d29b7c32eccde026a8",
-                        "x": -85,
-                        "y": 230,
-                        "h": 70,
-                        "w": 280
-                    },
                     {
                         "name": "97051bfcd6c0826b2afcf6fa533515",
                         "x": -5,
                         "y": 450,
                         "h": 80,
                         "w": 120
+                    },
+                    {
+                        "name": "4f7e5be0a276d29b7c32eccde026a8",
+                        "x": -85,
+                        "y": 230,
+                        "h": 70,
+                        "w": 280
                     }
                 ],
                 "layoutMode": "auto",
                 "type": "graph",
-                "name": "fea42241-4964-478a-b160-90b9eea4e300",
+                "name": "0c44499f-39a8-43e7-ac2b-ae267ab63290",
                 "children": [
                     {
                         "type": "finish",
@@ -258,7 +258,7 @@
                             "children": [{
                                 "status": "Active",
                                 "type": "inventoryVersionDiff",
-                                "name": "0bc8af21-bb56-49ed-a6cd-f2b036d77449",
+                                "name": "6dbda3ff-6611-41f8-81d1-37725cc4f0db",
                                 "children": [{
                                     "componentProcessName": "Process and Apply YAML File",
                                     "allowFailure": false,
@@ -330,33 +330,41 @@
                     "path": "\/Kubernetes Resource Template",
                     "prototype": false,
                     "children": [{
-                        "name": "Agent Prototype",
-                        "path": "\/Kubernetes Resource Template\/Agent Prototype",
-                        "description": "Agent Prototype",
+                        "name": "Kubernetes",
+                        "path": "\/Kubernetes Resource Template\/Kubernetes",
+                        "description": "",
                         "parentName": "Kubernetes Resource Template",
-                        "role": "Agent Placeholder",
-                        "roleProperties": {
-                            "name": "Agent Placeholder",
-                            "properties": [{
-                                "name": "agentNamePatterns",
-                                "description": "",
-                                "secure": false
-                            }]
-                        },
                         "prototype": false,
                         "children": [{
-                            "name": "Kubernetes",
-                            "componentTag": {
-                                "objectType": "Component",
-                                "name": "Kubernetes",
-                                "description": "",
-                                "color": "#008ABF"
+                            "name": "Agent Prototype",
+                            "path": "\/Kubernetes Resource Template\/Kubernetes\/Agent Prototype",
+                            "description": "Agent Prototype",
+                            "parentName": "Kubernetes",
+                            "role": "Agent Placeholder",
+                            "roleProperties": {
+                                "name": "Agent Placeholder",
+                                "properties": [{
+                                    "name": "agentNamePatterns",
+                                    "value": "mrad0cker",
+                                    "description": "",
+                                    "secure": false
+                                }]
                             },
-                            "path": "\/Kubernetes Resource Template\/Agent Prototype\/Kubernetes",
-                            "description": "",
-                            "parentName": "Agent Prototype",
                             "prototype": false,
-                            "children": []
+                            "children": [{
+                                "name": "Kubernetes",
+                                "componentTag": {
+                                    "objectType": "Component",
+                                    "name": "Kubernetes",
+                                    "description": "",
+                                    "color": "#008ABF"
+                                },
+                                "path": "\/Kubernetes Resource Template\/Kubernetes\/Agent Prototype\/Kubernetes",
+                                "description": "",
+                                "parentName": "Agent Prototype",
+                                "prototype": false,
+                                "children": []
+                            }]
                         }]
                     }]
                 },
@@ -394,33 +402,41 @@
                     "path": "\/Kubernetes Resource Template",
                     "prototype": false,
                     "children": [{
-                        "name": "Agent Prototype",
-                        "path": "\/Kubernetes Resource Template\/Agent Prototype",
-                        "description": "Agent Prototype",
+                        "name": "Kubernetes",
+                        "path": "\/Kubernetes Resource Template\/Kubernetes",
+                        "description": "",
                         "parentName": "Kubernetes Resource Template",
-                        "role": "Agent Placeholder",
-                        "roleProperties": {
-                            "name": "Agent Placeholder",
-                            "properties": [{
-                                "name": "agentNamePatterns",
-                                "description": "",
-                                "secure": false
-                            }]
-                        },
                         "prototype": false,
                         "children": [{
-                            "name": "Kubernetes",
-                            "componentTag": {
-                                "objectType": "Component",
-                                "name": "Kubernetes",
-                                "description": "",
-                                "color": "#008ABF"
+                            "name": "Agent Prototype",
+                            "path": "\/Kubernetes Resource Template\/Kubernetes\/Agent Prototype",
+                            "description": "Agent Prototype",
+                            "parentName": "Kubernetes",
+                            "role": "Agent Placeholder",
+                            "roleProperties": {
+                                "name": "Agent Placeholder",
+                                "properties": [{
+                                    "name": "agentNamePatterns",
+                                    "value": "mrad0cker",
+                                    "description": "",
+                                    "secure": false
+                                }]
                             },
-                            "path": "\/Kubernetes Resource Template\/Agent Prototype\/Kubernetes",
-                            "description": "",
-                            "parentName": "Agent Prototype",
                             "prototype": false,
-                            "children": []
+                            "children": [{
+                                "name": "Kubernetes",
+                                "componentTag": {
+                                    "objectType": "Component",
+                                    "name": "Kubernetes",
+                                    "description": "",
+                                    "color": "#008ABF"
+                                },
+                                "path": "\/Kubernetes Resource Template\/Kubernetes\/Agent Prototype\/Kubernetes",
+                                "description": "",
+                                "parentName": "Agent Prototype",
+                                "prototype": false,
+                                "children": []
+                            }]
                         }]
                     }]
                 },
@@ -449,33 +465,40 @@
                     "path": "\/Load Balancer Template",
                     "prototype": false,
                     "children": [{
-                        "name": "Agent Prototype",
-                        "path": "\/Load Balancer Template\/Agent Prototype",
+                        "name": "Load Balancer",
+                        "path": "\/Load Balancer Template\/Load Balancer",
                         "description": "",
                         "parentName": "Load Balancer Template",
-                        "role": "Agent Placeholder",
-                        "roleProperties": {
-                            "name": "Agent Placeholder",
-                            "properties": [{
-                                "name": "agentNamePatterns",
-                                "description": "",
-                                "secure": false
-                            }]
-                        },
                         "prototype": false,
                         "children": [{
-                            "name": "Load Balancer",
-                            "componentTag": {
-                                "objectType": "Component",
-                                "name": "Load Balancer",
-                                "description": "",
-                                "color": "#FFCF01"
-                            },
-                            "path": "\/Load Balancer Template\/Agent Prototype\/Load Balancer",
+                            "name": "Agent Prototype",
+                            "path": "\/Load Balancer Template\/Load Balancer\/Agent Prototype",
                             "description": "",
-                            "parentName": "Agent Prototype",
+                            "parentName": "Load Balancer",
+                            "role": "Agent Placeholder",
+                            "roleProperties": {
+                                "name": "Agent Placeholder",
+                                "properties": [{
+                                    "name": "agentNamePatterns",
+                                    "description": "",
+                                    "secure": false
+                                }]
+                            },
                             "prototype": false,
-                            "children": []
+                            "children": [{
+                                "name": "Load Balancer",
+                                "componentTag": {
+                                    "objectType": "Component",
+                                    "name": "Load Balancer",
+                                    "description": "",
+                                    "color": "#FFCF01"
+                                },
+                                "path": "\/Load Balancer Template\/Load Balancer\/Agent Prototype\/Load Balancer",
+                                "description": "",
+                                "parentName": "Agent Prototype",
+                                "prototype": false,
+                                "children": []
+                            }]
                         }]
                     }]
                 },
