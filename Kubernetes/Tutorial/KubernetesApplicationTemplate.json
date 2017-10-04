@@ -1,97 +1,86 @@
 {
     "name": "Kubernetes Application Template",
     "description": "Application Template for Kubernetes deployments",
-    "applicationProcessList": [{
-        "name": "Deploy from YAML file",
-        "description": "",
-        "inventoryManagementType": "AUTOMATIC",
-        "offlineAgentHandling": "PRE_EXECUTION_CHECK",
-        "rootActivity": {
-            "edges": [
-                {
-                    "to": "94ed247900ef01c17c2f8349574c38",
-                    "from": "133977358e05920a66b142adb640f4",
-                    "type": "SUCCESS",
-                    "value": ""
-                },
-                {
-                    "to": "133977358e05920a66b142adb640f4",
-                    "from": "36da1c52b7e93bfe61e083ae7c00c4",
-                    "type": "SUCCESS",
-                    "value": ""
-                },
-                {
-                    "to": "36da1c52b7e93bfe61e083ae7c00c4",
-                    "type": "ALWAYS",
-                    "value": ""
-                }
-            ],
-            "offsets": [
-                {
-                    "name": "94ed247900ef01c17c2f8349574c38",
-                    "x": -5,
-                    "y": 520,
-                    "h": 80,
-                    "w": 120
-                },
-                {
-                    "name": "133977358e05920a66b142adb640f4",
-                    "x": -80,
-                    "y": 350,
-                    "h": 70,
-                    "w": 270
-                },
-                {
-                    "name": "36da1c52b7e93bfe61e083ae7c00c4",
-                    "x": -80,
-                    "y": 180,
-                    "h": 70,
-                    "w": 280
-                }
-            ],
-            "layoutMode": "auto",
-            "type": "graph",
-            "name": "01beafc5-6490-45aa-a28a-3ced6d34833f",
-            "children": [
-                {
-                    "type": "finish",
-                    "name": "94ed247900ef01c17c2f8349574c38",
-                    "children": []
-                },
-                {
-                    "name": "133977358e05920a66b142adb640f4",
-                    "componentTag": {
-                        "id": "889d0ea0-1b09-4e2b-b6da-682b30b8a6d1",
-                        "name": "kubernetes.image",
-                        "color": "#FFFFFF",
-                        "description": "",
-                        "objectType": "Component"
+    "applicationProcessList": [
+        {
+            "name": "Deploy from YAML file",
+            "description": "",
+            "inventoryManagementType": "AUTOMATIC",
+            "offlineAgentHandling": "PRE_EXECUTION_CHECK",
+            "rootActivity": {
+                "edges": [
+                    {
+                        "to": "133977358e05920a66b142adb640f4",
+                        "from": "36da1c52b7e93bfe61e083ae7c00c4",
+                        "type": "SUCCESS",
+                        "value": ""
                     },
-                    "properties": [
-                        {
-                            "name": "activity.componentProcess.name",
-                            "value": "Update Inventory"
+                    {
+                        "to": "94ed247900ef01c17c2f8349574c38",
+                        "from": "133977358e05920a66b142adb640f4",
+                        "type": "SUCCESS",
+                        "value": ""
+                    },
+                    {
+                        "to": "36da1c52b7e93bfe61e083ae7c00c4",
+                        "type": "ALWAYS",
+                        "value": ""
+                    }
+                ],
+                "offsets": [
+                    {
+                        "name": "133977358e05920a66b142adb640f4",
+                        "x": -80,
+                        "y": 350,
+                        "h": 70,
+                        "w": 270
+                    },
+                    {
+                        "name": "36da1c52b7e93bfe61e083ae7c00c4",
+                        "x": -80,
+                        "y": 180,
+                        "h": 70,
+                        "w": 280
+                    },
+                    {
+                        "name": "94ed247900ef01c17c2f8349574c38",
+                        "x": -5,
+                        "y": 520,
+                        "h": 80,
+                        "w": 120
+                    }
+                ],
+                "layoutMode": "auto",
+                "type": "graph",
+                "name": "399325d9-b92e-4279-9697-de26b11a6870",
+                "children": [
+                    {
+                        "type": "finish",
+                        "name": "94ed247900ef01c17c2f8349574c38",
+                        "children": []
+                    },
+                    {
+                        "name": "133977358e05920a66b142adb640f4",
+                        "componentTag": {
+                            "id": "19a8d02f-6c5f-47de-9b03-04451ba39d9e",
+                            "name": "kubernetes.image",
+                            "color": "#FFFFFF",
+                            "description": "",
+                            "objectType": "Component"
                         },
-                        {
-                            "name": "maxCompIteration",
-                            "value": "100"
-                        },
-                        {
-                            "name": "maxIteration",
-                            "value": "-1"
-                        },
-                        {
-                            "name": "runOnlyOnFirst",
-                            "value": "false"
-                        },
-                        {
-                            "name": "failFast",
-                            "value": "false"
-                        }
-                    ],
-                    "type": "multiComponentEnvironmentIterator",
-                    "children": [{
                         "properties": [
+                            {
+                                "name": "activity.componentProcess.name",
+                                "value": "Update Inventory"
+                            },
+                            {
+                                "name": "maxCompIteration",
+                                "value": "100"
+                            },
+                            {
+                                "name": "maxIteration",
+                                "value": "-1"
+                            },
                             {
                                 "name": "runOnlyOnFirst",
                                 "value": "false"
@@ -101,82 +90,95 @@
                                 "value": "false"
                             }
                         ],
-                        "type": "componentEnvironmentIterator",
-                        "name": "15246e32a3c1e9fbe97fc8d75dae30",
+                        "type": "multiComponentEnvironmentIterator",
                         "children": [{
-                            "status": "Active",
-                            "type": "inventoryVersionDiff",
-                            "name": "cc957c82-74e1-4330-906a-d36427ea6b71",
+                            "properties": [
+                                {
+                                    "name": "runOnlyOnFirst",
+                                    "value": "false"
+                                },
+                                {
+                                    "name": "failFast",
+                                    "value": "false"
+                                }
+                            ],
+                            "type": "componentEnvironmentIterator",
+                            "name": "15246e32a3c1e9fbe97fc8d75dae30",
                             "children": [{
-                                "componentProcessName": "Update Inventory",
-                                "allowFailure": false,
-                                "properties": {"activity.componentProcess.name": "Update Inventory"},
-                                "type": "componentProcess",
-                                "name": "Update Inventory",
-                                "children": []
+                                "status": "Active",
+                                "type": "inventoryVersionDiff",
+                                "name": "51f8a544-f0a7-43af-8ae3-f482884a2067",
+                                "children": [{
+                                    "componentProcessName": "Update Inventory",
+                                    "allowFailure": false,
+                                    "properties": {"activity.componentProcess.name": "Update Inventory"},
+                                    "type": "componentProcess",
+                                    "name": "Update Inventory",
+                                    "children": []
+                                }]
                             }]
                         }]
-                    }]
-                },
-                {
-                    "name": "36da1c52b7e93bfe61e083ae7c00c4",
-                    "componentTag": {
-                        "id": "f30d4caa-d968-4ccd-ad6f-6fd5a9f0be37",
-                        "name": "Kubernetes",
-                        "color": "#008ABF",
-                        "description": "",
-                        "objectType": "Component"
                     },
-                    "properties": [
-                        {
-                            "name": "activity.componentProcess.name",
-                            "value": "Process and Apply YAML File"
+                    {
+                        "name": "36da1c52b7e93bfe61e083ae7c00c4",
+                        "componentTag": {
+                            "id": "d5a07ea3-4115-4880-8b96-8dbb33f758e3",
+                            "name": "Kubernetes",
+                            "color": "#008ABF",
+                            "description": "",
+                            "objectType": "Component"
                         },
-                        {
-                            "name": "maxCompIteration",
-                            "value": "100"
-                        },
-                        {
-                            "name": "maxIteration",
-                            "value": "-1"
-                        },
-                        {
-                            "name": "runOnlyOnFirst",
-                            "value": "false"
-                        },
-                        {
-                            "name": "failFast",
-                            "value": "false"
-                        }
-                    ],
-                    "type": "multiComponentEnvironmentIterator",
-                    "children": [{
-                        "properties": [{
-                            "name": "runOnlyOnFirst",
-                            "value": "false"
-                        }],
-                        "type": "componentEnvironmentIterator",
-                        "name": "657e71e4439054d19ccd5ad86153ca",
+                        "properties": [
+                            {
+                                "name": "activity.componentProcess.name",
+                                "value": "Process and Apply YAML File"
+                            },
+                            {
+                                "name": "maxCompIteration",
+                                "value": "100"
+                            },
+                            {
+                                "name": "maxIteration",
+                                "value": "-1"
+                            },
+                            {
+                                "name": "runOnlyOnFirst",
+                                "value": "false"
+                            },
+                            {
+                                "name": "failFast",
+                                "value": "false"
+                            }
+                        ],
+                        "type": "multiComponentEnvironmentIterator",
                         "children": [{
-                            "status": "Active",
-                            "type": "inventoryVersionDiff",
-                            "name": "d22b7d24-f46f-4102-a850-b05c15e6c7ed",
+                            "properties": [{
+                                "name": "runOnlyOnFirst",
+                                "value": "false"
+                            }],
+                            "type": "componentEnvironmentIterator",
+                            "name": "657e71e4439054d19ccd5ad86153ca",
                             "children": [{
-                                "componentProcessName": "Process and Apply YAML File",
-                                "allowFailure": false,
-                                "properties": {"activity.componentProcess.name": "Process and Apply YAML File"},
-                                "type": "componentProcess",
-                                "name": "Process and Apply YAML File",
-                                "children": []
+                                "status": "Active",
+                                "type": "inventoryVersionDiff",
+                                "name": "c091c7ec-6628-4e36-95b9-af63fbc4cfc4",
+                                "children": [{
+                                    "componentProcessName": "Process and Apply YAML File",
+                                    "allowFailure": false,
+                                    "properties": {"activity.componentProcess.name": "Process and Apply YAML File"},
+                                    "type": "componentProcess",
+                                    "name": "Process and Apply YAML File",
+                                    "children": []
+                                }]
                             }]
                         }]
-                    }]
-                }
-            ]
-        },
-        "propDefs": [],
-        "versionPresets": []
-    }],
+                    }
+                ]
+            },
+            "propDefs": [],
+            "versionPresets": []
+        }
+    ],
     "genericProcesses": [],
     "tagRequirements": [{
         "type": "EQUALS",
@@ -210,33 +212,41 @@
                     "path": "\/Kubernetes Resource Template",
                     "prototype": false,
                     "children": [{
-                        "name": "Agent Prototype",
-                        "path": "\/Kubernetes Resource Template\/Agent Prototype",
-                        "description": "Agent Prototype",
+                        "name": "Kubernetes",
+                        "path": "\/Kubernetes Resource Template\/Kubernetes",
+                        "description": "",
                         "parentName": "Kubernetes Resource Template",
-                        "role": "Agent Placeholder",
-                        "roleProperties": {
-                            "name": "Agent Placeholder",
-                            "properties": [{
-                                "name": "agentNamePatterns",
-                                "description": "",
-                                "secure": false
-                            }]
-                        },
                         "prototype": false,
                         "children": [{
-                            "name": "Kubernetes",
-                            "componentTag": {
-                                "objectType": "Component",
-                                "name": "Kubernetes",
-                                "description": "",
-                                "color": "#008ABF"
+                            "name": "Agent Prototype",
+                            "path": "\/Kubernetes Resource Template\/Kubernetes\/Agent Prototype",
+                            "description": "Agent Prototype",
+                            "parentName": "Kubernetes",
+                            "role": "Agent Placeholder",
+                            "roleProperties": {
+                                "name": "Agent Placeholder",
+                                "properties": [{
+                                    "name": "agentNamePatterns",
+                                    "value": "mrad0cker",
+                                    "description": "",
+                                    "secure": false
+                                }]
                             },
-                            "path": "\/Kubernetes Resource Template\/Agent Prototype\/Kubernetes",
-                            "description": "",
-                            "parentName": "Agent Prototype",
                             "prototype": false,
-                            "children": []
+                            "children": [{
+                                "name": "Kubernetes",
+                                "componentTag": {
+                                    "objectType": "Component",
+                                    "name": "Kubernetes",
+                                    "description": "",
+                                    "color": "#008ABF"
+                                },
+                                "path": "\/Kubernetes Resource Template\/Kubernetes\/Agent Prototype\/Kubernetes",
+                                "description": "",
+                                "parentName": "Agent Prototype",
+                                "prototype": false,
+                                "children": []
+                            }]
                         }]
                     }]
                 },
@@ -265,33 +275,41 @@
                     "path": "\/Kubernetes Resource Template",
                     "prototype": false,
                     "children": [{
-                        "name": "Agent Prototype",
-                        "path": "\/Kubernetes Resource Template\/Agent Prototype",
-                        "description": "Agent Prototype",
+                        "name": "Kubernetes",
+                        "path": "\/Kubernetes Resource Template\/Kubernetes",
+                        "description": "",
                         "parentName": "Kubernetes Resource Template",
-                        "role": "Agent Placeholder",
-                        "roleProperties": {
-                            "name": "Agent Placeholder",
-                            "properties": [{
-                                "name": "agentNamePatterns",
-                                "description": "",
-                                "secure": false
-                            }]
-                        },
                         "prototype": false,
                         "children": [{
-                            "name": "Kubernetes",
-                            "componentTag": {
-                                "objectType": "Component",
-                                "name": "Kubernetes",
-                                "description": "",
-                                "color": "#008ABF"
+                            "name": "Agent Prototype",
+                            "path": "\/Kubernetes Resource Template\/Kubernetes\/Agent Prototype",
+                            "description": "Agent Prototype",
+                            "parentName": "Kubernetes",
+                            "role": "Agent Placeholder",
+                            "roleProperties": {
+                                "name": "Agent Placeholder",
+                                "properties": [{
+                                    "name": "agentNamePatterns",
+                                    "value": "mrad0cker",
+                                    "description": "",
+                                    "secure": false
+                                }]
                             },
-                            "path": "\/Kubernetes Resource Template\/Agent Prototype\/Kubernetes",
-                            "description": "",
-                            "parentName": "Agent Prototype",
                             "prototype": false,
-                            "children": []
+                            "children": [{
+                                "name": "Kubernetes",
+                                "componentTag": {
+                                    "objectType": "Component",
+                                    "name": "Kubernetes",
+                                    "description": "",
+                                    "color": "#008ABF"
+                                },
+                                "path": "\/Kubernetes Resource Template\/Kubernetes\/Agent Prototype\/Kubernetes",
+                                "description": "",
+                                "parentName": "Agent Prototype",
+                                "prototype": false,
+                                "children": []
+                            }]
                         }]
                     }]
                 },
@@ -320,33 +338,41 @@
                     "path": "\/Kubernetes Resource Template",
                     "prototype": false,
                     "children": [{
-                        "name": "Agent Prototype",
-                        "path": "\/Kubernetes Resource Template\/Agent Prototype",
-                        "description": "Agent Prototype",
+                        "name": "Kubernetes",
+                        "path": "\/Kubernetes Resource Template\/Kubernetes",
+                        "description": "",
                         "parentName": "Kubernetes Resource Template",
-                        "role": "Agent Placeholder",
-                        "roleProperties": {
-                            "name": "Agent Placeholder",
-                            "properties": [{
-                                "name": "agentNamePatterns",
-                                "description": "",
-                                "secure": false
-                            }]
-                        },
                         "prototype": false,
                         "children": [{
-                            "name": "Kubernetes",
-                            "componentTag": {
-                                "objectType": "Component",
-                                "name": "Kubernetes",
-                                "description": "",
-                                "color": "#008ABF"
+                            "name": "Agent Prototype",
+                            "path": "\/Kubernetes Resource Template\/Kubernetes\/Agent Prototype",
+                            "description": "Agent Prototype",
+                            "parentName": "Kubernetes",
+                            "role": "Agent Placeholder",
+                            "roleProperties": {
+                                "name": "Agent Placeholder",
+                                "properties": [{
+                                    "name": "agentNamePatterns",
+                                    "value": "mrad0cker",
+                                    "description": "",
+                                    "secure": false
+                                }]
                             },
-                            "path": "\/Kubernetes Resource Template\/Agent Prototype\/Kubernetes",
-                            "description": "",
-                            "parentName": "Agent Prototype",
                             "prototype": false,
-                            "children": []
+                            "children": [{
+                                "name": "Kubernetes",
+                                "componentTag": {
+                                    "objectType": "Component",
+                                    "name": "Kubernetes",
+                                    "description": "",
+                                    "color": "#008ABF"
+                                },
+                                "path": "\/Kubernetes Resource Template\/Kubernetes\/Agent Prototype\/Kubernetes",
+                                "description": "",
+                                "parentName": "Agent Prototype",
+                                "prototype": false,
+                                "children": []
+                            }]
                         }]
                     }]
                 },
