@@ -10,12 +10,12 @@
             "edges": [
                 {
                     "to": "c0bdd77a3d5c01e149f643cd5ac8da",
-                    "from": "Always Apply Versions from YAML",
+                    "from": "Always Apply Image Tags from YAML",
                     "type": "VALUE",
                     "value": ""
                 },
                 {
-                    "to": "Always Apply Versions from YAML",
+                    "to": "Always Apply Image Tags from YAML",
                     "from": "36da1c52b7e93bfe61e083ae7c00c4",
                     "type": "SUCCESS",
                     "value": ""
@@ -33,14 +33,14 @@
                 },
                 {
                     "to": "94ed247900ef01c17c2f8349574c38",
-                    "from": "Always Apply Versions from YAML",
+                    "from": "Always Apply Image Tags from YAML",
                     "type": "VALUE",
                     "value": "true\nTRUE\nTrue"
                 }
             ],
             "offsets": [
                 {
-                    "name": "Always Apply Versions from YAML",
+                    "name": "Always Apply Image Tags from YAML",
                     "x": -173.51851851851853,
                     "y": 250,
                     "h": 70,
@@ -140,7 +140,7 @@
                 {
                     "propertyName": "${p?:environment\/alwaysApplyVersionsFromYaml}",
                     "type": "switch",
-                    "name": "Always Apply Versions from YAML",
+                    "name": "Always Apply Image Tags from YAML",
                     "children": []
                 },
                 {
@@ -235,12 +235,12 @@
             "historyCleanupDaysToKeep": 365,
             "propDefs": [{
                 "name": "alwaysApplyVersionsFromYaml",
-                "label": "Always Apply Versions from YAML",
+                "label": "Always Apply Image Tags from YAML",
                 "pattern": "",
                 "type": "TEXT",
                 "value": "false",
                 "required": false,
-                "description": "If set to true, container image versions specified in the yaml will always be applied (container images specified in the UrbanCode Deploy user interface will be ignored).",
+                "description": "If set to true, container image tags specified in the yaml will always be applied (container image tags specified in the UrbanCode Deploy user interface will be ignored).",
                 "placeholder": ""
             }],
             "resourceTemplate": {
@@ -307,12 +307,12 @@
             "historyCleanupDaysToKeep": 365,
             "propDefs": [{
                 "name": "alwaysApplyVersionsFromYaml",
-                "label": "Always Apply Versions from YAML",
+                "label": "Always Apply Image Tags from YAML",
                 "pattern": "",
                 "type": "TEXT",
                 "value": "false",
                 "required": false,
-                "description": "If set to true, container image versions specified in the yaml will always be applied (container images specified in the UrbanCode Deploy user interface will be ignored).",
+                "description": "If set to true, container image tags specified in the yaml will always be applied (container image tags specified in the UrbanCode Deploy user interface will be ignored).",
                 "placeholder": ""
             }],
             "resourceTemplate": {
@@ -379,12 +379,12 @@
             "historyCleanupDaysToKeep": 365,
             "propDefs": [{
                 "name": "alwaysApplyVersionsFromYaml",
-                "label": "Always Apply Versions from YAML",
+                "label": "Always Apply Image Tags from YAML",
                 "pattern": "",
                 "type": "TEXT",
                 "value": "false",
                 "required": false,
-                "description": "If set to true, container image versions specified in the yaml will always be applied (container images specified in the UrbanCode Deploy user interface will be ignored).",
+                "description": "If set to true, container image tags specified in the yaml will always be applied (container image tags specified in the UrbanCode Deploy user interface will be ignored).",
                 "placeholder": ""
             }],
             "resourceTemplate": {
