@@ -2,7 +2,7 @@
     "securityResourceId": "f6eb9da4-133a-4896-8946-e7f3e29f2b27",
     "path": "componentTemplates\/15988d86-98d7-4b72-bada-9733404b18ef",
     "name": "ibm-infosphere-datastage-component-template",
-    "description": "An component template for the usage of IBM UrbanCode Deploy and IBM InfoSphere Datastage.",
+    "description": "An component template for the usage of UrbanCode Deploy and IBM InfoSphere Datastage.",
     "ignoreQualifiers": 0,
     "componentType": "STANDARD",
     "tags": [{
@@ -173,8 +173,8 @@
                     "showHidden": false,
                     "impersonationUseSudo": false,
                     "commandName": "Download Artifacts",
-                    "pluginName": "IBM UrbanCode Deploy Versioned File Storage",
-                    "pluginVersion": 26,
+                    "pluginName": "UrbanCode Deploy Versioned File Storage",
+                    "pluginVersion": 30,
                     "properties": {
                         "directoryOffset": ".",
                         "artifactSetBaseDir": "",

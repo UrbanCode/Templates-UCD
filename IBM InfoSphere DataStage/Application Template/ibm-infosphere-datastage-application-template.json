@@ -1,6 +1,6 @@
 {
     "name": "ibm-infosphere-datastage-application-template",
-    "description": "An application template for the usage of IBM UrbanCode Deploy and IBM InfoSphere Datastage.",
+    "description": "An application template for the usage of UrbanCode Deploy and IBM InfoSphere Datastage.",
     "applicationProcessList": [],
     "genericProcesses": [],
     "tagRequirements": [{

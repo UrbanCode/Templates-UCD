@@ -303,8 +303,8 @@
                         "showHidden": false,
                         "impersonationUseSudo": false,
                         "commandName": "Download Artifacts for zOS",
-                        "pluginName": "IBM UrbanCode Deploy Versioned File Storage",
-                        "pluginVersion": 22,
+                        "pluginName": "UrbanCode Deploy Versioned File Storage",
+                        "pluginVersion": 30,
                         "properties": {
                             "directoryOffset": ".",
                             "versionId": "${p:version.id}",

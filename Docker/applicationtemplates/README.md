@@ -11,4 +11,4 @@ All Docker templates require the following  plug-ins for full integration capabi
 [Docker Source Config](https://developer.ibm.com/urbancode/plugin/dockersourceconfig-ibmucd/)
 
 ### Docker Application Template
-Summary: This is our supported Docker Application Template used in [Docker Compose blog post](https://developer.ibm.com/urbancode/2016/11/23/docker-compose-deployments-enterprise/). Combined with the Docker Compose and Docker templates, these configurations demonstrate the best practices of Docker Compose deployments through IBM UrbanCode Deploy.
+Summary: This is our supported Docker Application Template used in [Docker Compose blog post](https://developer.ibm.com/urbancode/2016/11/23/docker-compose-deployments-enterprise/). Combined with the Docker Compose and Docker templates, these configurations demonstrate the best practices of Docker Compose deployments through UrbanCode Deploy.
