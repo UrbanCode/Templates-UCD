@@ -11,10 +11,10 @@ All Docker templates require the following  plug-ins for full integration capabi
 [Docker Source Config](https://developer.ibm.com/urbancode/plugin/dockersourceconfig-ibmucd/)
 
 ### Docker Template
-Summary: Our supported Docker Template used in our [Docker](https://developer.ibm.com/urbancode/2016/03/21/docker-deployments-for-the-enterprise/) and [Docker Compose](https://developer.ibm.com/urbancode/2016/11/23/docker-compose-deployments-enterprise/) blog posts. This template provides basic processes and configuration for public Docker images. Combined with the Docker Compose and Docker Application templates, these configurations demonstrate the best practices of Docker Compose deployments through IBM UrbanCode Deploy. This template can also be found in our [Docker Automation plug-in](https://developer.ibm.com/urbancode/plugin/docker-2/).
+Summary: Our supported Docker Template used in our [Docker](https://developer.ibm.com/urbancode/2016/03/21/docker-deployments-for-the-enterprise/) and [Docker Compose](https://developer.ibm.com/urbancode/2016/11/23/docker-compose-deployments-enterprise/) blog posts. This template provides basic processes and configuration for public Docker images. Combined with the Docker Compose and Docker Application templates, these configurations demonstrate the best practices of Docker Compose deployments through UrbanCode Deploy. This template can also be found in our [Docker Automation plug-in](https://developer.ibm.com/urbancode/plugin/docker-2/).
 
 ### Docker Compose Template
-Summary: This is our supported Docker Compose Template used in our [Docker Compose blog post](https://developer.ibm.com/urbancode/2016/11/23/docker-compose-deployments-enterprise/). Use this image to properly handle and deploy Docker images through a docker-compose.yml file. Combined with the Docker and Docker Application templates, these configurations demonstrate the best practices of Docker Compose deployments through IBM UrbanCode Deploy.
+Summary: This is our supported Docker Compose Template used in our [Docker Compose blog post](https://developer.ibm.com/urbancode/2016/11/23/docker-compose-deployments-enterprise/). Use this image to properly handle and deploy Docker images through a docker-compose.yml file. Combined with the Docker and Docker Application templates, these configurations demonstrate the best practices of Docker Compose deployments through UrbanCode Deploy.
 
 
 ### Docker ICS Template

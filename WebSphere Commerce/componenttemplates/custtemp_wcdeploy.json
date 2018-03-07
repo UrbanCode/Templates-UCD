@@ -654,8 +654,8 @@
                         "impersonationUseSudo": false,
                         "workingDir": "${p:wcbd.deploy.dir}",
                         "commandName": "Download Artifacts",
-                        "pluginName": "IBM UrbanCode Deploy Versioned File Storage",
-                        "pluginVersion": 22,
+                        "pluginName": "UrbanCode Deploy Versioned File Storage",
+                        "pluginVersion": 30,
                         "properties": {
                             "directoryOffset": ".",
                             "artifactSetBaseDir": "",

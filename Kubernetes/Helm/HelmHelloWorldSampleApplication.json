@@ -354,8 +354,8 @@
                         "showHidden": false,
                         "impersonationUseSudo": false,
                         "commandName": "Download Artifacts",
-                        "pluginName": "IBM UrbanCode Deploy Versioned File Storage",
-                        "pluginVersion": 27,
+                        "pluginName": "UrbanCode Deploy Versioned File Storage",
+                        "pluginVersion": 30,
                         "properties": {
                             "directoryOffset": "\/helm_chart",
                             "artifactSetBaseDir": "",
@@ -527,8 +527,8 @@
                         "showHidden": false,
                         "impersonationUseSudo": false,
                         "commandName": "Create Environment Property",
-                        "pluginName": "IBM UrbanCode Deploy Environments",
-                        "pluginVersion": 72,
+                        "pluginName": "UrbanCode Deploy Environments",
+                        "pluginVersion": 78,
                         "properties": {
                             "application": "${p:application.name}",
                             "environment": "${p:environment.name}",
@@ -567,8 +567,8 @@
                         "showHidden": true,
                         "impersonationUseSudo": false,
                         "commandName": "Get Environment Properties",
-                        "pluginName": "IBM UrbanCode Deploy Environments",
-                        "pluginVersion": 72,
+                        "pluginName": "UrbanCode Deploy Environments",
+                        "pluginVersion": 78,
                         "properties": {
                             "application": "${p:application.name}",
                             "environment": "${p:environment.name}"

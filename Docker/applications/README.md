@@ -12,7 +12,7 @@ All Docker templates require the following  plug-ins for full integration capabi
 
 ### Acme Air Application
 ![Acme Air Application - Screenshot](https://ibm.box.com/shared/static/zcupzqu54ab808zt24kx652ct39atsfe.png)
-Summary: This application takes advantage of the [AcmeAir-Nodejs](https://github.com/acmeair/acmeair-nodejs) node.js GitHub project. This is a great example of deploying a complex micro-service application through IBM UrbanCode Deploy.
+Summary: This application takes advantage of the [AcmeAir-Nodejs](https://github.com/acmeair/acmeair-nodejs) node.js GitHub project. This is a great example of deploying a complex micro-service application through UrbanCode Deploy.
 
 ### Example Voting Application
 ![Example Voting Application - Screenshot](https://ibm.box.com/shared/static/f418exgznz5rgk1vfbrwl7bizbqkczry.png)

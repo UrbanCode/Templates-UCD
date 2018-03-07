@@ -138,8 +138,8 @@
                     "showHidden": false,
                     "impersonationUseSudo": false,
                     "commandName": "Download Artifacts",
-                    "pluginName": "IBM UrbanCode Deploy Versioned File Storage",
-                    "pluginVersion": 23,
+                    "pluginName": "UrbanCode Deploy Versioned File Storage",
+                    "pluginVersion": 30,
                     "properties": {
                         "directoryOffset": ".",
                         "artifactSetBaseDir": "",
