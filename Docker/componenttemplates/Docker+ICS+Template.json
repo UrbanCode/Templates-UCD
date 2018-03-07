@@ -373,8 +373,8 @@
                         "showHidden": false,
                         "impersonationUseSudo": false,
                         "commandName": "Set Resource Property",
-                        "pluginName": "IBM UrbanCode Deploy Resources",
-                        "pluginVersion": 70,
+                        "pluginName": "UrbanCode Deploy Resources",
+                        "pluginVersion": 75,
                         "properties": {
                             "resource": "${p:resource.parent.path}",
                             "name": "docker.opts",
@@ -765,8 +765,8 @@
                         "showHidden": false,
                         "impersonationUseSudo": false,
                         "commandName": "Set Resource Property",
-                        "pluginName": "IBM UrbanCode Deploy Resources",
-                        "pluginVersion": 70,
+                        "pluginName": "UrbanCode Deploy Resources",
+                        "pluginVersion": 75,
                         "properties": {
                             "resource": "0c329c55-cdfe-4174-a747-f029cd0d9636",
                             "name": "docker.opts",
